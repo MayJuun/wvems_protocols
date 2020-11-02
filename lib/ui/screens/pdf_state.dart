@@ -91,16 +91,14 @@ class _PdfStateState extends State<PdfState> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter PDF View',
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('WVEMS Protocols'),
-        ),
-        drawer: NavDrawer(),
-        body: Center(child: Builder(
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('WVEMS Protocols'),
+      ),
+      drawer: NavDrawer(),
+      body: Center(
+        child: Builder(
           builder: (BuildContext context) {
             return Column(
               children: <Widget>[
@@ -162,7 +160,7 @@ class _PdfStateState extends State<PdfState> {
               ],
             );
           },
-        )),
+        ),
       ),
     );
   }

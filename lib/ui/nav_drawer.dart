@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:wvems_protocols/controllers/theme_service.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ThemeService themeService = Get.find();
     return Drawer(
       child: ListView(
         // Important: Remove any padding from the ListView.
@@ -10,24 +13,31 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              'Drawer Header',
+              'Western Virginia EMS Protocols',
             ),
             decoration: BoxDecoration(
               color: Colors.grey,
             ),
           ),
           ListTile(
-            title: Text('Item 1'),
+            title: Text('Dark Mode'),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              themeService.setThemeMode(ThemeMode.dark);
+              Get.back();
             },
           ),
           ListTile(
-            title: Text('Item 2'),
+            title: Text('Light Mode'),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              themeService.setThemeMode(ThemeMode.light);
+              Get.back();
+            },
+          ),
+          ListTile(
+            title: Text('System Default'),
+            onTap: () {
+              themeService.setThemeMode(ThemeMode.system);
+              Get.back();
             },
           ),
         ],

@@ -24,7 +24,7 @@ class _PdfScreenState extends State<PdfScreen> with WidgetsBindingObserver {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Document"),
+        title: Text("WVEMS Protocols"),
         actions: <Widget>[
           FutureBuilder<PDFViewController>(
             future: _controller.future,
