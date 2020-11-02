@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/theme_service.dart';
+import 'package:wvems_protocols/ui/app_logo.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -12,9 +13,7 @@ class NavDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text(
-              'Western Virginia EMS Protocols',
-            ),
+            child: AppLogo(),
             decoration: BoxDecoration(
               color: Colors.grey,
             ),

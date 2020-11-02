@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wvems_protocols/assets.dart';
+import 'package:wvems_protocols/ui/app_logo.dart';
 import 'package:wvems_protocols/ui/nav_drawer.dart';
 import 'package:wvems_protocols/ui/screens/pdf_screen.dart';
 
@@ -101,7 +102,9 @@ class _PdfStateState extends State<PdfState> {
         child: Builder(
           builder: (BuildContext context) {
             return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
+                AppLogo(),
                 RaisedButton(
                   child: Text("Open PDF"),
                   onPressed: () {
@@ -115,48 +118,48 @@ class _PdfStateState extends State<PdfState> {
                     }
                   },
                 ),
-                RaisedButton(
-                  child: Text("Open Landscape PDF"),
-                  onPressed: () {
-                    if (landscapePathPdf != null ||
-                        landscapePathPdf.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              PdfScreen(path: landscapePathPdf),
-                        ),
-                      );
-                    }
-                  },
-                ),
-                RaisedButton(
-                  child: Text("Remote PDF"),
-                  onPressed: () {
-                    if (remotePDFpath != null || remotePDFpath.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PdfScreen(path: remotePDFpath),
-                        ),
-                      );
-                    }
-                  },
-                ),
-                RaisedButton(
-                  child: Text("Open Corrupted PDF"),
-                  onPressed: () {
-                    if (pathPDF != null) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              PdfScreen(path: corruptedPathPDF),
-                        ),
-                      );
-                    }
-                  },
-                )
+                // RaisedButton(
+                //   child: Text("Open Landscape PDF"),
+                //   onPressed: () {
+                //     if (landscapePathPdf != null ||
+                //         landscapePathPdf.isNotEmpty) {
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) =>
+                //               PdfScreen(path: landscapePathPdf),
+                //         ),
+                //       );
+                //     }
+                //   },
+                // ),
+                // RaisedButton(
+                //   child: Text("Remote PDF"),
+                //   onPressed: () {
+                //     if (remotePDFpath != null || remotePDFpath.isNotEmpty) {
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => PdfScreen(path: remotePDFpath),
+                //         ),
+                //       );
+                //     }
+                //   },
+                // ),
+                // RaisedButton(
+                //   child: Text("Open Corrupted PDF"),
+                //   onPressed: () {
+                //     if (pathPDF != null) {
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) =>
+                //               PdfScreen(path: corruptedPathPDF),
+                //         ),
+                //       );
+                //     }
+                //   },
+                // )
               ],
             );
           },
