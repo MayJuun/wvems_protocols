@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wvems_protocols/assets.dart';
+import 'package:wvems_protocols/ui/nav_drawer.dart';
 import 'package:wvems_protocols/ui/screens/pdf_screen.dart';
 
 class PdfState extends StatefulWidget {
@@ -94,7 +95,11 @@ class _PdfStateState extends State<PdfState> {
       title: 'Flutter PDF View',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: const Text('Plugin example app')),
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('WVEMS Protocols'),
+        ),
+        drawer: NavDrawer(),
         body: Center(child: Builder(
           builder: (BuildContext context) {
             return Column(

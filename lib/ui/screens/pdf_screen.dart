@@ -23,12 +23,23 @@ class _PdfScreenState extends State<PdfScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text("Document"),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {},
-          ),
+          FutureBuilder<PDFViewController>(
+            future: _controller.future,
+            builder: (context, AsyncSnapshot<PDFViewController> snapshot) {
+              if (snapshot.hasData) {
+                return IconButton(
+                  icon: Icon(Icons.list),
+                  onPressed: () async {
+                    await snapshot.data.setPage(0);
+                  },
+                );
+              }
+              return Container();
+            },
+          )
         ],
       ),
       body: Stack(
