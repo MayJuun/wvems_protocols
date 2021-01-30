@@ -1,16 +1,36 @@
-# wvems_protocols
+# West Virginia EMS (WVEMS) Protocols
 
-A new Flutter project.
+A provider-facing Flutter app to view clinical / EMS protocols quickly and efficiently.
 
-## Getting Started
+This app includes the current operational guidelines and protocols developed by the EMS Operational Medical Directors in the Western Virginia EMS Region, along with other helpful resources to view offline and online. The app contains interactive features such as push notifications, videos, collaboration tools, external links, interactivity with our social media channels, and much more. Easy navigation tools, search functions, and bookmarks are in our application
 
-This project is a starting point for a Flutter application.
+Copyright is held by the Western Virginia EMS Council, Inc. 
 
-A few resources to get you started if this is your first Flutter project:
+<!-- <img align="right" src="demo.gif" width="250"/> -->
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Design
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Prototype / wireframes, if relevant. 
+
+## Architecture
+
+architecture / folder structure info
+
+
+## Style Guide
+
+Follow the [Dart style guide].
+
+Of note, you should:
+
+- Use `UpperCamelCase` for types.
+- Use `lowercase_snake_case` for libraries, packages, directories, and files.
+- Use `lowerCamelCase` for constant names.
+- Use `lowerCamelCase` for everything else (like variable names).
+- Capitalize acronyms and abbreviations longer than two letters (Http rather than HTTP or http).
+- A leading underscore makes a member variable private. Only use it if it is private.
+- You can use single line if statements for returns.
+- Use `///` instead of `/** */` for multi-line comments.
+
+For VS Code, install the Dart and Flutter plugin. Set your editor to [format on save].
+
