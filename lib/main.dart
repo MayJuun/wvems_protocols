@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/theme_service.dart';
-import 'package:wvems_protocols/ui/screens/pdf_state.dart';
+import 'package:wvems_protocols/ui/screens/pdf/pdf_state.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

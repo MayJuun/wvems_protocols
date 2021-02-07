@@ -8,7 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/ui/app_logo.dart';
 import 'package:wvems_protocols/ui/nav_drawer.dart';
-import 'package:wvems_protocols/ui/screens/pdf_screen.dart';
+
+import 'pdf_screen.dart';
 
 class PdfState extends StatefulWidget {
   @override
