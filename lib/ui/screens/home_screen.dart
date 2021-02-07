@@ -6,9 +6,9 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('WVEMS Protocols'),
+        title: const Text('WVEMS Protocols'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('HomeView'),
       ),
     );

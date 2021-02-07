@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class PdfScreen extends StatefulWidget {
+  const PdfScreen({Key key, this.path}) : super(key: key);
+
   final String path;
 
-  PdfScreen({Key key, this.path}) : super(key: key);
-
+  @override
   _PdfScreenState createState() => _PdfScreenState();
 }
 
@@ -24,14 +25,14 @@ class _PdfScreenState extends State<PdfScreen> with WidgetsBindingObserver {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("WVEMS Protocols"),
+        title: const Text('WVEMS Protocols'),
         actions: <Widget>[
           FutureBuilder<PDFViewController>(
             future: _controller.future,
             builder: (context, AsyncSnapshot<PDFViewController> snapshot) {
               if (snapshot.hasData) {
                 return IconButton(
-                  icon: Icon(Icons.list),
+                  icon: const Icon(Icons.list),
                   onPressed: () async {
                     await snapshot.data.setPage(0);
                   },
@@ -88,7 +89,7 @@ class _PdfScreenState extends State<PdfScreen> with WidgetsBindingObserver {
           ),
           errorMessage.isEmpty
               ? !isReady
-                  ? Center(
+                  ? const Center(
                       child: CircularProgressIndicator(),
                     )
                   : Container()
@@ -102,7 +103,7 @@ class _PdfScreenState extends State<PdfScreen> with WidgetsBindingObserver {
         builder: (context, AsyncSnapshot<PDFViewController> snapshot) {
           if (snapshot.hasData) {
             return FloatingActionButton.extended(
-              label: Text("Go to ${pages ~/ 2}"),
+              label: Text('Go to ${pages ~/ 2}'),
               onPressed: () async {
                 await snapshot.data.setPage(pages ~/ 2);
               },

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/theme_service.dart';
 import 'package:wvems_protocols/ui/screens/pdf_state.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _initServices();
   runApp(MyApp());

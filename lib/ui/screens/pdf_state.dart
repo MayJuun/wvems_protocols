@@ -16,10 +16,10 @@ class PdfState extends StatefulWidget {
 }
 
 class _PdfStateState extends State<PdfState> {
-  String pathPDF = "";
-  String landscapePathPdf = "";
-  String remotePDFpath = "";
-  String corruptedPathPDF = "";
+  String pathPDF = '';
+  String landscapePathPdf = '';
+  String remotePDFpath = '';
+  String corruptedPathPDF = '';
 
   @override
   void initState() {
@@ -48,20 +48,20 @@ class _PdfStateState extends State<PdfState> {
   }
 
   Future<File> createFileOfPdfUrl() async {
-    Completer<File> completer = Completer();
-    print("Start download file from internet!");
+    final Completer<File> completer = Completer();
+    print('Start download file from internet!');
     try {
-      // "https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf";
-      // final url = "https://pdfkit.org/docs/guide.pdf";
-      final url = "http://www.pdf995.com/samples/pdf.pdf";
-      final filename = url.substring(url.lastIndexOf("/") + 1);
-      var request = await HttpClient().getUrl(Uri.parse(url));
-      var response = await request.close();
-      var bytes = await consolidateHttpClientResponseBytes(response);
-      var dir = await getApplicationDocumentsDirectory();
-      print("Download files");
-      print("${dir.path}/$filename");
-      File file = File("${dir.path}/$filename");
+      // 'https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf';
+      // final url = 'https://pdfkit.org/docs/guide.pdf';
+      const url = 'http://www.pdf995.com/samples/pdf.pdf';
+      final filename = url.substring(url.lastIndexOf('/') + 1);
+      final request = await HttpClient().getUrl(Uri.parse(url));
+      final response = await request.close();
+      final bytes = await consolidateHttpClientResponseBytes(response);
+      final dir = await getApplicationDocumentsDirectory();
+      print('Download files');
+      print('${dir.path}/$filename');
+      final File file = File('${dir.path}/$filename');
 
       await file.writeAsBytes(bytes, flush: true);
       completer.complete(file);
@@ -74,13 +74,13 @@ class _PdfStateState extends State<PdfState> {
 
   Future<File> fromAsset(String asset, String filename) async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-    Completer<File> completer = Completer();
+    final Completer<File> completer = Completer();
 
     try {
-      var dir = await getApplicationDocumentsDirectory();
-      File file = File("${dir.path}/$filename");
-      var data = await rootBundle.load(asset);
-      var bytes = data.buffer.asUint8List();
+      final dir = await getApplicationDocumentsDirectory();
+      final File file = File('${dir.path}/$filename');
+      final data = await rootBundle.load(asset);
+      final bytes = data.buffer.asUint8List();
       await file.writeAsBytes(bytes, flush: true);
       completer.complete(file);
     } catch (e) {
@@ -106,7 +106,7 @@ class _PdfStateState extends State<PdfState> {
               children: <Widget>[
                 AppLogo(),
                 RaisedButton(
-                  child: Text("Open PDF"),
+                  child: const Text('Open PDF'),
                   onPressed: () {
                     if (pathPDF != null || pathPDF.isNotEmpty) {
                       Navigator.push(

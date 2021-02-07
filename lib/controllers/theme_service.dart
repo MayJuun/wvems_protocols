@@ -12,15 +12,15 @@ class ThemeService extends GetxService {
   SharedPreferences prefs;
 
   // App Themes (Light vs Dark)
-  AppTheme _lightTheme = AppTheme.fromType(ThemeType.LightMode);
-  AppTheme get lightTheme => this._lightTheme;
-  AppTheme _darkTheme = AppTheme.fromType(ThemeType.DarkMode);
-  AppTheme get darkTheme => this._darkTheme;
+  final AppTheme _lightTheme = AppTheme.fromType(ThemeType.LightMode);
+  AppTheme get lightTheme => _lightTheme;
+  final AppTheme _darkTheme = AppTheme.fromType(ThemeType.DarkMode);
+  AppTheme get darkTheme => _darkTheme;
 
   // _themeMode necessary for main.dart calls
   ThemeMode _themeMode;
-  ThemeMode get themeMode => this._themeMode;
-  set themeMode(value) => this._themeMode = value;
+  ThemeMode get themeMode => _themeMode;
+  set themeMode(value) => _themeMode = value;
 
   Future<void> setThemeMode(ThemeMode obj) async {
     // Change theme, then update ThemeMode notifiers
@@ -34,7 +34,7 @@ class ThemeService extends GetxService {
 
   Future<void> getThemeModeFromPreferences() async {
     prefs = await SharedPreferences.getInstance();
-    String themeText = prefs.getString(('theme')) ?? 'system';
+    final String themeText = prefs.getString('theme') ?? 'system';
     try {
       _themeMode =
           ThemeMode.values.firstWhere((e) => describeEnum(e) == themeText);
