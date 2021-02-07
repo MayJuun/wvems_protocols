@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wvems_protocols/ui/strings.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -6,10 +7,10 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('WVEMS Protocols'),
+        title: Text(S.APP_TITLE),
       ),
-      body: const Center(
-        child: Text('HomeView'),
+      body: Center(
+        child: Text(S.HOME_VIEW),
       ),
     );
   }

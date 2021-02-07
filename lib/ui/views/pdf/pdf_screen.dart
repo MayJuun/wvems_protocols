@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
+import 'package:wvems_protocols/ui/strings.dart';
 
 import 'pdf_screen_controller.dart';
 
@@ -18,7 +19,7 @@ class PdfScreen extends StatelessWidget with WidgetsBindingObserver {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: const Text('WVEMS Protocols'),
+            title: Text(S.HOME_VIEW),
             actions: <Widget>[
               FutureBuilder<PDFViewController>(
                 future: _.controller.future,

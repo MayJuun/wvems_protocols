@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/ui/app_logo.dart';
-import 'package:wvems_protocols/ui/nav_drawer.dart';
+import 'package:wvems_protocols/ui/strings.dart';
+import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 
 import 'pdf_screen.dart';
 import 'pdf_state_controller.dart';
@@ -12,9 +12,9 @@ class PdfState extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('WVEMS Protocols'),
+        title: Text(S.APP_TITLE),
       ),
-      drawer: NavDrawer(),
+      drawer: StyledNavDrawer(),
       body: Center(
         child: GetBuilder<PdfStateController>(
           init: PdfStateController(),
@@ -27,7 +27,7 @@ class PdfState extends StatelessWidget {
                   children: <Widget>[
                     AppLogo(),
                     RaisedButton(
-                      child: const Text('Open PDF'),
+                      child: Text(S.OPEN_PDF),
                       onPressed: () {
                         if (_.pathPDF != null || _.pathPDF.isNotEmpty) {
                           Navigator.push(

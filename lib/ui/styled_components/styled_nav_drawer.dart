@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/theme_service.dart';
-import 'package:wvems_protocols/ui/app_logo.dart';
 
-class NavDrawer extends StatelessWidget {
+import 'app_logo.dart';
+
+class StyledNavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeService themeService = Get.find();
