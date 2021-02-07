@@ -43,22 +43,6 @@ TextStyle _style(double s, FontWeight w) =>
 enum ThemeType { LightMode, DarkMode }
 
 class AppTheme {
-  static ThemeType defaultTheme = ThemeType.LightMode;
-
-  bool isDark;
-  Color bg;
-  Color surface;
-  Color primary;
-  Color primaryVariant;
-  Color secondary;
-  Color secondaryVariant;
-  Color grey;
-  Color error;
-  Color focus;
-
-  Color txt;
-  Color accentTxt;
-
   /// Default constructor
   AppTheme({@required this.isDark}) {
     txt = isDark ? _AppColors.textLight : _AppColors.textDark;
@@ -96,8 +80,24 @@ class AppTheme {
     return AppTheme.fromType(defaultTheme);
   }
 
+  static ThemeType defaultTheme = ThemeType.LightMode;
+
+  bool isDark;
+  Color bg;
+  Color surface;
+  Color primary;
+  Color primaryVariant;
+  Color secondary;
+  Color secondaryVariant;
+  Color grey;
+  Color error;
+  Color focus;
+
+  Color txt;
+  Color accentTxt;
+
   ThemeData get themeData {
-    var t = ThemeData.from(
+    final t = ThemeData.from(
       textTheme: _buildTextTheme(),
       colorScheme: ColorScheme(
           brightness: isDark ? Brightness.dark : Brightness.light,
