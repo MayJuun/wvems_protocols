@@ -41,6 +41,8 @@ class PdfScreen extends StatelessWidget with WidgetsBindingObserver {
             children: <Widget>[
               PDFView(
                 filePath: path,
+                // required for Android
+                key: _.pdfViewerKey,
                 enableSwipe: true,
                 swipeHorizontal: false,
                 autoSpacing: true,
@@ -66,7 +68,10 @@ class PdfScreen extends StatelessWidget with WidgetsBindingObserver {
                   print('$page: ${error.toString()}');
                 },
                 onViewCreated: (PDFViewController pdfViewController) {
-                  _.controller.complete(pdfViewController);
+                  // todo: this still fails on hot reload
+                  if (_.currentPage != null) {
+                    pdfViewController.setPage(_.currentPage);
+                  }
                 },
                 onLinkHandler: (String uri) {
                   print('goto uri: $uri');
