@@ -16,15 +16,15 @@ class PdfStateController extends GetxController {
   @override
   void onInit() {
     // super.initState();
-    fromAsset(AppAssets.PROTOCOL_2019, 'corrupted.pdf').then((f) {
+    fromAsset(AppAssets.PROTOCOL_2020, 'corrupted.pdf').then((f) {
       corruptedPathPDF = f.path;
       update();
     });
-    fromAsset(AppAssets.PROTOCOL_2019, 'demo.pdf').then((f) {
+    fromAsset(AppAssets.PROTOCOL_2020, 'demo.pdf').then((f) {
       pathPDF = f.path;
       update();
     });
-    fromAsset(AppAssets.PROTOCOL_2019, 'landscape.pdf').then((f) {
+    fromAsset(AppAssets.PROTOCOL_2020, 'landscape.pdf').then((f) {
       landscapePathPdf = f.path;
       update();
     });
