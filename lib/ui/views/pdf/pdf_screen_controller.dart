@@ -42,4 +42,41 @@ class PdfScreenController extends GetxController with WidgetsBindingObserver {
       );
     }
   }
+
+  /// Methods used for PDFView
+  void onPdfRender(int newPage) {
+    pages = newPage;
+    isReady = true;
+    update();
+  }
+
+  void onPdfError(dynamic error) {
+    errorMessage = error.toString();
+    update();
+    print(error.toString());
+  }
+
+  void onPdfPageError(int page, dynamic error) {
+    errorMessage = '$page: ${error.toString()}';
+    update();
+    print('$page: ${error.toString()}');
+  }
+
+  void onPdfViewCreated(PDFViewController pdfViewController) {
+    // todo: this still fails on hot reload
+    if (currentPage != null) {
+      pdfViewController.setPage(currentPage);
+    }
+    controller.complete(pdfViewController);
+  }
+
+  void onPdfLinkHandler(String uri) {
+    print('goto uri: $uri');
+  }
+
+  void onPdfPageChanged(int page, int total) {
+    print('page change: $page/$total');
+    currentPage = page;
+    update();
+  }
 }
