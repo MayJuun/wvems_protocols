@@ -39,48 +39,6 @@ class PdfState extends StatelessWidget {
                         }
                       },
                     ),
-                    // RaisedButton(
-                    //   child: Text("Open Landscape PDF"),
-                    //   onPressed: () {
-                    //     if (landscapePathPdf != null ||
-                    //         landscapePathPdf.isNotEmpty) {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //           builder: (context) =>
-                    //               PdfScreen(path: landscapePathPdf),
-                    //         ),
-                    //       );
-                    //     }
-                    //   },
-                    // ),
-                    // RaisedButton(
-                    //   child: Text("Remote PDF"),
-                    //   onPressed: () {
-                    //     if (remotePDFpath != null || remotePDFpath.isNotEmpty) {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //           builder: (context) => PdfScreen(path: remotePDFpath),
-                    //         ),
-                    //       );
-                    //     }
-                    //   },
-                    // ),
-                    // RaisedButton(
-                    //   child: Text("Open Corrupted PDF"),
-                    //   onPressed: () {
-                    //     if (pathPDF != null) {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //           builder: (context) =>
-                    //               PdfScreen(path: corruptedPathPDF),
-                    //         ),
-                    //       );
-                    //     }
-                    //   },
-                    // )
                   ],
                 );
               },

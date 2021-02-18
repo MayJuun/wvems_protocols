@@ -50,37 +50,14 @@ class PdfScreen extends StatelessWidget with WidgetsBindingObserver {
                 pageSnap: true,
                 defaultPage: _.currentPage,
                 fitPolicy: FitPolicy.BOTH,
-                preventLinkNavigation:
-                    false, // if set to true the link is handled in flutter
-                onRender: (_pages) {
-                  _.pages = _pages;
-                  _.isReady = true;
-                  _.update();
-                },
-                onError: (error) {
-                  _.errorMessage = error.toString();
-                  _.update();
-                  print(error.toString());
-                },
-                onPageError: (page, error) {
-                  _.errorMessage = '$page: ${error.toString()}';
-                  _.update();
-                  print('$page: ${error.toString()}');
-                },
-                onViewCreated: (PDFViewController pdfViewController) {
-                  // todo: this still fails on hot reload
-                  if (_.currentPage != null) {
-                    pdfViewController.setPage(_.currentPage);
-                  }
-                },
-                onLinkHandler: (String uri) {
-                  print('goto uri: $uri');
-                },
-                onPageChanged: (int page, int total) {
-                  print('page change: $page/$total');
-                  _.currentPage = page;
-                  _.update();
-                },
+                // if set to true, the link is handled in flutter
+                preventLinkNavigation: false,
+                onRender: _.onPdfRender,
+                onError: _.onPdfError,
+                onPageError: _.onPdfPageError,
+                onViewCreated: _.onPdfViewCreated,
+                onLinkHandler: _.onPdfLinkHandler,
+                onPageChanged: _.onPdfPageChanged,
               ),
               _.errorMessage.isEmpty
                   ? !_.isReady
