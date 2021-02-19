@@ -7,9 +7,6 @@ import 'package:wvems_protocols/controllers/theme_service.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 
 class StyledNavDrawer extends StatelessWidget {
-  // keep a private copy of the context accessible to the entire instance
-  BuildContext _context;
-
   // TODO(brianekey): The _yearColor and _yearText should come from
   // a higher level state somewhere that defines which year is currently
   // being displayed. The color should be linked to the year, just like
@@ -23,19 +20,16 @@ class StyledNavDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // make context available everywhere in this instance
-    _context = context;
-
     // top level design of the drawer
     return Drawer(
       child: ListView(
         children: <Widget>[
           _logoHeader(),
-          ..._mainItems(),
+          ..._mainItems(context),
           _customDivider(),
-          ..._subItems(),
+          ..._subItems(context),
           _customDivider(),
-          ..._systemItems(),
+          ..._systemItems(context),
         ],
       ),
     );
@@ -83,7 +77,7 @@ class StyledNavDrawer extends StatelessWidget {
 
   // the main menu items: user can check for messages,
   // and select the version (year) to display
-  List<Widget> _mainItems() {
+  List<Widget> _mainItems(BuildContext context) {
     return <Widget>[
       // This is the only dynamic list item (that's why it's first on the list).
       // If there are _newMessages, then the mail icon will have a colored dot,
@@ -110,13 +104,13 @@ class StyledNavDrawer extends StatelessWidget {
               )
             : const Text('Messages'),
         subtitle: const Text('Notifications from WVEMS'),
-        onTap: _displayWompWomp,
+        onTap: () => _displayWompWomp(context),
       ),
       ListTile(
         leading: const Icon(Icons.description, size: 30.0),
         title: const Text('Version'),
         subtitle: const Text('Manage display year'),
-        onTap: _displayWompWomp,
+        onTap: () => _displayWompWomp(context),
       ),
     ];
   } //_mainItems()
@@ -136,51 +130,51 @@ class StyledNavDrawer extends StatelessWidget {
   // both fire a dialog to ask if the user wants to act on just the single
   // displayed page, or if they want to act on the whole document. Download
   // just assumes they want the whole document.
-  List<Widget> _subItems() {
+  List<Widget> _subItems(BuildContext context) {
     return <Widget>[
       ListTile(
         leading: const Icon(Icons.share, size: 30.0),
         title: const Text('Share'),
-        onTap: _displayWompWomp,
+        onTap: () => _displayWompWomp(context),
       ),
       ListTile(
         leading: const Icon(Icons.print, size: 30.0),
         title: const Text('Print'),
-        onTap: _displayWompWomp,
+        onTap: () => _displayWompWomp(context),
       ),
       ListTile(
         leading: const Icon(Icons.file_download, size: 30.0),
         title: const Text('Download'),
         // TODO(brianekey): change this to something real
-        onTap: _displayWompWomp,
+        onTap: () => _displayWompWomp(context),
       ),
     ];
   } //_subItems()
 
   // The miscellaneous system options
-  List<Widget> _systemItems() {
+  List<Widget> _systemItems(BuildContext context) {
     return <Widget>[
       ListTile(
         leading: const Icon(Icons.settings, size: 30.0),
         title: const Text('Settings'),
         subtitle: const Text('Display Mode'),
-        onTap: _displaySettingsDialog,
+        onTap: () => _displaySettingsDialog(context),
       ),
       ListTile(
         leading: const Icon(Icons.info, size: 30.0),
         title: const Text('About'),
         subtitle: Text('Release ${S.APP_RELEASE}'),
-        onTap: _displayAboutDialog,
+        onTap: () => _displayAboutDialog(context),
       ),
     ];
   } //_systemItems()
 
   // pop-op dialog for "Settings"
-  void _displaySettingsDialog() {
+  void _displaySettingsDialog(BuildContext context) {
     final ThemeService themeService = Get.find();
     Get.back();
     showDialog(
-      context: _context,
+      context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
           title: const Text('Select Display Mode'),
@@ -228,10 +222,10 @@ class StyledNavDrawer extends StatelessWidget {
   } // _displaySettingsDialog
 
   // pop-op dialog for "About"
-  void _displayAboutDialog() {
+  void _displayAboutDialog(BuildContext context) {
     Get.back();
     showDialog(
-      context: _context,
+      context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
           title: const Text('About WVEMS Protocols'),
@@ -256,10 +250,10 @@ class StyledNavDrawer extends StatelessWidget {
   } //_displayAboutDialog()
 
   // More <kludge>
-  void _displayWompWomp() {
+  void _displayWompWomp(BuildContext context) {
     Get.back();
     showDialog(
-      context: _context,
+      context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
           title: const Text('Nothing Here!\nWomp Womp'),
