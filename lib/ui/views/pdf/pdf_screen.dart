@@ -5,7 +5,7 @@ import 'package:wvems_protocols/ui/strings.dart';
 
 import 'pdf_screen_controller.dart';
 
-class PdfScreen extends StatelessWidget with WidgetsBindingObserver {
+class PdfScreen extends StatelessWidget {
   const PdfScreen({Key key, this.path}) : super(key: key);
 
   final String path;

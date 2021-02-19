@@ -67,7 +67,9 @@ class PdfScreenController extends GetxController with WidgetsBindingObserver {
     if (currentPage != null) {
       pdfViewController.setPage(currentPage);
     }
-    controller.complete(pdfViewController);
+    if (!controller.isCompleted) {
+      controller.complete(pdfViewController);
+    }
   }
 
   void onPdfLinkHandler(String uri) {
