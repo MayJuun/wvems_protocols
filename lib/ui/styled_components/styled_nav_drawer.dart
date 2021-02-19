@@ -38,15 +38,15 @@ class StyledNavDrawer extends StatelessWidget {
   // the header section of the drawer
   Widget _logoHeader() {
     //returns a Widget list with the logo in a Drawer Header, and a spaced box
-    return DrawerHeader(
-      padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         //space between implies MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            height: 60.0,
             padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 2.0),
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -55,7 +55,6 @@ class StyledNavDrawer extends StatelessWidget {
             child: SvgPicture.asset('assets/svg/wvems_logo_light_simple.svg'),
           ),
           Container(
-            height: 60.0,
             padding: const EdgeInsets.all(0.0),
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -63,6 +62,7 @@ class StyledNavDrawer extends StatelessWidget {
                 border: Border.all(width: 3.0, color: Colors.grey)),
             child: Text(
               '$_yearText',
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 36.0,
@@ -179,41 +179,30 @@ class StyledNavDrawer extends StatelessWidget {
         return SimpleDialog(
           title: const Text('Select Display Mode'),
           children: <Widget>[
-            ListTile(
+            RadioListTile(
               title: const Text('Light Mode'),
-              leading: Radio(
-                value: ThemeMode.light,
-                groupValue: themeService.themeMode,
-                onChanged: (value) {
-                  themeService.setThemeMode(ThemeMode.light);
-                },
-              ),
+              value: ThemeMode.light,
+              groupValue: themeService.themeMode,
+              onChanged: (ThemeMode value) =>
+                  themeService.setThemeMode(ThemeMode.light),
             ),
-            ListTile(
+            RadioListTile(
               title: const Text('Dark Mode'),
-              leading: Radio(
-                value: ThemeMode.dark,
-                groupValue: themeService.themeMode,
-                onChanged: (value) {
-                  themeService.setThemeMode(ThemeMode.dark);
-                },
-              ),
+              value: ThemeMode.dark,
+              groupValue: themeService.themeMode,
+              onChanged: (ThemeMode value) =>
+                  themeService.setThemeMode(ThemeMode.dark),
             ),
-            ListTile(
+            RadioListTile(
               title: const Text('Match System'),
-              leading: Radio(
-                value: ThemeMode.system,
-                groupValue: themeService.themeMode,
-                onChanged: (value) {
-                  themeService.setThemeMode(ThemeMode.system);
-                },
-              ),
+              value: ThemeMode.system,
+              groupValue: themeService.themeMode,
+              onChanged: (ThemeMode value) =>
+                  themeService.setThemeMode(ThemeMode.system),
             ),
             FlatButton(
               child: const Text('OK'),
-              onPressed: () {
-                Get.back();
-              }, //onPressed
+              onPressed: () => Get.back(),
             ),
           ],
         );
