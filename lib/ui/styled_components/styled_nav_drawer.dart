@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:wvems_protocols/assets.dart';
 
 import 'package:wvems_protocols/controllers/theme_service.dart';
 import 'package:wvems_protocols/ui/strings.dart';
@@ -52,7 +53,7 @@ class StyledNavDrawer extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(width: 3.0, color: Colors.grey)),
-            child: SvgPicture.asset('assets/svg/wvems_logo_light_simple.svg'),
+            child: SvgPicture.asset(AppAssets.SVG_LOGO_LIGHT),
           ),
           Container(
             padding: const EdgeInsets.all(0.0),
@@ -98,18 +99,18 @@ class StyledNavDrawer extends StatelessWidget {
           ],
         ),
         title: _newMessages
-            ? const Text(
-                'New Messages',
-                style: TextStyle(fontWeight: FontWeight.bold),
+            ? Text(
+                S.NAV_NEW_MESSAGES,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               )
-            : const Text('Messages'),
-        subtitle: const Text('Notifications from WVEMS'),
+            : Text(S.NAV_MESSAGES),
+        subtitle: Text(S.NAV_NOTIFICATIONS),
         onTap: () => _displayWompWomp(context),
       ),
       ListTile(
         leading: const Icon(Icons.description, size: 30.0),
-        title: const Text('Version'),
-        subtitle: const Text('Manage display year'),
+        title: Text(S.NAV_NOTIFICATIONS),
+        subtitle: Text(S.NAV_MANAGE_DISPLAY_YEAR),
         onTap: () => _displayWompWomp(context),
       ),
     ];
@@ -134,17 +135,17 @@ class StyledNavDrawer extends StatelessWidget {
     return <Widget>[
       ListTile(
         leading: const Icon(Icons.share, size: 30.0),
-        title: const Text('Share'),
+        title: Text(S.NAV_SHARE),
         onTap: () => _displayWompWomp(context),
       ),
       ListTile(
         leading: const Icon(Icons.print, size: 30.0),
-        title: const Text('Print'),
+        title: Text(S.NAV_PRINT),
         onTap: () => _displayWompWomp(context),
       ),
       ListTile(
         leading: const Icon(Icons.file_download, size: 30.0),
-        title: const Text('Download'),
+        title: Text(S.NAV_DOWNLOAD),
         // TODO(brianekey): change this to something real
         onTap: () => _displayWompWomp(context),
       ),
@@ -156,13 +157,13 @@ class StyledNavDrawer extends StatelessWidget {
     return <Widget>[
       ListTile(
         leading: const Icon(Icons.settings, size: 30.0),
-        title: const Text('Settings'),
-        subtitle: const Text('Display Mode'),
+        title: Text(S.NAV_SETTINGS),
+        subtitle: Text(S.NAV_DISPLAY_MODE),
         onTap: () => _displaySettingsDialog(context),
       ),
       ListTile(
         leading: const Icon(Icons.info, size: 30.0),
-        title: const Text('About'),
+        title: Text(S.NAV_ABOUT),
         subtitle: Text('Release ${S.APP_RELEASE}'),
         onTap: () => _displayAboutDialog(context),
       ),
@@ -177,31 +178,31 @@ class StyledNavDrawer extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text('Select Display Mode'),
+          title: Text(S.NAV_MODE_SELECT),
           children: <Widget>[
             RadioListTile(
-              title: const Text('Light Mode'),
+              title: Text(S.NAV_MODE_LIGHT),
               value: ThemeMode.light,
               groupValue: themeService.themeMode,
               onChanged: (ThemeMode value) =>
                   themeService.setThemeMode(ThemeMode.light),
             ),
             RadioListTile(
-              title: const Text('Dark Mode'),
+              title: Text(S.NAV_MODE_DARK),
               value: ThemeMode.dark,
               groupValue: themeService.themeMode,
               onChanged: (ThemeMode value) =>
                   themeService.setThemeMode(ThemeMode.dark),
             ),
             RadioListTile(
-              title: const Text('Match System'),
+              title: Text(S.NAV_MODE_SYSTEM),
               value: ThemeMode.system,
               groupValue: themeService.themeMode,
               onChanged: (ThemeMode value) =>
                   themeService.setThemeMode(ThemeMode.system),
             ),
             FlatButton(
-              child: const Text('OK'),
+              child: Text(S.NAV_OK),
               onPressed: () => Get.back(),
             ),
           ],
@@ -227,7 +228,7 @@ class StyledNavDrawer extends StatelessWidget {
             ),
             const SizedBox(height: 12.0),
             FlatButton(
-              child: const Text('OK'),
+              child: Text(S.NAV_OK),
               onPressed: () {
                 Get.back();
               }, //onPressed
@@ -245,10 +246,13 @@ class StyledNavDrawer extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text('Nothing Here!\nWomp Womp'),
+          title: Text(
+            S.WOMP_WOMP,
+            textAlign: TextAlign.center,
+          ),
           children: <Widget>[
             FlatButton(
-              child: const Text('OK'),
+              child: Text(S.NAV_OK),
               onPressed: () {
                 Get.back();
               }, //onPressed
@@ -258,5 +262,4 @@ class StyledNavDrawer extends StatelessWidget {
       }, // builder
     ); // showDialog()
   } // </kludge>
-
 } //StyledNavDrawer
