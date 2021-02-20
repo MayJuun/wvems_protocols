@@ -9,11 +9,11 @@ import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/services/services.dart';
 
 class PdfStateController extends GetxController with WidgetsBindingObserver {
-  // Used to manage state of the current, active PDF
+  /// Used to manage state of the current, active PDF
   final PdfService _pdfService = PdfService();
   final Rx<Pdf> pdfState = const Pdf.loading().obs;
 
-  // Used for PDFView
+  /// Used for PDFView
   final Completer<PDFViewController> asyncController =
       Completer<PDFViewController>();
   int pages = 0;
@@ -27,6 +27,10 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// More details about this bug and its solution available here
   /// https://github.com/endigo/flutter_pdfview/issues/9#issuecomment-621162440
   UniqueKey pdfViewerKey = UniqueKey();
+
+  /// **********************************************************
+  /// ****************** OVERRIDEN METHODS *********************
+  /// **********************************************************
 
   @override
   void onInit() {
@@ -62,9 +66,10 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     }
   }
 
-  /// **********************
-  /// Methods used for PDFView
-  /// **********************
+  /// **********************************************************
+  /// ******************* PDF VIEW METHODS *********************
+  /// **********************************************************
+
   void onPdfRender(int newPage) {
     pages = newPage;
     isReady = true;
