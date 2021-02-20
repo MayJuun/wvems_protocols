@@ -22,11 +22,30 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   String errorMessage = '';
 
   String pathPDF = '';
+  File file;
 
   /// Unique Key required for screen layout changes in Android
   /// More details about this bug and its solution available here
   /// https://github.com/endigo/flutter_pdfview/issues/9#issuecomment-621162440
   UniqueKey pdfViewerKey = UniqueKey();
+
+  /// **********************************************************
+  /// ******************* CUSTOM METHODS **********************
+  /// **********************************************************
+  void updatePdfFromAsset(String assetPath) {
+    print('loading pdfs...');
+    _pdfService.fromAsset(AppAssets.PROTOCOL_2020, 'active.pdf').then((f) {
+      pathPDF = f.path;
+
+      // todo: consider remove locally stored file from memory
+      // this may be unnecessary if we're also storing the path
+      file = f;
+
+      pdfState.value = Pdf.data(f);
+      print('pdf loaded: ${f.path}');
+      update();
+    });
+  }
 
   /// **********************************************************
   /// ****************** OVERRIDEN METHODS *********************
@@ -36,13 +55,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   void onInit() {
     super.onInit();
     // Used for loading embedded PDF
-    print('loading pdfs...');
-    _pdfService.fromAsset(AppAssets.PROTOCOL_2020, 'active.pdf').then((f) {
-      pathPDF = f.path;
-      pdfState.value = Pdf.data(f);
-      print('pdf loaded: ${f.path}');
-      update();
-    });
+
     // Used for Android layout changes
     WidgetsBinding.instance.addObserver(this);
   }

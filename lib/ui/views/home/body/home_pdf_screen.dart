@@ -11,6 +11,7 @@ class HomePdfScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PdfStateController controller = Get.find();
+
     return Stack(
       children: <Widget>[
         PDFView(
@@ -33,15 +34,15 @@ class HomePdfScreen extends StatelessWidget {
           onLinkHandler: controller.onPdfLinkHandler,
           onPageChanged: controller.onPdfPageChanged,
         ),
-        controller.errorMessage.isEmpty
-            ? !controller.isReady
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Container()
-            : Center(
-                child: Text(controller.errorMessage),
-              ),
+        // controller.errorMessage.isEmpty
+        //     ? !controller.isReady
+        //         ? const Center(
+        //             child: CircularProgressIndicator(),
+        //           )
+        //         : Container()
+        //     : Center(
+        //         child: Text(controller.errorMessage),
+        //       ),
       ],
     );
   }
