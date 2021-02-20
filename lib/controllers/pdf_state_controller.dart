@@ -22,7 +22,6 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   String errorMessage = '';
 
   String pathPDF = '';
-  File file;
 
   /// Unique Key required for screen layout changes in Android
   /// More details about this bug and its solution available here
@@ -32,19 +31,37 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// **********************************************************
   /// ******************* CUSTOM METHODS **********************
   /// **********************************************************
-  void updatePdfFromAsset(String assetPath) {
+
+  Future<void> loadNewPdf(String assetPath) async {
+    pdfState.value = const Pdf.loading();
+    final newValue = await _updatePdfFromAsset(assetPath);
+
+    if (newValue != null) {
+      pdfState.value = Pdf.data(newValue);
+    }
+  }
+
+  Future<File> _updatePdfFromAsset(String assetPath) async {
     print('loading pdfs...');
-    _pdfService.fromAsset(AppAssets.PROTOCOL_2020, 'active.pdf').then((f) {
+    File newValue;
+    _pdfService.fromAsset(assetPath, 'active.pdf').then((f) {
       pathPDF = f.path;
+      if (f != null) {
+        pdfState.value = Pdf.data(f);
+      }
 
-      // todo: consider remove locally stored file from memory
-      // this may be unnecessary if we're also storing the path
-      file = f;
-
-      pdfState.value = Pdf.data(f);
       print('pdf loaded: ${f.path}');
+      newValue = f;
+      _resetPdfUI();
       update();
     });
+    return newValue;
+  }
+
+  void _resetPdfUI() {
+    // set new UniqueKey, which triggers a UI redraw
+    pdfViewerKey = UniqueKey();
+    currentPage = 0;
   }
 
   /// **********************************************************
@@ -55,6 +72,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   void onInit() {
     super.onInit();
     // Used for loading embedded PDF
+    _updatePdfFromAsset(AppAssets.PROTOCOL_2020);
 
     // Used for Android layout changes
     WidgetsBinding.instance.addObserver(this);

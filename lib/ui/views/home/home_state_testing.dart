@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
 
@@ -12,9 +13,12 @@ class HomeStateTesting extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         RaisedButton(
-          child: const Text('Data'),
-          onPressed: () =>
-              controller.pdfState.value = Pdf.data(controller.file),
+          child: const Text('2020'),
+          onPressed: () => controller.loadNewPdf(AppAssets.PROTOCOL_2020),
+        ),
+        RaisedButton(
+          child: const Text('2019'),
+          onPressed: () => controller.loadNewPdf(AppAssets.PROTOCOL_2019),
         ),
         RaisedButton(
           child: const Text('Loading'),
