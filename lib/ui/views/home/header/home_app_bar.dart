@@ -16,7 +16,7 @@ AppBar homeAppBar(BuildContext context) {
         builder: (context, AsyncSnapshot<PDFViewController> snapshot) {
           if (snapshot.hasData) {
             return IconButton(
-              icon: const Icon(Icons.list),
+              icon: const Icon(Icons.home),
               onPressed: () async {
                 await snapshot.data.setPage(0);
               },

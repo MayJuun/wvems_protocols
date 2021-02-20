@@ -19,18 +19,21 @@ class HomeScreen extends StatelessWidget {
           // todo: reimplement
           appBar: homeAppBar(context),
           drawer: StyledNavDrawer(),
-          body: Column(
-            children: [
-              Expanded(
-                child: controller.pdfState.value.when(
-                  data: (File file) => HomePdfScreen(path: controller.pathPDF),
-                  error: (Object error, StackTrace stackTrace) =>
-                      HomeError(error: error.toString()),
-                  loading: () => HomeLoading(),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: controller.pdfState.value.when(
+                    data: (File file) =>
+                        HomePdfScreen(path: controller.pathPDF),
+                    error: (Object error, StackTrace stackTrace) =>
+                        HomeError(error: error.toString()),
+                    loading: () => HomeLoading(),
+                  ),
                 ),
-              ),
-              HomeStateTesting(),
-            ],
+                HomeStateTesting(),
+              ],
+            ),
           ),
         );
       },
