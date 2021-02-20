@@ -13,6 +13,23 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final PdfService _pdfService = PdfService();
   final Rx<Pdf> pdfState = const Pdf.loading().obs;
 
+  final Rx<IconButton> _homeAppBarWidget = const IconButton(
+    icon: Icon(Icons.home, color: Colors.transparent),
+    onPressed: null,
+  ).obs;
+
+  Future<void> complete() async {
+    final completer = await asyncController.future;
+    _homeAppBarWidget.value = IconButton(
+      icon: const Icon(Icons.home),
+      onPressed: () async {
+        await completer.setPage(0);
+      },
+    );
+  }
+
+  Widget get homeAppBarWidget => _homeAppBarWidget.value;
+
   /// Used for PDFView
   final Completer<PDFViewController> asyncController =
       Completer<PDFViewController>();
@@ -20,7 +37,6 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   int currentPage = 0;
   bool isReady = false;
   String errorMessage = '';
-
   String pathPDF = '';
 
   /// Unique Key required for screen layout changes in Android
@@ -70,6 +86,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
 
   @override
   void onInit() {
+    complete();
     super.onInit();
     // Used for loading embedded PDF
     _updatePdfFromAsset(AppAssets.PROTOCOL_2020);
