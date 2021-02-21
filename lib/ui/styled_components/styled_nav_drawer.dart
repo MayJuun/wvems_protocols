@@ -14,7 +14,9 @@ class StyledNavDrawer extends StatelessWidget {
   // And _displayWompWomp() is just a placeholder so the menus work.
   // <kludge>
   final bool _newMessages = true;
-  final Color _yearColor = Colors.purple[100]; // </kludge>
+
+  //todo: extract into theme / jcontroller
+  final Color _yearColor = wvemsColor(2020);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,8 @@ class StyledNavDrawer extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          AppLogo(),
+          DrawerAppLogo(),
+          SizedBox(height: 8.0),
           StyledProtocolsYear(),
         ],
       ),
@@ -69,9 +72,7 @@ class StyledNavDrawer extends StatelessWidget {
             Icon(
               Icons.circle,
               size: 12.0,
-              color: _newMessages
-                  ? _yearColor
-                  : const Color.fromRGBO(0, 0, 0, 0.0),
+              color: _newMessages ? _yearColor : Colors.transparent,
             ),
           ],
         ),
@@ -86,7 +87,7 @@ class StyledNavDrawer extends StatelessWidget {
       ),
       ListTile(
         leading: const Icon(Icons.description, size: 30.0),
-        title: Text(S.NAV_NOTIFICATIONS),
+        title: Text(S.NAV_VERSION),
         subtitle: Text(S.NAV_MANAGE_DISPLAY_YEAR),
         onTap: () => _displayWompWomp(context),
       ),

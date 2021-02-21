@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 
 class StyledProtocolsYear extends StatelessWidget {
   //todo: extract into theme / jcontroller
-  final String _yearText = 'Protocols 2020';
-  final Color _yearColor = Colors.purple[100];
+  final String _yearText = wvemsText(2020);
+  final Color _yearColor = wvemsColor(2020);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(0.0),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          color: _yearColor,
-          border: Border.all(width: 3.0, color: Colors.grey)),
-      child: Text(
-        '$_yearText',
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 36.0,
-          fontWeight: FontWeight.bold,
+    return Card(
+      elevation:4.0,
+      child: Container(
+        //padding: const EdgeInsets.fromLTRB(0.0,0.0,0.0,2.0),
+        height:56.0,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: _yearColor,
+            border: Border.all(width: 3.0, color: Colors.grey)),
+        child: Text(
+          '$_yearText',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.barlow(
+            color: Colors.black,
+            fontSize: 36.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
