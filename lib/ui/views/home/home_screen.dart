@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 import 'package:wvems_protocols/ui/views/home/header/home_app_bar.dart';
+import 'package:wvems_protocols/ui/views/home/floating_action_button/floating_action_button.dart';
 import 'package:wvems_protocols/ui/views/home/home_state_testing.dart';
 
 import 'body/body.dart';
@@ -19,6 +20,7 @@ class HomeScreen extends StatelessWidget {
           // todo: reimplement
           appBar: homeAppBar(context),
           drawer: StyledNavDrawer(),
+          floatingActionButton: homeFloatingActionButton(context),
           body: SafeArea(
             child: Column(
               children: [
