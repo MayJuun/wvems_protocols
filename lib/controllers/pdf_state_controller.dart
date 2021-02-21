@@ -14,8 +14,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final Rx<Pdf> pdfState = const Pdf.loading().obs;
 
   /// Used for PDFView
-  final Completer<PDFViewController> asyncController =
-      Completer<PDFViewController>();
+  Completer<PDFViewController> asyncController = Completer<PDFViewController>();
   Rx<PDFViewController> rxPdfController;
 
   int pages = 0;
@@ -69,6 +68,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   }
 
   void setOrResetRxPdfController(PDFViewController newController) {
+    asyncController = Completer<PDFViewController>();
     if (rxPdfController != null) {
       rxPdfController.value = newController;
     } else
