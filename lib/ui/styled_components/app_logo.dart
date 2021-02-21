@@ -6,8 +6,15 @@ import 'package:wvems_protocols/assets.dart';
 class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset((context.theme.brightness == Brightness.dark)
-        ? AppAssets.SVG_LOGO_DARK
-        : AppAssets.SVG_LOGO_LIGHT);
+    return Container(
+      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 2.0),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(width: 3.0, color: Colors.grey)),
+      child: SvgPicture.asset((context.theme.brightness == Brightness.dark)
+          ? AppAssets.SVG_LOGO_DARK
+          : AppAssets.SVG_LOGO_LIGHT),
+    );
   }
 }
