@@ -13,26 +13,11 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final PdfService _pdfService = PdfService();
   final Rx<Pdf> pdfState = const Pdf.loading().obs;
 
-  final Rx<IconButton> _homeAppBarWidget = const IconButton(
-    icon: Icon(Icons.home, color: Colors.transparent),
-    onPressed: null,
-  ).obs;
-
-  Future<void> complete() async {
-    final completer = await asyncController.future;
-    _homeAppBarWidget.value = IconButton(
-      icon: const Icon(Icons.home),
-      onPressed: () async {
-        await completer.setPage(0);
-      },
-    );
-  }
-
-  Widget get homeAppBarWidget => _homeAppBarWidget.value;
-
   /// Used for PDFView
   final Completer<PDFViewController> asyncController =
       Completer<PDFViewController>();
+  Rx<PDFViewController> rxPdfController;
+
   int pages = 0;
   int currentPage = 0;
   bool isReady = false;
@@ -69,8 +54,11 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
       print('pdf loaded: ${f.path}');
       newValue = f;
       _resetPdfUI();
-      update();
     });
+
+    final newController = await complete();
+    setOrResetRxPdfController(newController);
+    update();
     return newValue;
   }
 
@@ -80,15 +68,30 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     currentPage = 0;
   }
 
+  void setOrResetRxPdfController(PDFViewController newController) {
+    if (rxPdfController != null) {
+      rxPdfController.value = newController;
+    } else
+      rxPdfController = newController.obs;
+  }
+
+  /// This methods establishes the PDFViewController on first load
+  /// If the active pdf ever changes...
+  /// This completer will re-run to reset the controller
+  /// todo: verify if this controller needs/takes a dispose() method
+  Future<PDFViewController> complete() async {
+    final newController = await asyncController.future;
+    return newController;
+  }
+
   /// **********************************************************
   /// ****************** OVERRIDEN METHODS *********************
   /// **********************************************************
 
   @override
   void onInit() {
-    complete();
     super.onInit();
-    // Used for loading embedded PDF
+    // Used for first load of embedded PDF
     _updatePdfFromAsset(AppAssets.PROTOCOL_2020);
 
     // Used for Android layout changes
