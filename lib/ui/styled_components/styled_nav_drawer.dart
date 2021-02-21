@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wvems_protocols/assets.dart';
-
 import 'package:wvems_protocols/controllers/theme_service.dart';
 import 'package:wvems_protocols/ui/strings.dart';
+import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 
 class StyledNavDrawer extends StatelessWidget {
   // TODO(brianekey): The _yearColor and _yearText should come from
@@ -16,22 +14,25 @@ class StyledNavDrawer extends StatelessWidget {
   // And _displayWompWomp() is just a placeholder so the menus work.
   // <kludge>
   final bool _newMessages = true;
-  final String _yearText = 'Protocols 2020';
   final Color _yearColor = Colors.purple[100]; // </kludge>
 
   @override
   Widget build(BuildContext context) {
     // top level design of the drawer
     return Drawer(
-      child: ListView(
-        children: <Widget>[
-          _logoHeader(),
-          ..._mainItems(context),
-          _customDivider(),
-          ..._subItems(context),
-          _customDivider(),
-          ..._systemItems(context),
-        ],
+      child: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+            children: <Widget>[
+              _logoHeader(),
+              ..._mainItems(context),
+              _customDivider(),
+              ..._subItems(context),
+              _customDivider(),
+              ..._systemItems(context),
+            ],
+          ),
+        ),
       ),
     );
   } // build()
@@ -42,35 +43,11 @@ class StyledNavDrawer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Column(
-        //space between implies MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 2.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(width: 3.0, color: Colors.grey)),
-            child: SvgPicture.asset(AppAssets.SVG_LOGO_LIGHT),
-          ),
-          Container(
-            padding: const EdgeInsets.all(0.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                color: _yearColor,
-                border: Border.all(width: 3.0, color: Colors.grey)),
-            child: Text(
-              '$_yearText',
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 36.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          AppLogo(),
+          StyledProtocolsYear(),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/theme_service.dart';
-import 'package:wvems_protocols/ui/views/pdf/pdf_state.dart';
+import 'package:wvems_protocols/ui/views/views.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeService.to.lightTheme.themeData,
       darkTheme: ThemeService.to.darkTheme.themeData,
       themeMode: ThemeService.to.themeMode,
-      home: PdfState(),
+      home: HomeScreen(),
     );
   }
 }
