@@ -4,21 +4,31 @@ import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/commands/set_page_command.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 
+
 Widget homeFloatingActionButton(BuildContext context) {
   final PdfStateController controller = Get.find();
+  const Icon _buttonIcon = Icon(Icons.arrow_upward_rounded, size: 36.0);
+  final Widget _activeButton = FloatingActionButton(
+      elevation: 4.0,
+      child: _buttonIcon,
+      onPressed: () async => await SetPageCommand().execute());
+  const Widget _inactiveButton = FloatingActionButton(
+      elevation: 4.0,
+      child: _buttonIcon,
+      onPressed: null);
+
   return FutureBuilder<PDFViewController>(
     future: controller.asyncController.future,
-    builder: (BuildContext context, AsyncSnapshot<PDFViewController> snapshot) {
-      return Obx(
-        () => FloatingActionButton(
-          elevation: 4.0,
-          child: const Icon(Icons.format_list_numbered_rounded, size: 36.0),
-          onPressed:
-              snapshot.hasData && controller.rxPdfController.value != null
-                  ? SetPageCommand().execute
-                  : () {},
-        ),
-      );
+    builder:
+        (BuildContext context, AsyncSnapshot<PDFViewController> snapshot) {
+      if (snapshot.hasData) {
+        return Obx(() =>
+        (controller.rxPdfController.value != null)
+            ? _activeButton
+            : _inactiveButton,
+        );
+      }
+      return _inactiveButton;
     },
   );
 }
