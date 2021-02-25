@@ -107,6 +107,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   @override
   void didChangeMetrics() {
     if (Platform.isAndroid) {
+      // todo: this needs to NOT change whenever the Material Floating Search Bar is shown/hidden
       Future.delayed(
         const Duration(milliseconds: 250),
         () {
