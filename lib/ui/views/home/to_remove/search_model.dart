@@ -18,7 +18,9 @@ class SearchModel extends ChangeNotifier {
   String get query => _query;
 
   void onQueryChanged(String query) async {
-    if (query == _query) return;
+    if (query == _query) {
+      return;
+    }
 
     _query = query;
     _isLoading = true;

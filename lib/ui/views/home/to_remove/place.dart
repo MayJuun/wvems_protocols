@@ -3,21 +3,12 @@ import 'package:flutter/material.dart';
 // temporary class, to remove
 // spec: https://pub.dev/packages/material_floating_search_bar
 class Place {
-  final String name;
-  final String state;
-  final String country;
   const Place({
     @required this.name,
     this.state,
     @required this.country,
   })  : assert(name != null),
         assert(country != null);
-
-  bool get hasState => state?.isNotEmpty == true;
-  bool get hasCountry => country?.isNotEmpty == true;
-
-  bool get isCountry => hasCountry && name == country;
-  bool get isState => hasState && name == state;
 
   factory Place.fromJson(Map<String, dynamic> map) {
     final props = map['properties'];
@@ -29,19 +20,37 @@ class Place {
     );
   }
 
+  final String name;
+  final String state;
+  final String country;
+
+  bool get hasState => state?.isNotEmpty == true;
+  bool get hasCountry => country?.isNotEmpty == true;
+
+  bool get isCountry => hasCountry && name == country;
+  bool get isState => hasState && name == state;
+
   String get address {
-    if (isCountry) return country;
+    if (isCountry) {
+      return country;
+    }
     return '$name, $level2Address';
   }
 
   String get addressShort {
-    if (isCountry) return country;
+    if (isCountry) {
+      return country;
+    }
     return '$name, $country';
   }
 
   String get level2Address {
-    if (isCountry || isState || !hasState) return country;
-    if (!hasCountry) return state;
+    if (isCountry || isState || !hasState) {
+      return country;
+    }
+    if (!hasCountry) {
+      return state;
+    }
     return '$state, $country';
   }
 
@@ -50,7 +59,9 @@ class Place {
 
   @override
   bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+    if (identical(this, o)) {
+      return true;
+    }
 
     return o is Place &&
         o.name == name &&

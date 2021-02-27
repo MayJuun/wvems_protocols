@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wvems_protocols/_internal/utils/utils.dart';
 
 import 'package:wvems_protocols/controllers/theme_service.dart';
 import 'package:wvems_protocols/ui/strings.dart';
@@ -49,7 +50,7 @@ class StyledNavDrawer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           DrawerAppLogo(),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           StyledProtocolsYear(),
         ],
       ),
