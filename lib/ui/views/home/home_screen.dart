@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
+import 'package:wvems_protocols/ui/views/home/fab/home_fab.dart';
 import 'package:wvems_protocols/ui/views/home/header/home_search_bar.dart';
 import 'package:wvems_protocols/ui/views/home/home_screen_stack.dart';
 import 'package:wvems_protocols/ui/views/home/home_state_testing.dart';
@@ -41,6 +42,7 @@ class HomeScreen extends StatelessWidget {
               );
             },
           ),
+          floatingActionButton: HomeFab(),
         );
       },
     );
