@@ -1,47 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
-import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:wvems_protocols/ui/views/home/to_remove/place.dart';
 
-import '../to_remove/place.dart';
 import '../to_remove/search_model.dart';
 
-class HomeScreenExpandableBody extends StatelessWidget {
+/// This shows the 'history' of previous items that have been searched for in the past
+class HomeSearchItem extends StatelessWidget {
+  const HomeSearchItem({Key key, this.place}) : super(key: key);
+
+  final Place place;
+
   @override
   Widget build(BuildContext context) {
-    final SearchController searchController = Get.find();
-    final model = searchController.model;
-
-    return Material(
-      color: Colors.white,
-      elevation: 4.0,
-      borderRadius: BorderRadius.circular(8),
-      child: ImplicitlyAnimatedList<Place>(
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
-        items: model.suggestions.take(6).toList(),
-        areItemsTheSame: (a, b) => a == b,
-        itemBuilder: (context, animation, place, i) {
-          return SizeFadeTransition(
-            animation: animation,
-            child: buildItem(context, place),
-          );
-        },
-        updateItemBuilder: (context, animation, place) {
-          return FadeTransition(
-            opacity: animation,
-            child: buildItem(context, place),
-          );
-        },
-      ),
-    );
-  }
-
-  /// This shows the 'history' of previous items that have been searched for in the past
-  Widget buildItem(BuildContext context, Place place) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 

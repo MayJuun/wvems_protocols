@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/views/home/body/home_screen_body.dart';
-import 'package:wvems_protocols/ui/views/home/search/home_screen_expandable_body.dart';
+import 'package:wvems_protocols/ui/views/home/search/home_search_expanded.dart';
 
-class HomeScreenStack extends StatelessWidget {
+class HomeHeaderStack extends StatelessWidget {
   // spec: https://github.com/bnxm/material_floating_search_bar/blob/master/example/lib/main.dart
 
   final actions = [
@@ -53,7 +53,7 @@ class HomeScreenStack extends StatelessWidget {
       transition: CircularFloatingSearchBarTransition(),
 
       /// When search bar is clicked, this widget is shown
-      builder: (context, _) => HomeScreenExpandableBody(),
+      builder: (context, _) => HomeSearchExpanded(),
 
       /// This is the default widget shown behind the search bar + expandable body
       body: HomeScreenBody(),
