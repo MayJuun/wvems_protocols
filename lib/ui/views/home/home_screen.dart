@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 import 'package:wvems_protocols/ui/views/home/fab/home_fab.dart';
-import 'package:wvems_protocols/ui/views/home/header/home_search_bar.dart';
-import 'package:wvems_protocols/ui/views/home/home_screen_stack.dart';
+import 'package:wvems_protocols/ui/views/home/header/home_screen_stack.dart';
 import 'package:wvems_protocols/ui/views/home/home_state_testing.dart';
+import 'package:wvems_protocols/ui/views/home/search/home_search_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -17,8 +17,6 @@ class HomeScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          // // todo: reimplement
-          // appBar: homeAppBar(context),
           drawer: StyledNavDrawer(),
           body: GetBuilder<SearchController>(
             init: SearchController(),

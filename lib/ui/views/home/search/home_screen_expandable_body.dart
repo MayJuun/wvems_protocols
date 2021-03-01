@@ -5,8 +5,8 @@ import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 
-import 'to_remove/place.dart';
-import 'to_remove/search_model.dart';
+import '../to_remove/place.dart';
+import '../to_remove/search_model.dart';
 
 class HomeScreenExpandableBody extends StatelessWidget {
   @override
@@ -40,6 +40,7 @@ class HomeScreenExpandableBody extends StatelessWidget {
     );
   }
 
+  /// This shows the 'history' of previous items that have been searched for in the past
   Widget buildItem(BuildContext context, Place place) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;

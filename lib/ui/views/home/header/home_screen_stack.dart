@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/ui/views/home/home_screen_body.dart';
-import 'package:wvems_protocols/ui/views/home/home_screen_expandable_body.dart';
+import 'package:wvems_protocols/ui/views/home/body/home_screen_body.dart';
+import 'package:wvems_protocols/ui/views/home/search/home_screen_expandable_body.dart';
 
 class HomeScreenStack extends StatelessWidget {
   // spec: https://github.com/bnxm/material_floating_search_bar/blob/master/example/lib/main.dart
 
   final actions = [
+    /// Actions shown on the right of the search bar
     FloatingSearchBarAction(
       showIfOpened: false,
       child: CircularButton(
+        // todo: change/implement onPressed
         icon: const Icon(Icons.place),
         onPressed: () {},
       ),
@@ -49,7 +51,11 @@ class HomeScreenStack extends StatelessWidget {
       // onQueryChanged: model.onQueryChanged,
       scrollPadding: EdgeInsets.zero,
       transition: CircularFloatingSearchBarTransition(),
+
+      /// When search bar is clicked, this widget is shown
       builder: (context, _) => HomeScreenExpandableBody(),
+
+      /// This is the default widget shown behind the search bar + expandable body
       body: HomeScreenBody(),
     );
   }
