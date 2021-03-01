@@ -11,16 +11,6 @@ class SearchController extends GetxController {
 
   final SearchModel model = SearchModel();
 
-  int _index = 0;
-  int get index => _index;
-  set index(int value) {
-    _index = min(value, 2);
-    _index == 2
-        ? floatingSearchBarController.hide()
-        : floatingSearchBarController.show();
-    update();
-  }
-
   @override
   void onClose() {
     floatingSearchBarController.dispose();
