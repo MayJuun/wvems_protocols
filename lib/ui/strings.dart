@@ -25,6 +25,8 @@ class _Strings {
   String NAV_MODE_SYSTEM = 'Match System';
   String NAV_OK = 'OK';
 
+  String SEARCH_BAR_HINT = 'Search Protocols';
+
   String WOMP_WOMP = 'Nothing Here!\nWomp Womp';
 
   //todo: remove

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/home/body/home_screen_body.dart';
 import 'package:wvems_protocols/ui/views/home/search/home_search_expanded.dart';
 
@@ -13,9 +14,10 @@ class HomeHeaderStack extends StatelessWidget {
     FloatingSearchBarAction(
       showIfOpened: false,
       child: CircularButton(
-        // todo: change/implement onPressed
-        icon: const Icon(Icons.place),
-        onPressed: () {},
+        icon: const Icon(Icons.help),
+        onPressed: () {
+          // todo: add help dialog vs how to use
+        },
       ),
     ),
     FloatingSearchBarAction.searchToClear(
@@ -34,8 +36,7 @@ class HomeHeaderStack extends StatelessWidget {
       automaticallyImplyBackButton: false,
       controller: searchController.floatingSearchBarController,
       clearQueryOnClose: true,
-      // todo: update/extract
-      hint: 'hint goes here',
+      hint: S.SEARCH_BAR_HINT,
       iconColor: Colors.grey,
       transitionDuration: const Duration(milliseconds: 800),
       transitionCurve: Curves.easeInOutCubic,
@@ -46,7 +47,7 @@ class HomeHeaderStack extends StatelessWidget {
       actions: actions,
       // todo: reimplement
       // progress: model.isLoading,
-      debounceDelay: const Duration(milliseconds: 500),
+      debounceDelay: const Duration(milliseconds: 400),
       // todo: reimplement
       // onQueryChanged: model.onQueryChanged,
       scrollPadding: EdgeInsets.zero,
