@@ -23,6 +23,8 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   String errorMessage = '';
   String pathPDF = '';
 
+  Orientation currentOrientation = Get.context.orientation;
+
   /// Unique Key required for screen layout changes in Android
   /// More details about this bug and its solution available here
   /// https://github.com/endigo/flutter_pdfview/issues/9#issuecomment-621162440
@@ -55,10 +57,16 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
       _resetPdfUI();
     });
 
+    await _createNewPdfController();
+
+    return newValue;
+  }
+
+  Future<bool> _createNewPdfController() async {
     final newController = await complete();
     setOrResetRxPdfController(newController);
     update();
-    return newValue;
+    return true;
   }
 
   void _resetPdfUI() {
@@ -105,16 +113,27 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   }
 
   @override
-  void didChangeMetrics() {
+  Future<void> didChangeMetrics() async {
     if (Platform.isAndroid) {
-      // todo: this needs to NOT change whenever the Material Floating Search Bar is shown/hidden
-      Future.delayed(
-        const Duration(milliseconds: 250),
-        () {
-          pdfViewerKey = UniqueKey();
-          update();
-        },
-      );
+      final newOrientation = Get.context.orientation;
+
+      // only trigger a redraw if the orientation changes
+      if (newOrientation != currentOrientation) {
+        await Future.delayed(
+          const Duration(milliseconds: 200),
+          () async {
+            // create new unique key, which triggers a new instance of PdfView
+            pdfViewerKey = UniqueKey();
+            // todo: close original controller, otherwise error
+            // W/System  (12745): A resource failed to call release
+            // todo: occasionally, this will not redraw on portrait/landscape swap
+            // this new instance of PdfView needs to be tied to a new controller
+            await _createNewPdfController();
+            currentOrientation = newOrientation;
+            update();
+          },
+        );
+      }
     }
   }
 
