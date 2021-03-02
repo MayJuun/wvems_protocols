@@ -45,11 +45,10 @@ class HomeHeaderStack extends StatelessWidget {
       openAxisAlignment: 0.0,
       maxWidth: isPortrait ? 600 : 500,
       actions: actions,
-      // todo: reimplement
-      // progress: model.isLoading,
+      progress: searchController.isLoading.value,
       debounceDelay: const Duration(milliseconds: 400),
-      // todo: reimplement
-      // onQueryChanged: model.onQueryChanged,
+      onQueryChanged: (String newValue) async =>
+          await searchController.onQueryChanged(newValue),
       scrollPadding: EdgeInsets.zero,
       transition: CircularFloatingSearchBarTransition(),
 

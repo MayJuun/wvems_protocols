@@ -5,14 +5,10 @@ import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/views/home/search/home_search_item.dart';
 
-import '../to_remove/place.dart';
-
 class HomeSearchExpanded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final SearchController searchController = Get.find();
     final PdfStateController pdfStateController = Get.find();
-    final model = searchController.model;
 
     return Material(
       color: Colors.white,
@@ -22,7 +18,6 @@ class HomeSearchExpanded extends StatelessWidget {
         shrinkWrap: true,
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
-        // items: model.suggestions.take(6).toList(),
         items: pdfStateController.pdfPageText.items.take(6).toList(),
         areItemsTheSame: (a, b) => a == b,
         itemBuilder: (context, animation, text, i) {
