@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
+import 'package:wvems_protocols/controllers/controllers.dart';
 
-import 'package:wvems_protocols/controllers/theme_service.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 
@@ -151,7 +151,7 @@ class StyledNavDrawer extends StatelessWidget {
 
   // pop-op dialog for "Settings"
   void _displaySettingsDialog(BuildContext context) {
-    final ThemeService themeService = Get.find();
+    final ThemeController themeService = Get.find();
     Get.back();
     showDialog(
       context: context,

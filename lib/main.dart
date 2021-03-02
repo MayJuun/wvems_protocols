@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/controllers/theme_service.dart';
+import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/views/views.dart';
 
 Future<void> main() async {
@@ -11,16 +11,16 @@ Future<void> main() async {
 
 // Theme uses GetxService so that it isn't closed during app lifecycle
 Future<void> _initServices() async {
-  await Get.putAsync<ThemeService>(() => ThemeService().init());
+  await Get.putAsync<ThemeController>(() => ThemeController().init());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeService.to.lightTheme.themeData,
-      darkTheme: ThemeService.to.darkTheme.themeData,
-      themeMode: ThemeService.to.themeMode,
+      theme: ThemeController.to.lightTheme.themeData,
+      darkTheme: ThemeController.to.darkTheme.themeData,
+      themeMode: ThemeController.to.themeMode,
       home: HomeScreen(),
     );
   }

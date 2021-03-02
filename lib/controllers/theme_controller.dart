@@ -6,8 +6,8 @@ import 'package:wvems_protocols/themes.dart';
 
 // spec: https://gist.github.com/RodBr/37310335c6639f486bb3c8a628052405
 
-class ThemeService extends GetxService {
-  static ThemeService get to => Get.find();
+class ThemeController extends GetxService {
+  static ThemeController get to => Get.find();
 
   SharedPreferences prefs;
 
@@ -47,7 +47,7 @@ class ThemeService extends GetxService {
     return (b == Brightness.dark) ? _darkTheme : _lightTheme;
   }
 
-  Future<ThemeService> init() async {
+  Future<ThemeController> init() async {
     await getThemeModeFromPreferences();
     return this;
   }
