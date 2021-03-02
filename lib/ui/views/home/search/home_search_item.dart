@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/ui/views/home/to_remove/place.dart';
 
 import '../to_remove/search_model.dart';
 
 /// This shows the 'history' of previous items that have been searched for in the past
 class HomeSearchItem extends StatelessWidget {
-  const HomeSearchItem({Key key, this.place}) : super(key: key);
+  const HomeSearchItem({Key key, this.text}) : super(key: key);
 
-  final Place place;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +50,12 @@ class HomeSearchItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        place.name,
+                        text,
                         style: textTheme.subtitle1,
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        place.level2Address,
+                        text,
                         style: textTheme.bodyText2
                             .copyWith(color: Colors.grey.shade600),
                       ),
@@ -67,8 +66,8 @@ class HomeSearchItem extends StatelessWidget {
             ),
           ),
         ),
-        if (model.suggestions.isNotEmpty && place != model.suggestions.last)
-          const Divider(height: 0),
+        // if (model.suggestions.isNotEmpty && text != model.suggestions.last)
+        //   const Divider(height: 0),
       ],
     );
   }

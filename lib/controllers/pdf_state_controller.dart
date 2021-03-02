@@ -12,6 +12,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// Used to manage state of the current, active PDF
   final PdfService _pdfService = PdfService();
   final Rx<PdfFile> pdfState = const PdfFile.loading().obs;
+  final PdfPageText pdfPageText = PdfPageText();
 
   /// Used for PDFView
   Completer<PDFViewController> asyncController = Completer<PDFViewController>();
