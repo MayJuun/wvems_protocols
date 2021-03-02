@@ -22,12 +22,13 @@ class HomeStateTesting extends StatelessWidget {
         ),
         RaisedButton(
           child: const Text('Loading'),
-          onPressed: () => controller.pdfState.value = const PdfFile.loading(),
+          onPressed: () =>
+              controller.pdfFileState.value = const PdfFileState.loading(),
         ),
         RaisedButton(
           child: const Text('Error'),
-          onPressed: () => controller.pdfState.value =
-              PdfFile.error('This is a sample error!', StackTrace.current),
+          onPressed: () => controller.pdfFileState.value =
+              PdfFileState.error('This is a sample error!', StackTrace.current),
         ),
       ],
     );

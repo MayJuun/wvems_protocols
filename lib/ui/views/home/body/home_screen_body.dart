@@ -11,7 +11,7 @@ class HomeScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetX<PdfStateController>(
       builder: (controller) {
-        return controller.pdfState.value.when(
+        return controller.pdfFileState.value.when(
           data: (File file) => HomePdfScreen(path: controller.pathPDF),
           error: (Object error, StackTrace stackTrace) =>
               HomeError(error: error.toString()),
