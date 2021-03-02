@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/views/views.dart';
 
@@ -9,9 +10,12 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-// Theme uses GetxService so that it isn't closed during app lifecycle
 Future<void> _initServices() async {
-  await Get.putAsync<ThemeController>(() => ThemeController().init());
+  await GetStorage.init();
+  Get.put<StorageController>(StorageController());
+  await StorageController.to.getFirstLoadInfoFromStore();
+  Get.put<ThemeController>(ThemeController());
+  await ThemeController.to.getThemeModeFromStore();
 }
 
 class MyApp extends StatelessWidget {
