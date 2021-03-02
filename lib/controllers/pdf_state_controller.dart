@@ -11,7 +11,7 @@ import 'package:wvems_protocols/services/services.dart';
 class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// Used to manage state of the current, active PDF
   final PdfService _pdfService = PdfService();
-  final Rx<Pdf> pdfState = const Pdf.loading().obs;
+  final Rx<PdfFile> pdfState = const PdfFile.loading().obs;
 
   /// Used for PDFView
   Completer<PDFViewController> asyncController = Completer<PDFViewController>();
@@ -35,11 +35,11 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// **********************************************************
 
   Future<void> loadNewPdf(String assetPath) async {
-    pdfState.value = const Pdf.loading();
+    pdfState.value = const PdfFile.loading();
     final newValue = await _updatePdfFromAsset(assetPath);
 
     if (newValue != null) {
-      pdfState.value = Pdf.data(newValue);
+      pdfState.value = PdfFile.data(newValue);
     }
   }
 
@@ -49,7 +49,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     _pdfService.fromAsset(assetPath, 'active.pdf').then((f) {
       pathPDF = f.path;
       if (f != null) {
-        pdfState.value = Pdf.data(f);
+        pdfState.value = PdfFile.data(f);
       }
 
       print('pdf loaded: ${f.path}');

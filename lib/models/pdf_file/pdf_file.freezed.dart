@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'pdf.dart';
+part of 'pdf_file.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -10,24 +10,24 @@ part of 'pdf.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-class _$PdfTearOff {
-  const _$PdfTearOff();
+class _$PdfFileTearOff {
+  const _$PdfFileTearOff();
 
 // ignore: unused_element
-  PdfData data(File file) {
-    return PdfData(
+  PdfFileData data(File file) {
+    return PdfFileData(
       file,
     );
   }
 
 // ignore: unused_element
-  PdfLoading loading() {
-    return const PdfLoading();
+  PdfFileLoading loading() {
+    return const PdfFileLoading();
   }
 
 // ignore: unused_element
-  PdfError error(Object error, StackTrace stackTrace) {
-    return PdfError(
+  PdfFileError error(Object error, StackTrace stackTrace) {
+    return PdfFileError(
       error,
       stackTrace,
     );
@@ -36,10 +36,10 @@ class _$PdfTearOff {
 
 /// @nodoc
 // ignore: unused_element
-const $Pdf = _$PdfTearOff();
+const $PdfFile = _$PdfFileTearOff();
 
 /// @nodoc
-mixin _$Pdf {
+mixin _$PdfFile {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult data(File file),
@@ -55,76 +55,78 @@ mixin _$Pdf {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfData value),
-    @required TResult loading(PdfLoading value),
-    @required TResult error(PdfError value),
+    @required TResult data(PdfFileData value),
+    @required TResult loading(PdfFileLoading value),
+    @required TResult error(PdfFileError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult data(PdfData value),
-    TResult loading(PdfLoading value),
-    TResult error(PdfError value),
+    TResult data(PdfFileData value),
+    TResult loading(PdfFileLoading value),
+    TResult error(PdfFileError value),
     @required TResult orElse(),
   });
 }
 
 /// @nodoc
-abstract class $PdfCopyWith<$Res> {
-  factory $PdfCopyWith(Pdf value, $Res Function(Pdf) then) =
-      _$PdfCopyWithImpl<$Res>;
+abstract class $PdfFileCopyWith<$Res> {
+  factory $PdfFileCopyWith(PdfFile value, $Res Function(PdfFile) then) =
+      _$PdfFileCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PdfCopyWithImpl<$Res> implements $PdfCopyWith<$Res> {
-  _$PdfCopyWithImpl(this._value, this._then);
+class _$PdfFileCopyWithImpl<$Res> implements $PdfFileCopyWith<$Res> {
+  _$PdfFileCopyWithImpl(this._value, this._then);
 
-  final Pdf _value;
+  final PdfFile _value;
   // ignore: unused_field
-  final $Res Function(Pdf) _then;
+  final $Res Function(PdfFile) _then;
 }
 
 /// @nodoc
-abstract class $PdfDataCopyWith<$Res> {
-  factory $PdfDataCopyWith(PdfData value, $Res Function(PdfData) then) =
-      _$PdfDataCopyWithImpl<$Res>;
+abstract class $PdfFileDataCopyWith<$Res> {
+  factory $PdfFileDataCopyWith(
+          PdfFileData value, $Res Function(PdfFileData) then) =
+      _$PdfFileDataCopyWithImpl<$Res>;
   $Res call({File file});
 }
 
 /// @nodoc
-class _$PdfDataCopyWithImpl<$Res> extends _$PdfCopyWithImpl<$Res>
-    implements $PdfDataCopyWith<$Res> {
-  _$PdfDataCopyWithImpl(PdfData _value, $Res Function(PdfData) _then)
-      : super(_value, (v) => _then(v as PdfData));
+class _$PdfFileDataCopyWithImpl<$Res> extends _$PdfFileCopyWithImpl<$Res>
+    implements $PdfFileDataCopyWith<$Res> {
+  _$PdfFileDataCopyWithImpl(
+      PdfFileData _value, $Res Function(PdfFileData) _then)
+      : super(_value, (v) => _then(v as PdfFileData));
 
   @override
-  PdfData get _value => super._value as PdfData;
+  PdfFileData get _value => super._value as PdfFileData;
 
   @override
   $Res call({
     Object file = freezed,
   }) {
-    return _then(PdfData(
+    return _then(PdfFileData(
       file == freezed ? _value.file : file as File,
     ));
   }
 }
 
 /// @nodoc
-class _$PdfData implements PdfData {
-  const _$PdfData(this.file) : assert(file != null);
+class _$PdfFileData implements PdfFileData {
+  const _$PdfFileData(this.file) : assert(file != null);
 
   @override
   final File file;
 
   @override
   String toString() {
-    return 'Pdf.data(file: $file)';
+    return 'PdfFile.data(file: $file)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is PdfData &&
+        (other is PdfFileData &&
             (identical(other.file, file) ||
                 const DeepCollectionEquality().equals(other.file, file)));
   }
@@ -135,8 +137,8 @@ class _$PdfData implements PdfData {
 
   @JsonKey(ignore: true)
   @override
-  $PdfDataCopyWith<PdfData> get copyWith =>
-      _$PdfDataCopyWithImpl<PdfData>(this, _$identity);
+  $PdfFileDataCopyWith<PdfFileData> get copyWith =>
+      _$PdfFileDataCopyWithImpl<PdfFileData>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -169,9 +171,9 @@ class _$PdfData implements PdfData {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfData value),
-    @required TResult loading(PdfLoading value),
-    @required TResult error(PdfError value),
+    @required TResult data(PdfFileData value),
+    @required TResult loading(PdfFileLoading value),
+    @required TResult error(PdfFileError value),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -182,9 +184,9 @@ class _$PdfData implements PdfData {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult data(PdfData value),
-    TResult loading(PdfLoading value),
-    TResult error(PdfError value),
+    TResult data(PdfFileData value),
+    TResult loading(PdfFileLoading value),
+    TResult error(PdfFileError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -195,43 +197,44 @@ class _$PdfData implements PdfData {
   }
 }
 
-abstract class PdfData implements Pdf {
-  const factory PdfData(File file) = _$PdfData;
+abstract class PdfFileData implements PdfFile {
+  const factory PdfFileData(File file) = _$PdfFileData;
 
   File get file;
   @JsonKey(ignore: true)
-  $PdfDataCopyWith<PdfData> get copyWith;
+  $PdfFileDataCopyWith<PdfFileData> get copyWith;
 }
 
 /// @nodoc
-abstract class $PdfLoadingCopyWith<$Res> {
-  factory $PdfLoadingCopyWith(
-          PdfLoading value, $Res Function(PdfLoading) then) =
-      _$PdfLoadingCopyWithImpl<$Res>;
+abstract class $PdfFileLoadingCopyWith<$Res> {
+  factory $PdfFileLoadingCopyWith(
+          PdfFileLoading value, $Res Function(PdfFileLoading) then) =
+      _$PdfFileLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PdfLoadingCopyWithImpl<$Res> extends _$PdfCopyWithImpl<$Res>
-    implements $PdfLoadingCopyWith<$Res> {
-  _$PdfLoadingCopyWithImpl(PdfLoading _value, $Res Function(PdfLoading) _then)
-      : super(_value, (v) => _then(v as PdfLoading));
+class _$PdfFileLoadingCopyWithImpl<$Res> extends _$PdfFileCopyWithImpl<$Res>
+    implements $PdfFileLoadingCopyWith<$Res> {
+  _$PdfFileLoadingCopyWithImpl(
+      PdfFileLoading _value, $Res Function(PdfFileLoading) _then)
+      : super(_value, (v) => _then(v as PdfFileLoading));
 
   @override
-  PdfLoading get _value => super._value as PdfLoading;
+  PdfFileLoading get _value => super._value as PdfFileLoading;
 }
 
 /// @nodoc
-class _$PdfLoading implements PdfLoading {
-  const _$PdfLoading();
+class _$PdfFileLoading implements PdfFileLoading {
+  const _$PdfFileLoading();
 
   @override
   String toString() {
-    return 'Pdf.loading()';
+    return 'PdfFile.loading()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PdfLoading);
+    return identical(this, other) || (other is PdfFileLoading);
   }
 
   @override
@@ -268,9 +271,9 @@ class _$PdfLoading implements PdfLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfData value),
-    @required TResult loading(PdfLoading value),
-    @required TResult error(PdfError value),
+    @required TResult data(PdfFileData value),
+    @required TResult loading(PdfFileLoading value),
+    @required TResult error(PdfFileError value),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -281,9 +284,9 @@ class _$PdfLoading implements PdfLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult data(PdfData value),
-    TResult loading(PdfLoading value),
-    TResult error(PdfError value),
+    TResult data(PdfFileData value),
+    TResult loading(PdfFileLoading value),
+    TResult error(PdfFileError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -294,32 +297,34 @@ class _$PdfLoading implements PdfLoading {
   }
 }
 
-abstract class PdfLoading implements Pdf {
-  const factory PdfLoading() = _$PdfLoading;
+abstract class PdfFileLoading implements PdfFile {
+  const factory PdfFileLoading() = _$PdfFileLoading;
 }
 
 /// @nodoc
-abstract class $PdfErrorCopyWith<$Res> {
-  factory $PdfErrorCopyWith(PdfError value, $Res Function(PdfError) then) =
-      _$PdfErrorCopyWithImpl<$Res>;
+abstract class $PdfFileErrorCopyWith<$Res> {
+  factory $PdfFileErrorCopyWith(
+          PdfFileError value, $Res Function(PdfFileError) then) =
+      _$PdfFileErrorCopyWithImpl<$Res>;
   $Res call({Object error, StackTrace stackTrace});
 }
 
 /// @nodoc
-class _$PdfErrorCopyWithImpl<$Res> extends _$PdfCopyWithImpl<$Res>
-    implements $PdfErrorCopyWith<$Res> {
-  _$PdfErrorCopyWithImpl(PdfError _value, $Res Function(PdfError) _then)
-      : super(_value, (v) => _then(v as PdfError));
+class _$PdfFileErrorCopyWithImpl<$Res> extends _$PdfFileCopyWithImpl<$Res>
+    implements $PdfFileErrorCopyWith<$Res> {
+  _$PdfFileErrorCopyWithImpl(
+      PdfFileError _value, $Res Function(PdfFileError) _then)
+      : super(_value, (v) => _then(v as PdfFileError));
 
   @override
-  PdfError get _value => super._value as PdfError;
+  PdfFileError get _value => super._value as PdfFileError;
 
   @override
   $Res call({
     Object error = freezed,
     Object stackTrace = freezed,
   }) {
-    return _then(PdfError(
+    return _then(PdfFileError(
       error == freezed ? _value.error : error,
       stackTrace == freezed ? _value.stackTrace : stackTrace as StackTrace,
     ));
@@ -327,8 +332,8 @@ class _$PdfErrorCopyWithImpl<$Res> extends _$PdfCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$PdfError implements PdfError {
-  const _$PdfError(this.error, this.stackTrace)
+class _$PdfFileError implements PdfFileError {
+  const _$PdfFileError(this.error, this.stackTrace)
       : assert(error != null),
         assert(stackTrace != null);
 
@@ -339,13 +344,13 @@ class _$PdfError implements PdfError {
 
   @override
   String toString() {
-    return 'Pdf.error(error: $error, stackTrace: $stackTrace)';
+    return 'PdfFile.error(error: $error, stackTrace: $stackTrace)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is PdfError &&
+        (other is PdfFileError &&
             (identical(other.error, error) ||
                 const DeepCollectionEquality().equals(other.error, error)) &&
             (identical(other.stackTrace, stackTrace) ||
@@ -361,8 +366,8 @@ class _$PdfError implements PdfError {
 
   @JsonKey(ignore: true)
   @override
-  $PdfErrorCopyWith<PdfError> get copyWith =>
-      _$PdfErrorCopyWithImpl<PdfError>(this, _$identity);
+  $PdfFileErrorCopyWith<PdfFileError> get copyWith =>
+      _$PdfFileErrorCopyWithImpl<PdfFileError>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -395,9 +400,9 @@ class _$PdfError implements PdfError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfData value),
-    @required TResult loading(PdfLoading value),
-    @required TResult error(PdfError value),
+    @required TResult data(PdfFileData value),
+    @required TResult loading(PdfFileLoading value),
+    @required TResult error(PdfFileError value),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -408,9 +413,9 @@ class _$PdfError implements PdfError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult data(PdfData value),
-    TResult loading(PdfLoading value),
-    TResult error(PdfError value),
+    TResult data(PdfFileData value),
+    TResult loading(PdfFileLoading value),
+    TResult error(PdfFileError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -421,11 +426,12 @@ class _$PdfError implements PdfError {
   }
 }
 
-abstract class PdfError implements Pdf {
-  const factory PdfError(Object error, StackTrace stackTrace) = _$PdfError;
+abstract class PdfFileError implements PdfFile {
+  const factory PdfFileError(Object error, StackTrace stackTrace) =
+      _$PdfFileError;
 
   Object get error;
   StackTrace get stackTrace;
   @JsonKey(ignore: true)
-  $PdfErrorCopyWith<PdfError> get copyWith;
+  $PdfFileErrorCopyWith<PdfFileError> get copyWith;
 }
