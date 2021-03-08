@@ -4,15 +4,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
+import 'package:pdf_text/pdf_text.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/services/services.dart';
 
 class PdfStateController extends GetxController with WidgetsBindingObserver {
-  /// Used to manage state of the current, active PDF
+  /// Used to load current, active PDF via file or web
   final PdfService _pdfService = PdfService();
+
+  /// Used to manage state of stored text (PdfDoc), active file (PdfFile), and recent search history (PdfPageText)
+  final Rx<PdfDocState> pdfDocState = const PdfDocState.loading().obs;
   final Rx<PdfFileState> pdfFileState = const PdfFileState.loading().obs;
+  // todo: replace w/ search history list, stored via GetStorage
   final PdfPageText pdfPageText = PdfPageText();
+  final RxList<String> rxPageText = <String>[].obs;
 
   /// Used for PDFView
   Completer<PDFViewController> asyncController = Completer<PDFViewController>();
@@ -37,11 +43,26 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
 
   Future<void> loadNewPdf(String assetPath) async {
     pdfFileState.value = const PdfFileState.loading();
-    final newValue = await _updatePdfFromAsset(assetPath);
+    final newFile = await _updatePdfFromAsset(assetPath);
 
-    if (newValue != null) {
-      pdfFileState.value = PdfFileState.data(newValue);
+    if (newFile != null) {
+      // todo: implement error handling for PdfFiles & PdfDocs
+      pdfFileState.value = PdfFileState.data(newFile);
+      final newPdfDoc = await PDFDoc.fromFile(newFile);
+      pdfDocState.value = PdfDocState.data(newPdfDoc);
+      final newList = await _loadAllPdfText(newPdfDoc);
+      rxPageText.assignAll(newList);
+      print('file saved');
     }
+  }
+
+  Future<List<String>> _loadAllPdfText(PDFDoc pdfDoc) async {
+    final List<String> newList = [];
+    pdfDoc.pages.forEach((page) async {
+      await page.text.then((value) => newList.add(value));
+    });
+    print('done..p1');
+    return newList;
   }
 
   Future<File> _updatePdfFromAsset(String assetPath) async {
