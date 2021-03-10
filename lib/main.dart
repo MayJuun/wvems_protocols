@@ -1,31 +1,37 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/ui/views/views.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await _initServices();
   runApp(MyApp());
-}
-
-Future<void> _initServices() async {
-  await GetStorage.init();
-  Get.put<StorageController>(StorageController());
-  await StorageController.to.getFirstLoadInfoFromStore();
-  Get.put<ThemeController>(ThemeController());
-  await ThemeController.to.getThemeModeFromStore();
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme: ThemeController.to.lightTheme.themeData,
-      darkTheme: ThemeController.to.darkTheme.themeData,
-      themeMode: ThemeController.to.themeMode,
+    return MaterialApp(
       home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final Completer<PDFViewController> _controller =
+        Completer<PDFViewController>();
+    return Scaffold(
+      body: PDF(
+          enableSwipe: true,
+          onViewCreated: (PDFViewController pdfViewController) {
+            _controller.complete(pdfViewController);
+          }).fromAsset('assets/pdf/wvems_protocols_2020.pdf'),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.home),
+        onPressed: () async => (await _controller.future).setPage(0),
+      ),
     );
   }
 }
