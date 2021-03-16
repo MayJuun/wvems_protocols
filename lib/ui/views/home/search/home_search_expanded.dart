@@ -9,6 +9,7 @@ class HomeSearchExpanded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PdfStateController pdfStateController = Get.find();
+    final SearchController searchController = Get.find();
 
     return Material(
       color: Colors.white,
