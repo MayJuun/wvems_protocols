@@ -80,6 +80,7 @@ class SearchController extends GetxController {
             }
           },
         );
+        print('');
         return foundStrings;
       }
     }

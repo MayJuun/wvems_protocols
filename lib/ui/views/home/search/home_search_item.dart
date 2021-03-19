@@ -23,6 +23,7 @@ class HomeSearchItem extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
+            //todo: this is where we will go to the next page
             FloatingSearchBar.of(context).close();
             Future.delayed(
               const Duration(milliseconds: 500),
@@ -50,6 +51,7 @@ class HomeSearchItem extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // todo: search terms go here
                       Text(
                         text,
                         style: textTheme.subtitle1,
