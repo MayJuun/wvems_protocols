@@ -180,7 +180,7 @@ class StyledNavDrawer extends StatelessWidget {
               onChanged: (ThemeMode value) =>
                   themeService.setThemeMode(ThemeMode.system),
             ),
-            FlatButton(
+            TextButton(
               child: Text(S.NAV_OK),
               onPressed: () => Get.back(),
             ),
@@ -206,7 +206,7 @@ class StyledNavDrawer extends StatelessWidget {
               textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 12.0),
-            FlatButton(
+            TextButton(
               child: Text(S.NAV_OK),
               onPressed: () {
                 Get.back();
@@ -230,7 +230,7 @@ class StyledNavDrawer extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           children: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text(S.NAV_OK),
               onPressed: () {
                 Get.back();
