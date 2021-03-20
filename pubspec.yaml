@@ -1,9 +1,6 @@
 name: wvems_protocols
 description: A new Flutter project.
 
-publish_to: 'none' 
-version: 1.0.0+1
-
 environment:
   sdk: ">=2.12.1 <3.0.0"
 
