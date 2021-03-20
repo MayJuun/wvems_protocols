@@ -12,20 +12,20 @@ class HomeStateTesting extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        RaisedButton(
+        ElevatedButton(
           child: const Text('2020'),
           onPressed: () => controller.loadNewPdf(AppAssets.PROTOCOL_2020),
         ),
-        RaisedButton(
+        ElevatedButton(
           child: const Text('2019'),
           onPressed: () => controller.loadNewPdf(AppAssets.PROTOCOL_2019),
         ),
-        RaisedButton(
+        ElevatedButton(
           child: const Text('Loading'),
           onPressed: () =>
               controller.pdfFileState.value = const PdfFileState.loading(),
         ),
-        RaisedButton(
+        ElevatedButton(
           child: const Text('Error'),
           onPressed: () => controller.pdfFileState.value =
               PdfFileState.error('This is a sample error!', StackTrace.current),

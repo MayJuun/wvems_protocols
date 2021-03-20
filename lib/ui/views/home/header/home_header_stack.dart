@@ -43,7 +43,6 @@ class HomeHeaderStack extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       axisAlignment: isPortrait ? 0.0 : -1.0,
       openAxisAlignment: 0.0,
-      maxWidth: isPortrait ? 600 : 500,
       actions: actions,
       progress: searchController.isLoading.value,
       debounceDelay: const Duration(milliseconds: 400),

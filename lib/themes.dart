@@ -118,10 +118,12 @@ class AppTheme {
         typography: Typography.material2018(),
         accentTextTheme: _buildTextTheme().apply(bodyColor: accentTxt),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        textSelectionColor: grey,
-        textSelectionHandleColor: Colors.transparent,
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: primary,
+          selectionColor: grey,
+          selectionHandleColor: Colors.transparent,
+        ),
         buttonColor: primary,
-        cursorColor: primary,
         highlightColor: primary,
         toggleableActiveColor: primary);
   }
