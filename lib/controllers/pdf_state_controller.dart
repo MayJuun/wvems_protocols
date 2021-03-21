@@ -17,8 +17,8 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final Rx<PdfDocState> pdfDocState = const PdfDocState.loading().obs;
   final Rx<PdfFileState> pdfFileState = const PdfFileState.loading().obs;
   // todo: replace w/ search history list, stored via GetStorage
-  final PdfPageText pdfPageText = PdfPageText();
-  final RxList<String> rxPageText = <String>[].obs;
+  final PdfSearchHistory pdfSearchHistory = PdfSearchHistory();
+  final RxList<String> pdfTextList = <String>[].obs;
 
   /// Used for PDFView
   Completer<PDFViewController> asyncController = Completer<PDFViewController>();
@@ -26,8 +26,8 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
 
   int pages = 0;
   int currentPage = 0;
-  bool isReady = false;
-  String errorMessage = '';
+  final isReady = false.obs;
+  final errorMessage = ''.obs;
   String pathPDF = '';
 
   Orientation currentOrientation = Get.context.orientation;
@@ -51,7 +51,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
       final newPdfDoc = await PDFDoc.fromFile(newFile);
       pdfDocState.value = PdfDocState.data(newPdfDoc);
       final newList = await _loadAllPdfText(newPdfDoc);
-      rxPageText.assignAll(newList);
+      pdfTextList.assignAll(newList);
       print('file saved');
     }
   }
@@ -165,18 +165,18 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
 
   void onPdfRender(int newPage) {
     pages = newPage;
-    isReady = true;
+    isReady.value = true;
     update();
   }
 
   void onPdfError(dynamic error) {
-    errorMessage = error.toString();
+    errorMessage.value = error.toString();
     update();
     print(error.toString());
   }
 
   void onPdfPageError(int page, dynamic error) {
-    errorMessage = '$page: ${error.toString()}';
+    errorMessage.value = '$page: ${error.toString()}';
     update();
     print('$page: ${error.toString()}');
   }
@@ -196,6 +196,8 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   }
 
   void onPdfPageChanged(int page, int total) {
+    /// Interestingly, iOS calls this method twice on handling internal hyperlinks
+    /// Android does not. It only calls this method once
     print('page change: $page/$total');
     currentPage = page;
     update();
