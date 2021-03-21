@@ -24,7 +24,7 @@ class HomePdfScreen extends StatelessWidget {
             autoSpacing: true,
             pageFling: true,
             pageSnap: true,
-            defaultPage: controller.currentPage,
+            defaultPage: controller.currentPage.value,
             fitPolicy: FitPolicy.BOTH,
             // if set to true, the link is handled in flutter
             preventLinkNavigation: false,

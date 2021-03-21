@@ -84,6 +84,7 @@ class SearchController extends GetxController {
         return foundStrings;
       }
     }
+
     // todo: reimplement if (query == _query) { return; }
     // this will make it so that the query doesn't show isLoading content
 
