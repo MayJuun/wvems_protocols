@@ -12,38 +12,41 @@ class HomePdfScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final PdfStateController controller = Get.find();
 
-    return Stack(
-      children: <Widget>[
-        PDFView(
-          filePath: path,
-          // required for Android
-          key: controller.pdfViewerKey,
-          enableSwipe: true,
-          swipeHorizontal: false,
-          autoSpacing: true,
-          pageFling: true,
-          pageSnap: true,
-          defaultPage: controller.currentPage,
-          fitPolicy: FitPolicy.BOTH,
-          // if set to true, the link is handled in flutter
-          preventLinkNavigation: false,
-          onRender: controller.onPdfRender,
-          onError: controller.onPdfError,
-          onPageError: controller.onPdfPageError,
-          onViewCreated: controller.onPdfViewCreated,
-          onLinkHandler: controller.onPdfLinkHandler,
-          onPageChanged: controller.onPdfPageChanged,
-        ),
-        // controller.errorMessage.isEmpty
-        //     ? !controller.isReady
-        //         ? const Center(
-        //             child: CircularProgressIndicator(),
-        //           )
-        //         : Container()
-        //     : Center(
-        //         child: Text(controller.errorMessage),
-        //       ),
-      ],
+    return Obx(
+      () => Stack(
+        children: <Widget>[
+          PDFView(
+            filePath: path,
+            // required for Android
+            key: controller.pdfViewerKey,
+            enableSwipe: true,
+            swipeHorizontal: false,
+            autoSpacing: true,
+            pageFling: true,
+            pageSnap: true,
+            defaultPage: controller.currentPage,
+            fitPolicy: FitPolicy.BOTH,
+            // if set to true, the link is handled in flutter
+            preventLinkNavigation: false,
+            onRender: controller.onPdfRender,
+            onError: controller.onPdfError,
+            onPageError: controller.onPdfPageError,
+            onViewCreated: controller.onPdfViewCreated,
+            onLinkHandler: controller.onPdfLinkHandler,
+            onPageChanged: controller.onPdfPageChanged,
+          ),
+          // only display the PDFView screen if the 'isReady' tag is true
+          controller.errorMessage.isEmpty
+              ? !controller.isReady.value
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Container()
+              : Center(
+                  child: Text(controller.errorMessage.value),
+                ),
+        ],
+      ),
     );
   }
 }

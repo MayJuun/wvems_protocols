@@ -1,5 +1,5 @@
-// todo: replace with PdfPageHistory class, stored locally via GetStorage
-class PdfPageText {
+// todo: store search history locally via GetStorage
+class PdfSearchHistory {
   List<String> items = [
     'item 1',
     'item 2',

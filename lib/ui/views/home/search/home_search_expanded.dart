@@ -19,7 +19,7 @@ class HomeSearchExpanded extends StatelessWidget {
         shrinkWrap: true,
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
-        items: pdfStateController.pdfPageText.items.take(6).toList(),
+        items: pdfStateController.pdfSearchHistory.items.take(6).toList(),
         areItemsTheSame: (a, b) => a == b,
         itemBuilder: (context, animation, text, i) {
           return SizeFadeTransition(

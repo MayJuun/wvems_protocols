@@ -16,7 +16,7 @@ class HomeSearchItem extends StatelessWidget {
 
     final SearchController searchController = Get.find();
     final PdfStateController pdfStateController = Get.find();
-    final pdfPageText = pdfStateController.pdfPageText;
+    final pdfPageText = pdfStateController.pdfSearchHistory;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
