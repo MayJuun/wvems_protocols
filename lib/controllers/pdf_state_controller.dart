@@ -18,7 +18,8 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
 
   /// Used to parse all text of the currently active file, when necessary
   final Rx<PdfDocState> pdfDocState = const PdfDocState.loading().obs;
-  final RxList<String> pdfTextList = <String>[].obs;
+  final Rx<PdfTextListState> pdfTextListState =
+      const PdfTextListState.loading().obs;
 
   /// Recent search history for this app, stored locally
   // todo: connect pdfSearchHistory to GetStorage
@@ -55,14 +56,14 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
 
         /// Then, check and see if pdfDoc / text need to be updated
         /// This is an expensive operation, so it should only happen if necessary
-        _loadNewPdfText();
+        _loadNewPdfText(newFile);
         print('file saved');
       } else {
         pdfFileState.value = PdfFileState.error(
             'Error: File asset path is empty', StackTrace.current);
       }
-    } catch (e, s) {
-      pdfFileState.value = PdfFileState.error(e, s);
+    } catch (e, st) {
+      pdfFileState.value = PdfFileState.error(e, st);
     }
   }
 
@@ -124,17 +125,61 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// *************** PDF TEXT STATE METHODS *******************
   /// **********************************************************
 
-  Future<void> _loadNewPdfText() async {
-    // final newPdfDoc = await PDFDoc.fromFile(newFile);
-    // pdfDocState.value = PdfDocState.data(newPdfDoc);
+  Future<void> _loadNewPdfText(File newFile) async {
+    final newDoc = await PDFDoc.fromFile(newFile);
+
+    if (newDoc != null) {
+      ///  Check prior PDFDoc info. If different, then reload all text
+      pdfDocState.value.when(
+        data: (data) {
+          if (data.info == newDoc.info) {
+            return;
+          } else {
+            _readAndSavePdfDoc(newDoc);
+          }
+        },
+        loading: () => _readAndSavePdfDoc(newDoc),
+        error: (e, st) => _readAndSavePdfDoc(newDoc),
+      );
+    } else {
+      pdfFileState.value = PdfFileState.error(
+          'Error: Unable to read PDF text', StackTrace.current);
+    }
   }
-  //  Future<List<String>> getPDFtextPaginated(String path) async {
-  //   List<String> textList = <String>[];
-  //   try {
-  //     textList = await ReadPdfText.getPDFtextPaginated(path);
-  //   } on PlatformException {}
-  //   return textList;
-  // }
+
+  Future<bool> _readAndSavePdfDoc(PDFDoc pdfDoc) async {
+    pdfDocState.value = const PdfDocState.loading();
+
+    try {
+      // todo: read PDF data here, as low priority task
+      // await _readAndSavePdfText(pdfDoc);
+      // pdfDocState.value = PdfDocState.data(pdfDoc);
+
+      // print('all text loaded!');
+    } catch (e, st) {
+      pdfDocState.value = PdfDocState.error(e, st);
+    }
+    return true;
+  }
+
+  Future<bool> _readAndSavePdfText(PDFDoc pdfDoc) async {
+    pdfTextListState.value = const PdfTextListState.loading();
+    try {
+      // todo: read each page, low priority task
+      // final allPagesText = <String>[];
+      // pdfDoc.pages.forEach(
+      //   (page) async {
+      //     final pageText = await page.text;
+      //     allPagesText.add(pageText);
+      //   },
+      // );
+      // pdfTextListState.value = PdfTextListState.data(allPagesText);
+    } catch (e, st) {
+      pdfTextListState.value = PdfTextListState.error(e, st);
+    }
+
+    return true;
+  }
 
   /// **********************************************************
   /// ****************** OVERRIDEN METHODS *********************
