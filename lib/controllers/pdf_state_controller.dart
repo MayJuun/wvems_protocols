@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
-import 'package:pdf_text/pdf_text.dart';
+import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/services/services.dart';
@@ -53,9 +55,8 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
         /// First, save newly loaded file under PdfFileState
         pdfFileState.value = PdfFileState.data(newFile);
 
-        /// Then, check and see if pdfDoc / text need to be updated
-        /// This is an expensive operation, so it should only happen if necessary
-        _loadNewPdfText(newFile.path);
+        /// Then, find/load the JSON file that contains all text
+        _loadNewPdfText(AssetsUtil().pdfToJson(assetPath));
         print('file saved');
       } else {
         pdfFileState.value = PdfFileState.error(
@@ -125,78 +126,17 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// **********************************************************
 
   Future<void> _loadNewPdfText(String assetPath) async {
-    // final newDoc = await PDFDoc.fromPath(assetPath);
-    // print('load pdfdoc');
+    pdfTextListState.value = const PdfTextListState.loading();
 
-    // if (newDoc != null) {
-    //   final textStrings = await _readAndSavePdfDoc(newDoc);
-    //   print('donezo');
-
-    ///  Check prior PDFDoc info. If different, then reload all text
-    // pdfDocState.value.when(
-    //   data: (data) {
-    //     if (data.info == newDoc.info) {
-    //       return;
-    //     } else {
-    //       _readAndSavePdfDoc(newDoc);
-    //     }
-    //   },
-    //   loading: () => _readAndSavePdfDoc(newDoc),
-    //   error: (e, st) => _readAndSavePdfDoc(newDoc),
-    // );
-    // } else {
-    //   pdfFileState.value = PdfFileState.error(
-    //       'Error: Unable to read PDF text', StackTrace.current);
-    // }
+    try {
+      final jsonString = await rootBundle.loadString(assetPath);
+      final textList = jsonDecode(jsonString);
+      pdfTextListState.value = PdfTextListState.data(textList);
+      print('pdf text loaded');
+    } catch (e, st) {
+      pdfTextListState.value = PdfTextListState.error(e, st);
+    }
   }
-
-  Future<void> _readAndSavePdfDoc(PDFDoc pdfDoc) async {
-    // pdfDocState.value = const PdfDocState.loading();
-
-    final Map<int, String> textStrings = {};
-
-    // try {
-    // todo: read PDF data here, as low priority task
-    // final allText = await pdfDoc.text;
-    // await _readAndSavePdfText(pdfDoc);
-    // pdfDocState.value = PdfDocState.data(pdfDoc);
-
-    // pdfDoc.pages.forEach(
-    //   (PDFPage e) async {
-    //     final newText = await e.text;
-    //     print(newText);
-    //     final index = e.number - 1;
-    //     textStrings[index] = newText;
-    //   },
-    // );
-
-    //   print('pdfDocDone loaded!');
-    // } catch (e, st) {
-    //   pdfDocState.value = PdfDocState.error(e, st);
-    // }
-    // return textStrings;
-  }
-
-  // Future<bool> _readAndSavePdfText(PDFDoc pdfDoc) async {
-  //   pdfTextListState.value = const PdfTextListState.loading();
-  //   try {
-  //     // todo: read each page, low priority task
-  //     final allPagesText = <String>[];
-  //     pdfDoc.pages.forEach(
-  //       (page) async {
-  //         final pageText = await page.text;
-  //         allPagesText.add(pageText);
-  //       },
-  //     );
-  //     pdfTextListState.value = PdfTextListState.data(allPagesText);
-
-  //     print('all text loaded!');
-  //   } catch (e, st) {
-  //     pdfTextListState.value = PdfTextListState.error(e, st);
-  //   }
-
-  //   return true;
-  // }
 
   /// **********************************************************
   /// ****************** OVERRIDEN METHODS *********************
