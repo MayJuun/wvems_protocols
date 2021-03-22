@@ -29,8 +29,6 @@ PODS:
   - nanopb/encode (2.30907.0)
   - path_provider (0.0.1):
     - Flutter
-  - pdf_text (0.0.1):
-    - Flutter
   - PromisesObjC (1.2.12)
 
 DEPENDENCIES:
@@ -38,7 +36,6 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
-  - pdf_text (from `.symlinks/plugins/pdf_text/ios`)
 
 SPEC REPOS:
   trunk:
@@ -59,8 +56,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_pdfview/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
-  pdf_text:
-    :path: ".symlinks/plugins/pdf_text/ios"
 
 SPEC CHECKSUMS:
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
@@ -73,7 +68,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 31c5b01f978a70c6cff2afc6272b3f1921614b43
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  pdf_text: 850e21d1a62672674099a07818c95a3f55030c81
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
 PODFILE CHECKSUM: 7368163408c647b7eb699d0d788ba6718e18fb8d
