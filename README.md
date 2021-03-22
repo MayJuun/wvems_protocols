@@ -34,3 +34,24 @@ Of note, you should:
 
 For VS Code, install the Dart and Flutter plugin. Set your editor to [format on save].
 
+## Converting PDF to JSON (temporary fix)
+
+Temporary workaround to turn a pdf into a JSON file
+
+```terminal
+pdfgrep -nH '.*' FILENAME.pdf | sed 'H;1h;$!d;x;y/\n/ /' | sed "s/\"/'/g" | tr -s ' ' > input.txt
+```
+
+Then:
+
+- Open the file
+- Turn all of the 'FILENAME.pdf:' elements into carriage returns
+- To the right of the index, add ':::'   (key inputs in this order    cmd + right, :, :)
+
+In terminal, run:
+
+```terminal
+jq -R -n -c '[inputs|split(":::")|{(.[0]):.[1]}] | add' input.txt > output.json
+```
+
+Finally, select and delete all ' \f ' and ' \f' fields

@@ -56,7 +56,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
 
         /// Then, check and see if pdfDoc / text need to be updated
         /// This is an expensive operation, so it should only happen if necessary
-        _loadNewPdfText(newFile);
+        _loadNewPdfText(newFile.path);
         print('file saved');
       } else {
         pdfFileState.value = PdfFileState.error(
@@ -125,61 +125,79 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// *************** PDF TEXT STATE METHODS *******************
   /// **********************************************************
 
-  Future<void> _loadNewPdfText(File newFile) async {
-    final newDoc = await PDFDoc.fromFile(newFile);
+  Future<void> _loadNewPdfText(String assetPath) async {
+    // final newDoc = await PDFDoc.fromPath(assetPath);
+    // print('load pdfdoc');
 
-    if (newDoc != null) {
-      ///  Check prior PDFDoc info. If different, then reload all text
-      pdfDocState.value.when(
-        data: (data) {
-          if (data.info == newDoc.info) {
-            return;
-          } else {
-            _readAndSavePdfDoc(newDoc);
-          }
-        },
-        loading: () => _readAndSavePdfDoc(newDoc),
-        error: (e, st) => _readAndSavePdfDoc(newDoc),
-      );
-    } else {
-      pdfFileState.value = PdfFileState.error(
-          'Error: Unable to read PDF text', StackTrace.current);
-    }
+    // if (newDoc != null) {
+    //   final textStrings = await _readAndSavePdfDoc(newDoc);
+    //   print('donezo');
+
+    ///  Check prior PDFDoc info. If different, then reload all text
+    // pdfDocState.value.when(
+    //   data: (data) {
+    //     if (data.info == newDoc.info) {
+    //       return;
+    //     } else {
+    //       _readAndSavePdfDoc(newDoc);
+    //     }
+    //   },
+    //   loading: () => _readAndSavePdfDoc(newDoc),
+    //   error: (e, st) => _readAndSavePdfDoc(newDoc),
+    // );
+    // } else {
+    //   pdfFileState.value = PdfFileState.error(
+    //       'Error: Unable to read PDF text', StackTrace.current);
+    // }
   }
 
-  Future<bool> _readAndSavePdfDoc(PDFDoc pdfDoc) async {
+  Future<void> _readAndSavePdfDoc(PDFDoc pdfDoc) async {
     pdfDocState.value = const PdfDocState.loading();
 
-    try {
-      // todo: read PDF data here, as low priority task
-      // await _readAndSavePdfText(pdfDoc);
-      // pdfDocState.value = PdfDocState.data(pdfDoc);
+    final Map<int, String> textStrings = {};
 
-      // print('all text loaded!');
-    } catch (e, st) {
-      pdfDocState.value = PdfDocState.error(e, st);
-    }
-    return true;
+    // try {
+    // todo: read PDF data here, as low priority task
+    // final allText = await pdfDoc.text;
+    // await _readAndSavePdfText(pdfDoc);
+    // pdfDocState.value = PdfDocState.data(pdfDoc);
+
+    // pdfDoc.pages.forEach(
+    //   (PDFPage e) async {
+    //     final newText = await e.text;
+    //     print(newText);
+    //     final index = e.number - 1;
+    //     textStrings[index] = newText;
+    //   },
+    // );
+
+    //   print('pdfDocDone loaded!');
+    // } catch (e, st) {
+    //   pdfDocState.value = PdfDocState.error(e, st);
+    // }
+    // return textStrings;
   }
 
-  Future<bool> _readAndSavePdfText(PDFDoc pdfDoc) async {
-    pdfTextListState.value = const PdfTextListState.loading();
-    try {
-      // todo: read each page, low priority task
-      // final allPagesText = <String>[];
-      // pdfDoc.pages.forEach(
-      //   (page) async {
-      //     final pageText = await page.text;
-      //     allPagesText.add(pageText);
-      //   },
-      // );
-      // pdfTextListState.value = PdfTextListState.data(allPagesText);
-    } catch (e, st) {
-      pdfTextListState.value = PdfTextListState.error(e, st);
-    }
+  // Future<bool> _readAndSavePdfText(PDFDoc pdfDoc) async {
+  //   pdfTextListState.value = const PdfTextListState.loading();
+  //   try {
+  //     // todo: read each page, low priority task
+  //     final allPagesText = <String>[];
+  //     pdfDoc.pages.forEach(
+  //       (page) async {
+  //         final pageText = await page.text;
+  //         allPagesText.add(pageText);
+  //       },
+  //     );
+  //     pdfTextListState.value = PdfTextListState.data(allPagesText);
 
-    return true;
-  }
+  //     print('all text loaded!');
+  //   } catch (e, st) {
+  //     pdfTextListState.value = PdfTextListState.error(e, st);
+  //   }
+
+  //   return true;
+  // }
 
   /// **********************************************************
   /// ****************** OVERRIDEN METHODS *********************
