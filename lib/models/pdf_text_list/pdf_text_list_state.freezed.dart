@@ -14,7 +14,7 @@ class _$PdfTextListStateTearOff {
   const _$PdfTextListStateTearOff();
 
 // ignore: unused_element
-  PdfTextListStateData data(List<String> textList) {
+  PdfTextListStateData data(Map<String, dynamic> textList) {
     return PdfTextListStateData(
       textList,
     );
@@ -42,13 +42,13 @@ const $PdfTextListState = _$PdfTextListStateTearOff();
 mixin _$PdfTextListState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(List<String> textList),
+    @required TResult data(Map<String, dynamic> textList),
     @required TResult loading(),
     @required TResult error(Object error, StackTrace stackTrace),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult data(List<String> textList),
+    TResult data(Map<String, dynamic> textList),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
     @required TResult orElse(),
@@ -90,7 +90,7 @@ abstract class $PdfTextListStateDataCopyWith<$Res> {
   factory $PdfTextListStateDataCopyWith(PdfTextListStateData value,
           $Res Function(PdfTextListStateData) then) =
       _$PdfTextListStateDataCopyWithImpl<$Res>;
-  $Res call({List<String> textList});
+  $Res call({Map<String, dynamic> textList});
 }
 
 /// @nodoc
@@ -109,7 +109,7 @@ class _$PdfTextListStateDataCopyWithImpl<$Res>
     Object textList = freezed,
   }) {
     return _then(PdfTextListStateData(
-      textList == freezed ? _value.textList : textList as List<String>,
+      textList == freezed ? _value.textList : textList as Map<String, dynamic>,
     ));
   }
 }
@@ -119,7 +119,7 @@ class _$PdfTextListStateData implements PdfTextListStateData {
   const _$PdfTextListStateData(this.textList) : assert(textList != null);
 
   @override
-  final List<String> textList;
+  final Map<String, dynamic> textList;
 
   @override
   String toString() {
@@ -148,7 +148,7 @@ class _$PdfTextListStateData implements PdfTextListStateData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(List<String> textList),
+    @required TResult data(Map<String, dynamic> textList),
     @required TResult loading(),
     @required TResult error(Object error, StackTrace stackTrace),
   }) {
@@ -161,7 +161,7 @@ class _$PdfTextListStateData implements PdfTextListStateData {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult data(List<String> textList),
+    TResult data(Map<String, dynamic> textList),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
     @required TResult orElse(),
@@ -203,10 +203,10 @@ class _$PdfTextListStateData implements PdfTextListStateData {
 }
 
 abstract class PdfTextListStateData implements PdfTextListState {
-  const factory PdfTextListStateData(List<String> textList) =
+  const factory PdfTextListStateData(Map<String, dynamic> textList) =
       _$PdfTextListStateData;
 
-  List<String> get textList;
+  Map<String, dynamic> get textList;
   @JsonKey(ignore: true)
   $PdfTextListStateDataCopyWith<PdfTextListStateData> get copyWith;
 }
@@ -250,7 +250,7 @@ class _$PdfTextListStateLoading implements PdfTextListStateLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(List<String> textList),
+    @required TResult data(Map<String, dynamic> textList),
     @required TResult loading(),
     @required TResult error(Object error, StackTrace stackTrace),
   }) {
@@ -263,7 +263,7 @@ class _$PdfTextListStateLoading implements PdfTextListStateLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult data(List<String> textList),
+    TResult data(Map<String, dynamic> textList),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
     @required TResult orElse(),
@@ -381,7 +381,7 @@ class _$PdfTextListStateError implements PdfTextListStateError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(List<String> textList),
+    @required TResult data(Map<String, dynamic> textList),
     @required TResult loading(),
     @required TResult error(Object error, StackTrace stackTrace),
   }) {
@@ -394,7 +394,7 @@ class _$PdfTextListStateError implements PdfTextListStateError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult data(List<String> textList),
+    TResult data(Map<String, dynamic> textList),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
     @required TResult orElse(),

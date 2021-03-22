@@ -17,7 +17,6 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final Rx<PdfFileState> pdfFileState = const PdfFileState.loading().obs;
 
   /// Used to parse all text of the currently active file, when necessary
-  final Rx<PdfDocState> pdfDocState = const PdfDocState.loading().obs;
   final Rx<PdfTextListState> pdfTextListState =
       const PdfTextListState.loading().obs;
 
@@ -152,7 +151,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   }
 
   Future<void> _readAndSavePdfDoc(PDFDoc pdfDoc) async {
-    pdfDocState.value = const PdfDocState.loading();
+    // pdfDocState.value = const PdfDocState.loading();
 
     final Map<int, String> textStrings = {};
 
