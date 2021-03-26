@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/models/models.dart';
+import 'package:wvems_protocols/models/pdf_search/pdf_search_state.dart';
 import 'package:wvems_protocols/services/services.dart';
 
 class PdfStateController extends GetxController with WidgetsBindingObserver {
@@ -24,7 +25,8 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
 
   /// Recent search history for this app, stored locally
   // todo: connect pdfSearchHistory to GetStorage
-  final PdfSearchHistory pdfSearchHistory = PdfSearchHistory();
+  final Rx<PdfSearchState> pdfSearchState =
+      PdfSearchState.history(tempSearchHistoryList).obs;
 
   /// Used for PDFView
   Completer<PDFViewController> asyncController = Completer<PDFViewController>();

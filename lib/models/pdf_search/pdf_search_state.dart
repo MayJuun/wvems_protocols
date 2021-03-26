@@ -5,8 +5,6 @@ part 'pdf_search_state.freezed.dart';
 
 @freezed
 abstract class PdfSearchState with _$PdfSearchState {
-  factory PdfSearchState() = _PdfSearchState;
-
   // Data is the active list of strings available in search
   const factory PdfSearchState.data(List<PdfSearchStrings> searchStringList) =
       PdfSearchStateData;

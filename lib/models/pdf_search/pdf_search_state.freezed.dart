@@ -14,11 +14,6 @@ class _$PdfSearchStateTearOff {
   const _$PdfSearchStateTearOff();
 
 // ignore: unused_element
-  _PdfSearchState call() {
-    return _PdfSearchState();
-  }
-
-// ignore: unused_element
   PdfSearchStateData data(List<PdfSearchStrings> searchStringList) {
     return PdfSearchStateData(
       searchStringList,
@@ -53,16 +48,14 @@ const $PdfSearchState = _$PdfSearchStateTearOff();
 /// @nodoc
 mixin _$PdfSearchState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
+  TResult when<TResult extends Object>({
     @required TResult data(List<PdfSearchStrings> searchStringList),
     @required TResult history(List<PdfSearchStrings> searchStringList),
     @required TResult loading(),
     @required TResult error(Object error, StackTrace stackTrace),
   });
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
+  TResult maybeWhen<TResult extends Object>({
     TResult data(List<PdfSearchStrings> searchStringList),
     TResult history(List<PdfSearchStrings> searchStringList),
     TResult loading(),
@@ -70,16 +63,14 @@ mixin _$PdfSearchState {
     @required TResult orElse(),
   });
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
+  TResult map<TResult extends Object>({
     @required TResult data(PdfSearchStateData value),
     @required TResult history(PdfSearchStateHistory value),
     @required TResult loading(PdfSearchStateLoading value),
     @required TResult error(PdfSearchStateError value),
   });
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
+  TResult maybeMap<TResult extends Object>({
     TResult data(PdfSearchStateData value),
     TResult history(PdfSearchStateHistory value),
     TResult loading(PdfSearchStateLoading value),
@@ -103,115 +94,6 @@ class _$PdfSearchStateCopyWithImpl<$Res>
   final PdfSearchState _value;
   // ignore: unused_field
   final $Res Function(PdfSearchState) _then;
-}
-
-/// @nodoc
-abstract class _$PdfSearchStateCopyWith<$Res> {
-  factory _$PdfSearchStateCopyWith(
-          _PdfSearchState value, $Res Function(_PdfSearchState) then) =
-      __$PdfSearchStateCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$PdfSearchStateCopyWithImpl<$Res>
-    extends _$PdfSearchStateCopyWithImpl<$Res>
-    implements _$PdfSearchStateCopyWith<$Res> {
-  __$PdfSearchStateCopyWithImpl(
-      _PdfSearchState _value, $Res Function(_PdfSearchState) _then)
-      : super(_value, (v) => _then(v as _PdfSearchState));
-
-  @override
-  _PdfSearchState get _value => super._value as _PdfSearchState;
-}
-
-/// @nodoc
-class _$_PdfSearchState implements _PdfSearchState {
-  _$_PdfSearchState();
-
-  @override
-  String toString() {
-    return 'PdfSearchState()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _PdfSearchState);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
-    @required TResult data(List<PdfSearchStrings> searchStringList),
-    @required TResult history(List<PdfSearchStrings> searchStringList),
-    @required TResult loading(),
-    @required TResult error(Object error, StackTrace stackTrace),
-  }) {
-    assert($default != null);
-    assert(data != null);
-    assert(history != null);
-    assert(loading != null);
-    assert(error != null);
-    return $default();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
-    TResult data(List<PdfSearchStrings> searchStringList),
-    TResult history(List<PdfSearchStrings> searchStringList),
-    TResult loading(),
-    TResult error(Object error, StackTrace stackTrace),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if ($default != null) {
-      return $default();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
-    @required TResult data(PdfSearchStateData value),
-    @required TResult history(PdfSearchStateHistory value),
-    @required TResult loading(PdfSearchStateLoading value),
-    @required TResult error(PdfSearchStateError value),
-  }) {
-    assert($default != null);
-    assert(data != null);
-    assert(history != null);
-    assert(loading != null);
-    assert(error != null);
-    return $default(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
-    TResult data(PdfSearchStateData value),
-    TResult history(PdfSearchStateHistory value),
-    TResult loading(PdfSearchStateLoading value),
-    TResult error(PdfSearchStateError value),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if ($default != null) {
-      return $default(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _PdfSearchState implements PdfSearchState {
-  factory _PdfSearchState() = _$_PdfSearchState;
 }
 
 /// @nodoc
@@ -279,14 +161,12 @@ class _$PdfSearchStateData implements PdfSearchStateData {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
+  TResult when<TResult extends Object>({
     @required TResult data(List<PdfSearchStrings> searchStringList),
     @required TResult history(List<PdfSearchStrings> searchStringList),
     @required TResult loading(),
     @required TResult error(Object error, StackTrace stackTrace),
   }) {
-    assert($default != null);
     assert(data != null);
     assert(history != null);
     assert(loading != null);
@@ -296,8 +176,7 @@ class _$PdfSearchStateData implements PdfSearchStateData {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
+  TResult maybeWhen<TResult extends Object>({
     TResult data(List<PdfSearchStrings> searchStringList),
     TResult history(List<PdfSearchStrings> searchStringList),
     TResult loading(),
@@ -313,14 +192,12 @@ class _$PdfSearchStateData implements PdfSearchStateData {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
+  TResult map<TResult extends Object>({
     @required TResult data(PdfSearchStateData value),
     @required TResult history(PdfSearchStateHistory value),
     @required TResult loading(PdfSearchStateLoading value),
     @required TResult error(PdfSearchStateError value),
   }) {
-    assert($default != null);
     assert(data != null);
     assert(history != null);
     assert(loading != null);
@@ -330,8 +207,7 @@ class _$PdfSearchStateData implements PdfSearchStateData {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
+  TResult maybeMap<TResult extends Object>({
     TResult data(PdfSearchStateData value),
     TResult history(PdfSearchStateHistory value),
     TResult loading(PdfSearchStateLoading value),
@@ -421,14 +297,12 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
+  TResult when<TResult extends Object>({
     @required TResult data(List<PdfSearchStrings> searchStringList),
     @required TResult history(List<PdfSearchStrings> searchStringList),
     @required TResult loading(),
     @required TResult error(Object error, StackTrace stackTrace),
   }) {
-    assert($default != null);
     assert(data != null);
     assert(history != null);
     assert(loading != null);
@@ -438,8 +312,7 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
+  TResult maybeWhen<TResult extends Object>({
     TResult data(List<PdfSearchStrings> searchStringList),
     TResult history(List<PdfSearchStrings> searchStringList),
     TResult loading(),
@@ -455,14 +328,12 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
+  TResult map<TResult extends Object>({
     @required TResult data(PdfSearchStateData value),
     @required TResult history(PdfSearchStateHistory value),
     @required TResult loading(PdfSearchStateLoading value),
     @required TResult error(PdfSearchStateError value),
   }) {
-    assert($default != null);
     assert(data != null);
     assert(history != null);
     assert(loading != null);
@@ -472,8 +343,7 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
+  TResult maybeMap<TResult extends Object>({
     TResult data(PdfSearchStateData value),
     TResult history(PdfSearchStateHistory value),
     TResult loading(PdfSearchStateLoading value),
@@ -535,14 +405,12 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
+  TResult when<TResult extends Object>({
     @required TResult data(List<PdfSearchStrings> searchStringList),
     @required TResult history(List<PdfSearchStrings> searchStringList),
     @required TResult loading(),
     @required TResult error(Object error, StackTrace stackTrace),
   }) {
-    assert($default != null);
     assert(data != null);
     assert(history != null);
     assert(loading != null);
@@ -552,8 +420,7 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
+  TResult maybeWhen<TResult extends Object>({
     TResult data(List<PdfSearchStrings> searchStringList),
     TResult history(List<PdfSearchStrings> searchStringList),
     TResult loading(),
@@ -569,14 +436,12 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
+  TResult map<TResult extends Object>({
     @required TResult data(PdfSearchStateData value),
     @required TResult history(PdfSearchStateHistory value),
     @required TResult loading(PdfSearchStateLoading value),
     @required TResult error(PdfSearchStateError value),
   }) {
-    assert($default != null);
     assert(data != null);
     assert(history != null);
     assert(loading != null);
@@ -586,8 +451,7 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
+  TResult maybeMap<TResult extends Object>({
     TResult data(PdfSearchStateData value),
     TResult history(PdfSearchStateHistory value),
     TResult loading(PdfSearchStateLoading value),
@@ -677,14 +541,12 @@ class _$PdfSearchStateError implements PdfSearchStateError {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(), {
+  TResult when<TResult extends Object>({
     @required TResult data(List<PdfSearchStrings> searchStringList),
     @required TResult history(List<PdfSearchStrings> searchStringList),
     @required TResult loading(),
     @required TResult error(Object error, StackTrace stackTrace),
   }) {
-    assert($default != null);
     assert(data != null);
     assert(history != null);
     assert(loading != null);
@@ -694,8 +556,7 @@ class _$PdfSearchStateError implements PdfSearchStateError {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(), {
+  TResult maybeWhen<TResult extends Object>({
     TResult data(List<PdfSearchStrings> searchStringList),
     TResult history(List<PdfSearchStrings> searchStringList),
     TResult loading(),
@@ -711,14 +572,12 @@ class _$PdfSearchStateError implements PdfSearchStateError {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
+  TResult map<TResult extends Object>({
     @required TResult data(PdfSearchStateData value),
     @required TResult history(PdfSearchStateHistory value),
     @required TResult loading(PdfSearchStateLoading value),
     @required TResult error(PdfSearchStateError value),
   }) {
-    assert($default != null);
     assert(data != null);
     assert(history != null);
     assert(loading != null);
@@ -728,8 +587,7 @@ class _$PdfSearchStateError implements PdfSearchStateError {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(_PdfSearchState value), {
+  TResult maybeMap<TResult extends Object>({
     TResult data(PdfSearchStateData value),
     TResult history(PdfSearchStateHistory value),
     TResult loading(PdfSearchStateLoading value),

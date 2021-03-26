@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:wvems_protocols/models/models.dart';
 
 /// This shows the 'history' of previous items that have been searched for in the past
 class HomeSearchItem extends StatelessWidget {
-  const HomeSearchItem({Key key, this.text}) : super(key: key);
+  const HomeSearchItem({Key key, this.searchStrings}) : super(key: key);
 
-  final String text;
+  final PdfSearchStrings searchStrings;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class HomeSearchItem extends StatelessWidget {
 
     final SearchController searchController = Get.find();
     final PdfStateController pdfStateController = Get.find();
-    final pdfPageText = pdfStateController.pdfSearchHistory;
+    // final pdfPageText = pdfStateController.pdfSearchState;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -52,13 +53,31 @@ class HomeSearchItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // todo: search terms go here
-                      Text(
-                        text,
-                        style: textTheme.subtitle1,
+                      RichText(
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '...${searchStrings.beforeResult}',
+                              style: textTheme.bodyText2
+                                  .copyWith(color: Colors.grey.shade600),
+                            ),
+                            TextSpan(
+                              text: searchStrings.result,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)
+                                      .copyWith(color: Colors.grey.shade600),
+                            ),
+                            TextSpan(
+                              text: '${searchStrings.afterResult}...',
+                              style: textTheme.bodyText2
+                                  .copyWith(color: Colors.grey.shade600),
+                            ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 2),
+                      // const SizedBox(height: 2),
                       Text(
-                        text,
+                        'page ${searchStrings.pageNumber}',
                         style: textTheme.bodyText2
                             .copyWith(color: Colors.grey.shade600),
                       ),

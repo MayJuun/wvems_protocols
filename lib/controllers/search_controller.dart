@@ -43,27 +43,7 @@ class SearchController extends GetxController {
                       backgroundColor: MaterialStateProperty.all(
                           i % 2 == 0 ? Colors.grey[300] : Colors.white)),
                   onPressed: () => null,
-                  child: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                            text:
-                                '...${pageText[key].substring(indexes[i] - 20 < 0 ? 0 : indexes[i] - 20, indexes[i])}'),
-                        TextSpan(
-                            text: pageText[key].substring(
-                                indexes[i],
-                                indexes[i] + newValue.length >=
-                                        pageText[key].length
-                                    ? pageText[key].length - 1
-                                    : indexes[i] + newValue.length),
-                            style:
-                                const TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(
-                            text:
-                                '${pageText[key].substring(indexes[i] + newValue.length, indexes[i] + 20 + newValue.length >= pageText[key].length ? pageText[key].length - 1 : indexes[i] + 20 + newValue.length)}...'),
-                      ],
-                    ),
-                  ),
+                  child: Container(),
                 ),
               );
             }
@@ -104,3 +84,27 @@ class SearchController extends GetxController {
     super.onClose();
   }
 }
+
+
+
+// RichText(
+//                     text: TextSpan(
+//                       children: <TextSpan>[
+//                         TextSpan(
+//                             text:
+//                                 '...${pageText[key].substring(indexes[i] - 20 < 0 ? 0 : indexes[i] - 20, indexes[i])}'),
+//                         TextSpan(
+//                             text: pageText[key].substring(
+//                                 indexes[i],
+//                                 indexes[i] + newValue.length >=
+//                                         pageText[key].length
+//                                     ? pageText[key].length - 1
+//                                     : indexes[i] + newValue.length),
+//                             style:
+//                                 const TextStyle(fontWeight: FontWeight.bold)),
+//                         TextSpan(
+//                             text:
+//                                 '${pageText[key].substring(indexes[i] + newValue.length, indexes[i] + 20 + newValue.length >= pageText[key].length ? pageText[key].length - 1 : indexes[i] + 20 + newValue.length)}...'),
+//                       ],
+//                     ),
+//                   )
