@@ -44,7 +44,7 @@ enum ThemeType { LightMode, DarkMode }
 
 class AppTheme {
   /// Default constructor
-  AppTheme({@required this.isDark}) {
+  AppTheme({required this.isDark}) {
     txt = isDark ? _AppColors.textLight : _AppColors.textDark;
     accentTxt =
         accentTxt ?? isDark ? _AppColors.textDark : _AppColors.textLight;

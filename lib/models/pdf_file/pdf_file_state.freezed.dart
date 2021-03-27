@@ -42,29 +42,29 @@ const $PdfFileState = _$PdfFileStateTearOff();
 mixin _$PdfFileState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(File file),
-    @required TResult loading(),
-    @required TResult error(Object error, StackTrace stackTrace),
+    required TResult data(File file),
+    required TResult loading(),
+    required TResult error(Object error, StackTrace stackTrace),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult data(File file),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
-    @required TResult orElse(),
+    required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfFileStateData value),
-    @required TResult loading(PdfFileStateLoading value),
-    @required TResult error(PdfFileStateError value),
+    required TResult data(PdfFileStateData value),
+    required TResult loading(PdfFileStateLoading value),
+    required TResult error(PdfFileStateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult data(PdfFileStateData value),
     TResult loading(PdfFileStateLoading value),
     TResult error(PdfFileStateError value),
-    @required TResult orElse(),
+    required TResult orElse(),
   });
 }
 
@@ -145,9 +145,9 @@ class _$PdfFileStateData implements PdfFileStateData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(File file),
-    @required TResult loading(),
-    @required TResult error(Object error, StackTrace stackTrace),
+    required TResult data(File file),
+    required TResult loading(),
+    required TResult error(Object error, StackTrace stackTrace),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -161,7 +161,7 @@ class _$PdfFileStateData implements PdfFileStateData {
     TResult data(File file),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (data != null) {
@@ -173,9 +173,9 @@ class _$PdfFileStateData implements PdfFileStateData {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfFileStateData value),
-    @required TResult loading(PdfFileStateLoading value),
-    @required TResult error(PdfFileStateError value),
+    required TResult data(PdfFileStateData value),
+    required TResult loading(PdfFileStateLoading value),
+    required TResult error(PdfFileStateError value),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -189,7 +189,7 @@ class _$PdfFileStateData implements PdfFileStateData {
     TResult data(PdfFileStateData value),
     TResult loading(PdfFileStateLoading value),
     TResult error(PdfFileStateError value),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (data != null) {
@@ -246,9 +246,9 @@ class _$PdfFileStateLoading implements PdfFileStateLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(File file),
-    @required TResult loading(),
-    @required TResult error(Object error, StackTrace stackTrace),
+    required TResult data(File file),
+    required TResult loading(),
+    required TResult error(Object error, StackTrace stackTrace),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -262,7 +262,7 @@ class _$PdfFileStateLoading implements PdfFileStateLoading {
     TResult data(File file),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loading != null) {
@@ -274,9 +274,9 @@ class _$PdfFileStateLoading implements PdfFileStateLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfFileStateData value),
-    @required TResult loading(PdfFileStateLoading value),
-    @required TResult error(PdfFileStateError value),
+    required TResult data(PdfFileStateData value),
+    required TResult loading(PdfFileStateLoading value),
+    required TResult error(PdfFileStateError value),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -290,7 +290,7 @@ class _$PdfFileStateLoading implements PdfFileStateLoading {
     TResult data(PdfFileStateData value),
     TResult loading(PdfFileStateLoading value),
     TResult error(PdfFileStateError value),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loading != null) {
@@ -376,9 +376,9 @@ class _$PdfFileStateError implements PdfFileStateError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(File file),
-    @required TResult loading(),
-    @required TResult error(Object error, StackTrace stackTrace),
+    required TResult data(File file),
+    required TResult loading(),
+    required TResult error(Object error, StackTrace stackTrace),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -392,7 +392,7 @@ class _$PdfFileStateError implements PdfFileStateError {
     TResult data(File file),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
@@ -404,9 +404,9 @@ class _$PdfFileStateError implements PdfFileStateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfFileStateData value),
-    @required TResult loading(PdfFileStateLoading value),
-    @required TResult error(PdfFileStateError value),
+    required TResult data(PdfFileStateData value),
+    required TResult loading(PdfFileStateLoading value),
+    required TResult error(PdfFileStateError value),
   }) {
     assert(data != null);
     assert(loading != null);
@@ -420,7 +420,7 @@ class _$PdfFileStateError implements PdfFileStateError {
     TResult data(PdfFileStateData value),
     TResult loading(PdfFileStateLoading value),
     TResult error(PdfFileStateError value),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {

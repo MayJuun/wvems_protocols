@@ -49,10 +49,10 @@ const $PdfSearchState = _$PdfSearchStateTearOff();
 mixin _$PdfSearchState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(List<PdfSearchStrings> searchStringList),
-    @required TResult history(List<PdfSearchStrings> searchStringList),
-    @required TResult loading(),
-    @required TResult error(Object error, StackTrace stackTrace),
+    required TResult data(List<PdfSearchStrings> searchStringList),
+    required TResult history(List<PdfSearchStrings> searchStringList),
+    required TResult loading(),
+    required TResult error(Object error, StackTrace stackTrace),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -60,14 +60,14 @@ mixin _$PdfSearchState {
     TResult history(List<PdfSearchStrings> searchStringList),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
-    @required TResult orElse(),
+    required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfSearchStateData value),
-    @required TResult history(PdfSearchStateHistory value),
-    @required TResult loading(PdfSearchStateLoading value),
-    @required TResult error(PdfSearchStateError value),
+    required TResult data(PdfSearchStateData value),
+    required TResult history(PdfSearchStateHistory value),
+    required TResult loading(PdfSearchStateLoading value),
+    required TResult error(PdfSearchStateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -75,7 +75,7 @@ mixin _$PdfSearchState {
     TResult history(PdfSearchStateHistory value),
     TResult loading(PdfSearchStateLoading value),
     TResult error(PdfSearchStateError value),
-    @required TResult orElse(),
+    required TResult orElse(),
   });
 }
 
@@ -162,10 +162,10 @@ class _$PdfSearchStateData implements PdfSearchStateData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(List<PdfSearchStrings> searchStringList),
-    @required TResult history(List<PdfSearchStrings> searchStringList),
-    @required TResult loading(),
-    @required TResult error(Object error, StackTrace stackTrace),
+    required TResult data(List<PdfSearchStrings> searchStringList),
+    required TResult history(List<PdfSearchStrings> searchStringList),
+    required TResult loading(),
+    required TResult error(Object error, StackTrace stackTrace),
   }) {
     assert(data != null);
     assert(history != null);
@@ -181,7 +181,7 @@ class _$PdfSearchStateData implements PdfSearchStateData {
     TResult history(List<PdfSearchStrings> searchStringList),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (data != null) {
@@ -193,10 +193,10 @@ class _$PdfSearchStateData implements PdfSearchStateData {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfSearchStateData value),
-    @required TResult history(PdfSearchStateHistory value),
-    @required TResult loading(PdfSearchStateLoading value),
-    @required TResult error(PdfSearchStateError value),
+    required TResult data(PdfSearchStateData value),
+    required TResult history(PdfSearchStateHistory value),
+    required TResult loading(PdfSearchStateLoading value),
+    required TResult error(PdfSearchStateError value),
   }) {
     assert(data != null);
     assert(history != null);
@@ -212,7 +212,7 @@ class _$PdfSearchStateData implements PdfSearchStateData {
     TResult history(PdfSearchStateHistory value),
     TResult loading(PdfSearchStateLoading value),
     TResult error(PdfSearchStateError value),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (data != null) {
@@ -298,10 +298,10 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(List<PdfSearchStrings> searchStringList),
-    @required TResult history(List<PdfSearchStrings> searchStringList),
-    @required TResult loading(),
-    @required TResult error(Object error, StackTrace stackTrace),
+    required TResult data(List<PdfSearchStrings> searchStringList),
+    required TResult history(List<PdfSearchStrings> searchStringList),
+    required TResult loading(),
+    required TResult error(Object error, StackTrace stackTrace),
   }) {
     assert(data != null);
     assert(history != null);
@@ -317,7 +317,7 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
     TResult history(List<PdfSearchStrings> searchStringList),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (history != null) {
@@ -329,10 +329,10 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfSearchStateData value),
-    @required TResult history(PdfSearchStateHistory value),
-    @required TResult loading(PdfSearchStateLoading value),
-    @required TResult error(PdfSearchStateError value),
+    required TResult data(PdfSearchStateData value),
+    required TResult history(PdfSearchStateHistory value),
+    required TResult loading(PdfSearchStateLoading value),
+    required TResult error(PdfSearchStateError value),
   }) {
     assert(data != null);
     assert(history != null);
@@ -348,7 +348,7 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
     TResult history(PdfSearchStateHistory value),
     TResult loading(PdfSearchStateLoading value),
     TResult error(PdfSearchStateError value),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (history != null) {
@@ -406,10 +406,10 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(List<PdfSearchStrings> searchStringList),
-    @required TResult history(List<PdfSearchStrings> searchStringList),
-    @required TResult loading(),
-    @required TResult error(Object error, StackTrace stackTrace),
+    required TResult data(List<PdfSearchStrings> searchStringList),
+    required TResult history(List<PdfSearchStrings> searchStringList),
+    required TResult loading(),
+    required TResult error(Object error, StackTrace stackTrace),
   }) {
     assert(data != null);
     assert(history != null);
@@ -425,7 +425,7 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
     TResult history(List<PdfSearchStrings> searchStringList),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loading != null) {
@@ -437,10 +437,10 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfSearchStateData value),
-    @required TResult history(PdfSearchStateHistory value),
-    @required TResult loading(PdfSearchStateLoading value),
-    @required TResult error(PdfSearchStateError value),
+    required TResult data(PdfSearchStateData value),
+    required TResult history(PdfSearchStateHistory value),
+    required TResult loading(PdfSearchStateLoading value),
+    required TResult error(PdfSearchStateError value),
   }) {
     assert(data != null);
     assert(history != null);
@@ -456,7 +456,7 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
     TResult history(PdfSearchStateHistory value),
     TResult loading(PdfSearchStateLoading value),
     TResult error(PdfSearchStateError value),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loading != null) {
@@ -542,10 +542,10 @@ class _$PdfSearchStateError implements PdfSearchStateError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult data(List<PdfSearchStrings> searchStringList),
-    @required TResult history(List<PdfSearchStrings> searchStringList),
-    @required TResult loading(),
-    @required TResult error(Object error, StackTrace stackTrace),
+    required TResult data(List<PdfSearchStrings> searchStringList),
+    required TResult history(List<PdfSearchStrings> searchStringList),
+    required TResult loading(),
+    required TResult error(Object error, StackTrace stackTrace),
   }) {
     assert(data != null);
     assert(history != null);
@@ -561,7 +561,7 @@ class _$PdfSearchStateError implements PdfSearchStateError {
     TResult history(List<PdfSearchStrings> searchStringList),
     TResult loading(),
     TResult error(Object error, StackTrace stackTrace),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
@@ -573,10 +573,10 @@ class _$PdfSearchStateError implements PdfSearchStateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult data(PdfSearchStateData value),
-    @required TResult history(PdfSearchStateHistory value),
-    @required TResult loading(PdfSearchStateLoading value),
-    @required TResult error(PdfSearchStateError value),
+    required TResult data(PdfSearchStateData value),
+    required TResult history(PdfSearchStateHistory value),
+    required TResult loading(PdfSearchStateLoading value),
+    required TResult error(PdfSearchStateError value),
   }) {
     assert(data != null);
     assert(history != null);
@@ -592,7 +592,7 @@ class _$PdfSearchStateError implements PdfSearchStateError {
     TResult history(PdfSearchStateHistory value),
     TResult loading(PdfSearchStateLoading value),
     TResult error(PdfSearchStateError value),
-    @required TResult orElse(),
+    required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {

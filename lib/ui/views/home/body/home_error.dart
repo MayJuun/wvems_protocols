@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomeError extends StatelessWidget {
-  const HomeError({Key key, @required this.error})
+  const HomeError({Key key, required this.error})
       : assert(error != null),
         super(key: key);
 
