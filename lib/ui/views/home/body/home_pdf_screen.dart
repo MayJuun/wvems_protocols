@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 
 class HomePdfScreen extends StatelessWidget {
-  const HomePdfScreen({Key key, this.path}) : super(key: key);
+  const HomePdfScreen({Key? key, required this.path}) : super(key: key);
 
   final String path;
 
@@ -28,12 +28,12 @@ class HomePdfScreen extends StatelessWidget {
             fitPolicy: FitPolicy.BOTH,
             // if set to true, the link is handled in flutter
             preventLinkNavigation: false,
-            onRender: controller.onPdfRender,
+            onRender: (intArg) => controller.onPdfRender,
             onError: controller.onPdfError,
-            onPageError: controller.onPdfPageError,
+            onPageError: (intArg, dynamicArg) => controller.onPdfPageError,
             onViewCreated: controller.onPdfViewCreated,
-            onLinkHandler: controller.onPdfLinkHandler,
-            onPageChanged: controller.onPdfPageChanged,
+            onLinkHandler: (stringArg) => controller.onPdfLinkHandler,
+            onPageChanged: (int1Arg, int2Arg) => controller.onPdfPageChanged,
           ),
           // only display the PDFView screen if the 'isReady' tag is true
           controller.errorMessage.isEmpty
