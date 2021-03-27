@@ -41,20 +41,18 @@ class MessagingController extends GetxController {
         Get.snackbar(notification.title ?? '', notification.body ?? '');
         print('${notification.title ?? ''} ${notification.body ?? ''}');
 
-        //   flutterLocalNotificationsPlugin.show(
-        //       notification.hashCode,
-        //       notification.title,
-        //       notification.body,
-        //       NotificationDetails(
-        //         android: AndroidNotificationDetails(
-        //           channel.id,
-        //           channel.name,
-        //           channel.description,
-        //           icon: android.smallIcon,
-        //         ),
-        //       ));
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channel.description,
+              ),
+            ));
       }
-      // });
     });
   }
 }
