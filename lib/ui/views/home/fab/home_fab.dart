@@ -22,7 +22,7 @@ class HomeFab extends StatelessWidget {
           (BuildContext context, AsyncSnapshot<PDFViewController> snapshot) {
         if (snapshot.hasData) {
           return Obx(
-            () => (controller.rxPdfController.value != null)
+            () => (controller.rxPdfController?.value != null)
                 ? _activeButton
                 : _inactiveButton,
           );
