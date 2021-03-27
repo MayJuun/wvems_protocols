@@ -4,7 +4,7 @@ import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorder
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
-import 'package:wvems_protocols/models/pdf_search/pdf_search_state.dart';
+// import 'package:wvems_protocols/models/pdf_search/pdf_search_state.dart';
 import 'package:wvems_protocols/ui/views/home/search/home_search_item.dart';
 
 class HomeSearchExpanded extends StatelessWidget {
@@ -33,8 +33,8 @@ class HomeSearchExpanded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PdfStateController pdfStateController = Get.find();
-    final SearchController searchController = Get.find();
-    final Rx<PdfSearchState> searchState = pdfStateController.pdfSearchState;
+    // final SearchController searchController = Get.find();
+    // final Rx<PdfSearchState> searchState = pdfStateController.pdfSearchState;
 
     return Material(
       color: Colors.white,

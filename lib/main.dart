@@ -14,7 +14,7 @@ Future<void> main() async {
 Future<void> _initServices() async {
   await GetStorage.init();
   Get.put<StorageController>(StorageController());
-  await StorageController.to.getFirstLoadInfoFromStore();
+  StorageController.to.getFirstLoadInfoFromStore();
   Get.put<ThemeController>(ThemeController());
   await ThemeController.to.getThemeModeFromStore();
 }
@@ -38,17 +38,17 @@ class MyApp extends StatelessWidget {
         }
 
         // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
+        else if (snapshot.connectionState == ConnectionState.done) {
           return GetMaterialApp(
             theme: ThemeController.to.lightTheme.themeData,
             darkTheme: ThemeController.to.darkTheme.themeData,
             themeMode: ThemeController.to.themeMode,
             home: HomeScreen(),
           );
+        } else {
+          // Otherwise, show something whilst waiting for initialization to complete
+          return const Center(child: CircularProgressIndicator());
         }
-
-        // Otherwise, show something whilst waiting for initialization to complete
-        return const Center(child: CircularProgressIndicator());
       },
     );
   }

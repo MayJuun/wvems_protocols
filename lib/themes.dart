@@ -43,13 +43,14 @@ TextStyle _style(double s, FontWeight w) =>
 enum ThemeType { LightMode, DarkMode }
 
 class AppTheme {
-  factory AppTheme() => AppTheme.fromType(ThemeType.LightMode);
+  AppTheme();
 
   /// fromType factory constructor
   factory AppTheme.fromType(ThemeType t) {
     switch (t) {
       case ThemeType.LightMode:
         return AppTheme()
+          ..isDark = false
           ..bg = _AppColors.greySurface
           ..surface = Colors.white
           ..primary = _AppColors.primary
@@ -64,6 +65,7 @@ class AppTheme {
 
       case ThemeType.DarkMode:
         return AppTheme()
+          ..isDark = true
           ..bg = _AppColors.blackBackground
           ..surface = _AppColors.blackSurface
           ..primary = _AppColors.primaryDark

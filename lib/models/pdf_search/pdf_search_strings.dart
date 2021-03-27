@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class PdfSearchStrings {
   // todo: change required to required, when non-nullable
   PdfSearchStrings({

@@ -17,7 +17,7 @@ class HomeSearchItem extends StatelessWidget {
     final textTheme = theme.textTheme;
 
     final SearchController searchController = Get.find();
-    final PdfStateController pdfStateController = Get.find();
+    // final PdfStateController pdfStateController = Get.find();
     // final pdfPageText = pdfStateController.pdfSearchState;
 
     return Column(
