@@ -163,22 +163,19 @@ class StyledNavDrawer extends StatelessWidget {
               title: Text(S.NAV_MODE_LIGHT),
               value: ThemeMode.light,
               groupValue: themeService.themeMode,
-              onChanged: (ThemeMode value) =>
-                  themeService.setThemeMode(ThemeMode.light),
+              onChanged: (value) => themeService.setThemeMode(ThemeMode.light),
             ),
             RadioListTile(
               title: Text(S.NAV_MODE_DARK),
               value: ThemeMode.dark,
               groupValue: themeService.themeMode,
-              onChanged: (ThemeMode value) =>
-                  themeService.setThemeMode(ThemeMode.dark),
+              onChanged: (value) => themeService.setThemeMode(ThemeMode.dark),
             ),
             RadioListTile(
               title: Text(S.NAV_MODE_SYSTEM),
               value: ThemeMode.system,
               groupValue: themeService.themeMode,
-              onChanged: (ThemeMode value) =>
-                  themeService.setThemeMode(ThemeMode.system),
+              onChanged: (value) => themeService.setThemeMode(ThemeMode.system),
             ),
             TextButton(
               child: Text(S.NAV_OK),
