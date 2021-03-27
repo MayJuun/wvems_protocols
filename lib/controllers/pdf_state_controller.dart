@@ -53,6 +53,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     pdfFileState.value = const PdfFileState.loading();
     try {
       final newFile = await _updatePdfFromAsset(assetPath);
+      print('returned');
 
       /// First, save newly loaded file under PdfFileState
       pdfFileState.value = PdfFileState.data(newFile);
@@ -68,12 +69,14 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   // ToDo: make sure this flow is correct
   Future<File> _updatePdfFromAsset(String assetPath) async {
     print('loading pdfs...');
-    final File newValue = await _pdfService.fromAsset(assetPath, 'active.pdf');
-    pathPDF = newValue.path;
-    print('pdf loaded: $pathPDF');
-    _resetPdfUI();
-    await _createNewPdfController();
-    return newValue;
+
+    return _pdfService.fromAsset(assetPath, 'active.pdf').then((f) async {
+      pathPDF = f.path;
+      print('pdf loaded: $pathPDF');
+      _resetPdfUI();
+      await _createNewPdfController();
+      return f;
+    });
   }
 
   void _resetPdfUI() {
@@ -88,28 +91,29 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// **********************************************************
 
   Future<bool> _createNewPdfController() async {
-    final newController = await complete();
+    final newController = asyncController.future;
     _setOrResetRxPdfController(newController);
     update();
     return true;
   }
 
-  void _setOrResetRxPdfController(PDFViewController newController) {
-    asyncController = Completer<PDFViewController>();
+  Future<void> _setOrResetRxPdfController(
+      Future<PDFViewController> newController) async {
     if (rxPdfController != null) {
-      rxPdfController!.value = newController;
+      rxPdfController!.value = await newController;
     } else
-      rxPdfController = newController.obs;
+      rxPdfController = (await newController).obs;
   }
 
   /// This methods establishes the PDFViewController on first load
   /// If the active pdf ever changes...
   /// This completer will re-run to reset the controller
   /// todo: verify if this controller needs/takes a dispose() method
-  Future<PDFViewController> complete() async {
-    final newController = await asyncController.future;
-    return newController;
-  }
+  // Future<PDFViewController> complete() async {
+  //   final newController = await asyncController.future;
+  //   asyncController.complete();
+  //   return newController;
+  // }
 
   /// **********************************************************
   /// *************** PDF TEXT STATE METHODS *******************
