@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
-
 class PdfSearchStrings {
-  // todo: change @required to required, when non-nullable
+  // todo: change required to required, when non-nullable
   PdfSearchStrings({
-    @required this.pageNumber,
-    @required this.beforeResult,
-    @required this.result,
-    @required this.afterResult,
+    required this.pageNumber,
+    required this.beforeResult,
+    required this.result,
+    required this.afterResult,
   });
 
   final int pageNumber;

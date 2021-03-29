@@ -6,7 +6,8 @@ import 'package:wvems_protocols/models/models.dart';
 
 /// This shows the 'history' of previous items that have been searched for in the past
 class HomeSearchItem extends StatelessWidget {
-  const HomeSearchItem({Key key, this.searchStrings}) : super(key: key);
+  const HomeSearchItem({Key? key, required this.searchStrings})
+      : super(key: key);
 
   final PdfSearchStrings searchStrings;
 
@@ -16,7 +17,7 @@ class HomeSearchItem extends StatelessWidget {
     final textTheme = theme.textTheme;
 
     final SearchController searchController = Get.find();
-    final PdfStateController pdfStateController = Get.find();
+    // final PdfStateController pdfStateController = Get.find();
     // final pdfPageText = pdfStateController.pdfSearchState;
 
     return Column(
@@ -25,7 +26,7 @@ class HomeSearchItem extends StatelessWidget {
         InkWell(
           onTap: () {
             //todo: this is where we will go to the next page
-            FloatingSearchBar.of(context).close();
+            FloatingSearchBar.of(context)?.close();
             Future.delayed(
               const Duration(milliseconds: 500),
               () => searchController.clear(),
@@ -58,7 +59,7 @@ class HomeSearchItem extends StatelessWidget {
                           children: <TextSpan>[
                             TextSpan(
                               text: '...${searchStrings.beforeResult}',
-                              style: textTheme.bodyText2
+                              style: textTheme.bodyText2!
                                   .copyWith(color: Colors.grey.shade600),
                             ),
                             TextSpan(
@@ -69,7 +70,7 @@ class HomeSearchItem extends StatelessWidget {
                             ),
                             TextSpan(
                               text: '${searchStrings.afterResult}...',
-                              style: textTheme.bodyText2
+                              style: textTheme.bodyText2!
                                   .copyWith(color: Colors.grey.shade600),
                             ),
                           ],
@@ -78,7 +79,7 @@ class HomeSearchItem extends StatelessWidget {
                       // const SizedBox(height: 2),
                       Text(
                         'page ${searchStrings.pageNumber}',
-                        style: textTheme.bodyText2
+                        style: textTheme.bodyText2!
                             .copyWith(color: Colors.grey.shade600),
                       ),
                     ],

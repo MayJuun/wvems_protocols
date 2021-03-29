@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
+import 'package:wvems_protocols/controllers/commands/messaging_controller.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 
 import 'package:wvems_protocols/ui/strings.dart';
@@ -14,10 +15,11 @@ class StyledNavDrawer extends StatelessWidget {
   // _newMessages should also be set and passed in from the controller.
   // And _displayWompWomp() is just a placeholder so the menus work.
   // <kludge>
-  final bool _newMessages = true;
 
   //todo: extract into theme / jcontroller
   final Color _yearColor = wvemsColor(2020);
+
+  final controller = Get.put(MessagingController());
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class StyledNavDrawer extends StatelessWidget {
   // the main menu items: user can check for messages,
   // and select the version (year) to display
   List<Widget> _mainItems(BuildContext context) {
+    final unreadMessages = controller.unread;
     return <Widget>[
       // This is the only dynamic list item (that's why it's first on the list).
       // If there are _newMessages, then the mail icon will have a colored dot,
@@ -73,24 +76,25 @@ class StyledNavDrawer extends StatelessWidget {
             Icon(
               Icons.circle,
               size: 12.0,
-              color: _newMessages ? _yearColor : Colors.transparent,
+              color:
+                  unreadMessages.isNotEmpty ? _yearColor : Colors.transparent,
             ),
           ],
         ),
-        title: _newMessages
+        title: unreadMessages.isEmpty
             ? Text(
                 S.NAV_NEW_MESSAGES,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               )
             : Text(S.NAV_MESSAGES),
         subtitle: Text(S.NAV_NOTIFICATIONS),
-        onTap: () => _displayWompWomp(context),
+        onTap: () => _displayUnreadMessages(context, unreadMessages),
       ),
       ListTile(
         leading: const Icon(Icons.description, size: 30.0),
         title: Text(S.NAV_VERSION),
         subtitle: Text(S.NAV_MANAGE_DISPLAY_YEAR),
-        onTap: () => _displayWompWomp(context),
+        onTap: () => _displayUnreadMessages(context, unreadMessages),
       ),
     ];
   } //_mainItems()
@@ -163,22 +167,19 @@ class StyledNavDrawer extends StatelessWidget {
               title: Text(S.NAV_MODE_LIGHT),
               value: ThemeMode.light,
               groupValue: themeService.themeMode,
-              onChanged: (ThemeMode value) =>
-                  themeService.setThemeMode(ThemeMode.light),
+              onChanged: (value) => themeService.setThemeMode(ThemeMode.light),
             ),
             RadioListTile(
               title: Text(S.NAV_MODE_DARK),
               value: ThemeMode.dark,
               groupValue: themeService.themeMode,
-              onChanged: (ThemeMode value) =>
-                  themeService.setThemeMode(ThemeMode.dark),
+              onChanged: (value) => themeService.setThemeMode(ThemeMode.dark),
             ),
             RadioListTile(
               title: Text(S.NAV_MODE_SYSTEM),
               value: ThemeMode.system,
               groupValue: themeService.themeMode,
-              onChanged: (ThemeMode value) =>
-                  themeService.setThemeMode(ThemeMode.system),
+              onChanged: (value) => themeService.setThemeMode(ThemeMode.system),
             ),
             TextButton(
               child: Text(S.NAV_OK),
@@ -242,3 +243,36 @@ class StyledNavDrawer extends StatelessWidget {
     ); // showDialog()
   } // </kludge>
 } //StyledNavDrawer
+
+void _displayUnreadMessages(
+    BuildContext context, Set<Map<String, dynamic>> messages) {
+  Get.back();
+  final List<Text> unreadMessages = [];
+  for (var message in messages) {
+    unreadMessages.add(Text(
+      '${message['dateTime']}\n'
+      '${message['title']} ${message['body']}',
+    ));
+  }
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return SimpleDialog(
+        title: const Text('Unread Messages', textAlign: TextAlign.center),
+        children: <Widget>[
+          SingleChildScrollView(
+            child: Column(
+              children: unreadMessages,
+            ),
+          ),
+          TextButton(
+            child: Text(S.NAV_OK),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}

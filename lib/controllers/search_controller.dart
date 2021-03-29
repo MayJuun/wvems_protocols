@@ -42,7 +42,7 @@ class SearchController extends GetxController {
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                           i % 2 == 0 ? Colors.grey[300] : Colors.white)),
-                  onPressed: () => null,
+                  onPressed: () {},
                   child: Container(),
                 ),
               );
