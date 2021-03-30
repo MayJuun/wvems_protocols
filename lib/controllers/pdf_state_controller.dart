@@ -38,7 +38,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final errorMessage = ''.obs;
   String pathPDF = '';
 
-  Orientation currentOrientation = Get.context!.orientation;
+  Orientation? currentOrientation = Get.context?.orientation;
 
   /// Unique Key required for screen layout changes in Android
   /// More details about this bug and its solution available here
@@ -50,6 +50,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// **********************************************************
 
   Future<void> loadNewPdf(String assetPath) async {
+    print('load new pdf');
     pdfFileState.value = const PdfFileState.loading();
     try {
       final newFile = await _updatePdfFromAsset(assetPath);
@@ -69,14 +70,12 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   // ToDo: make sure this flow is correct
   Future<File> _updatePdfFromAsset(String assetPath) async {
     print('loading pdfs...');
-
-    return _pdfService.fromAsset(assetPath, 'active.pdf').then((f) async {
-      pathPDF = f.path;
-      print('pdf loaded: $pathPDF');
-      _resetPdfUI();
-      await _createNewPdfController();
-      return f;
-    });
+    final f = await _pdfService.fromAsset(assetPath, 'active.pdf');
+    pathPDF = f.path;
+    print('pdf loaded: $pathPDF');
+    _resetPdfUI();
+    _createNewPdfController();
+    return f;
   }
 
   void _resetPdfUI() {
@@ -91,9 +90,9 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// **********************************************************
 
   Future<bool> _createNewPdfController() async {
+    asyncController = Completer<PDFViewController>();
     final newController = asyncController.future;
-    _setOrResetRxPdfController(newController);
-    update();
+    await _setOrResetRxPdfController(newController);
     return true;
   }
 
@@ -101,19 +100,15 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
       Future<PDFViewController> newController) async {
     if (rxPdfController != null) {
       rxPdfController!.value = await newController;
-    } else
+    } else {
       rxPdfController = (await newController).obs;
+    }
   }
 
   /// This methods establishes the PDFViewController on first load
   /// If the active pdf ever changes...
   /// This completer will re-run to reset the controller
   /// todo: verify if this controller needs/takes a dispose() method
-  // Future<PDFViewController> complete() async {
-  //   final newController = await asyncController.future;
-  //   asyncController.complete();
-  //   return newController;
-  // }
 
   /// **********************************************************
   /// *************** PDF TEXT STATE METHODS *******************
@@ -137,10 +132,10 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// **********************************************************
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     // Used for first load of embedded PDF
-    loadNewPdf(AppAssets.PROTOCOL_2020);
+    await loadNewPdf(AppAssets.PROTOCOL_2020);
 
     // Used for Android layout changes
     WidgetsBinding.instance?.addObserver(this);
