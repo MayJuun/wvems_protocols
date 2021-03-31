@@ -4,6 +4,5 @@ class SetPageCommand extends AbstractCommand {
   @override
   Future<void> execute({int? pageNum}) async {
     await pdfStateController.rxPdfController?.value.setPage(pageNum ?? 0);
-    pdfStateController.update();
   }
 }
