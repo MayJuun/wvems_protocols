@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
-import 'package:wvems_protocols/controllers/commands/messaging_controller.dart';
+import 'package:wvems_protocols/controllers/messaging_controller.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 
 import 'package:wvems_protocols/ui/strings.dart';
