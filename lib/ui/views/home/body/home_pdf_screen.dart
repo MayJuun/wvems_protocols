@@ -13,38 +13,38 @@ class HomePdfScreen extends StatelessWidget {
     final PdfStateController controller = Get.find();
 
     return Obx(
-      () => Stack(
-        children: <Widget>[
-          // only display the PDFView screen if the 'isReady' tag is true
-          controller.errorMessage.value.isEmpty
-              ? !controller.isReady.value
-                  ? PDFView(
-                      filePath: path,
-                      // required for Android
-                      key: controller.pdfViewerKey,
-                      enableSwipe: true,
-                      swipeHorizontal: false,
-                      autoSpacing: true,
-                      pageFling: true,
-                      pageSnap: true,
-                      defaultPage: controller.currentPage.value,
-                      fitPolicy: FitPolicy.BOTH,
-                      // if set to true, the link is handled in flutter
-                      preventLinkNavigation: false,
-                      onRender: (intArg) => controller.onPdfRender,
-                      onError: controller.onPdfError,
-                      onPageError: (intArg, dynamicArg) =>
-                          controller.onPdfPageError,
-                      onViewCreated: controller.onPdfViewCreated,
-                      onLinkHandler: (stringArg) => controller.onPdfLinkHandler,
-                      onPageChanged: (int1Arg, int2Arg) =>
-                          controller.onPdfPageChanged,
-                    )
-                  : const Center(child: CircularProgressIndicator())
-              : Center(
-                  child: Text(controller.errorMessage.value),
-                ),
-        ],
+      () => Container(
+        child:
+            // only display the PDFView screen if the 'isReady' tag is true
+            controller.errorMessage.value.isEmpty
+                ? !controller.isReady.value
+                    ? PDFView(
+                        filePath: path,
+                        // required for Android
+                        key: controller.pdfViewerKey,
+                        enableSwipe: true,
+                        swipeHorizontal: false,
+                        autoSpacing: true,
+                        pageFling: true,
+                        pageSnap: true,
+                        defaultPage: controller.currentPage.value,
+                        fitPolicy: FitPolicy.BOTH,
+                        // if set to true, the link is handled in flutter
+                        preventLinkNavigation: false,
+                        onRender: (intArg) => controller.onPdfRender,
+                        onError: controller.onPdfError,
+                        onPageError: (intArg, dynamicArg) =>
+                            controller.onPdfPageError,
+                        onViewCreated: controller.onPdfViewCreated,
+                        onLinkHandler: (stringArg) =>
+                            controller.onPdfLinkHandler,
+                        onPageChanged: (int1Arg, int2Arg) =>
+                            controller.onPdfPageChanged,
+                      )
+                    : const Center(child: CircularProgressIndicator())
+                : Center(
+                    child: Text(controller.errorMessage.value),
+                  ),
       ),
     );
   }

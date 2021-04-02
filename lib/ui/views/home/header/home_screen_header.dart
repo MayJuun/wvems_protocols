@@ -6,7 +6,7 @@ import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/home/body/home_screen_body.dart';
 import 'package:wvems_protocols/ui/views/home/search/home_search_expanded.dart';
 
-class HomeHeaderStack extends StatelessWidget {
+class HomeScreenHeader extends StatelessWidget {
   // spec: https://github.com/bnxm/material_floating_search_bar/blob/master/example/lib/main.dart
 
   final actions = [
