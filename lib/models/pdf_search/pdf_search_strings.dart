@@ -1,6 +1,6 @@
 class PdfSearchStrings {
   // todo: change required to required, when non-nullable
-  PdfSearchStrings({
+  const PdfSearchStrings({
     required this.pageNumber,
     required this.beforeResult,
     required this.result,
@@ -15,7 +15,7 @@ class PdfSearchStrings {
 }
 
 // todo: remove when getstorage has been implemented
-final List<PdfSearchStrings> tempSearchHistoryList = [
+const List<PdfSearchStrings> tempSearchHistoryList = [
   PdfSearchStrings(
       pageNumber: 12,
       beforeResult: 'I will',

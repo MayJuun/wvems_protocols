@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:wvems_protocols/controllers/commands/search_item_selected_command.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
 
@@ -27,10 +28,8 @@ class HomeSearchItem extends StatelessWidget {
           onTap: () {
             //todo: this is where we will go to the next page
             FloatingSearchBar.of(context)?.close();
-            Future.delayed(
-              const Duration(milliseconds: 500),
-              () => searchController.clear(),
-            );
+            SearchItemSelectedCommand()
+                .execute(pdfSearchStrings: searchStrings);
           },
           child: Padding(
             padding: const EdgeInsets.all(16),
