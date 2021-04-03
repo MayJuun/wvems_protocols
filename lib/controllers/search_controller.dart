@@ -45,6 +45,9 @@ class SearchController extends GetxController {
             pdfSearchState.value = PdfSearchState.history(_searchHistory),
       );
     } else {
+      // keep a history of the most recent query in memory
+      _query.value = query;
+
       // Otherwise, run an async search call, which updates pdfSearchState
       isLoading.value = true;
       await _handleSearch(query);
@@ -86,6 +89,7 @@ class SearchController extends GetxController {
           // for (var i = 0; i < indexes.length; i++) {}
         },
       );
+
       pdfSearchState.value = PdfSearchState.data(_searchResults);
       print('');
     }, loading: () {

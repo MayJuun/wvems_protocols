@@ -36,15 +36,24 @@ class HomeSearchItem extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 36,
                   child: AnimatedSwitcher(
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     // todo: reimplement
-                    // child: pdfPageText == history
+                    child: Obx(
+                      () => searchController.pdfSearchState.value.maybeWhen(
+                        data: (data) => const Icon(Icons.find_in_page,
+                            key: Key('find_in_page')),
+                        history: (history) =>
+                            const Icon(Icons.history, key: Key('history')),
+                        orElse: () => Container(),
+                      ),
+                    ),
+                    // child: searchController.pdfSearchState == history
                     //     ? const Icon(Icons.history, key: Key('history'))
                     //     : const Icon(Icons.place, key: Key('place')),
-                    child: Icon(Icons.history, key: Key('history')),
+                    // child: Icon(Icons.history, key: Key('history')),
                   ),
                 ),
                 const SizedBox(width: 16),

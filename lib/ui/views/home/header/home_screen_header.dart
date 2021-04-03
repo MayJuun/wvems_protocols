@@ -14,7 +14,7 @@ class HomeScreenHeader extends StatelessWidget {
     FloatingSearchBarAction(
       showIfOpened: false,
       child: CircularButton(
-        icon: const Icon(Icons.help),
+        icon: const Icon(Icons.info),
         onPressed: () {
           // todo: add help dialog vs how to use
         },
@@ -33,7 +33,8 @@ class HomeScreenHeader extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     return FloatingSearchBar(
-      automaticallyImplyBackButton: false,
+      automaticallyImplyBackButton: true,
+      automaticallyImplyDrawerHamburger: false,
       controller: searchController.floatingSearchBarController,
       clearQueryOnClose: true,
       hint: S.SEARCH_BAR_HINT,
@@ -48,7 +49,6 @@ class HomeScreenHeader extends StatelessWidget {
       debounceDelay: const Duration(milliseconds: 450),
       onQueryChanged: (String newValue) async =>
           await searchController.onQueryChanged(newValue),
-      scrollPadding: EdgeInsets.zero,
       transition: CircularFloatingSearchBarTransition(),
 
       /// When search bar is clicked, this widget is shown
