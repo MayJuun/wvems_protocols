@@ -43,17 +43,13 @@ class HomeSearchItem extends StatelessWidget {
                     // todo: reimplement
                     child: Obx(
                       () => searchController.pdfSearchState.value.maybeWhen(
-                        data: (data) => const Icon(Icons.find_in_page,
-                            key: Key('find_in_page')),
+                        data: (data) => const Icon(Icons.find_in_page_outlined,
+                            key: Key('search')),
                         history: (history) =>
                             const Icon(Icons.history, key: Key('history')),
                         orElse: () => Container(),
                       ),
                     ),
-                    // child: searchController.pdfSearchState == history
-                    //     ? const Icon(Icons.history, key: Key('history'))
-                    //     : const Icon(Icons.place, key: Key('place')),
-                    // child: Icon(Icons.history, key: Key('history')),
                   ),
                 ),
                 const SizedBox(width: 16),

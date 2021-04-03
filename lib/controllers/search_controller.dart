@@ -4,7 +4,10 @@ import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
 
-// spec: https://pub.dev/packages/material_floating_search_bar
+/// the total number of characters listed before & after a search string
+const _SUBSTRING = 16;
+
+/// Floating Search Bar spec: https://pub.dev/packages/material_floating_search_bar
 class SearchController extends GetxController {
   final PdfStateController _pdfStateController = Get.find();
 
@@ -81,10 +84,6 @@ class SearchController extends GetxController {
             curIndex = value.indexOf(query, curIndex + 1);
           }
 
-          /// for each index on that page, create a substring. The substring
-          /// consists of 20 characters before the search string, 20 characters
-          /// after the search string, and then the search string itself is
-          /// displayed in bold
           // foundStrings.add(Text('PAGE $key'));
           // for (var i = 0; i < indexes.length; i++) {}
         },
@@ -103,14 +102,21 @@ class SearchController extends GetxController {
 
   PdfSearchStrings _getSearchStringsFromIndex(
       int index, String query, int pageTextKey, String pageTextValue) {
-    final before =
-        pageTextValue.substring(index - 20 < 0 ? 0 : index - 20, index);
+    // Note that pageNumber starts at 1, not 0
+
+    // The 'before' substring consists of SUBSTRING characters before the search string
+    final before = pageTextValue.substring(
+        index - _SUBSTRING < 0 ? 0 : index - _SUBSTRING, index);
+
+    // 'result' is the search string itself, which is displayed separately (e.g. bold)
     final result = query;
+
+    // The 'after' substring conists of SUBSTRING characters after the search string
     final after = pageTextValue.substring(
         index + query.length,
-        index + 20 + query.length >= pageTextValue.length
+        index + _SUBSTRING + query.length >= pageTextValue.length
             ? pageTextValue.length - 1
-            : index + 20 + query.length);
+            : index + _SUBSTRING + query.length);
 
     return PdfSearchStrings(
         pageNumber: pageTextKey,
@@ -125,25 +131,3 @@ class SearchController extends GetxController {
     super.onClose();
   }
 }
-
-// RichText(
-//                     text: TextSpan(
-//                       children: <TextSpan>[
-//                         TextSpan(
-//                             text:
-//                                 '...${pageText[key].substring(indexes[i] - 20 < 0 ? 0 : indexes[i] - 20, indexes[i])}'),
-//                         TextSpan(
-//                             text: pageText[key].substring(
-//                                 indexes[i],
-//                                 indexes[i] + query.length >=
-//                                         pageText[key].length
-//                                     ? pageText[key].length - 1
-//                                     : indexes[i] + newValue.length),
-//                             style:
-//                                 const TextStyle(fontWeight: FontWeight.bold)),
-//                         TextSpan(
-//                             text:
-//                                 '${pageText[key].substring(indexes[i] + newValue.length, indexes[i] + 20 + newValue.length >= pageText[key].length ? pageText[key].length - 1 : indexes[i] + 20 + newValue.length)}...'),
-//                       ],
-//                     ),
-//                   )

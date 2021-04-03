@@ -16,8 +16,9 @@ class HomeSearchList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Gap(16),
+        const Gap(12),
         Text('Number of Results: ${searchStringsList.length}'),
+        const Gap(12),
         ImplicitlyAnimatedList<PdfSearchStrings>(
           shrinkWrap: true,
           padding: EdgeInsets.zero,

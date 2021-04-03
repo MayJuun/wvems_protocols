@@ -36,7 +36,7 @@ class HomeScreenHeader extends StatelessWidget {
       automaticallyImplyBackButton: true,
       automaticallyImplyDrawerHamburger: false,
       controller: searchController.floatingSearchBarController,
-      clearQueryOnClose: true,
+      clearQueryOnClose: false,
       hint: S.SEARCH_BAR_HINT,
       iconColor: Colors.grey,
       transitionDuration: const Duration(milliseconds: 800),
