@@ -45,7 +45,7 @@ class HomeScreenHeader extends StatelessWidget {
       openAxisAlignment: 0.0,
       actions: actions,
       progress: searchController.isLoading.value,
-      debounceDelay: const Duration(milliseconds: 400),
+      debounceDelay: const Duration(milliseconds: 450),
       onQueryChanged: (String newValue) async =>
           await searchController.onQueryChanged(newValue),
       scrollPadding: EdgeInsets.zero,
