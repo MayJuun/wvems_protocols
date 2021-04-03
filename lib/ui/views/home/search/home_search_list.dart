@@ -16,27 +16,30 @@ class HomeSearchList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Gap(12),
+        const Gap(8),
         Text('Number of Results: ${searchStringsList.length}'),
-        const Gap(12),
-        ImplicitlyAnimatedList<PdfSearchStrings>(
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          physics: const NeverScrollableScrollPhysics(),
-          items: searchStringsList.take(6).toList(),
-          areItemsTheSame: (a, b) => a == b,
-          itemBuilder: (context, animation, searchStrings, index) {
-            return SizeFadeTransition(
-              animation: animation,
-              child: HomeSearchItem(searchStrings: searchStrings),
-            );
-          },
-          updateItemBuilder: (context, animation, searchStrings) {
-            return FadeTransition(
-              opacity: animation,
-              child: HomeSearchItem(searchStrings: searchStrings),
-            );
-          },
+        const Gap(8),
+        SizedBox(
+          height: 330,
+          child: ImplicitlyAnimatedList<PdfSearchStrings>(
+            // shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            physics: const BouncingScrollPhysics(),
+            items: searchStringsList,
+            areItemsTheSame: (a, b) => a == b,
+            itemBuilder: (context, animation, searchStrings, index) {
+              return SizeFadeTransition(
+                animation: animation,
+                child: HomeSearchItem(searchStrings: searchStrings),
+              );
+            },
+            updateItemBuilder: (context, animation, searchStrings) {
+              return FadeTransition(
+                opacity: animation,
+                child: HomeSearchItem(searchStrings: searchStrings),
+              );
+            },
+          ),
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
@@ -41,7 +42,7 @@ class HomeScreenHeader extends StatelessWidget {
       iconColor: Colors.grey,
       transitionDuration: const Duration(milliseconds: 800),
       transitionCurve: Curves.easeInOutCubic,
-      physics: const BouncingScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       axisAlignment: isPortrait ? 0.0 : -1.0,
       openAxisAlignment: 0.0,
       actions: actions,
@@ -55,7 +56,12 @@ class HomeScreenHeader extends StatelessWidget {
       builder: (context, _) => HomeSearchExpanded(),
 
       /// This is the default widget shown behind the search bar + expandable body
-      body: HomeScreenBody(),
+      body: Column(
+        children: [
+          const Gap(60),
+          Expanded(child: HomeScreenBody()),
+        ],
+      ),
     );
   }
 }
