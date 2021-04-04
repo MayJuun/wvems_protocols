@@ -5,7 +5,7 @@ import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
 
 /// the total number of characters listed before & after a search string
-const _SUBSTRING = 16;
+const _SUBSTRING = 20;
 
 /// Floating Search Bar spec: https://pub.dev/packages/material_floating_search_bar
 class SearchController extends GetxController {
@@ -13,7 +13,7 @@ class SearchController extends GetxController {
 
   /// Current 'active state' of search, including history, data, and loading
   final Rx<PdfSearchState> pdfSearchState =
-      PdfSearchState.history(tempSearchHistoryList).obs;
+      const PdfSearchState.history(tempSearchHistoryList).obs;
 
   /// Locally stored 'history' of the recent search items, limit 10
   // todo: should this be a stream?
@@ -47,7 +47,7 @@ class SearchController extends GetxController {
         orElse: () =>
             pdfSearchState.value = PdfSearchState.history(_searchHistory),
       );
-    } else {
+    } else if (query.length > 2) {
       // keep a history of the most recent query in memory
       _query.value = query;
 
