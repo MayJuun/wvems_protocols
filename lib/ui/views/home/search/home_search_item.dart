@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:wvems_protocols/controllers/commands/search_item_selected_command.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:wvems_protocols/models/models.dart';
 
 /// This shows the 'history' of previous items that have been searched for in the past
 class HomeSearchItem extends StatelessWidget {
-  const HomeSearchItem({Key key, this.text}) : super(key: key);
+  const HomeSearchItem({Key? key, required this.searchStrings})
+      : super(key: key);
 
-  final String text;
+  final PdfSearchStrings searchStrings;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +18,8 @@ class HomeSearchItem extends StatelessWidget {
     final textTheme = theme.textTheme;
 
     final SearchController searchController = Get.find();
-    final PdfStateController pdfStateController = Get.find();
-    final pdfPageText = pdfStateController.pdfPageText;
+    // final PdfStateController pdfStateController = Get.find();
+    // final pdfPageText = pdfStateController.pdfSearchState;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -24,25 +27,28 @@ class HomeSearchItem extends StatelessWidget {
         InkWell(
           onTap: () {
             //todo: this is where we will go to the next page
-            FloatingSearchBar.of(context).close();
-            Future.delayed(
-              const Duration(milliseconds: 500),
-              () => searchController.clear(),
-            );
+            FloatingSearchBar.of(context)?.close();
+            SearchItemSelectedCommand()
+                .execute(pdfSearchStrings: searchStrings);
           },
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 36,
                   child: AnimatedSwitcher(
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     // todo: reimplement
-                    // child: pdfPageText == history
-                    //     ? const Icon(Icons.history, key: Key('history'))
-                    //     : const Icon(Icons.place, key: Key('place')),
-                    child: Icon(Icons.history, key: Key('history')),
+                    child: Obx(
+                      () => searchController.pdfSearchState.value.maybeWhen(
+                        data: (data) => const Icon(Icons.find_in_page_outlined,
+                            key: Key('search')),
+                        history: (history) =>
+                            const Icon(Icons.history, key: Key('history')),
+                        orElse: () => Container(),
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -52,14 +58,32 @@ class HomeSearchItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // todo: search terms go here
-                      Text(
-                        text,
-                        style: textTheme.subtitle1,
+                      RichText(
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '...${searchStrings.beforeResult}',
+                              style: textTheme.bodyText2!
+                                  .copyWith(color: Colors.grey.shade600),
+                            ),
+                            TextSpan(
+                              text: searchStrings.result,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)
+                                      .copyWith(color: Colors.grey.shade600),
+                            ),
+                            TextSpan(
+                              text: '${searchStrings.afterResult}...',
+                              style: textTheme.bodyText2!
+                                  .copyWith(color: Colors.grey.shade600),
+                            ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 2),
+                      // const SizedBox(height: 2),
                       Text(
-                        text,
-                        style: textTheme.bodyText2
+                        'page ${searchStrings.pageNumber}',
+                        style: textTheme.bodyText2!
                             .copyWith(color: Colors.grey.shade600),
                       ),
                     ],

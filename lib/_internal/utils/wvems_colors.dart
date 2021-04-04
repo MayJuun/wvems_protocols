@@ -14,11 +14,11 @@ Map<int, Color> _wvemsMap = {
 
 //return the color associated with a year
 Color wvemsColor(int _year) =>
-    _wvemsMap.containsKey(2019) ? _wvemsMap[_year] : null;
+    _wvemsMap[_year] ?? const Color.fromRGBO(255, 242, 204, 1.0);
 
 //return the text string associated with a year
 String wvemsText(int _year) => 'Protocols $_year';
 
 //return the year associated with a color (maybe don't need this?)
 int wvemsYear(Color _color) => _wvemsMap.keys
-    .firstWhere((i) => _wvemsMap[i] == _color, orElse: () => null);
+    .firstWhere((i) => _wvemsMap[i] == _color, orElse: () => 1900);

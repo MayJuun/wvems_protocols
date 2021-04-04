@@ -1,107 +1,128 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
 
+/// the total number of characters listed before & after a search string
+const _SUBSTRING = 20;
+
+/// Floating Search Bar spec: https://pub.dev/packages/material_floating_search_bar
 class SearchController extends GetxController {
   final PdfStateController _pdfStateController = Get.find();
 
+  /// Current 'active state' of search, including history, data, and loading
+  final Rx<PdfSearchState> pdfSearchState =
+      const PdfSearchState.history(tempSearchHistoryList).obs;
+
+  /// Locally stored 'history' of the recent search items, limit 10
+  // todo: should this be a stream?
+  // todo: connect pdfSearchHistory to GetStorage in the onInit
+  final List<PdfSearchStrings> _searchHistory = tempSearchHistoryList;
+  final RxString _query = ''.obs;
+
   final RxBool isLoading = false.obs;
 
-  // spec: https://pub.dev/packages/material_floating_search_bar
   final FloatingSearchBarController floatingSearchBarController =
       FloatingSearchBarController();
 
-  Future<List<Widget>> onQueryChanged(String newValue) async {
-    if (newValue.length > 3) {
-      if (_pdfStateController.pdfDocState.value is PdfDocStateData) {
-        /// page number and the text from that page
-        final pageText = <int, String>{};
-        int pageNumber = 0;
-        for (var page
-            in (_pdfStateController.pdfDocState.value as PdfDocStateData)
-                .pdfDoc
-                .pages) {
-          pageText[pageNumber] = await page.text;
-          pageNumber++;
-        }
-
-        /// page number and a list of the strings matching the search string from
-        /// that particular page
-        final foundStrings = <Widget>[];
-        pageText.forEach(
-          (key, value) {
-            /// the indexes for this particular page where the search string is found
-            final List<int> indexes = [];
-            int curIndex = value.indexOf(newValue);
-
-            /// find the index of each matching string on a page
-            while (curIndex != -1) {
-              indexes.add(curIndex);
-              curIndex = value.indexOf(newValue, curIndex + 1);
-            }
-
-            /// for each index on that page, create a substring. The substring
-            /// consists of 20 characters before the search string, 20 characters
-            /// after the search string, and then the search string itself is
-            /// displayed in bold
-            foundStrings.add(Text('PAGE $key'));
-            for (var i = 0; i < indexes.length; i++) {
-              foundStrings.add(
-                TextButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          i % 2 == 0 ? Colors.grey[300] : Colors.white)),
-                  onPressed: () => null,
-                  child: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                            text:
-                                '...${pageText[key].substring(indexes[i] - 20 < 0 ? 0 : indexes[i] - 20, indexes[i])}'),
-                        TextSpan(
-                            text: pageText[key].substring(
-                                indexes[i],
-                                indexes[i] + newValue.length >=
-                                        pageText[key].length
-                                    ? pageText[key].length - 1
-                                    : indexes[i] + newValue.length),
-                            style:
-                                const TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(
-                            text:
-                                '${pageText[key].substring(indexes[i] + newValue.length, indexes[i] + 20 + newValue.length >= pageText[key].length ? pageText[key].length - 1 : indexes[i] + 20 + newValue.length)}...'),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            }
-          },
-        );
-        print('');
-        return foundStrings;
-      }
+  Future<void> onQueryChanged(String query) async {
+    // Don't bother updating if the query string hasn't changed
+    if (_query.value == query) {
+      return;
     }
-    // todo: reimplement if (query == _query) { return; }
-    // this will make it so that the query doesn't show isLoading content
 
-    // isLoading.value = true;
-    // // todo: use OBx, so that update() can be removed?
-    // update();
+    // When the query is empty, assign pdfSearchState to type .history
+    if (query.isEmpty) {
+      pdfSearchState.value.maybeWhen(
+        history: (history) {
+          if (history == _searchHistory) {
+            /// search history already visible in pdfSearchState
+            /// no need to update this stream
+            return;
+          } else {
+            pdfSearchState.value = PdfSearchState.history(_searchHistory);
+          }
+        },
+        orElse: () =>
+            pdfSearchState.value = PdfSearchState.history(_searchHistory),
+      );
+    } else if (query.length > 2) {
+      // keep a history of the most recent query in memory
+      _query.value = query;
 
-    // await Future.delayed(const Duration(seconds: 2));
-
-    // isLoading.value = false;
-    // update();
-
-    return [Container()];
+      // Otherwise, run an async search call, which updates pdfSearchState
+      isLoading.value = true;
+      await _handleSearch(query);
+      isLoading.value = false;
+    }
   }
 
   void clear() {
-    // todo: implement
-    // _suggestions = history;
+    pdfSearchState.value = PdfSearchState.history(_searchHistory);
+  }
+
+  Future<bool> _handleSearch(String query) async {
+    print('handle search');
+    _pdfStateController.pdfTextListState.value.when(data: (pageText) {
+      // holds all current search results, which are later saved to pdfSearchState
+      final _searchResults = <PdfSearchStrings>[];
+
+      /// get page number and a list of the strings matching the search string from
+      /// that particular page
+      pageText.forEach(
+        (key, value) {
+          /// the indexes for this particular page where the search string is found
+          final List<int> indexes = [];
+          int curIndex = value.indexOf(query);
+
+          /// find the index of each matching string on a page
+          while (curIndex != -1) {
+            indexes.add(curIndex);
+            _searchResults.add(_getSearchStringsFromIndex(
+                curIndex, query, ValidatorsUtil().stringToInt(key), value));
+            curIndex = value.indexOf(query, curIndex + 1);
+          }
+
+          // foundStrings.add(Text('PAGE $key'));
+          // for (var i = 0; i < indexes.length; i++) {}
+        },
+      );
+
+      pdfSearchState.value = PdfSearchState.data(_searchResults);
+      print('');
+    }, loading: () {
+      //todo: handle loading state
+    }, error: (e, st) {
+      //todo: handle error state
+    });
+
+    return true;
+  }
+
+  PdfSearchStrings _getSearchStringsFromIndex(
+      int index, String query, int pageTextKey, String pageTextValue) {
+    // Note that pageNumber starts at 1, not 0
+
+    // The 'before' substring consists of SUBSTRING characters before the search string
+    final before = pageTextValue.substring(
+        index - _SUBSTRING < 0 ? 0 : index - _SUBSTRING, index);
+
+    // 'result' is the search string itself, which is displayed separately (e.g. bold)
+    final result = query;
+
+    // The 'after' substring conists of SUBSTRING characters after the search string
+    final after = pageTextValue.substring(
+        index + query.length,
+        index + _SUBSTRING + query.length >= pageTextValue.length
+            ? pageTextValue.length - 1
+            : index + _SUBSTRING + query.length);
+
+    return PdfSearchStrings(
+        pageNumber: pageTextKey,
+        beforeResult: before,
+        result: result,
+        afterResult: after);
   }
 
   @override
