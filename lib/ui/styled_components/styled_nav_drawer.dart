@@ -63,6 +63,7 @@ class StyledNavDrawer extends StatelessWidget {
   // and select the version (year) to display
   List<Widget> _mainItems(BuildContext context) {
     final unreadMessages = controller.unread;
+    final readMessages = controller.read;
     return <Widget>[
       // This is the only dynamic list item (that's why it's first on the list).
       // If there are _newMessages, then the mail icon will have a colored dot,
@@ -88,13 +89,21 @@ class StyledNavDrawer extends StatelessWidget {
               )
             : Text(S.NAV_MESSAGES),
         subtitle: Text(S.NAV_NOTIFICATIONS),
-        onTap: () => _displayUnreadMessages(context, unreadMessages),
+        onTap: () => _displayMessages(
+          context,
+          unreadMessages,
+          readMessages,
+        ),
       ),
       ListTile(
         leading: const Icon(Icons.description, size: 30.0),
         title: Text(S.NAV_VERSION),
         subtitle: Text(S.NAV_MANAGE_DISPLAY_YEAR),
-        onTap: () => _displayUnreadMessages(context, unreadMessages),
+        onTap: () => _displayMessages(
+          context,
+          unreadMessages,
+          readMessages,
+        ),
       ),
     ];
   } //_mainItems()
@@ -244,25 +253,88 @@ class StyledNavDrawer extends StatelessWidget {
   } // </kludge>
 } //StyledNavDrawer
 
-void _displayUnreadMessages(
-    BuildContext context, Set<Map<String, dynamic>> messages) {
+void _displayMessages(
+  BuildContext context,
+  Set<Map<String, dynamic>> unreadMessages,
+  Set<Map<String, dynamic>> readMessages,
+) {
   Get.back();
-  final List<Text> unreadMessages = [];
-  for (var message in messages) {
-    unreadMessages.add(Text(
-      '${message['dateTime']}\n'
-      '${message['title']} ${message['body']}',
-    ));
+  final controller = Get.put(MessagingController());
+  final unreadList = Column(children: []);
+  final readList = Column(children: []);
+
+  for (var message in unreadMessages) {
+    unreadList.children.add(
+      TextButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+                width: Get.width * 0.2,
+                child: Text('${message['dateTime']}'.substring(0, 16))),
+            Container(
+              width: Get.width * 0.5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('${message['title']}',
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  Text(
+                    '${message['body']}',
+                    softWrap: true,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        onLongPress: () => controller.setAsRead(message['dateTime']),
+        onPressed: () {},
+      ),
+    );
+  }
+  for (var message in readMessages) {
+    readList.children.add(
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+              width: Get.width * 0.2,
+              child: Text('${message['dateTime']}'.substring(0, 16))),
+          Container(
+            width: Get.width * 0.5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('${message['title']}',
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  '${message['body']}',
+                  softWrap: true,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return SimpleDialog(
-        title: const Text('Unread Messages', textAlign: TextAlign.center),
         children: <Widget>[
           SingleChildScrollView(
             child: Column(
-              children: unreadMessages,
+              children: [
+                const Text('Unread Messages',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                const Text('(long-press to mark as read)'),
+                unreadList,
+                const Text('Read Messages',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                readList,
+              ],
             ),
           ),
           TextButton(
