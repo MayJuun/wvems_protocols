@@ -30,6 +30,7 @@ class SearchItemSelectedCommand extends AbstractCommand {
 
 const _ERROR_SEARCH_STRING = PdfSearchStrings(
     pageNumber: 1,
+    pageIndex: 0,
     beforeResult: 'Error: ',
     result: 'No search data',
     afterResult: ' are available.');

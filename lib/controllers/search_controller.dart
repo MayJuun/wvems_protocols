@@ -53,7 +53,7 @@ class SearchController extends GetxController {
 
       // Otherwise, run an async search call, which updates pdfSearchState
       isLoading.value = true;
-      await _handleSearch(query);
+      await _validateStateAndHandleSearch(query);
       isLoading.value = false;
     }
   }
@@ -62,64 +62,99 @@ class SearchController extends GetxController {
     pdfSearchState.value = PdfSearchState.history(_searchHistory);
   }
 
-  Future<bool> _handleSearch(String query) async {
-    print('handle search');
-    _pdfStateController.pdfTextListState.value.when(data: (pageText) {
-      // holds all current search results, which are later saved to pdfSearchState
-      final _searchResults = <PdfSearchStrings>[];
+  Future<bool> _validateStateAndHandleSearch(String query) async {
+    /// First, check to see if pdf state data are valid
 
-      /// get page number and a list of the strings matching the search string from
-      /// that particular page
-      pageText.forEach(
-        (key, value) {
-          /// the indexes for this particular page where the search string is found
-          final List<int> indexes = [];
-          int curIndex = value.indexOf(query);
-
-          /// find the index of each matching string on a page
-          while (curIndex != -1) {
-            indexes.add(curIndex);
-            _searchResults.add(_getSearchStringsFromIndex(
-                curIndex, query, ValidatorsUtil().stringToInt(key), value));
-            curIndex = value.indexOf(query, curIndex + 1);
-          }
-
-          // foundStrings.add(Text('PAGE $key'));
-          // for (var i = 0; i < indexes.length; i++) {}
-        },
-      );
-
-      pdfSearchState.value = PdfSearchState.data(_searchResults);
-      print('');
-    }, loading: () {
-      print('Error, pdfTextList is still loading');
-    }, error: (e, st) {
-      print('Error, pdfTextList has an error: $e');
-    });
+    _pdfStateController.pdfTableOfContentsState.value.when(
+      data: (tableOfContents) async {
+        await _pdfStateController.pdfTextListState.value.when(
+            data: (pageText) async {
+          /// Note, search will only be performed
+          /// if both table of contents and text list have valid data
+          await _handleSearch(tableOfContents, pageText, query);
+        }, loading: () {
+          print('Error, pdfTextList is still loading');
+        }, error: (e, st) {
+          print('Error, pdfTextList has an error: $e');
+        });
+      },
+      loading: () {
+        print('Error, Table of Contents is still loading');
+      },
+      error: (e, st) {
+        print('Error, Table of Contents has an error: $e');
+      },
+    );
 
     return true;
   }
 
+  Future<bool> _handleSearch(Map<String, dynamic> tableOfContents,
+      Map<String, dynamic> pageText, String query) async {
+    // holds all current search results, which are later saved to pdfSearchState
+    final _searchResults = <PdfSearchStrings>[];
+
+    final _pageKeyList = pageText.keys.toList();
+
+    /// get page number and a list of the strings matching that page
+    pageText.forEach(
+      (pageKey, pageValue) {
+        /// the indexes for this particular page where the search string is found
+        final List<int> stringIndexes = [];
+        int curIndex = pageValue.indexOf(query);
+        final pageIndex = _pageKeyList.indexOf(pageKey);
+
+        /// find the index of each matching string on a page
+        while (curIndex != -1) {
+          stringIndexes.add(curIndex);
+          _searchResults.add(
+            _getSearchStringsFromIndex(
+              stringIndex: curIndex,
+              query: query,
+              pageNumber: ValidatorsUtil().stringToInt(pageKey),
+              pageIndex: pageIndex,
+              pageTextValue: pageValue,
+            ),
+          );
+          curIndex = pageValue.indexOf(query, curIndex + 1);
+        }
+
+        // foundStrings.add(Text('PAGE $key'));
+        // for (var i = 0; i < indexes.length; i++) {}
+      },
+    );
+
+    pdfSearchState.value = PdfSearchState.data(_searchResults);
+    print('');
+    return true;
+  }
+
   PdfSearchStrings _getSearchStringsFromIndex(
-      int index, String query, int pageTextKey, String pageTextValue) {
+      {required int stringIndex,
+      required String query,
+      required int pageNumber,
+      required int pageIndex,
+      required String pageTextValue}) {
     // Note that pageNumber starts at 1, not 0
 
     // The 'before' substring consists of SUBSTRING characters before the search string
     final before = pageTextValue.substring(
-        index - _SUBSTRING < 0 ? 0 : index - _SUBSTRING, index);
+        stringIndex - _SUBSTRING < 0 ? 0 : stringIndex - _SUBSTRING,
+        stringIndex);
 
     // 'result' is the search string itself, which is displayed separately (e.g. bold)
     final result = query;
 
     // The 'after' substring conists of SUBSTRING characters after the search string
     final after = pageTextValue.substring(
-        index + query.length,
-        index + _SUBSTRING + query.length >= pageTextValue.length
+        stringIndex + query.length,
+        stringIndex + _SUBSTRING + query.length >= pageTextValue.length
             ? pageTextValue.length - 1
-            : index + _SUBSTRING + query.length);
+            : stringIndex + _SUBSTRING + query.length);
 
     return PdfSearchStrings(
-        pageNumber: pageTextKey,
+        pageNumber: pageNumber,
+        pageIndex: pageIndex,
         beforeResult: before,
         result: result,
         afterResult: after);
