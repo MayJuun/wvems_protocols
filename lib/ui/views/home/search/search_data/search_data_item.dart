@@ -6,8 +6,8 @@ import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
 
 /// This shows the 'history' of previous items that have been searched for in the past
-class HomeSearchItem extends StatelessWidget {
-  const HomeSearchItem({Key? key, required this.searchStrings})
+class SearchDataItem extends StatelessWidget {
+  const SearchDataItem({Key? key, required this.searchStrings})
       : super(key: key);
 
   final PdfSearchStrings searchStrings;

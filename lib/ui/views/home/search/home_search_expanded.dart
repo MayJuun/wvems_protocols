@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/ui/views/home/search/home_search_list.dart';
+
+import 'search_data/search_data_list.dart';
+import 'search_history/search_history_list.dart';
 
 class HomeSearchExpanded extends StatelessWidget {
   @override
@@ -14,8 +16,8 @@ class HomeSearchExpanded extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: Obx(
         () => searchController.pdfSearchState.value.when(
-          data: (data) => HomeSearchList(searchStringsList: data),
-          history: (history) => HomeSearchList(searchStringsList: history),
+          data: (data) => SearchDataList(searchStringsList: data),
+          history: (history) => SearchHistoryList(searchStringsList: history),
           loading: () => const CircularProgressIndicator(),
           error: (error, st) => Center(
             child: Text('Error: $error'),

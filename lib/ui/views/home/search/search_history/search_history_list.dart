@@ -4,10 +4,10 @@ import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorder
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:wvems_protocols/models/models.dart';
 
-import 'home_search_item.dart';
+import 'search_history_item.dart';
 
-class HomeSearchList extends StatelessWidget {
-  const HomeSearchList({Key? key, required this.searchStringsList})
+class SearchHistoryList extends StatelessWidget {
+  const SearchHistoryList({Key? key, required this.searchStringsList})
       : super(key: key);
 
   final List<PdfSearchStrings> searchStringsList;
@@ -30,13 +30,13 @@ class HomeSearchList extends StatelessWidget {
             itemBuilder: (context, animation, searchStrings, index) {
               return SizeFadeTransition(
                 animation: animation,
-                child: HomeSearchItem(searchStrings: searchStrings),
+                child: SearchHistoryItem(searchStrings: searchStrings),
               );
             },
             updateItemBuilder: (context, animation, searchStrings) {
               return FadeTransition(
                 opacity: animation,
-                child: HomeSearchItem(searchStrings: searchStrings),
+                child: SearchHistoryItem(searchStrings: searchStrings),
               );
             },
           ),
