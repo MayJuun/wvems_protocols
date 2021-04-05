@@ -92,9 +92,9 @@ class SearchController extends GetxController {
       pdfSearchState.value = PdfSearchState.data(_searchResults);
       print('');
     }, loading: () {
-      //todo: handle loading state
+      print('Error, pdfTextList is still loading');
     }, error: (e, st) {
-      //todo: handle error state
+      print('Error, pdfTextList has an error: $e');
     });
 
     return true;

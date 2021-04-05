@@ -22,6 +22,10 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final Rx<PdfTextListState> pdfTextListState =
       const PdfTextListState.loading().obs;
 
+  /// Parses the title for each page, which is displayed in search
+  final Rx<PdfTableOfContentsState> pdfTableOfContentsState =
+      const PdfTableOfContentsState.loading().obs;
+
   /// Used for PDFView
   Completer<PDFViewController> asyncController = Completer<PDFViewController>();
   Rx<PDFViewController>? rxPdfController;
@@ -55,6 +59,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
 
       /// Then, find/load the JSON file that contains all text
       _loadNewPdfText(AssetsUtil().pdfToJson(assetPath));
+      _loadNewPdfTableOfContents(AssetsUtil().pdfToJsonWithToc(assetPath));
       print('file saved');
     } catch (e, st) {
       pdfFileState.value = PdfFileState.error(e, st);
@@ -118,6 +123,19 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
       print('pdf text loaded');
     } catch (e, st) {
       pdfTextListState.value = PdfTextListState.error(e, st);
+    }
+  }
+
+  Future<void> _loadNewPdfTableOfContents(String assetPath) async {
+    pdfTableOfContentsState.value = const PdfTableOfContentsState.loading();
+
+    try {
+      final jsonString = await rootBundle.loadString(assetPath);
+      final textList = jsonDecode(jsonString);
+      pdfTableOfContentsState.value = PdfTableOfContentsState.data(textList);
+      print('pdf table of contents loaded');
+    } catch (e, st) {
+      pdfTableOfContentsState.value = PdfTableOfContentsState.error(e, st);
     }
   }
 
