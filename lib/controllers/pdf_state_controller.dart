@@ -139,6 +139,12 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     }
   }
 
+  String getTableOfContentsFromPageNum(int pageNum) =>
+      pdfTableOfContentsState.value.when(
+          data: (data) => data[pageNum.toString()] ?? '',
+          loading: () => 'loading',
+          error: (error, st) => 'error');
+
   /// **********************************************************
   /// ****************** OVERRIDEN METHODS *********************
   /// **********************************************************

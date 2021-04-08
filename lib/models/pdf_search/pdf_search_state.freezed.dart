@@ -16,15 +16,17 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$PdfSearchStateTearOff {
   const _$PdfSearchStateTearOff();
 
-  PdfSearchStateData data(List<PdfSearchStrings> searchStringList) {
+  PdfSearchStateData data(
+      Map<String, List<PdfSearchStrings>> searchStringDataMap) {
     return PdfSearchStateData(
-      searchStringList,
+      searchStringDataMap,
     );
   }
 
-  PdfSearchStateHistory history(List<PdfSearchStrings> searchStringList) {
+  PdfSearchStateHistory history(
+      List<PdfSearchStrings> searchStringHistoryList) {
     return PdfSearchStateHistory(
-      searchStringList,
+      searchStringHistoryList,
     );
   }
 
@@ -47,16 +49,20 @@ const $PdfSearchState = _$PdfSearchStateTearOff();
 mixin _$PdfSearchState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PdfSearchStrings> searchStringList) data,
-    required TResult Function(List<PdfSearchStrings> searchStringList) history,
+    required TResult Function(
+            Map<String, List<PdfSearchStrings>> searchStringDataMap)
+        data,
+    required TResult Function(List<PdfSearchStrings> searchStringHistoryList)
+        history,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PdfSearchStrings> searchStringList)? data,
-    TResult Function(List<PdfSearchStrings> searchStringList)? history,
+    TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
+        data,
+    TResult Function(List<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
     TResult Function(Object error, StackTrace stackTrace)? error,
     required TResult orElse(),
@@ -103,7 +109,7 @@ abstract class $PdfSearchStateDataCopyWith<$Res> {
   factory $PdfSearchStateDataCopyWith(
           PdfSearchStateData value, $Res Function(PdfSearchStateData) then) =
       _$PdfSearchStateDataCopyWithImpl<$Res>;
-  $Res call({List<PdfSearchStrings> searchStringList});
+  $Res call({Map<String, List<PdfSearchStrings>> searchStringDataMap});
 }
 
 /// @nodoc
@@ -119,42 +125,42 @@ class _$PdfSearchStateDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? searchStringList = freezed,
+    Object? searchStringDataMap = freezed,
   }) {
     return _then(PdfSearchStateData(
-      searchStringList == freezed
-          ? _value.searchStringList
-          : searchStringList // ignore: cast_nullable_to_non_nullable
-              as List<PdfSearchStrings>,
+      searchStringDataMap == freezed
+          ? _value.searchStringDataMap
+          : searchStringDataMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<PdfSearchStrings>>,
     ));
   }
 }
 
 /// @nodoc
 class _$PdfSearchStateData implements PdfSearchStateData {
-  const _$PdfSearchStateData(this.searchStringList);
+  const _$PdfSearchStateData(this.searchStringDataMap);
 
   @override
-  final List<PdfSearchStrings> searchStringList;
+  final Map<String, List<PdfSearchStrings>> searchStringDataMap;
 
   @override
   String toString() {
-    return 'PdfSearchState.data(searchStringList: $searchStringList)';
+    return 'PdfSearchState.data(searchStringDataMap: $searchStringDataMap)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is PdfSearchStateData &&
-            (identical(other.searchStringList, searchStringList) ||
+            (identical(other.searchStringDataMap, searchStringDataMap) ||
                 const DeepCollectionEquality()
-                    .equals(other.searchStringList, searchStringList)));
+                    .equals(other.searchStringDataMap, searchStringDataMap)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(searchStringList);
+      const DeepCollectionEquality().hash(searchStringDataMap);
 
   @JsonKey(ignore: true)
   @override
@@ -164,25 +170,29 @@ class _$PdfSearchStateData implements PdfSearchStateData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PdfSearchStrings> searchStringList) data,
-    required TResult Function(List<PdfSearchStrings> searchStringList) history,
+    required TResult Function(
+            Map<String, List<PdfSearchStrings>> searchStringDataMap)
+        data,
+    required TResult Function(List<PdfSearchStrings> searchStringHistoryList)
+        history,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) {
-    return data(searchStringList);
+    return data(searchStringDataMap);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PdfSearchStrings> searchStringList)? data,
-    TResult Function(List<PdfSearchStrings> searchStringList)? history,
+    TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
+        data,
+    TResult Function(List<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
     TResult Function(Object error, StackTrace stackTrace)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(searchStringList);
+      return data(searchStringDataMap);
     }
     return orElse();
   }
@@ -215,10 +225,11 @@ class _$PdfSearchStateData implements PdfSearchStateData {
 }
 
 abstract class PdfSearchStateData implements PdfSearchState {
-  const factory PdfSearchStateData(List<PdfSearchStrings> searchStringList) =
+  const factory PdfSearchStateData(
+          Map<String, List<PdfSearchStrings>> searchStringDataMap) =
       _$PdfSearchStateData;
 
-  List<PdfSearchStrings> get searchStringList =>
+  Map<String, List<PdfSearchStrings>> get searchStringDataMap =>
       throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PdfSearchStateDataCopyWith<PdfSearchStateData> get copyWith =>
@@ -230,7 +241,7 @@ abstract class $PdfSearchStateHistoryCopyWith<$Res> {
   factory $PdfSearchStateHistoryCopyWith(PdfSearchStateHistory value,
           $Res Function(PdfSearchStateHistory) then) =
       _$PdfSearchStateHistoryCopyWithImpl<$Res>;
-  $Res call({List<PdfSearchStrings> searchStringList});
+  $Res call({List<PdfSearchStrings> searchStringHistoryList});
 }
 
 /// @nodoc
@@ -246,12 +257,12 @@ class _$PdfSearchStateHistoryCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? searchStringList = freezed,
+    Object? searchStringHistoryList = freezed,
   }) {
     return _then(PdfSearchStateHistory(
-      searchStringList == freezed
-          ? _value.searchStringList
-          : searchStringList // ignore: cast_nullable_to_non_nullable
+      searchStringHistoryList == freezed
+          ? _value.searchStringHistoryList
+          : searchStringHistoryList // ignore: cast_nullable_to_non_nullable
               as List<PdfSearchStrings>,
     ));
   }
@@ -259,29 +270,30 @@ class _$PdfSearchStateHistoryCopyWithImpl<$Res>
 
 /// @nodoc
 class _$PdfSearchStateHistory implements PdfSearchStateHistory {
-  const _$PdfSearchStateHistory(this.searchStringList);
+  const _$PdfSearchStateHistory(this.searchStringHistoryList);
 
   @override
-  final List<PdfSearchStrings> searchStringList;
+  final List<PdfSearchStrings> searchStringHistoryList;
 
   @override
   String toString() {
-    return 'PdfSearchState.history(searchStringList: $searchStringList)';
+    return 'PdfSearchState.history(searchStringHistoryList: $searchStringHistoryList)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is PdfSearchStateHistory &&
-            (identical(other.searchStringList, searchStringList) ||
-                const DeepCollectionEquality()
-                    .equals(other.searchStringList, searchStringList)));
+            (identical(
+                    other.searchStringHistoryList, searchStringHistoryList) ||
+                const DeepCollectionEquality().equals(
+                    other.searchStringHistoryList, searchStringHistoryList)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(searchStringList);
+      const DeepCollectionEquality().hash(searchStringHistoryList);
 
   @JsonKey(ignore: true)
   @override
@@ -292,25 +304,29 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PdfSearchStrings> searchStringList) data,
-    required TResult Function(List<PdfSearchStrings> searchStringList) history,
+    required TResult Function(
+            Map<String, List<PdfSearchStrings>> searchStringDataMap)
+        data,
+    required TResult Function(List<PdfSearchStrings> searchStringHistoryList)
+        history,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) {
-    return history(searchStringList);
+    return history(searchStringHistoryList);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PdfSearchStrings> searchStringList)? data,
-    TResult Function(List<PdfSearchStrings> searchStringList)? history,
+    TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
+        data,
+    TResult Function(List<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
     TResult Function(Object error, StackTrace stackTrace)? error,
     required TResult orElse(),
   }) {
     if (history != null) {
-      return history(searchStringList);
+      return history(searchStringHistoryList);
     }
     return orElse();
   }
@@ -343,10 +359,10 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
 }
 
 abstract class PdfSearchStateHistory implements PdfSearchState {
-  const factory PdfSearchStateHistory(List<PdfSearchStrings> searchStringList) =
-      _$PdfSearchStateHistory;
+  const factory PdfSearchStateHistory(
+      List<PdfSearchStrings> searchStringHistoryList) = _$PdfSearchStateHistory;
 
-  List<PdfSearchStrings> get searchStringList =>
+  List<PdfSearchStrings> get searchStringHistoryList =>
       throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PdfSearchStateHistoryCopyWith<PdfSearchStateHistory> get copyWith =>
@@ -392,8 +408,11 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PdfSearchStrings> searchStringList) data,
-    required TResult Function(List<PdfSearchStrings> searchStringList) history,
+    required TResult Function(
+            Map<String, List<PdfSearchStrings>> searchStringDataMap)
+        data,
+    required TResult Function(List<PdfSearchStrings> searchStringHistoryList)
+        history,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) {
@@ -403,8 +422,9 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PdfSearchStrings> searchStringList)? data,
-    TResult Function(List<PdfSearchStrings> searchStringList)? history,
+    TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
+        data,
+    TResult Function(List<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
     TResult Function(Object error, StackTrace stackTrace)? error,
     required TResult orElse(),
@@ -522,8 +542,11 @@ class _$PdfSearchStateError implements PdfSearchStateError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PdfSearchStrings> searchStringList) data,
-    required TResult Function(List<PdfSearchStrings> searchStringList) history,
+    required TResult Function(
+            Map<String, List<PdfSearchStrings>> searchStringDataMap)
+        data,
+    required TResult Function(List<PdfSearchStrings> searchStringHistoryList)
+        history,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) {
@@ -533,8 +556,9 @@ class _$PdfSearchStateError implements PdfSearchStateError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PdfSearchStrings> searchStringList)? data,
-    TResult Function(List<PdfSearchStrings> searchStringList)? history,
+    TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
+        data,
+    TResult Function(List<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
     TResult Function(Object error, StackTrace stackTrace)? error,
     required TResult orElse(),

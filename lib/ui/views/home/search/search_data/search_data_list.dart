@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
-import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:wvems_protocols/models/models.dart';
-
-import 'search_data_item.dart';
+import 'package:wvems_protocols/ui/views/home/search/search_data/search_data_item.dart';
+import 'package:wvems_protocols/ui/views/home/search/search_data/search_data_toc_title.dart';
 
 class SearchDataList extends StatelessWidget {
   const SearchDataList({Key? key, required this.searchStringsList})
@@ -14,34 +11,25 @@ class SearchDataList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Gap(8),
-        Text('Number of Results: ${searchStringsList.length}'),
-        const Gap(8),
-        SizedBox(
-          height: 330,
-          child: ImplicitlyAnimatedList<PdfSearchStrings>(
-            // shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            physics: const BouncingScrollPhysics(),
-            items: searchStringsList,
-            areItemsTheSame: (a, b) => a == b,
-            itemBuilder: (context, animation, searchStrings, index) {
-              return SizeFadeTransition(
-                animation: animation,
-                child: SearchDataItem(searchStrings: searchStrings),
-              );
-            },
-            updateItemBuilder: (context, animation, searchStrings) {
-              return FadeTransition(
-                opacity: animation,
-                child: SearchDataItem(searchStrings: searchStrings),
-              );
-            },
-          ),
-        ),
-      ],
+    final pageNum = searchStringsList.first.pageNumber;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            // page number
+            Text('Page $pageNum'),
+
+            // title on the right
+            SearchDataTocTitle(pageNumber: pageNum),
+          ]),
+          ...searchStringsList.map(
+            (e) => SearchDataItem(searchStrings: e),
+          )
+        ],
+      ),
     );
   }
 }

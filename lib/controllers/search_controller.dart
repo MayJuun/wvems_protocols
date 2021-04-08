@@ -20,6 +20,7 @@ class SearchController extends GetxController {
   // todo: connect pdfSearchHistory to GetStorage in the onInit
   final List<PdfSearchStrings> _searchHistory = tempSearchHistoryList;
   final RxString _query = ''.obs;
+  final RxInt numberOfResults = 0.obs;
 
   final RxBool isLoading = false.obs;
 
@@ -92,13 +93,16 @@ class SearchController extends GetxController {
   Future<bool> _handleSearch(Map<String, dynamic> tableOfContents,
       Map<String, dynamic> pageText, String query) async {
     // holds all current search results, which are later saved to pdfSearchState
-    final _searchResults = <PdfSearchStrings>[];
+    final searchResultsPageMap = <String, List<PdfSearchStrings>>{};
+    int resultsCounter = 0;
 
     final _pageKeyList = pageText.keys.toList();
 
     /// get page number and a list of the strings matching that page
     pageText.forEach(
       (pageKey, pageValue) {
+        final searchResultStringsList = <PdfSearchStrings>[];
+
         /// the indexes for this particular page where the search string is found
         final List<int> stringIndexes = [];
         int curIndex = pageValue.indexOf(query);
@@ -107,7 +111,7 @@ class SearchController extends GetxController {
         /// find the index of each matching string on a page
         while (curIndex != -1) {
           stringIndexes.add(curIndex);
-          _searchResults.add(
+          searchResultStringsList.add(
             _getSearchStringsFromIndex(
               stringIndex: curIndex,
               query: query,
@@ -116,15 +120,21 @@ class SearchController extends GetxController {
               pageTextValue: pageValue,
             ),
           );
+
+          resultsCounter++;
           curIndex = pageValue.indexOf(query, curIndex + 1);
         }
 
-        // foundStrings.add(Text('PAGE $key'));
-        // for (var i = 0; i < indexes.length; i++) {}
+        // Add all search results for the given page
+        if (searchResultStringsList.isNotEmpty) {
+          searchResultsPageMap[pageKey] = searchResultStringsList;
+          print('');
+        }
       },
     );
 
-    pdfSearchState.value = PdfSearchState.data(_searchResults);
+    pdfSearchState.value = PdfSearchState.data(searchResultsPageMap);
+    numberOfResults.value = resultsCounter;
     print('');
     return true;
   }

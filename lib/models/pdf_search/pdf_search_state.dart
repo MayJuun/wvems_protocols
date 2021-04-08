@@ -6,12 +6,14 @@ part 'pdf_search_state.freezed.dart';
 @freezed
 class PdfSearchState with _$PdfSearchState {
   // Data is the active list of strings available in search
-  const factory PdfSearchState.data(List<PdfSearchStrings> searchStringList) =
+  // Format is: {pageNumber, [searchString1, searchString2]}
+  const factory PdfSearchState.data(
+          Map<String, List<PdfSearchStrings>> searchStringDataMap) =
       PdfSearchStateData;
 
   // History is the list of all prior searches that have been clicked on
   const factory PdfSearchState.history(
-      List<PdfSearchStrings> searchStringList) = PdfSearchStateHistory;
+      List<PdfSearchStrings> searchStringHistoryList) = PdfSearchStateHistory;
 
   // Standard loading and error states, as per other models
   const factory PdfSearchState.loading() = PdfSearchStateLoading;
