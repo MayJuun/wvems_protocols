@@ -196,13 +196,9 @@ class SearchController extends GetxController {
   }
 
   Future<bool> _updateSearchHistoryStore() async {
-    final dataAsJson = {};
-    if (_searchHistory.isNotEmpty) {
-      for (var i = 0; i < _searchHistory.length; i++) {
-        // todo: fix encoding to json ...
-        dataAsJson[i] = _searchHistory.elementAt(i).toJson();
-      }
-    }
+    final Map<String, dynamic> dataAsJson =
+        PdfSearchState.history(_searchHistory).toJson();
+
     print(dataAsJson);
     await _data.store.write(_pdfStateController.asset.value, dataAsJson);
     update();
@@ -210,15 +206,26 @@ class SearchController extends GetxController {
   }
 
   Future<bool> getSearchHistoryFromStore(String asset) async {
-    // final data = _data.store.read(asset) as
-    final data = _tempSearchHistoryList;
-    // todo: fix encoding from json ...
-    // final RxSet<PdfSearchStrings> data = PdfSearchStrings.fromJson().obs ?? {}.obs;
-    //
-    _searchHistory.assignAll(data);
+    try {
+      final Map<String, dynamic> dataAsJson =
+          _data.store.read(asset) ?? _blankSearchHistory;
 
-    // _searchHistory.assignAll(jsonDecode(dataAsJson).toSet());
+      final dataAsSearchHistory =
+          PdfSearchState.fromJson(dataAsJson) as PdfSearchStateHistory;
+
+      _assignSearchHistory(dataAsSearchHistory.searchStringHistoryList);
+    } catch (e) {
+      print('unable to load search history: $e');
+      // _searchHistory.assignAll();
+    }
+
+    print('search history data loaded');
     return true;
+  }
+
+  void _assignSearchHistory(Set<PdfSearchStrings> obj) {
+    _searchHistory.assignAll(obj);
+    pdfSearchState.value = PdfSearchState.history(obj);
   }
 
   /// **********************************************************
@@ -238,41 +245,7 @@ class SearchController extends GetxController {
   }
 }
 
-final Set<PdfSearchStrings> _tempSearchHistoryList = {
-  const PdfSearchStrings(
-      pageNumber: 12,
-      pageIndex: 11,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
-  const PdfSearchStrings(
-      pageNumber: 13,
-      pageIndex: 12,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
-  const PdfSearchStrings(
-      pageNumber: 14,
-      pageIndex: 13,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
-  const PdfSearchStrings(
-      pageNumber: 15,
-      pageIndex: 14,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
-  const PdfSearchStrings(
-      pageNumber: 16,
-      pageIndex: 15,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
-  const PdfSearchStrings(
-      pageNumber: 17,
-      pageIndex: 16,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
+final Map<String, dynamic> _blankSearchHistory = {
+  'searchStringHistoryList': [],
+  'runtimeType': 'history',
 };

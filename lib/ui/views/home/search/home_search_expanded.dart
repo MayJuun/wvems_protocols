@@ -18,7 +18,11 @@ class HomeSearchExpanded extends StatelessWidget {
         () => searchController.pdfSearchState.value.when(
           data: (data) => SearchDataMap(searchResultsPageMap: data),
           history: (history) => SearchHistorySet(searchStringsSet: history),
-          loading: () => const CircularProgressIndicator(),
+          loading: () => const Center(
+              child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: CircularProgressIndicator(),
+          )),
           error: (error) => Center(
             child: Text('Error: $error'),
           ),

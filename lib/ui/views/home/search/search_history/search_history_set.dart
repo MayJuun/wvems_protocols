@@ -17,7 +17,7 @@ class SearchHistorySet extends StatelessWidget {
     return Column(
       children: [
         const Gap(8),
-        Text('Number of Results: ${searchStringsSet.length}'),
+        Text('Number in History: ${searchStringsSet.length}'),
         const Gap(8),
         SizedBox(
           height: 330,
