@@ -1,17 +1,17 @@
-class PdfSearchStrings {
-  // todo: change required to required, when non-nullable
-  const PdfSearchStrings({
-    required this.pageNumber,
-    required this.pageIndex,
-    required this.beforeResult,
-    required this.result,
-    required this.afterResult,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final int pageNumber;
-  final int pageIndex;
+part 'pdf_search_strings.freezed.dart';
+part 'pdf_search_strings.g.dart';
 
-  final String beforeResult;
-  final String result;
-  final String afterResult;
+@freezed
+class PdfSearchStrings with _$PdfSearchStrings {
+  const factory PdfSearchStrings(
+      {required int pageNumber,
+      required int pageIndex,
+      required String beforeResult,
+      required String result,
+      required String afterResult}) = PdfSearchStringsData;
+
+  factory PdfSearchStrings.fromJson(Map<String, dynamic> json) =>
+      _$PdfSearchStringsFromJson(json);
 }

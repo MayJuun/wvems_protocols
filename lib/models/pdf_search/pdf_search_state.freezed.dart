@@ -12,6 +12,22 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+PdfSearchState _$PdfSearchStateFromJson(Map<String, dynamic> json) {
+  switch (json['runtimeType'] as String) {
+    case 'data':
+      return PdfSearchStateData.fromJson(json);
+    case 'history':
+      return PdfSearchStateHistory.fromJson(json);
+    case 'loading':
+      return PdfSearchStateLoading.fromJson(json);
+    case 'error':
+      return PdfSearchStateError.fromJson(json);
+
+    default:
+      throw FallThroughError();
+  }
+}
+
 /// @nodoc
 class _$PdfSearchStateTearOff {
   const _$PdfSearchStateTearOff();
@@ -33,11 +49,14 @@ class _$PdfSearchStateTearOff {
     return const PdfSearchStateLoading();
   }
 
-  PdfSearchStateError error(Object error, StackTrace stackTrace) {
+  PdfSearchStateError error(Object error) {
     return PdfSearchStateError(
       error,
-      stackTrace,
     );
+  }
+
+  PdfSearchState fromJson(Map<String, Object> json) {
+    return PdfSearchState.fromJson(json);
   }
 }
 
@@ -54,7 +73,7 @@ mixin _$PdfSearchState {
     required TResult Function(Set<PdfSearchStrings> searchStringHistoryList)
         history,
     required TResult Function() loading,
-    required TResult Function(Object error, StackTrace stackTrace) error,
+    required TResult Function(Object error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,7 +82,7 @@ mixin _$PdfSearchState {
         data,
     TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
-    TResult Function(Object error, StackTrace stackTrace)? error,
+    TResult Function(Object error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -84,6 +103,7 @@ mixin _$PdfSearchState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -135,9 +155,14 @@ class _$PdfSearchStateDataCopyWithImpl<$Res>
   }
 }
 
+@JsonSerializable()
+
 /// @nodoc
 class _$PdfSearchStateData implements PdfSearchStateData {
   const _$PdfSearchStateData(this.searchStringDataMap);
+
+  factory _$PdfSearchStateData.fromJson(Map<String, dynamic> json) =>
+      _$_$PdfSearchStateDataFromJson(json);
 
   @override
   final Map<String, List<PdfSearchStrings>> searchStringDataMap;
@@ -175,7 +200,7 @@ class _$PdfSearchStateData implements PdfSearchStateData {
     required TResult Function(Set<PdfSearchStrings> searchStringHistoryList)
         history,
     required TResult Function() loading,
-    required TResult Function(Object error, StackTrace stackTrace) error,
+    required TResult Function(Object error) error,
   }) {
     return data(searchStringDataMap);
   }
@@ -187,7 +212,7 @@ class _$PdfSearchStateData implements PdfSearchStateData {
         data,
     TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
-    TResult Function(Object error, StackTrace stackTrace)? error,
+    TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
@@ -221,12 +246,20 @@ class _$PdfSearchStateData implements PdfSearchStateData {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$PdfSearchStateDataToJson(this)..['runtimeType'] = 'data';
+  }
 }
 
 abstract class PdfSearchStateData implements PdfSearchState {
   const factory PdfSearchStateData(
           Map<String, List<PdfSearchStrings>> searchStringDataMap) =
       _$PdfSearchStateData;
+
+  factory PdfSearchStateData.fromJson(Map<String, dynamic> json) =
+      _$PdfSearchStateData.fromJson;
 
   Map<String, List<PdfSearchStrings>> get searchStringDataMap =>
       throw _privateConstructorUsedError;
@@ -267,9 +300,14 @@ class _$PdfSearchStateHistoryCopyWithImpl<$Res>
   }
 }
 
+@JsonSerializable()
+
 /// @nodoc
 class _$PdfSearchStateHistory implements PdfSearchStateHistory {
   const _$PdfSearchStateHistory(this.searchStringHistoryList);
+
+  factory _$PdfSearchStateHistory.fromJson(Map<String, dynamic> json) =>
+      _$_$PdfSearchStateHistoryFromJson(json);
 
   @override
   final Set<PdfSearchStrings> searchStringHistoryList;
@@ -309,7 +347,7 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
     required TResult Function(Set<PdfSearchStrings> searchStringHistoryList)
         history,
     required TResult Function() loading,
-    required TResult Function(Object error, StackTrace stackTrace) error,
+    required TResult Function(Object error) error,
   }) {
     return history(searchStringHistoryList);
   }
@@ -321,7 +359,7 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
         data,
     TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
-    TResult Function(Object error, StackTrace stackTrace)? error,
+    TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
     if (history != null) {
@@ -355,11 +393,19 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$PdfSearchStateHistoryToJson(this)..['runtimeType'] = 'history';
+  }
 }
 
 abstract class PdfSearchStateHistory implements PdfSearchState {
   const factory PdfSearchStateHistory(
       Set<PdfSearchStrings> searchStringHistoryList) = _$PdfSearchStateHistory;
+
+  factory PdfSearchStateHistory.fromJson(Map<String, dynamic> json) =
+      _$PdfSearchStateHistory.fromJson;
 
   Set<PdfSearchStrings> get searchStringHistoryList =>
       throw _privateConstructorUsedError;
@@ -387,9 +433,14 @@ class _$PdfSearchStateLoadingCopyWithImpl<$Res>
   PdfSearchStateLoading get _value => super._value as PdfSearchStateLoading;
 }
 
+@JsonSerializable()
+
 /// @nodoc
 class _$PdfSearchStateLoading implements PdfSearchStateLoading {
   const _$PdfSearchStateLoading();
+
+  factory _$PdfSearchStateLoading.fromJson(Map<String, dynamic> json) =>
+      _$_$PdfSearchStateLoadingFromJson(json);
 
   @override
   String toString() {
@@ -413,7 +464,7 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
     required TResult Function(Set<PdfSearchStrings> searchStringHistoryList)
         history,
     required TResult Function() loading,
-    required TResult Function(Object error, StackTrace stackTrace) error,
+    required TResult Function(Object error) error,
   }) {
     return loading();
   }
@@ -425,7 +476,7 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
         data,
     TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
-    TResult Function(Object error, StackTrace stackTrace)? error,
+    TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -459,10 +510,18 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$PdfSearchStateLoadingToJson(this)..['runtimeType'] = 'loading';
+  }
 }
 
 abstract class PdfSearchStateLoading implements PdfSearchState {
   const factory PdfSearchStateLoading() = _$PdfSearchStateLoading;
+
+  factory PdfSearchStateLoading.fromJson(Map<String, dynamic> json) =
+      _$PdfSearchStateLoading.fromJson;
 }
 
 /// @nodoc
@@ -470,7 +529,7 @@ abstract class $PdfSearchStateErrorCopyWith<$Res> {
   factory $PdfSearchStateErrorCopyWith(
           PdfSearchStateError value, $Res Function(PdfSearchStateError) then) =
       _$PdfSearchStateErrorCopyWithImpl<$Res>;
-  $Res call({Object error, StackTrace stackTrace});
+  $Res call({Object error});
 }
 
 /// @nodoc
@@ -487,33 +546,31 @@ class _$PdfSearchStateErrorCopyWithImpl<$Res>
   @override
   $Res call({
     Object? error = freezed,
-    Object? stackTrace = freezed,
   }) {
     return _then(PdfSearchStateError(
       error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as Object,
-      stackTrace == freezed
-          ? _value.stackTrace
-          : stackTrace // ignore: cast_nullable_to_non_nullable
-              as StackTrace,
     ));
   }
 }
 
+@JsonSerializable()
+
 /// @nodoc
 class _$PdfSearchStateError implements PdfSearchStateError {
-  const _$PdfSearchStateError(this.error, this.stackTrace);
+  const _$PdfSearchStateError(this.error);
+
+  factory _$PdfSearchStateError.fromJson(Map<String, dynamic> json) =>
+      _$_$PdfSearchStateErrorFromJson(json);
 
   @override
   final Object error;
-  @override
-  final StackTrace stackTrace;
 
   @override
   String toString() {
-    return 'PdfSearchState.error(error: $error, stackTrace: $stackTrace)';
+    return 'PdfSearchState.error(error: $error)';
   }
 
   @override
@@ -521,17 +578,12 @@ class _$PdfSearchStateError implements PdfSearchStateError {
     return identical(this, other) ||
         (other is PdfSearchStateError &&
             (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)) &&
-            (identical(other.stackTrace, stackTrace) ||
-                const DeepCollectionEquality()
-                    .equals(other.stackTrace, stackTrace)));
+                const DeepCollectionEquality().equals(other.error, error)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(error) ^
-      const DeepCollectionEquality().hash(stackTrace);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
 
   @JsonKey(ignore: true)
   @override
@@ -547,9 +599,9 @@ class _$PdfSearchStateError implements PdfSearchStateError {
     required TResult Function(Set<PdfSearchStrings> searchStringHistoryList)
         history,
     required TResult Function() loading,
-    required TResult Function(Object error, StackTrace stackTrace) error,
+    required TResult Function(Object error) error,
   }) {
-    return error(this.error, stackTrace);
+    return error(this.error);
   }
 
   @override
@@ -559,11 +611,11 @@ class _$PdfSearchStateError implements PdfSearchStateError {
         data,
     TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
-    TResult Function(Object error, StackTrace stackTrace)? error,
+    TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(this.error, stackTrace);
+      return error(this.error);
     }
     return orElse();
   }
@@ -593,14 +645,20 @@ class _$PdfSearchStateError implements PdfSearchStateError {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$PdfSearchStateErrorToJson(this)..['runtimeType'] = 'error';
+  }
 }
 
 abstract class PdfSearchStateError implements PdfSearchState {
-  const factory PdfSearchStateError(Object error, StackTrace stackTrace) =
-      _$PdfSearchStateError;
+  const factory PdfSearchStateError(Object error) = _$PdfSearchStateError;
+
+  factory PdfSearchStateError.fromJson(Map<String, dynamic> json) =
+      _$PdfSearchStateError.fromJson;
 
   Object get error => throw _privateConstructorUsedError;
-  StackTrace get stackTrace => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PdfSearchStateErrorCopyWith<PdfSearchStateError> get copyWith =>
       throw _privateConstructorUsedError;

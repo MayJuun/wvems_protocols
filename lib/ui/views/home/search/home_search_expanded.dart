@@ -19,7 +19,7 @@ class HomeSearchExpanded extends StatelessWidget {
           data: (data) => SearchDataMap(searchResultsPageMap: data),
           history: (history) => SearchHistorySet(searchStringsSet: history),
           loading: () => const CircularProgressIndicator(),
-          error: (error, st) => Center(
+          error: (error) => Center(
             child: Text('Error: $error'),
           ),
         ),

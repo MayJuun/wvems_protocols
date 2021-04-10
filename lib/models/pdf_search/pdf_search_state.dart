@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wvems_protocols/models/models.dart';
 
 part 'pdf_search_state.freezed.dart';
+part 'pdf_search_state.g.dart';
 
 @freezed
 class PdfSearchState with _$PdfSearchState {
@@ -18,6 +19,10 @@ class PdfSearchState with _$PdfSearchState {
 
   // Standard loading and error states, as per other models
   const factory PdfSearchState.loading() = PdfSearchStateLoading;
-  const factory PdfSearchState.error(Object error, StackTrace stackTrace) =
-      PdfSearchStateError;
+  // Unlike other error states, stacktrace removed
+  // this is for easier handling to/from JSON
+  const factory PdfSearchState.error(Object error) = PdfSearchStateError;
+
+  factory PdfSearchState.fromJson(Map<String, dynamic> json) =>
+      _$PdfSearchStateFromJson(json);
 }
