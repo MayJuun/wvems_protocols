@@ -47,19 +47,20 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// *************** PDF FILE STATE METHODS *******************
   /// **********************************************************
 
-  Future<void> loadNewPdf(String assetPath) async {
+  Future<void> loadNewPdf(String asset) async {
     print('load new pdf');
     pdfFileState.value = const PdfFileState.loading();
     try {
-      final newFile = await _updatePdfFromAsset(assetPath);
+      final newFile = await _updatePdfFromAssetPath(AssetsUtil().toPdf(asset));
       print('returned');
 
       /// First, save newly loaded file under PdfFileState
       pdfFileState.value = PdfFileState.data(newFile);
 
       /// Then, find/load the JSON file that contains all text
-      _loadNewPdfText(AssetsUtil().pdfToJson(assetPath));
-      _loadNewPdfTableOfContents(AssetsUtil().pdfToJsonWithToc(assetPath));
+      _loadNewPdfTextFromAssetPath(AssetsUtil().toJson(asset));
+      _loadNewPdfTableOfContentsFromAssetPath(
+          AssetsUtil().toJsonWithToc(asset));
       print('file saved');
     } catch (e, st) {
       pdfFileState.value = PdfFileState.error(e, st);
@@ -67,7 +68,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   }
 
   // ToDo: make sure this flow is correct
-  Future<File> _updatePdfFromAsset(String assetPath) async {
+  Future<File> _updatePdfFromAssetPath(String assetPath) async {
     print('loading pdfs...');
     final f = await _pdfService.fromAsset(assetPath, 'active.pdf');
     pathPDF = f.path;
@@ -113,7 +114,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// *************** PDF TEXT STATE METHODS *******************
   /// **********************************************************
 
-  Future<void> _loadNewPdfText(String assetPath) async {
+  Future<void> _loadNewPdfTextFromAssetPath(String assetPath) async {
     pdfTextListState.value = const PdfTextListState.loading();
 
     try {
@@ -126,7 +127,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     }
   }
 
-  Future<void> _loadNewPdfTableOfContents(String assetPath) async {
+  Future<void> _loadNewPdfTableOfContentsFromAssetPath(String assetPath) async {
     pdfTableOfContentsState.value = const PdfTableOfContentsState.loading();
 
     try {

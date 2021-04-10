@@ -10,6 +10,7 @@ const _SUBSTRING = 20;
 /// Floating Search Bar spec: https://pub.dev/packages/material_floating_search_bar
 class SearchController extends GetxController {
   final PdfStateController _pdfStateController = Get.find();
+  final StorageController _data = Get.find();
 
   /// Current 'active state' of search, including history, data, and loading
   final Rx<PdfSearchState> pdfSearchState =
@@ -18,7 +19,7 @@ class SearchController extends GetxController {
   /// Locally stored 'history' of the recent search items, limit 10
   // todo: should this be a stream?
   // todo: connect pdfSearchHistory to GetStorage in the onInit
-  final List<PdfSearchStrings> _searchHistory = tempSearchHistoryList;
+  final RxList<PdfSearchStrings> _searchHistory = tempSearchHistoryList.obs;
   final RxString _query = ''.obs;
   final RxInt numberOfResults = 0.obs;
 
@@ -62,6 +63,10 @@ class SearchController extends GetxController {
   void clear() {
     pdfSearchState.value = PdfSearchState.history(_searchHistory);
   }
+
+  /// **********************************************************
+  /// ************ SEARCH AND VALIDATION METHODS ***************
+  /// **********************************************************
 
   Future<bool> _validateStateAndHandleSearch(String query) async {
     /// First, check to see if pdf state data are valid
@@ -168,6 +173,31 @@ class SearchController extends GetxController {
         beforeResult: before,
         result: result,
         afterResult: after);
+  }
+
+  /// **********************************************************
+  /// ************ SEARCH HISTORY STORAGE METHODS **************
+  /// **********************************************************
+
+  Future<void> setSearchHistory(List<PdfSearchStrings> obj) async {
+    _searchHistory.value = obj;
+    // await _data.store.write('theme', themeString.value);
+    update();
+  }
+
+  Future<void> getSearchHistoryFromStore() async {
+    final String _themeString = _data.store.read('theme') ?? 'system';
+    // await setThemeMode(getThemeModeFromString(_themeString));
+  }
+
+  /// **********************************************************
+  /// ****************** OVERRIDEN METHODS *********************
+  /// **********************************************************
+
+  @override
+  Future<void> onInit() async {
+    await getSearchHistoryFromStore();
+    super.onInit();
   }
 
   @override
