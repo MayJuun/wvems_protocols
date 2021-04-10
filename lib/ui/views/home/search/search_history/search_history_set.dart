@@ -6,18 +6,18 @@ import 'package:wvems_protocols/models/models.dart';
 
 import 'search_history_item.dart';
 
-class SearchHistoryList extends StatelessWidget {
-  const SearchHistoryList({Key? key, required this.searchStringsList})
+class SearchHistorySet extends StatelessWidget {
+  const SearchHistorySet({Key? key, required this.searchStringsSet})
       : super(key: key);
 
-  final List<PdfSearchStrings> searchStringsList;
+  final Set<PdfSearchStrings> searchStringsSet;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const Gap(8),
-        Text('Number of Results: ${searchStringsList.length}'),
+        Text('Number of Results: ${searchStringsSet.length}'),
         const Gap(8),
         SizedBox(
           height: 330,
@@ -25,7 +25,7 @@ class SearchHistoryList extends StatelessWidget {
             // shrinkWrap: true,
             padding: EdgeInsets.zero,
             physics: const BouncingScrollPhysics(),
-            items: searchStringsList,
+            items: searchStringsSet.toList(),
             areItemsTheSame: (a, b) => a == b,
             itemBuilder: (context, animation, searchStrings, index) {
               return SizeFadeTransition(

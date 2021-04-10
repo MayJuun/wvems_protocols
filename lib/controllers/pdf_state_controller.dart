@@ -8,6 +8,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
+import 'package:wvems_protocols/controllers/search_controller.dart';
 import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/services/services.dart';
 
@@ -35,6 +36,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final isReady = false.obs;
   final errorMessage = ''.obs;
   String pathPDF = '';
+  final RxString asset = ''.obs;
 
   Orientation? currentOrientation = Get.context?.orientation;
 
@@ -47,21 +49,24 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// *************** PDF FILE STATE METHODS *******************
   /// **********************************************************
 
-  Future<void> loadNewPdf(String asset) async {
+  Future<void> loadNewPdf(String newAsset) async {
     print('load new pdf');
+    asset.value = newAsset;
     pdfFileState.value = const PdfFileState.loading();
     try {
-      final newFile = await _updatePdfFromAssetPath(AssetsUtil().toPdf(asset));
+      final newFile =
+          await _updatePdfFromAssetPath(AssetsUtil().toPdf(asset.value));
       print('returned');
 
       /// First, save newly loaded file under PdfFileState
       pdfFileState.value = PdfFileState.data(newFile);
 
       /// Then, find/load the JSON file that contains all text
-      _loadNewPdfTextFromAssetPath(AssetsUtil().toJson(asset));
+      _loadNewPdfTextFromAssetPath(AssetsUtil().toJson(asset.value));
       _loadNewPdfTableOfContentsFromAssetPath(
-          AssetsUtil().toJsonWithToc(asset));
+          AssetsUtil().toJsonWithToc(asset.value));
       print('file saved');
+      SearchController.to.clear();
     } catch (e, st) {
       pdfFileState.value = PdfFileState.error(e, st);
     }

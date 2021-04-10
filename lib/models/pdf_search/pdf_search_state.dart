@@ -12,8 +12,9 @@ class PdfSearchState with _$PdfSearchState {
       PdfSearchStateData;
 
   // History is the list of all prior searches that have been clicked on
+  // We are using a set so that no duplicates are listed
   const factory PdfSearchState.history(
-      List<PdfSearchStrings> searchStringHistoryList) = PdfSearchStateHistory;
+      Set<PdfSearchStrings> searchStringHistoryList) = PdfSearchStateHistory;
 
   // Standard loading and error states, as per other models
   const factory PdfSearchState.loading() = PdfSearchStateLoading;

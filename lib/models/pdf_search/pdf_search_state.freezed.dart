@@ -23,8 +23,7 @@ class _$PdfSearchStateTearOff {
     );
   }
 
-  PdfSearchStateHistory history(
-      List<PdfSearchStrings> searchStringHistoryList) {
+  PdfSearchStateHistory history(Set<PdfSearchStrings> searchStringHistoryList) {
     return PdfSearchStateHistory(
       searchStringHistoryList,
     );
@@ -52,7 +51,7 @@ mixin _$PdfSearchState {
     required TResult Function(
             Map<String, List<PdfSearchStrings>> searchStringDataMap)
         data,
-    required TResult Function(List<PdfSearchStrings> searchStringHistoryList)
+    required TResult Function(Set<PdfSearchStrings> searchStringHistoryList)
         history,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
@@ -62,7 +61,7 @@ mixin _$PdfSearchState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
         data,
-    TResult Function(List<PdfSearchStrings> searchStringHistoryList)? history,
+    TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
     TResult Function(Object error, StackTrace stackTrace)? error,
     required TResult orElse(),
@@ -173,7 +172,7 @@ class _$PdfSearchStateData implements PdfSearchStateData {
     required TResult Function(
             Map<String, List<PdfSearchStrings>> searchStringDataMap)
         data,
-    required TResult Function(List<PdfSearchStrings> searchStringHistoryList)
+    required TResult Function(Set<PdfSearchStrings> searchStringHistoryList)
         history,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
@@ -186,7 +185,7 @@ class _$PdfSearchStateData implements PdfSearchStateData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
         data,
-    TResult Function(List<PdfSearchStrings> searchStringHistoryList)? history,
+    TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
     TResult Function(Object error, StackTrace stackTrace)? error,
     required TResult orElse(),
@@ -241,7 +240,7 @@ abstract class $PdfSearchStateHistoryCopyWith<$Res> {
   factory $PdfSearchStateHistoryCopyWith(PdfSearchStateHistory value,
           $Res Function(PdfSearchStateHistory) then) =
       _$PdfSearchStateHistoryCopyWithImpl<$Res>;
-  $Res call({List<PdfSearchStrings> searchStringHistoryList});
+  $Res call({Set<PdfSearchStrings> searchStringHistoryList});
 }
 
 /// @nodoc
@@ -263,7 +262,7 @@ class _$PdfSearchStateHistoryCopyWithImpl<$Res>
       searchStringHistoryList == freezed
           ? _value.searchStringHistoryList
           : searchStringHistoryList // ignore: cast_nullable_to_non_nullable
-              as List<PdfSearchStrings>,
+              as Set<PdfSearchStrings>,
     ));
   }
 }
@@ -273,7 +272,7 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
   const _$PdfSearchStateHistory(this.searchStringHistoryList);
 
   @override
-  final List<PdfSearchStrings> searchStringHistoryList;
+  final Set<PdfSearchStrings> searchStringHistoryList;
 
   @override
   String toString() {
@@ -307,7 +306,7 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
     required TResult Function(
             Map<String, List<PdfSearchStrings>> searchStringDataMap)
         data,
-    required TResult Function(List<PdfSearchStrings> searchStringHistoryList)
+    required TResult Function(Set<PdfSearchStrings> searchStringHistoryList)
         history,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
@@ -320,7 +319,7 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
         data,
-    TResult Function(List<PdfSearchStrings> searchStringHistoryList)? history,
+    TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
     TResult Function(Object error, StackTrace stackTrace)? error,
     required TResult orElse(),
@@ -360,9 +359,9 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
 
 abstract class PdfSearchStateHistory implements PdfSearchState {
   const factory PdfSearchStateHistory(
-      List<PdfSearchStrings> searchStringHistoryList) = _$PdfSearchStateHistory;
+      Set<PdfSearchStrings> searchStringHistoryList) = _$PdfSearchStateHistory;
 
-  List<PdfSearchStrings> get searchStringHistoryList =>
+  Set<PdfSearchStrings> get searchStringHistoryList =>
       throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PdfSearchStateHistoryCopyWith<PdfSearchStateHistory> get copyWith =>
@@ -411,7 +410,7 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
     required TResult Function(
             Map<String, List<PdfSearchStrings>> searchStringDataMap)
         data,
-    required TResult Function(List<PdfSearchStrings> searchStringHistoryList)
+    required TResult Function(Set<PdfSearchStrings> searchStringHistoryList)
         history,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
@@ -424,7 +423,7 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
         data,
-    TResult Function(List<PdfSearchStrings> searchStringHistoryList)? history,
+    TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
     TResult Function(Object error, StackTrace stackTrace)? error,
     required TResult orElse(),
@@ -545,7 +544,7 @@ class _$PdfSearchStateError implements PdfSearchStateError {
     required TResult Function(
             Map<String, List<PdfSearchStrings>> searchStringDataMap)
         data,
-    required TResult Function(List<PdfSearchStrings> searchStringHistoryList)
+    required TResult Function(Set<PdfSearchStrings> searchStringHistoryList)
         history,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
@@ -558,7 +557,7 @@ class _$PdfSearchStateError implements PdfSearchStateError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
         data,
-    TResult Function(List<PdfSearchStrings> searchStringHistoryList)? history,
+    TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
     TResult Function()? loading,
     TResult Function(Object error, StackTrace stackTrace)? error,
     required TResult orElse(),

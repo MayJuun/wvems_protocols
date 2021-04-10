@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
@@ -9,17 +11,19 @@ const _SUBSTRING = 20;
 
 /// Floating Search Bar spec: https://pub.dev/packages/material_floating_search_bar
 class SearchController extends GetxController {
+  static SearchController get to => Get.find();
+
   final PdfStateController _pdfStateController = Get.find();
   final StorageController _data = Get.find();
 
   /// Current 'active state' of search, including history, data, and loading
   final Rx<PdfSearchState> pdfSearchState =
-      const PdfSearchState.history(tempSearchHistoryList).obs;
+      const PdfSearchState.history(<PdfSearchStrings>{}).obs;
 
   /// Locally stored 'history' of the recent search items, limit 10
   // todo: should this be a stream?
   // todo: connect pdfSearchHistory to GetStorage in the onInit
-  final RxList<PdfSearchStrings> _searchHistory = tempSearchHistoryList.obs;
+  final RxSet<PdfSearchStrings> _searchHistory = <PdfSearchStrings>{}.obs;
   final RxString _query = ''.obs;
   final RxInt numberOfResults = 0.obs;
 
@@ -60,8 +64,9 @@ class SearchController extends GetxController {
     }
   }
 
-  void clear() {
-    pdfSearchState.value = PdfSearchState.history(_searchHistory);
+  Future<void> clear() async {
+    pdfSearchState.value = const PdfSearchState.loading();
+    await getSearchHistoryFromStore(_pdfStateController.asset.value);
   }
 
   /// **********************************************************
@@ -179,15 +184,29 @@ class SearchController extends GetxController {
   /// ************ SEARCH HISTORY STORAGE METHODS **************
   /// **********************************************************
 
-  Future<void> setSearchHistory(List<PdfSearchStrings> obj) async {
-    _searchHistory.value = obj;
-    // await _data.store.write('theme', themeString.value);
-    update();
+  Future<void> addToSearchHistory(PdfSearchStrings searchStrings) async {
+    _searchHistory.remove(searchStrings);
+    _searchHistory.add(searchStrings);
+    _updateSearchHistoryStore();
   }
 
-  Future<void> getSearchHistoryFromStore() async {
-    final String _themeString = _data.store.read('theme') ?? 'system';
-    // await setThemeMode(getThemeModeFromString(_themeString));
+  Future<void> removeFromSearchHistory(PdfSearchStrings searchStrings) async {
+    _searchHistory.remove(searchStrings);
+    _updateSearchHistoryStore();
+  }
+
+  Future<bool> _updateSearchHistoryStore() async {
+    final dataAsJson = _searchHistory.toJson();
+    await _data.store.write(_pdfStateController.asset.value, dataAsJson);
+    update();
+    return true;
+  }
+
+  Future<bool> getSearchHistoryFromStore(String asset) async {
+    final dataAsJson = _data.store.read(asset) ?? {};
+
+    _searchHistory.assignAll(jsonDecode(dataAsJson).toSet());
+    return true;
   }
 
   /// **********************************************************
@@ -196,7 +215,7 @@ class SearchController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    await getSearchHistoryFromStore();
+    await getSearchHistoryFromStore(_pdfStateController.asset.value);
     super.onInit();
   }
 

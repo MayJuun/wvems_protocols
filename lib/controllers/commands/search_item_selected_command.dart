@@ -17,7 +17,7 @@ class SearchItemSelectedCommand extends AbstractCommand {
     SetPageCommand().execute(pageIndex: pageIndex);
 
     /// Add search strings to history
-    // todo: implement
+    searchController.addToSearchHistory(searchString);
 
     /// if we want to clear the controller on each search...
     /// then re-implement this method

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 
 import 'search_data/search_data_map.dart';
-import 'search_history/search_history_list.dart';
+import 'search_history/search_history_set.dart';
 
 class HomeSearchExpanded extends StatelessWidget {
   @override
@@ -17,7 +17,7 @@ class HomeSearchExpanded extends StatelessWidget {
       child: Obx(
         () => searchController.pdfSearchState.value.when(
           data: (data) => SearchDataMap(searchResultsPageMap: data),
-          history: (history) => SearchHistoryList(searchStringsList: history),
+          history: (history) => SearchHistorySet(searchStringsSet: history),
           loading: () => const CircularProgressIndicator(),
           error: (error, st) => Center(
             child: Text('Error: $error'),
