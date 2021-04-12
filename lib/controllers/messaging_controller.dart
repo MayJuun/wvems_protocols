@@ -17,8 +17,25 @@ class MessagingController extends GetxController {
   final GetStorage store = GetStorage();
   final messages = <Map<String, dynamic>>{}.obs;
 
-  Set<Map<String, dynamic>> get unread =>
-      messages.where((message) => message['beenRead'] == false).toSet();
+  Set<Map<String, dynamic>> get unread => sortByDate(
+          messages.where((message) => message['beenRead'] == false).toList())
+      .toSet();
+
+  Set<Map<String, dynamic>> get read => sortByDate(
+          messages.where((message) => message['beenRead'] == true).toList())
+      .toSet();
+
+  List<Map<String, dynamic>> sortByDate(
+      List<Map<String, dynamic>> messageList) {
+    messageList.sort((a, b) =>
+        DateTime.parse(a['dateTime']).compareTo(DateTime.parse(b['dateTime'])));
+    return messageList;
+  }
+
+  void setAsRead(String dateTimeSent) {
+    messages.firstWhere(
+        (message) => message['dateTime'] == dateTimeSent)['beenRead'] = true;
+  }
 
   /// *************** Initialize Class and necessary values ****************///
   @override
