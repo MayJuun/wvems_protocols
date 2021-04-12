@@ -43,34 +43,14 @@ TextStyle _style(double s, FontWeight w) =>
 enum ThemeType { LightMode, DarkMode }
 
 class AppTheme {
-  static ThemeType defaultTheme = ThemeType.LightMode;
-
-  bool isDark;
-  Color bg;
-  Color surface;
-  Color primary;
-  Color primaryVariant;
-  Color secondary;
-  Color secondaryVariant;
-  Color grey;
-  Color error;
-  Color focus;
-
-  Color txt;
-  Color accentTxt;
-
-  /// Default constructor
-  AppTheme({@required this.isDark}) {
-    txt = isDark ? _AppColors.textLight : _AppColors.textDark;
-    accentTxt =
-        accentTxt ?? isDark ? _AppColors.textDark : _AppColors.textLight;
-  }
+  AppTheme();
 
   /// fromType factory constructor
   factory AppTheme.fromType(ThemeType t) {
     switch (t) {
       case ThemeType.LightMode:
-        return AppTheme(isDark: false)
+        return AppTheme()
+          ..isDark = false
           ..bg = _AppColors.greySurface
           ..surface = Colors.white
           ..primary = _AppColors.primary
@@ -79,10 +59,13 @@ class AppTheme {
           ..secondaryVariant = _AppColors.accentDark
           ..grey = _AppColors.grey
           ..error = Colors.red.shade900
-          ..focus = _AppColors.grey;
+          ..focus = _AppColors.grey
+          ..accentTxt = _AppColors.textLight
+          ..txt = _AppColors.textDark;
 
       case ThemeType.DarkMode:
-        return AppTheme(isDark: true)
+        return AppTheme()
+          ..isDark = true
           ..bg = _AppColors.blackBackground
           ..surface = _AppColors.blackSurface
           ..primary = _AppColors.primaryDark
@@ -91,37 +74,57 @@ class AppTheme {
           ..secondaryVariant = _AppColors.accent
           ..grey = _AppColors.grey
           ..error = _AppColors.redDarkMode
-          ..focus = _AppColors.grey;
+          ..focus = _AppColors.grey
+          ..accentTxt = _AppColors.textDark
+          ..txt = _AppColors.textLight;
     }
-    return AppTheme.fromType(defaultTheme);
   }
 
+  static ThemeType defaultTheme = ThemeType.LightMode;
+
+  late bool isDark;
+  late Color bg;
+  late Color surface;
+  late Color primary;
+  late Color primaryVariant;
+  late Color secondary;
+  late Color secondaryVariant;
+  late Color grey;
+  late Color error;
+  late Color focus;
+
+  late Color txt;
+  late Color accentTxt;
+
   ThemeData get themeData {
-    var t = ThemeData.from(
+    final t = ThemeData.from(
       textTheme: _buildTextTheme(),
       colorScheme: ColorScheme(
-          brightness: isDark ? Brightness.dark : Brightness.light,
-          primary: primary,
-          primaryVariant: primaryVariant,
-          secondary: secondary,
-          secondaryVariant: secondaryVariant,
-          background: bg,
-          surface: surface,
-          onBackground: txt,
-          onSurface: txt,
-          onError: txt,
-          onPrimary: accentTxt,
-          onSecondary: accentTxt,
-          error: error ?? Colors.red.shade400),
+        brightness: isDark ? Brightness.dark : Brightness.light,
+        primary: primary,
+        primaryVariant: primaryVariant,
+        secondary: secondary,
+        secondaryVariant: secondaryVariant,
+        background: bg,
+        surface: surface,
+        onBackground: txt,
+        onSurface: txt,
+        onError: txt,
+        onPrimary: accentTxt,
+        onSecondary: accentTxt,
+        error: error,
+      ),
     );
     return t.copyWith(
         typography: Typography.material2018(),
         accentTextTheme: _buildTextTheme().apply(bodyColor: accentTxt),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        textSelectionColor: grey,
-        textSelectionHandleColor: Colors.transparent,
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: primary,
+          selectionColor: grey,
+          selectionHandleColor: Colors.transparent,
+        ),
         buttonColor: primary,
-        cursorColor: primary,
         highlightColor: primary,
         toggleableActiveColor: primary);
   }
