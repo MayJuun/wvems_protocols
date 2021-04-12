@@ -4,20 +4,20 @@ import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorder
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:wvems_protocols/models/models.dart';
 
-import 'home_search_item.dart';
+import 'search_history_item.dart';
 
-class HomeSearchList extends StatelessWidget {
-  const HomeSearchList({Key? key, required this.searchStringsList})
+class SearchHistorySet extends StatelessWidget {
+  const SearchHistorySet({Key? key, required this.searchStringsSet})
       : super(key: key);
 
-  final List<PdfSearchStrings> searchStringsList;
+  final Set<PdfSearchStrings> searchStringsSet;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const Gap(8),
-        Text('Number of Results: ${searchStringsList.length}'),
+        Text('Number in History: ${searchStringsSet.length}'),
         const Gap(8),
         SizedBox(
           height: 330,
@@ -25,18 +25,18 @@ class HomeSearchList extends StatelessWidget {
             // shrinkWrap: true,
             padding: EdgeInsets.zero,
             physics: const BouncingScrollPhysics(),
-            items: searchStringsList,
+            items: searchStringsSet.toList(),
             areItemsTheSame: (a, b) => a == b,
             itemBuilder: (context, animation, searchStrings, index) {
               return SizeFadeTransition(
                 animation: animation,
-                child: HomeSearchItem(searchStrings: searchStrings),
+                child: SearchHistoryItem(searchStrings: searchStrings),
               );
             },
             updateItemBuilder: (context, animation, searchStrings) {
               return FadeTransition(
                 opacity: animation,
-                child: HomeSearchItem(searchStrings: searchStrings),
+                child: SearchHistoryItem(searchStrings: searchStrings),
               );
             },
           ),

@@ -6,8 +6,8 @@ import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
 
 /// This shows the 'history' of previous items that have been searched for in the past
-class HomeSearchItem extends StatelessWidget {
-  const HomeSearchItem({Key? key, required this.searchStrings})
+class SearchDataItem extends StatelessWidget {
+  const SearchDataItem({Key? key, required this.searchStrings})
       : super(key: key);
 
   final PdfSearchStrings searchStrings;
@@ -32,7 +32,7 @@ class HomeSearchItem extends StatelessWidget {
                 .execute(pdfSearchStrings: searchStrings);
           },
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
                 SizedBox(
@@ -51,42 +51,29 @@ class HomeSearchItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
+                // const SizedBox(width: 16),
                 Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // todo: search terms go here
-                      RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '...${searchStrings.beforeResult}',
-                              style: textTheme.bodyText2!
-                                  .copyWith(color: Colors.grey.shade600),
-                            ),
-                            TextSpan(
-                              text: searchStrings.result,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold)
-                                      .copyWith(color: Colors.grey.shade600),
-                            ),
-                            TextSpan(
-                              text: '${searchStrings.afterResult}...',
-                              style: textTheme.bodyText2!
-                                  .copyWith(color: Colors.grey.shade600),
-                            ),
-                          ],
+                  child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '...${searchStrings.beforeResult}',
+                          style: textTheme.bodyText2!
+                              .copyWith(color: Colors.grey.shade600),
                         ),
-                      ),
-                      // const SizedBox(height: 2),
-                      Text(
-                        'page ${searchStrings.pageNumber}',
-                        style: textTheme.bodyText2!
-                            .copyWith(color: Colors.grey.shade600),
-                      ),
-                    ],
+                        TextSpan(
+                          text: searchStrings.result,
+                          style: const TextStyle(fontWeight: FontWeight.bold)
+                              .copyWith(color: Colors.grey.shade600),
+                        ),
+                        TextSpan(
+                          text: '${searchStrings.afterResult}...',
+                          style: textTheme.bodyText2!
+                              .copyWith(color: Colors.grey.shade600),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

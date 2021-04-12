@@ -30,14 +30,14 @@ class PdfService {
     return completer.future;
   }
 
-  Future<File> fromAsset(String asset, String filename) async {
+  Future<File> fromAsset(String assetPath, String filename) async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
     final Completer<File> completer = Completer();
 
     try {
       final dir = await getApplicationDocumentsDirectory();
       final File file = File('${dir.path}/$filename');
-      final data = await rootBundle.load(asset);
+      final data = await rootBundle.load(assetPath);
       final bytes = data.buffer.asUint8List();
       await file.writeAsBytes(bytes, flush: true);
       completer.complete(file);

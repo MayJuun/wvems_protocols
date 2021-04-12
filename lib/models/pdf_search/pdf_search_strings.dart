@@ -1,49 +1,17 @@
-class PdfSearchStrings {
-  // todo: change required to required, when non-nullable
-  const PdfSearchStrings({
-    required this.pageNumber,
-    required this.beforeResult,
-    required this.result,
-    required this.afterResult,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final int pageNumber;
+part 'pdf_search_strings.freezed.dart';
+part 'pdf_search_strings.g.dart';
 
-  final String beforeResult;
-  final String result;
-  final String afterResult;
+@freezed
+class PdfSearchStrings with _$PdfSearchStrings {
+  const factory PdfSearchStrings(
+      {required int pageNumber,
+      required int pageIndex,
+      required String beforeResult,
+      required String result,
+      required String afterResult}) = PdfSearchStringsData;
+
+  factory PdfSearchStrings.fromJson(Map<String, dynamic> json) =>
+      _$PdfSearchStringsFromJson(json);
 }
-
-// todo: remove when getstorage has been implemented
-const List<PdfSearchStrings> tempSearchHistoryList = [
-  PdfSearchStrings(
-      pageNumber: 12,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
-  PdfSearchStrings(
-      pageNumber: 13,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
-  PdfSearchStrings(
-      pageNumber: 14,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
-  PdfSearchStrings(
-      pageNumber: 15,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
-  PdfSearchStrings(
-      pageNumber: 16,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
-  PdfSearchStrings(
-      pageNumber: 17,
-      beforeResult: 'I will',
-      result: ' NOT ',
-      afterResult: 'waste chalk.'),
-];

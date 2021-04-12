@@ -8,6 +8,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
+import 'package:wvems_protocols/controllers/search_controller.dart';
 import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/services/services.dart';
 
@@ -22,6 +23,10 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final Rx<PdfTextListState> pdfTextListState =
       const PdfTextListState.loading().obs;
 
+  /// Parses the title for each page, which is displayed in search
+  final Rx<PdfTableOfContentsState> pdfTableOfContentsState =
+      const PdfTableOfContentsState.loading().obs;
+
   /// Used for PDFView
   Completer<PDFViewController> asyncController = Completer<PDFViewController>();
   Rx<PDFViewController>? rxPdfController;
@@ -31,6 +36,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final isReady = false.obs;
   final errorMessage = ''.obs;
   String pathPDF = '';
+  final RxString asset = ''.obs;
 
   Orientation? currentOrientation = Get.context?.orientation;
 
@@ -43,26 +49,31 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// *************** PDF FILE STATE METHODS *******************
   /// **********************************************************
 
-  Future<void> loadNewPdf(String assetPath) async {
+  Future<void> loadNewPdf(String newAsset) async {
     print('load new pdf');
+    asset.value = newAsset;
     pdfFileState.value = const PdfFileState.loading();
     try {
-      final newFile = await _updatePdfFromAsset(assetPath);
+      final newFile =
+          await _updatePdfFromAssetPath(AssetsUtil().toPdf(asset.value));
       print('returned');
 
       /// First, save newly loaded file under PdfFileState
       pdfFileState.value = PdfFileState.data(newFile);
 
       /// Then, find/load the JSON file that contains all text
-      _loadNewPdfText(AssetsUtil().pdfToJson(assetPath));
+      _loadNewPdfTextFromAssetPath(AssetsUtil().toJson(asset.value));
+      _loadNewPdfTableOfContentsFromAssetPath(
+          AssetsUtil().toJsonWithToc(asset.value));
       print('file saved');
+      SearchController.to.clear();
     } catch (e, st) {
       pdfFileState.value = PdfFileState.error(e, st);
     }
   }
 
   // ToDo: make sure this flow is correct
-  Future<File> _updatePdfFromAsset(String assetPath) async {
+  Future<File> _updatePdfFromAssetPath(String assetPath) async {
     print('loading pdfs...');
     final f = await _pdfService.fromAsset(assetPath, 'active.pdf');
     pathPDF = f.path;
@@ -108,7 +119,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// *************** PDF TEXT STATE METHODS *******************
   /// **********************************************************
 
-  Future<void> _loadNewPdfText(String assetPath) async {
+  Future<void> _loadNewPdfTextFromAssetPath(String assetPath) async {
     pdfTextListState.value = const PdfTextListState.loading();
 
     try {
@@ -120,6 +131,25 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
       pdfTextListState.value = PdfTextListState.error(e, st);
     }
   }
+
+  Future<void> _loadNewPdfTableOfContentsFromAssetPath(String assetPath) async {
+    pdfTableOfContentsState.value = const PdfTableOfContentsState.loading();
+
+    try {
+      final jsonString = await rootBundle.loadString(assetPath);
+      final textList = jsonDecode(jsonString);
+      pdfTableOfContentsState.value = PdfTableOfContentsState.data(textList);
+      print('pdf table of contents loaded');
+    } catch (e, st) {
+      pdfTableOfContentsState.value = PdfTableOfContentsState.error(e, st);
+    }
+  }
+
+  String getTableOfContentsFromPageNum(int pageNum) =>
+      pdfTableOfContentsState.value.when(
+          data: (data) => data[pageNum.toString()] ?? '',
+          loading: () => 'loading',
+          error: (error, st) => 'error');
 
   /// **********************************************************
   /// ****************** OVERRIDEN METHODS *********************
