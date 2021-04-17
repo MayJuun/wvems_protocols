@@ -22,6 +22,6 @@ void displayWompWomp(BuildContext context) {
           ),
         ],
       );
-    }, // builder
-  ); // showDialog()
+    },
+  );
 } // </kludge>

@@ -6,7 +6,5 @@ class NavIcon extends StatelessWidget {
   final IconData icon;
 
   @override
-  Widget build(BuildContext context) {
-    return Icon(icon, size: 30.0);
-  }
+  Widget build(BuildContext context) => Icon(icon, size: 30.0);
 }

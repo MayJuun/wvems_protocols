@@ -35,10 +35,10 @@ void _displayAboutDialog(BuildContext context) {
             child: Text(S.NAV_OK),
             onPressed: () {
               Get.back();
-            }, //onPressed
+            },
           ),
         ],
       );
-    }, // builder
-  ); //showDialog()
-} //_displayAboutDialog()
+    },
+  );
+}
