@@ -22,21 +22,23 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.2
+  firebase_auth: ^1.1.0
   firebase_core: ^1.0.2
   firebase_messaging: ^9.1.0
+  firebase_storage: ^8.0.3
   flutter:
     sdk: flutter
   flutter_local_notifications: ^5.0.0
   flutter_pdfview: ^1.1.0
   flutter_svg: ^0.21.0-nullsafety.0
   freezed: ^0.14.1+1
-  json_annotation: ^4.0.0
   gap: 2.0.0-nullsafety.1
   get: ^4.1.1
   get_storage: ^2.0.1
   google_fonts: ^2.0.0
   http: ^0.13.1
   implicitly_animated_reorderable_list: ^0.4.0-dev+4
+  json_annotation: ^4.0.0
   material_floating_search_bar: ^0.3.3
   path_provider: ^2.0.1
   validators2: ^3.0.0
