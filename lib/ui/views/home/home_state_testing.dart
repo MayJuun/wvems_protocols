@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/controllers/firebase_controller.dart';
-import 'package:wvems_protocols/models/models.dart';
-import 'package:wvems_protocols/services/services.dart';
 
 class HomeStateTesting extends StatelessWidget {
   @override

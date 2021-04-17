@@ -1,5 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 
+// Use the Firebase controller to access methods within this service.
 class CloudStorageService {
   FirebaseStorage storage = FirebaseStorage.instance;
 

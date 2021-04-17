@@ -260,8 +260,8 @@ void _displayMessages(
 ) {
   Get.back();
   final controller = Get.put(MessagingController());
-  final unreadList = Column(children: []);
-  final readList = Column(children: []);
+  final unreadList = Column(children: const []);
+  final readList = Column(children: const []);
 
   for (var message in unreadMessages) {
     unreadList.children.add(

@@ -10,25 +10,25 @@ import 'package:wvems_protocols/ui/views/home/search/home_search_expanded.dart';
 class HomeScreenHeader extends StatelessWidget {
   // spec: https://github.com/bnxm/material_floating_search_bar/blob/master/example/lib/main.dart
 
-  final actions = [
-    /// Actions shown on the right of the search bar
-    FloatingSearchBarAction(
-      showIfOpened: false,
-      child: CircularButton(
-        icon: const Icon(Icons.info),
-        onPressed: () {
-          // todo: add help dialog vs how to use
-        },
-      ),
-    ),
-    FloatingSearchBarAction.searchToClear(
-      showIfClosed: false,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final SearchController searchController = Get.find();
+
+    final actions = [
+      /// Actions shown on the right of the search bar
+      FloatingSearchBarAction(
+        showIfOpened: false,
+        child: CircularButton(
+          icon: const Icon(Icons.info),
+
+          onPressed: () => Scaffold.of(context).openDrawer(),
+          // todo: add help dialog vs how to use
+        ),
+      ),
+      FloatingSearchBarAction.searchToClear(
+        showIfClosed: false,
+      ),
+    ];
 
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
