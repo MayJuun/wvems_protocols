@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/ui/strings.dart';
+import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
 
 class AboutItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.info, size: 30.0),
+      leading: const NavIcon(Icons.info),
       title: Text(S.NAV_ABOUT),
       subtitle: Text('Release ${S.APP_RELEASE}'),
       onTap: () => _displayAboutDialog(context),

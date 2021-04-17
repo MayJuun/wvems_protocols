@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
+import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
 
 // Select customization options, such as light/dark theme
 class SettingsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.settings, size: 30.0),
+      leading: const NavIcon(Icons.settings),
       title: Text(S.NAV_SETTINGS),
       subtitle: Text(S.NAV_DISPLAY_MODE),
       onTap: () => _displaySettingsDialog(context),
