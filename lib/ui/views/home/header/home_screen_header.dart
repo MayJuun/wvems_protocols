@@ -5,6 +5,7 @@ import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/home/body/home_screen_body.dart';
+import 'package:wvems_protocols/ui/views/home/home_controller.dart';
 import 'package:wvems_protocols/ui/views/home/search/home_search_expanded.dart';
 
 class HomeScreenHeader extends StatelessWidget {
@@ -13,16 +14,15 @@ class HomeScreenHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SearchController searchController = Get.find();
+    final HomeController homeController = Get.find();
 
     final actions = [
       /// Actions shown on the right of the search bar
       FloatingSearchBarAction(
         showIfOpened: false,
         child: CircularButton(
-          icon: const Icon(Icons.info),
-
-          onPressed: () => Scaffold.of(context).openDrawer(),
-          // todo: add help dialog vs how to use
+          icon: const Icon(Icons.menu),
+          onPressed: () => homeController.toggleDrawer(),
         ),
       ),
       FloatingSearchBarAction.searchToClear(
@@ -34,7 +34,7 @@ class HomeScreenHeader extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     return FloatingSearchBar(
-      automaticallyImplyBackButton: true,
+      automaticallyImplyBackButton: false,
       automaticallyImplyDrawerHamburger: false,
       controller: searchController.floatingSearchBarController,
       clearQueryOnClose: false,

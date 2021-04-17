@@ -130,11 +130,11 @@ class StyledNavDrawer extends StatelessWidget {
         title: Text(S.NAV_SHARE),
         onTap: () => _displayWompWomp(context),
       ),
-      ListTile(
-        leading: const Icon(Icons.print, size: 30.0),
-        title: Text(S.NAV_PRINT),
-        onTap: () => _displayWompWomp(context),
-      ),
+      // ListTile(
+      //   leading: const Icon(Icons.print, size: 30.0),
+      //   title: Text(S.NAV_PRINT),
+      //   onTap: () => _displayWompWomp(context),
+      // ),
       ListTile(
         leading: const Icon(Icons.file_download, size: 30.0),
         title: Text(S.NAV_DOWNLOAD),
