@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
 
@@ -11,7 +12,10 @@ class ShareItem extends StatelessWidget {
     return ListTile(
       leading: const NavIcon(Icons.share),
       title: Text(S.NAV_SHARE),
-      onTap: () => {},
+      onTap: () => {
+        Share.share(
+            'This app is great! Download here: https://western.vaems.org/')
+      },
     );
   }
 }
