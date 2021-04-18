@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
+import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
 
 // Select customization options, such as light/dark theme
@@ -19,12 +20,13 @@ class SettingsItem extends StatelessWidget {
 
 // pop-op dialog for "Settings"
 void _displaySettingsDialog(BuildContext context) {
-  final ThemeController themeService = Get.find();
   Get.back();
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return SimpleDialog(
+      final ThemeController themeService = Get.find();
+
+      return StyledDialog(
         title: Text(S.NAV_MODE_SELECT),
         children: <Widget>[
           RadioListTile(
@@ -44,6 +46,10 @@ void _displaySettingsDialog(BuildContext context) {
             value: ThemeMode.system,
             groupValue: themeService.themeMode,
             onChanged: (value) => themeService.setThemeMode(ThemeMode.system),
+          ),
+          const Divider(
+            color: Colors.black38,
+            thickness: 1,
           ),
           TextButton(
             child: Text(S.NAV_OK),
