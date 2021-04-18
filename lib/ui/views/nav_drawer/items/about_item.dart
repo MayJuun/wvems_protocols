@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/ui/strings.dart';
+import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
 
 class AboutItem extends StatelessWidget {
@@ -21,21 +23,13 @@ void _displayAboutDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return SimpleDialog(
+      return StyledDialog(
         title: const Text('About WVEMS Protocols'),
-        contentPadding: const EdgeInsets.all(12.0),
         children: <Widget>[
           Text('\nApplication Release: ${S.APP_RELEASE}\n'),
           Text(
             S.APP_COPYRIGHT,
             textAlign: TextAlign.justify,
-          ),
-          const SizedBox(height: 12.0),
-          TextButton(
-            child: Text(S.NAV_OK),
-            onPressed: () {
-              Get.back();
-            },
           ),
         ],
       );

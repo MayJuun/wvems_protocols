@@ -47,14 +47,6 @@ void _displaySettingsDialog(BuildContext context) {
             groupValue: themeService.themeMode,
             onChanged: (value) => themeService.setThemeMode(ThemeMode.system),
           ),
-          const Divider(
-            color: Colors.black38,
-            thickness: 1,
-          ),
-          TextButton(
-            child: Text(S.NAV_OK),
-            onPressed: () => Get.back(),
-          ),
         ],
       );
     },

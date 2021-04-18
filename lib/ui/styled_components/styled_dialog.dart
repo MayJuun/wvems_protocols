@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:wvems_protocols/_internal/utils/utils.dart';
+import 'package:wvems_protocols/ui/strings.dart';
 
 class StyledDialog extends StatelessWidget {
-  const StyledDialog({Key? key, required this.title, required this.children})
-      : super(key: key);
+  const StyledDialog({
+    Key? key,
+    required this.title,
+    required this.children,
+    this.hasOkButton = true,
+  }) : super(key: key);
 
   final Widget title;
   final List<Widget> children;
+  final bool hasOkButton;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +37,13 @@ class StyledDialog extends StatelessWidget {
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 48.0, horizontal: 24.0),
-              child: Column(mainAxisSize: MainAxisSize.min, children: children),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ...children,
+                  ...hasOkButton ? _okButton : [Container()],
+                ],
+              ),
             ),
           ],
         ),
@@ -36,6 +51,18 @@ class StyledDialog extends StatelessWidget {
     );
   }
 }
+
+final _okButton = <Widget>[
+  const Gap(12),
+  const Divider(
+    color: Colors.black38,
+    thickness: 1,
+  ),
+  TextButton(
+    child: Text(S.NAV_OK),
+    onPressed: () => Get.back(),
+  )
+];
 
 class _StyledRibbon extends StatelessWidget {
   const _StyledRibbon({Key? key, this.title, this.isRotated = false})
@@ -100,7 +127,7 @@ class _StyledContainer extends StatelessWidget {
           bottomEnd: _radius,
         ),
         boxShadow: kElevationToShadow[6],
-        color: Colors.purple[200],
+        color: wvemsColor(2020),
       ),
       alignment: isTitleHeader ? Alignment.center : null,
       child: title != null
