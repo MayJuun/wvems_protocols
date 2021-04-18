@@ -19,7 +19,7 @@ class NavDrawer extends StatelessWidget {
               // New and current messages, 'Version' selects a PDF
               // PDF may be local or downloaded from the cloud
               NavDivider(),
-              NewMessagesItem(),
+              MessagesItem(),
               VersionItem(),
 
               // Action items for the currently displayed version

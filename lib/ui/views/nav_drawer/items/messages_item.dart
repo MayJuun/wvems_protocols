@@ -5,7 +5,7 @@ import 'package:wvems_protocols/controllers/messaging_controller.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
 
-class NewMessagesItem extends StatelessWidget {
+class MessagesItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color _yearColor = wvemsColor(2020);
@@ -36,11 +36,7 @@ class NewMessagesItem extends StatelessWidget {
             )
           : Text(S.NAV_MESSAGES),
       subtitle: Text(S.NAV_NOTIFICATIONS),
-      onTap: () => _displayMessages(
-        context,
-        unreadMessages,
-        readMessages,
-      ),
+      onTap: () => _displayMessages(context, unreadMessages, readMessages),
     );
   }
 }
