@@ -50,7 +50,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// *************** PDF FILE STATE METHODS *******************
   /// **********************************************************
 
-  Future<void> loadNewPdf(String newAsset) async {
+  Future<void> loadNewPdf(int newYear, String newAsset) async {
     print('load new pdf');
     asset.value = newAsset;
     pdfFileState.value = const PdfFileState.loading();
@@ -68,6 +68,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
           AssetsUtil().toJsonWithToc(asset.value));
       print('file saved');
       SearchController.to.clear();
+      activeYear.value = newYear;
     } catch (e, st) {
       pdfFileState.value = PdfFileState.error(e, st);
     }
@@ -160,7 +161,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   Future<void> onInit() async {
     super.onInit();
     // Used for first load of embedded PDF
-    await loadNewPdf(AppAssets.PROTOCOL_2020);
+    await loadNewPdf(2020, AppAssets.PROTOCOL_2020);
 
     // Used for Android layout changes
     WidgetsBinding.instance?.addObserver(this);

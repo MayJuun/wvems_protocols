@@ -17,11 +17,13 @@ class HomeStateTesting extends StatelessWidget {
           children: [
             ElevatedButton(
               child: const Text('2020'),
-              onPressed: () => controller.loadNewPdf(AppAssets.PROTOCOL_2020),
+              onPressed: () =>
+                  controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
             ),
             ElevatedButton(
               child: const Text('2019'),
-              onPressed: () => controller.loadNewPdf(AppAssets.PROTOCOL_2019),
+              onPressed: () =>
+                  controller.loadNewPdf(2019, AppAssets.PROTOCOL_2019),
             ),
             ElevatedButton(
               child: const Text('examp'),
