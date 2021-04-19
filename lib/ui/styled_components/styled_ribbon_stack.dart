@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
+import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 
 const _padding = EdgeInsets.symmetric(vertical: 48.0, horizontal: 32.0);
@@ -71,27 +72,30 @@ class _StyledRibbon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget _stack = Stack(
-      children: [
-        // small ribbon on the side
-        const _StyledContainer(height: 140, width: 16),
-        isRotated
-            ? const _StyledContainer()
-            : _StyledContainer(
-                title: title,
-                isTitleHeader: true,
-              ),
-        isRotated
-            ? const _StyledContainer(
-                title: RotatedBox(
-                  quarterTurns: 2,
-                  child: Text('2020'),
+    final PdfStateController controller = Get.find();
+    final Widget _stack = Obx(
+      () => Stack(
+        children: [
+          // small ribbon on the side
+          const _StyledContainer(height: 140, width: 16),
+          isRotated
+              ? const _StyledContainer()
+              : _StyledContainer(
+                  title: title,
+                  isTitleHeader: true,
                 ),
-              )
-            : const _StyledContainer(
-                title: Text('2020'),
-              ),
-      ],
+          isRotated
+              ? _StyledContainer(
+                  title: RotatedBox(
+                    quarterTurns: 2,
+                    child: Text(controller.activeYear.value.toString()),
+                  ),
+                )
+              : _StyledContainer(
+                  title: Text(controller.activeYear.value.toString()),
+                ),
+        ],
+      ),
     );
 
     return isRotated ? RotatedBox(quarterTurns: 2, child: _stack) : _stack;
@@ -116,28 +120,32 @@ class _StyledContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadiusDirectional.only(
-          topStart: Radius.zero,
-          topEnd: _radius,
-          bottomStart: _radius,
-          bottomEnd: _radius,
+    final PdfStateController controller = Get.find();
+
+    return Obx(
+      () => Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadiusDirectional.only(
+            topStart: Radius.zero,
+            topEnd: Radius.zero,
+            bottomStart: _radius,
+            bottomEnd: _radius,
+          ),
+          boxShadow: kElevationToShadow[4],
+          // todo: extract
+          color: VersionsUtil().wvemsColor(controller.activeYear.value),
         ),
-        boxShadow: kElevationToShadow[6],
-        // todo: extract
-        color: wvemsColor(2020),
+        alignment: isTitleHeader ? Alignment.center : null,
+        child: isTitleHeader
+            ? Center(
+                child: title,
+              )
+            : title != null
+                ? Padding(padding: const EdgeInsets.all(8), child: title)
+                : null,
+        height: height,
+        width: width,
       ),
-      alignment: isTitleHeader ? Alignment.center : null,
-      child: isTitleHeader
-          ? Center(
-              child: title,
-            )
-          : title != null
-              ? Padding(padding: const EdgeInsets.all(8), child: title)
-              : null,
-      height: height,
-      width: width,
     );
   }
 }

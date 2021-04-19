@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
+import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/controllers/messaging_controller.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
@@ -8,11 +9,10 @@ import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
 class MessagesItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Color _yearColor = wvemsColor(2020);
-
-    final controller = Get.put(MessagingController());
-    final unreadMessages = controller.unread;
-    final readMessages = controller.read;
+    final PdfStateController pdfStateController = Get.find();
+    final messagingController = Get.put(MessagingController());
+    final unreadMessages = messagingController.unread;
+    final readMessages = messagingController.read;
 
     // If there are _newMessages, then the mail icon will have a colored dot,
     // (otherwise the dot is invisible) and the menu text will change from
@@ -22,17 +22,26 @@ class MessagesItem extends StatelessWidget {
         alignment: AlignmentDirectional.topEnd,
         children: <Widget>[
           const NavIcon(Icons.message),
-          Icon(
-            Icons.circle,
-            size: 12.0,
-            color: unreadMessages.isNotEmpty ? _yearColor : Colors.transparent,
+          Obx(
+            () => Icon(
+              Icons.circle,
+              size: 12.0,
+              color: VersionsUtil()
+                  .wvemsColor(pdfStateController.activeYear.value)
+                  // withAlpha used for Obx, so stream will always be called
+                  // if empty, opacity is 0%, else 100%
+                  .withAlpha(unreadMessages.isNotEmpty ? 255 : 0),
+            ),
           ),
         ],
       ),
       title: unreadMessages.isEmpty
           ? Text(
-              S.NAV_NEW_MESSAGES,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              unreadMessages.isNotEmpty ? S.NAV_NEW_MESSAGES : S.NAV_MESSAGES,
+              style: TextStyle(
+                  fontWeight: unreadMessages.isNotEmpty
+                      ? FontWeight.bold
+                      : FontWeight.normal),
             )
           : Text(S.NAV_MESSAGES),
       subtitle: Text(S.NAV_NOTIFICATIONS),
