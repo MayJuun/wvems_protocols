@@ -35,6 +35,7 @@ class HomeScreenHeader extends StatelessWidget {
 
     return FloatingSearchBar(
       automaticallyImplyBackButton: false,
+      backgroundColor: context.theme.backgroundColor,
       automaticallyImplyDrawerHamburger: false,
       controller: searchController.floatingSearchBarController,
       clearQueryOnClose: false,
@@ -59,7 +60,9 @@ class HomeScreenHeader extends StatelessWidget {
       body: Column(
         children: [
           const Gap(60),
-          Expanded(child: HomeScreenBody()),
+          Expanded(
+            child: HomeScreenBody(),
+          ),
         ],
       ),
     );
