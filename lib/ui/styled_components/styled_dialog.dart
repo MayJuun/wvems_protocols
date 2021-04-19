@@ -5,11 +5,13 @@ class StyledDialog extends StatelessWidget {
   const StyledDialog({
     Key? key,
     required this.title,
+    this.subtitle,
     required this.children,
     this.hasOkButton = true,
   }) : super(key: key);
 
-  final Widget title;
+  final String title;
+  final String? subtitle;
   final List<Widget> children;
   final bool hasOkButton;
 
@@ -19,7 +21,11 @@ class StyledDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      child: StyledRibbonStack(title: title, children: children),
+      child: StyledRibbonStack(
+        title: title,
+        subtitle: subtitle,
+        children: children,
+      ),
     );
   }
 }

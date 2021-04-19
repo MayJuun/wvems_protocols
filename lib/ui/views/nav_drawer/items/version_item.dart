@@ -11,7 +11,7 @@ class VersionItem extends StatelessWidget {
     return ListTile(
       leading: const NavIcon(Icons.description),
       title: Text(S.NAV_VERSION),
-      subtitle: Text(S.NAV_MANAGE_DISPLAY_YEAR),
+      subtitle: Text(S.NAV_VERSION_SUBTITLE),
       onTap: () => {},
     );
   }

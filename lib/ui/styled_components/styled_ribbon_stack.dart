@@ -11,12 +11,14 @@ class StyledRibbonStack extends StatelessWidget {
   const StyledRibbonStack({
     Key? key,
     required this.title,
+    this.subtitle,
     required this.children,
     this.padding = _padding,
     this.hasOkButton = true,
   }) : super(key: key);
 
-  final Widget title;
+  final String title;
+  final String? subtitle;
   final List<Widget> children;
   final EdgeInsetsGeometry padding;
   final bool hasOkButton;
@@ -40,6 +42,13 @@ class StyledRibbonStack extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                subtitle != null
+                    ? Text(
+                        subtitle!,
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.headline6,
+                      )
+                    : Container(),
                 ...children,
                 ...hasOkButton ? _okButton : [Container()],
               ],
@@ -67,7 +76,7 @@ class _StyledRibbon extends StatelessWidget {
   const _StyledRibbon({Key? key, this.title, this.isRotated = false})
       : super(key: key);
 
-  final Widget? title;
+  final String? title;
   final bool isRotated;
 
   @override
@@ -86,13 +95,15 @@ class _StyledRibbon extends StatelessWidget {
                 ),
           isRotated
               ? _StyledContainer(
-                  title: RotatedBox(
+                  child: RotatedBox(
                     quarterTurns: 2,
                     child: Text(controller.activeYear.value.toString()),
                   ),
                 )
               : _StyledContainer(
-                  title: Text(controller.activeYear.value.toString()),
+                  child: Text(
+                    controller.activeYear.value.toString(),
+                  ),
                 ),
         ],
       ),
@@ -108,12 +119,14 @@ class _StyledContainer extends StatelessWidget {
   const _StyledContainer({
     Key? key,
     this.title,
+    this.child,
     this.height = 32,
     this.width,
     this.isTitleHeader = false,
   }) : super(key: key);
 
-  final Widget? title;
+  final String? title;
+  final Widget? child;
   final double? height;
   final double? width;
   final bool isTitleHeader;
@@ -132,16 +145,24 @@ class _StyledContainer extends StatelessWidget {
             bottomEnd: _radius,
           ),
           boxShadow: kElevationToShadow[4],
-          // todo: extract
           color: VersionsUtil().wvemsColor(controller.activeYear.value),
         ),
         alignment: isTitleHeader ? Alignment.center : null,
+        // header text
         child: isTitleHeader
             ? Center(
-                child: title,
+                child: title != null
+                    ? Text(title!,
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.headline5)
+                    : Container(),
               )
-            : title != null
-                ? Padding(padding: const EdgeInsets.all(8), child: title)
+            // body text, typically '2020'
+            : child != null
+                ? Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: child != null ? child : Container(),
+                  )
                 : null,
         height: height,
         width: width,

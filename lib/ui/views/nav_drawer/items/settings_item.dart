@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
@@ -12,7 +13,7 @@ class SettingsItem extends StatelessWidget {
     return ListTile(
       leading: const NavIcon(Icons.settings),
       title: Text(S.NAV_SETTINGS),
-      subtitle: Text(S.NAV_DISPLAY_MODE),
+      subtitle: Text(S.NAV_SETTINGS_SUBTITLE),
       onTap: () => _displaySettingsDialog(context),
     );
   }
@@ -27,11 +28,10 @@ void _displaySettingsDialog(BuildContext context) {
       final ThemeController themeService = Get.find();
 
       return StyledDialog(
-        title: Text(
-          S.NAV_MODE_SELECT,
-          style: context.textTheme.headline6,
-        ),
+        title: S.NAV_SETTINGS,
+        subtitle: S.NAV_SETTINGS_SUBTITLE,
         children: <Widget>[
+          const Gap(12),
           RadioListTile(
             title: Text(S.NAV_MODE_LIGHT),
             value: ThemeMode.light,

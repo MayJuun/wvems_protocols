@@ -24,10 +24,18 @@ void _displayAboutDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return StyledDialog(
-        title:
-            Text('About WVEMS Protocols', style: context.textTheme.headline6),
+        title: S.NAV_ABOUT,
+        subtitle: S.NAV_ABOUT_SUBTITLE,
         children: <Widget>[
-          Text('\nApplication Release: ${S.APP_RELEASE}\n'),
+          const Gap(24),
+          Row(
+            children: [
+              Text(S.NAV_ABOUT_RELEASE),
+              const Gap(48),
+              Text(S.APP_RELEASE),
+            ],
+          ),
+          const Gap(24),
           Text(
             S.APP_COPYRIGHT,
             textAlign: TextAlign.justify,

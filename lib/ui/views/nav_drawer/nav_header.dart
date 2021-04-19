@@ -16,20 +16,17 @@ class NavHeader extends StatelessWidget {
     // <kludge>
     return Padding(
       padding: const EdgeInsets.all(4.0),
-      child: StyledRibbonStack(
-        title: Obx(
-          () => Text(
-            VersionsUtil().wvemsText(controller.activeYear.value),
-            style: context.textTheme.headline6,
-          ),
+      child: Obx(
+        () => StyledRibbonStack(
+          title: VersionsUtil().wvemsText(controller.activeYear.value),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          hasOkButton: false,
+          children: <Widget>[
+            const Gap(48),
+            DrawerAppLogo(),
+            const Gap(48),
+          ],
         ),
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        hasOkButton: false,
-        children: <Widget>[
-          const Gap(48),
-          DrawerAppLogo(),
-          const Gap(48),
-        ],
       ),
     );
   }

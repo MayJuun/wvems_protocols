@@ -11,18 +11,21 @@ class _Strings {
   String NAV_NEW_MESSAGES = 'New Messages';
   String NAV_MESSAGES = 'Messages';
   String NAV_NOTIFICATIONS = 'Notifications from WVEMS';
-  String NAV_VERSION = 'Version';
-  String NAV_MANAGE_DISPLAY_YEAR = 'Manage display year';
+  String NAV_VERSION = 'Select Active Protocol';
+  String NAV_VERSION_SUBTITLE = 'Protocol Versions';
   String NAV_SHARE = 'Share';
-  String NAV_PRINT = 'Print';
-  String NAV_DOWNLOAD = 'Download';
+  String NAV_SHARE_SUBTITLE = 'Select what you want to share';
+  String NAV_DOWNLOAD = 'Download PDFs';
+  String NAV_DOWNLOAD_SUBTITLE =
+      'Select PDF Version(s) to save\nto your Documents Folder';
   String NAV_SETTINGS = 'Settings';
-  String NAV_DISPLAY_MODE = 'Display Mode';
-  String NAV_ABOUT = 'About';
-  String NAV_MODE_SELECT = 'Select Display Mode';
+  String NAV_SETTINGS_SUBTITLE = 'Select display mode';
   String NAV_MODE_LIGHT = 'Light Mode';
   String NAV_MODE_DARK = 'Dark Mode';
   String NAV_MODE_SYSTEM = 'Match System';
+  String NAV_ABOUT = 'About';
+  String NAV_ABOUT_SUBTITLE = 'About WVEMS Protocols';
+  String NAV_ABOUT_RELEASE = 'Application Release: ';
   String NAV_OK = 'OK';
 
   String SEARCH_BAR_HINT = 'Search Protocols';
