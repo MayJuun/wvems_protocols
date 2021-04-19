@@ -25,6 +25,7 @@ class StyledDialog extends StatelessWidget {
         title: title,
         subtitle: subtitle,
         children: children,
+        hasOkButton: hasOkButton,
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:mdi/mdi.dart';
 import 'package:share/share.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
@@ -28,6 +29,7 @@ void _displayShareDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return StyledDialog(
+        hasOkButton: false,
         title: S.NAV_SHARE,
         subtitle: S.NAV_SHARE_SUBTITLE,
         children: [
@@ -35,13 +37,31 @@ void _displayShareDialog(BuildContext context) {
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              Text('text'),
-              Text('text'),
-              Text('text'),
+            children: [
+              _ShareOption(
+                title: 'Current\nPage',
+                icon: Mdi.fileImage,
+                // todo: setup page share as png
+                onPressed: () => Share.share(
+                    'This app is great! Download here: https://western.vaems.org/'),
+              ),
+              _ShareOption(
+                title: 'Current\nPDF',
+                icon: Mdi.pdfBox,
+                // todo: setup share as pdf
+                onPressed: () => Share.share(
+                    'This app is great! Download here: https://western.vaems.org/'),
+              ),
+              _ShareOption(
+                title: 'This App\n(link)',
+                icon: Mdi.tabletCellphone,
+                // todo: extract string and add android/iOS download locations
+                onPressed: () => Share.share(
+                    'This app is great! Download here: https://western.vaems.org/'),
+              ),
             ],
           ),
-          const Gap(32),
+          const Gap(24),
         ],
       );
     },
@@ -49,11 +69,29 @@ void _displayShareDialog(BuildContext context) {
 }
 
 class _ShareOption extends StatelessWidget {
+  const _ShareOption({
+    Key? key,
+    required this.title,
+    required this.icon,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final String title;
+  final IconData icon;
+  final Function() onPressed;
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return GestureDetector(
+      onTap: onPressed,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 44),
+          const Gap(12),
+          Text(title, textAlign: TextAlign.center),
+        ],
+      ),
+    );
   }
 }
-
-//  Share.share(
-// 'This app is great! Download here: https://western.vaems.org/')
