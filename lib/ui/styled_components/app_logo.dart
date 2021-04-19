@@ -8,13 +8,7 @@ class AppLogo extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 2.0),
       alignment: Alignment.center,
-      decoration: BoxDecoration(
-          color: (context.theme.brightness == Brightness.dark)
-              ? Colors.black
-              : Colors.white,
-          border: (context.theme.brightness == Brightness.dark)
-              ? null
-              : Border.all(width: 2.0, color: Colors.grey)),
+      color: Colors.transparent,
       child: Image(
         image: AssetImage((context.theme.brightness == Brightness.dark)
             ? AppAssets.PNG_LOGO_DARK

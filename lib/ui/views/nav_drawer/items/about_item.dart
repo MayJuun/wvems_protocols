@@ -24,7 +24,8 @@ void _displayAboutDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return StyledDialog(
-        title: const Text('About WVEMS Protocols'),
+        title:
+            Text('About WVEMS Protocols', style: context.textTheme.headline6),
         children: <Widget>[
           Text('\nApplication Release: ${S.APP_RELEASE}\n'),
           Text(

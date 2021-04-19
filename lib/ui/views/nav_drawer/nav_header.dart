@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 
@@ -16,13 +17,16 @@ class NavHeader extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: StyledRibbonStack(
-        title: Text(_yearText),
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+        title: Text(
+          _yearText,
+          style: context.textTheme.headline6,
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         hasOkButton: false,
         children: <Widget>[
-          const Gap(30),
+          const Gap(48),
           DrawerAppLogo(),
-          const Gap(30),
+          const Gap(48),
         ],
       ),
     );

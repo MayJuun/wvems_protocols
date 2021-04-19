@@ -27,7 +27,10 @@ void _displaySettingsDialog(BuildContext context) {
       final ThemeController themeService = Get.find();
 
       return StyledDialog(
-        title: Text(S.NAV_MODE_SELECT),
+        title: Text(
+          S.NAV_MODE_SELECT,
+          style: context.textTheme.headline6,
+        ),
         children: <Widget>[
           RadioListTile(
             title: Text(S.NAV_MODE_LIGHT),

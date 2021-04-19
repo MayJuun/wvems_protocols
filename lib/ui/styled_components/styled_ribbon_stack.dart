@@ -125,15 +125,17 @@ class _StyledContainer extends StatelessWidget {
           bottomEnd: _radius,
         ),
         boxShadow: kElevationToShadow[6],
+        // todo: extract
         color: wvemsColor(2020),
       ),
       alignment: isTitleHeader ? Alignment.center : null,
-      child: title != null
-          ? Padding(
-              padding: const EdgeInsets.all(8.0),
+      child: isTitleHeader
+          ? Center(
               child: title,
             )
-          : null,
+          : title != null
+              ? Padding(padding: const EdgeInsets.all(8), child: title)
+              : null,
       height: height,
       width: width,
     );
