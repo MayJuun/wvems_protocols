@@ -29,14 +29,6 @@ class StyledRibbonStack extends StatelessWidget {
       child: Stack(
         children: [
           Container(),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: _StyledRibbon(title: title, isRotated: true),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: _StyledRibbon(title: title),
-          ),
           Padding(
             padding: padding,
             child: Column(
@@ -53,6 +45,14 @@ class StyledRibbonStack extends StatelessWidget {
                 ...hasOkButton ? _okButton : [Container()],
               ],
             ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: _StyledRibbon(title: title, isRotated: true),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: _StyledRibbon(title: title),
           ),
         ],
       ),

@@ -31,10 +31,6 @@ class _Strings {
   String SEARCH_BAR_HINT = 'Search Protocols';
 
   String WOMP_WOMP = 'Nothing Here!\nWomp Womp';
-
-  //todo: remove
-  String HOME_VIEW = 'HomeView';
-  String OPEN_PDF = 'Open PDF';
 }
 
 _Strings get S => _Strings.instance;
