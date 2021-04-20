@@ -37,25 +37,24 @@ class _VersionDialog extends StatelessWidget {
       subtitle: S.NAV_VERSION_SUBTITLE,
       children: [
         const Gap(12),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: Colors.blue,
-          ),
-          child: InkWell(
-            onTap: () {},
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Text('text'),
-                  Text('text'),
-                ],
-              ),
+        InkWell(
+          highlightColor: Colors.blue,
+          borderRadius: BorderRadius.circular(12),
+          onTap: () {},
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: const [
+                Text('text'),
+                Text('text'),
+              ],
             ),
           ),
-        ),
+        )
       ],
     );
   }

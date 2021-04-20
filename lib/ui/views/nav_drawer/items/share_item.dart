@@ -92,15 +92,11 @@ class _ShareOption extends StatelessWidget {
       children: [
         IconButton(icon: Icon(icon), iconSize: 44, onPressed: onPressed),
         const Gap(12),
-        ClipOval(
-          child: Material(
-            child: InkWell(
-              onTap: onPressed,
-              child: Container(
-                padding: const EdgeInsets.all(12.0),
-                child: Text(title, textAlign: TextAlign.center),
-              ),
-            ),
+        InkResponse(
+          onTap: onPressed,
+          child: Container(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(title, textAlign: TextAlign.center),
           ),
         ),
       ],
