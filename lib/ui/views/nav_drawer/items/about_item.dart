@@ -22,26 +22,31 @@ void _displayAboutDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,
-    builder: (BuildContext context) {
-      return StyledDialog(
-        title: S.NAV_ABOUT,
-        subtitle: S.NAV_ABOUT_SUBTITLE,
-        children: <Widget>[
-          const Gap(24),
-          Row(
-            children: [
-              Text(S.NAV_ABOUT_RELEASE),
-              const Gap(48),
-              Text(S.APP_RELEASE),
-            ],
-          ),
-          const Gap(24),
-          Text(
-            S.APP_COPYRIGHT,
-            textAlign: TextAlign.justify,
-          ),
-        ],
-      );
-    },
+    builder: (BuildContext context) => _AboutDialog(),
   );
+}
+
+class _AboutDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StyledDialog(
+      title: S.NAV_ABOUT,
+      subtitle: S.NAV_ABOUT_SUBTITLE,
+      children: <Widget>[
+        const Gap(24),
+        Row(
+          children: [
+            Text(S.NAV_ABOUT_RELEASE),
+            const Gap(48),
+            Text(S.APP_RELEASE),
+          ],
+        ),
+        const Gap(24),
+        Text(
+          S.APP_COPYRIGHT,
+          textAlign: TextAlign.justify,
+        ),
+      ],
+    );
+  }
 }

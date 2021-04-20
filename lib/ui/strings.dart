@@ -11,13 +11,13 @@ class _Strings {
   String NAV_NEW_MESSAGES = 'New Messages';
   String NAV_MESSAGES = 'Messages';
   String NAV_NOTIFICATIONS = 'Notifications from WVEMS';
-  String NAV_VERSION = 'Select Active Protocol';
-  String NAV_VERSION_SUBTITLE = 'Protocol Versions';
+  String NAV_VERSION = 'Protocol Version';
+  String NAV_VERSION_SUBTITLE = 'Select Active PDF';
   String NAV_SHARE = 'Share';
   String NAV_SHARE_SUBTITLE = 'Select what you want to share';
   String NAV_DOWNLOAD = 'Download PDFs';
   String NAV_DOWNLOAD_SUBTITLE =
-      'Select PDF Version(s) to save\nto your Documents Folder';
+      'Select PDFs to save\nto your Documents Folder';
   String NAV_SETTINGS = 'Settings';
   String NAV_SETTINGS_SUBTITLE = 'Select display mode';
   String NAV_MODE_LIGHT = 'Light Mode';

@@ -27,45 +27,50 @@ void _displayShareDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,
-    builder: (BuildContext context) {
-      return StyledDialog(
-        hasOkButton: false,
-        title: S.NAV_SHARE,
-        subtitle: S.NAV_SHARE_SUBTITLE,
-        children: [
-          const Gap(32),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _ShareOption(
-                title: 'Current\nPage',
-                icon: Mdi.fileImage,
-                // todo: setup page share as png
-                onPressed: () => Share.share(
-                    'This app is great! Download here: https://western.vaems.org/'),
-              ),
-              _ShareOption(
-                title: 'Current\nPDF',
-                icon: Mdi.pdfBox,
-                // todo: setup share as pdf
-                onPressed: () => Share.share(
-                    'This app is great! Download here: https://western.vaems.org/'),
-              ),
-              _ShareOption(
-                title: 'This App\n(link)',
-                icon: Mdi.tabletCellphone,
-                // todo: extract string and add android/iOS download locations
-                onPressed: () => Share.share(
-                    'This app is great! Download here: https://western.vaems.org/'),
-              ),
-            ],
-          ),
-          const Gap(24),
-        ],
-      );
-    },
+    builder: (BuildContext context) => _ShareDialog(),
   );
+}
+
+class _ShareDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StyledDialog(
+      hasOkButton: false,
+      title: S.NAV_SHARE,
+      subtitle: S.NAV_SHARE_SUBTITLE,
+      children: [
+        const Gap(32),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _ShareOption(
+              title: 'Current\nPage',
+              icon: Mdi.fileImage,
+              // todo: setup page share as png
+              onPressed: () => Share.share(
+                  'This app is great! Download here: https://western.vaems.org/'),
+            ),
+            _ShareOption(
+              title: 'Current\nPDF',
+              icon: Mdi.pdfBox,
+              // todo: setup share as pdf
+              onPressed: () => Share.share(
+                  'This app is great! Download here: https://western.vaems.org/'),
+            ),
+            _ShareOption(
+              title: 'This App\n(link)',
+              icon: Mdi.tabletCellphone,
+              // todo: extract string and add android/iOS download locations
+              onPressed: () => Share.share(
+                  'This app is great! Download here: https://western.vaems.org/'),
+            ),
+          ],
+        ),
+        const Gap(24),
+      ],
+    );
+  }
 }
 
 class _ShareOption extends StatelessWidget {
@@ -82,16 +87,23 @@ class _ShareOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 44),
-          const Gap(12),
-          Text(title, textAlign: TextAlign.center),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(icon: Icon(icon), iconSize: 44, onPressed: onPressed),
+        const Gap(12),
+        ClipOval(
+          child: Material(
+            child: InkWell(
+              onTap: onPressed,
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(title, textAlign: TextAlign.center),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

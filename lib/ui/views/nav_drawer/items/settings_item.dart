@@ -24,34 +24,39 @@ void _displaySettingsDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,
-    builder: (BuildContext context) {
-      final ThemeController themeService = Get.find();
-
-      return StyledDialog(
-        title: S.NAV_SETTINGS,
-        subtitle: S.NAV_SETTINGS_SUBTITLE,
-        children: <Widget>[
-          const Gap(12),
-          RadioListTile(
-            title: Text(S.NAV_MODE_LIGHT),
-            value: ThemeMode.light,
-            groupValue: themeService.themeMode,
-            onChanged: (value) => themeService.setThemeMode(ThemeMode.light),
-          ),
-          RadioListTile(
-            title: Text(S.NAV_MODE_DARK),
-            value: ThemeMode.dark,
-            groupValue: themeService.themeMode,
-            onChanged: (value) => themeService.setThemeMode(ThemeMode.dark),
-          ),
-          RadioListTile(
-            title: Text(S.NAV_MODE_SYSTEM),
-            value: ThemeMode.system,
-            groupValue: themeService.themeMode,
-            onChanged: (value) => themeService.setThemeMode(ThemeMode.system),
-          ),
-        ],
-      );
-    },
+    builder: (BuildContext context) => _SettingsDialog(),
   );
+}
+
+class _SettingsDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final ThemeController themeService = Get.find();
+
+    return StyledDialog(
+      title: S.NAV_SETTINGS,
+      subtitle: S.NAV_SETTINGS_SUBTITLE,
+      children: <Widget>[
+        const Gap(12),
+        RadioListTile(
+          title: Text(S.NAV_MODE_LIGHT),
+          value: ThemeMode.light,
+          groupValue: themeService.themeMode,
+          onChanged: (value) => themeService.setThemeMode(ThemeMode.light),
+        ),
+        RadioListTile(
+          title: Text(S.NAV_MODE_DARK),
+          value: ThemeMode.dark,
+          groupValue: themeService.themeMode,
+          onChanged: (value) => themeService.setThemeMode(ThemeMode.dark),
+        ),
+        RadioListTile(
+          title: Text(S.NAV_MODE_SYSTEM),
+          value: ThemeMode.system,
+          groupValue: themeService.themeMode,
+          onChanged: (value) => themeService.setThemeMode(ThemeMode.system),
+        ),
+      ],
+    );
+  }
 }
