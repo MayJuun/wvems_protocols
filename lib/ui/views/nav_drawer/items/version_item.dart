@@ -35,6 +35,7 @@ class _VersionDialog extends StatelessWidget {
     return StyledDialog(
       title: S.NAV_VERSION,
       subtitle: S.NAV_VERSION_SUBTITLE,
+      hasOkButton: false,
       children: [
         const Gap(12),
         InkWell(
