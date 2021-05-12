@@ -78,12 +78,12 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     final f = await _pdfService.fromAsset(assetPath, 'active.pdf');
     pathPDF = f.path;
     print('pdf loaded: $pathPDF');
-    _resetPdfUI();
+    resetPdfUI();
     _createNewPdfController();
     return f;
   }
 
-  void _resetPdfUI() {
+  void resetPdfUI() {
     // set new UniqueKey, which triggers a UI redraw
     // UniqueKey is most important w/ Android redraws
     pdfViewerKey = UniqueKey();
