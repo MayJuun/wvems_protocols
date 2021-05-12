@@ -85,11 +85,13 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     return f;
   }
 
-  void resetPdfUI() {
+  void resetPdfUI({bool goHome = true}) {
     // set new UniqueKey, which triggers a UI redraw
     // UniqueKey is most important w/ Android redraws
     pdfViewerKey = UniqueKey();
-    currentPage.value = 0;
+    if (goHome) {
+      currentPage.value = 0;
+    }
   }
 
   /// **********************************************************

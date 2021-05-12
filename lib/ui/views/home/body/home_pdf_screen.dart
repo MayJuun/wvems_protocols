@@ -16,7 +16,7 @@ class HomePdfScreen extends StatelessWidget {
       builder: (context, orientation) {
         if (orientation != controller.currentOrientation) {
           controller.currentOrientation = orientation;
-          controller.resetPdfUI();
+          controller.resetPdfUI(goHome: false);
         }
         return Obx(
           () => Container(
