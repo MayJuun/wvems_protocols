@@ -1,4 +1,3 @@
-import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/controllers/commands/abstract_command.dart';
 import 'package:wvems_protocols/models/models.dart';
 

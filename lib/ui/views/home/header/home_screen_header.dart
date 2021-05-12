@@ -5,36 +5,37 @@ import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/home/body/home_screen_body.dart';
+import 'package:wvems_protocols/ui/views/home/home_controller.dart';
 import 'package:wvems_protocols/ui/views/home/search/home_search_expanded.dart';
 
 class HomeScreenHeader extends StatelessWidget {
   // spec: https://github.com/bnxm/material_floating_search_bar/blob/master/example/lib/main.dart
 
-  final actions = [
-    /// Actions shown on the right of the search bar
-    FloatingSearchBarAction(
-      showIfOpened: false,
-      child: CircularButton(
-        icon: const Icon(Icons.info),
-        onPressed: () {
-          // todo: add help dialog vs how to use
-        },
-      ),
-    ),
-    FloatingSearchBarAction.searchToClear(
-      showIfClosed: false,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final SearchController searchController = Get.find();
+    final HomeController homeController = Get.find();
+
+    final actions = [
+      /// Actions shown on the right of the search bar
+      FloatingSearchBarAction(
+        showIfOpened: false,
+        child: CircularButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () => homeController.toggleDrawer(),
+        ),
+      ),
+      FloatingSearchBarAction.searchToClear(
+        showIfClosed: false,
+      ),
+    ];
 
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     return FloatingSearchBar(
-      automaticallyImplyBackButton: true,
+      automaticallyImplyBackButton: false,
+      backgroundColor: context.theme.backgroundColor,
       automaticallyImplyDrawerHamburger: false,
       controller: searchController.floatingSearchBarController,
       clearQueryOnClose: false,
@@ -59,7 +60,9 @@ class HomeScreenHeader extends StatelessWidget {
       body: Column(
         children: [
           const Gap(60),
-          Expanded(child: HomeScreenBody()),
+          Expanded(
+            child: HomeScreenBody(),
+          ),
         ],
       ),
     );
