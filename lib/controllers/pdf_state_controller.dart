@@ -28,8 +28,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
       const PdfTableOfContentsState.loading().obs;
 
   /// Used for PDFView
-  Completer<PDFViewController> asyncController = Completer<PDFViewController>();
-  Rx<PDFViewController>? rxPdfController;
+  PDFViewController? pdfController;
 
   final pages = 0.obs;
   final currentPage = 0.obs;
@@ -80,37 +79,38 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     final f = await _pdfService.fromAsset(assetPath, 'active.pdf');
     pathPDF = f.path;
     print('pdf loaded: $pathPDF');
-    _resetPdfUI();
-    _createNewPdfController();
+    resetPdfUI();
     return f;
   }
 
-  void _resetPdfUI() {
+  void resetPdfUI({bool goHome = true}) {
     // set new UniqueKey, which triggers a UI redraw
     // UniqueKey is most important w/ Android redraws
     pdfViewerKey = UniqueKey();
-    currentPage.value = 0;
+    if (goHome) {
+      currentPage.value = 0;
+    }
   }
 
   /// **********************************************************
   /// ************ PDF CONTROLLER CONFIG METHODS ***************
   /// **********************************************************
 
-  Future<bool> _createNewPdfController() async {
-    asyncController = Completer<PDFViewController>();
-    final newController = asyncController.future;
-    await _setOrResetRxPdfController(newController);
-    return true;
-  }
+  // Future<bool> _createNewPdfController() async {
+  //   asyncController = Completer<PDFViewController>();
+  //   final newController = asyncController.future;
+  //   await _setOrResetRxPdfController(newController);
+  //   return true;
+  // }
 
-  Future<void> _setOrResetRxPdfController(
-      Future<PDFViewController> newController) async {
-    if (rxPdfController != null) {
-      rxPdfController!.value = await newController;
-    } else {
-      rxPdfController = (await newController).obs;
-    }
-  }
+  // Future<void> _setOrResetRxPdfController(
+  //     Future<PDFViewController> newController) async {
+  //   if (rxPdfController != null) {
+  //     rxPdfController!.value = await newController;
+  //   } else {
+  //     rxPdfController = (await newController).obs;
+  //   }
+  // }
 
   /// This methods establishes the PDFViewController on first load
   /// If the active pdf ever changes...
@@ -173,31 +173,6 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     super.onClose();
   }
 
-  @override
-  Future<void> didChangeMetrics() async {
-    if (Platform.isAndroid) {
-      final newOrientation = Get.context?.orientation;
-
-      // only trigger a redraw if the orientation changes
-      if (newOrientation != currentOrientation) {
-        await Future.delayed(
-          const Duration(milliseconds: 200),
-          () async {
-            // create new unique key, which triggers a new instance of PdfView
-            pdfViewerKey = UniqueKey();
-            // todo: close original controller, otherwise error
-            // W/System  (12745): A resource failed to call release
-            // todo: occasionally, this will not redraw on portrait/landscape swap
-            // this new instance of PdfView needs to be tied to a new controller
-            await _createNewPdfController();
-            currentOrientation = newOrientation ?? currentOrientation;
-            update();
-          },
-        );
-      }
-    }
-  }
-
   /// **********************************************************
   /// ******************* PDF VIEW METHODS *********************
   /// **********************************************************
@@ -220,14 +195,16 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     print('$page: ${error.toString()}');
   }
 
+  /// ToDo: I just reset the controller when a new Pdf is created. I don't see
+  /// a way to get rid of the old controller, so let me know if you think this
+  /// will cause a memory leak
   void onPdfViewCreated(PDFViewController pdfViewController) {
-    // todo: this still fails on hot reload
-    pdfViewController.setPage(currentPage.value);
-
-    if (!asyncController.isCompleted) {
-      asyncController.complete(pdfViewController);
-    }
+    pdfController = null;
+    pdfController = pdfViewController;
+    pdfController!.setPage(currentPage.value);
   }
+
+  Future setPdfPage(int? page) async => await pdfController!.setPage(page ?? 0);
 
   void onPdfLinkHandler(String uri) {
     print('goto uri: $uri');
