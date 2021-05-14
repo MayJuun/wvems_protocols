@@ -177,12 +177,6 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// ******************* PDF VIEW METHODS *********************
   /// **********************************************************
 
-  void onPdfRender(int newPage) {
-    pages.value = newPage;
-    isReady.value = true;
-    update();
-  }
-
   void onPdfError(dynamic error) {
     errorMessage.value = error.toString();
     update();
@@ -198,23 +192,19 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// ToDo: I just reset the controller when a new Pdf is created. I don't see
   /// a way to get rid of the old controller, so let me know if you think this
   /// will cause a memory leak
-  void onPdfViewCreated(PDFViewController pdfViewController) {
+  Future onPdfViewCreated(PDFViewController pdfViewController) async {
+    print('viewCreated');
     pdfController = null;
     pdfController = pdfViewController;
-    pdfController!.setPage(currentPage.value);
+    await pdfController!.setPage(currentPage.value);
   }
 
-  Future setPdfPage(int? page) async => await pdfController!.setPage(page ?? 0);
+  Future setPdfPage(int? page) async {
+    print('setPage: $page');
+    await pdfController!.setPage(page ?? 0);
+  }
 
   void onPdfLinkHandler(String uri) {
     print('goto uri: $uri');
-  }
-
-  void onPdfPageChanged(int page, int total) {
-    /// Interestingly, iOS calls this method twice on handling internal hyperlinks
-    /// Android does not. It only calls this method once
-    print('page change: $page/$total');
-    currentPage.value = page;
-    update();
   }
 }
