@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
-import 'package:wvems_protocols/ui/views/home/body/home_screen_body.dart';
 import 'package:wvems_protocols/ui/views/home/home_controller.dart';
 import 'package:wvems_protocols/ui/views/home/search/home_search_expanded.dart';
 
@@ -57,14 +55,14 @@ class HomeScreenHeader extends StatelessWidget {
       builder: (context, _) => HomeSearchExpanded(),
 
       /// This is the default widget shown behind the search bar + expandable body
-      body: Column(
-        children: [
-          const Gap(60),
-          Expanded(
-            child: HomeScreenBody(),
-          ),
-        ],
-      ),
+      // body: Column(
+      //   children: [
+      //     const Gap(60),
+      //     Expanded(
+      //       child: HomeScreenBody(),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
