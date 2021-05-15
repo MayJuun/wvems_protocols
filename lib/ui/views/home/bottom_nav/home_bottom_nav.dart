@@ -16,31 +16,28 @@ class HomeBottomNav extends StatelessWidget {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       color: Theme.of(context).primaryColor,
-      child: IconTheme(
-        data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            // todo: update UI to show read/unread messages
-            _Button(
-              label: 'Messages',
-              icon: Mdi.email,
-              onPressed: () =>
-                  displayMessages(context, unreadMessages, readMessages),
-            ),
-            _Button(
-              label: 'Share',
-              icon: Mdi.shareVariant,
-              onPressed: () => displayShareDialog(context),
-            ),
-            _Button(
-              label: 'Settings',
-              icon: Mdi.cog,
-              onPressed: () => displaySettingsDialog(context),
-            ),
-            const Gap(48),
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          // todo: update UI to show read/unread messages
+          _Button(
+            label: 'Messages',
+            icon: Mdi.email,
+            onPressed: () =>
+                displayMessages(context, unreadMessages, readMessages),
+          ),
+          _Button(
+            label: 'Share',
+            icon: Mdi.shareVariant,
+            onPressed: () => displayShareDialog(context),
+          ),
+          _Button(
+            label: 'Settings',
+            icon: Mdi.cog,
+            onPressed: () => displaySettingsDialog(context),
+          ),
+          const Gap(56),
+        ],
       ),
     );
   }
@@ -57,18 +54,23 @@ class _Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        IconButton(icon: Icon(icon, size: 36.0), onPressed: onPressed),
-        Text(
-          label,
-          style: Theme.of(context)
-              .textTheme
-              .bodyText1
-              ?.apply(color: Theme.of(context).colorScheme.onPrimary),
-        )
-      ],
+    return MaterialButton(
+      padding: const EdgeInsets.all(8.0),
+      onPressed: onPressed,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon,
+              size: 36.0, color: Theme.of(context).colorScheme.onPrimary),
+          Text(
+            label,
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.apply(color: Theme.of(context).colorScheme.onPrimary),
+          )
+        ],
+      ),
     );
   }
 }
