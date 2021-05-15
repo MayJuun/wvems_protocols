@@ -5,7 +5,7 @@ import 'package:mdi/mdi.dart';
 import 'package:share/share.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
-import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 
 // The action items for the currently displayed version. Share and Print
 // both fire a dialog to ask if the user wants to act on just the single

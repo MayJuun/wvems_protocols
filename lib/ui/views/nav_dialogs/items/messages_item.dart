@@ -4,7 +4,7 @@ import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/controllers/messaging_controller.dart';
 import 'package:wvems_protocols/ui/strings.dart';
-import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 
 class MessagesItem extends StatelessWidget {
   @override
