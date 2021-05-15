@@ -14,13 +14,13 @@ class SettingsItem extends StatelessWidget {
       leading: const NavIcon(Icons.settings),
       title: Text(S.NAV_SETTINGS),
       subtitle: Text(S.NAV_SETTINGS_SUBTITLE),
-      onTap: () => _displaySettingsDialog(context),
+      onTap: () => displaySettingsDialog(context),
     );
   }
 }
 
 // pop-op dialog for "Settings"
-void _displaySettingsDialog(BuildContext context) {
+void displaySettingsDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,

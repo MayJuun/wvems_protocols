@@ -15,13 +15,13 @@ class VersionItem extends StatelessWidget {
       leading: const NavIcon(Icons.description),
       title: Text(S.NAV_VERSION),
       subtitle: Text(S.NAV_VERSION_SUBTITLE),
-      onTap: () => _displayVersionDialog(context),
+      onTap: () => displayVersionDialog(context),
     );
   }
 }
 
 // pop-op dialog for "Download PDFs"
-void _displayVersionDialog(BuildContext context) {
+void displayVersionDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,

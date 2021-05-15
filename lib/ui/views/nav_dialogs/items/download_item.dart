@@ -14,13 +14,13 @@ class DownloadItem extends StatelessWidget {
       leading: const NavIcon(Icons.file_download),
       title: Text(S.NAV_DOWNLOAD),
       subtitle: Text(S.NAV_DOWNLOAD_SUBTITLE),
-      onTap: () => _displayDownloadDialog(context),
+      onTap: () => displayDownloadDialog(context),
     );
   }
 }
 
 // pop-op dialog for "Download PDFs"
-void _displayDownloadDialog(BuildContext context) {
+void displayDownloadDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,

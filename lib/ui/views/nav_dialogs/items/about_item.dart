@@ -12,13 +12,13 @@ class AboutItem extends StatelessWidget {
       leading: const NavIcon(Icons.info),
       title: Text(S.NAV_ABOUT),
       subtitle: Text('Release ${S.APP_RELEASE}'),
-      onTap: () => _displayAboutDialog(context),
+      onTap: () => displayAboutDialog(context),
     );
   }
 }
 
 // pop-op dialog for "About"
-void _displayAboutDialog(BuildContext context) {
+void displayAboutDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,

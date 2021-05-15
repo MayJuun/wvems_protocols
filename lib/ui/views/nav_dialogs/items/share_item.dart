@@ -17,13 +17,13 @@ class ShareItem extends StatelessWidget {
     return ListTile(
       leading: const NavIcon(Icons.share),
       title: Text(S.NAV_SHARE),
-      onTap: () => _displayShareDialog(context),
+      onTap: () => displayShareDialog(context),
     );
   }
 }
 
 // pop-op dialog for "Download PDFs"
-void _displayShareDialog(BuildContext context) {
+void displayShareDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,

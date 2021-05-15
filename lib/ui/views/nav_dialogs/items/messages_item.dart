@@ -45,12 +45,12 @@ class MessagesItem extends StatelessWidget {
             )
           : Text(S.NAV_MESSAGES),
       subtitle: Text(S.NAV_NOTIFICATIONS),
-      onTap: () => _displayMessages(context, unreadMessages, readMessages),
+      onTap: () => displayMessages(context, unreadMessages, readMessages),
     );
   }
 }
 
-void _displayMessages(
+void displayMessages(
   BuildContext context,
   Set<Map<String, dynamic>> unreadMessages,
   Set<Map<String, dynamic>> readMessages,

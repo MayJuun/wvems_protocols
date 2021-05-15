@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
+import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/items/items.dart';
 
 class HomeBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // final PdfStateController pdfStateController = Get.find();
+    final messagingController = Get.put(MessagingController());
+    final unreadMessages = messagingController.unread;
+    final readMessages = messagingController.read;
+
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       color: Theme.of(context).primaryColor,
@@ -13,9 +21,23 @@ class HomeBottomNav extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _Button(label: 'Messages', icon: Mdi.email, onPressed: () {}),
-            _Button(label: 'Share', icon: Mdi.shareVariant, onPressed: () {}),
-            _Button(label: 'Settings', icon: Mdi.cog, onPressed: () {}),
+            // todo: update UI to show read/unread messages
+            _Button(
+              label: 'Messages',
+              icon: Mdi.email,
+              onPressed: () =>
+                  displayMessages(context, unreadMessages, readMessages),
+            ),
+            _Button(
+              label: 'Share',
+              icon: Mdi.shareVariant,
+              onPressed: () => displayShareDialog(context),
+            ),
+            _Button(
+              label: 'Settings',
+              icon: Mdi.cog,
+              onPressed: () => displaySettingsDialog(context),
+            ),
             const Gap(48),
           ],
         ),
