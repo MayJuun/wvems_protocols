@@ -15,17 +15,12 @@ class HomeScreen extends StatelessWidget {
       initState: (_) {},
       builder: (_) {
         return Scaffold(
-          appBar: AppBar(flexibleSpace: HomeScreenHeader()),
           resizeToAvoidBottomInset: false,
           // drawer: NavDrawer(),
           key: _.homeScaffoldKey,
           body: SafeArea(
-            child: Column(
-              children: [
-                Expanded(
-                  child: HomeScreenBody(),
-                ),
-              ],
+            child: HomeScreenHeader(
+              body: HomeScreenBody(),
             ),
           ),
           bottomNavigationBar: HomeBottomNav(),
