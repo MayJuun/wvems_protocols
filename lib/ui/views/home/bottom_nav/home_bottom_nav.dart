@@ -59,17 +59,7 @@ class _Button extends StatelessWidget {
       onPressed: onPressed,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon,
-              size: 36.0, color: Theme.of(context).colorScheme.onPrimary),
-          Text(
-            label,
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1
-                ?.apply(color: Theme.of(context).colorScheme.onPrimary),
-          )
-        ],
+        children: [Icon(icon, size: 36.0), Text(label)],
       ),
     );
   }

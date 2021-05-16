@@ -8,9 +8,11 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
+import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/controllers/search_controller.dart';
 import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/services/services.dart';
+import 'package:wvems_protocols/ui/strings.dart';
 
 class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// Used to load current, active PDF via file or web
@@ -139,9 +141,14 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
 
     try {
       final jsonString = await rootBundle.loadString(assetPath);
-      final textList = jsonDecode(jsonString);
+      final Map<String, dynamic> textList = jsonDecode(jsonString);
       pdfTableOfContentsState.value = PdfTableOfContentsState.data(textList);
       print('pdf table of contents loaded');
+      // after loading this content, parse new data to update the theme
+      // if no data, use the 2019 default colors instead
+      final lightMode = textList['lightMode'] ?? S.DEFAULT_LIGHT_MODE_COLOR;
+      final darkMode = textList['darkMode'] ?? S.DEFAULT_DARK_MODE_COLOR;
+      ThemeController.to.setThemeColorsFromPdfData(lightMode, darkMode);
     } catch (e, st) {
       pdfTableOfContentsState.value = PdfTableOfContentsState.error(e, st);
     }

@@ -2,6 +2,9 @@
 class _Strings {
   static _Strings instance = _Strings();
 
+  String DEFAULT_LIGHT_MODE_COLOR = 'F0F0F0';
+  String DEFAULT_DARK_MODE_COLOR = '9E9E9E';
+
   String APP_TITLE = 'WVEMS Protocols';
   String APP_RELEASE = 'v210217';
   String APP_COPYRIGHT =

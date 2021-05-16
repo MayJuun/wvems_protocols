@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeController.to.lightTheme.themeData,
-      darkTheme: ThemeController.to.darkTheme.themeData,
+      theme: ThemeController.to.lightTheme.value.themeData,
+      darkTheme: ThemeController.to.darkTheme.value.themeData,
       themeMode: ThemeController.to.themeMode,
       home: HomeScreen(),
     );
