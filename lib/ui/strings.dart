@@ -28,7 +28,7 @@ class _Strings {
   String NAV_MODE_SYSTEM = 'Match System';
   String NAV_ABOUT = 'About';
   String NAV_ABOUT_SUBTITLE = 'About WVEMS Protocols';
-  String NAV_ABOUT_RELEASE = 'Application Release: ';
+  String NAV_ABOUT_RELEASE = 'Application Release:';
   String NAV_OK = 'OK';
 
   String SEARCH_BAR_HINT = 'Search Protocols';

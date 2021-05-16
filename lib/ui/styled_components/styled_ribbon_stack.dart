@@ -88,7 +88,7 @@ class _StyledRibbon extends StatelessWidget {
       () => Stack(
         children: [
           // small ribbon on the side
-          const _StyledContainer(height: 140, width: 16),
+          const _StyledContainer(height: 140, width: 8),
           isRotated
               ? const _StyledContainer()
               : _StyledContainer(

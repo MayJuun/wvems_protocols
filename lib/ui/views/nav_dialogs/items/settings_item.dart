@@ -68,6 +68,7 @@ class _SettingsDialog extends StatelessWidget {
           textAlign: TextAlign.center,
           style: context.textTheme.headline6,
         ),
+        const Gap(8),
         const _ProtocolVersionItem(
           title: '2021 WVEMS Protocols',
         ),

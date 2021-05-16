@@ -36,9 +36,9 @@ class _AboutDialog extends StatelessWidget {
       children: <Widget>[
         const Gap(24),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(S.NAV_ABOUT_RELEASE),
-            const Gap(48),
             Text(S.APP_RELEASE),
           ],
         ),
