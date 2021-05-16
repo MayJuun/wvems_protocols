@@ -31,19 +31,21 @@ class StyledRibbonStack extends StatelessWidget {
           Container(),
           Padding(
             padding: padding,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                subtitle != null
-                    ? Text(
-                        subtitle!,
-                        textAlign: TextAlign.center,
-                        style: context.textTheme.headline6,
-                      )
-                    : Container(),
-                ...children,
-                ...hasOkButton ? _okButton : [Container()],
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  subtitle != null
+                      ? Text(
+                          subtitle!,
+                          textAlign: TextAlign.center,
+                          style: context.textTheme.headline6,
+                        )
+                      : Container(),
+                  ...children,
+                  ...hasOkButton ? _okButton : [Container()],
+                ],
+              ),
             ),
           ),
           Align(
