@@ -5,22 +5,8 @@ import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 
-// Select customization options, such as light/dark theme
-class SettingsItem extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: const NavIcon(Icons.settings),
-      title: Text(S.NAV_SETTINGS),
-      subtitle: Text(S.NAV_SETTINGS_SUBTITLE),
-      onTap: () => displaySettingsDialog(context),
-    );
-  }
-}
-
-// pop-op dialog for "Settings"
+// Select customization options, such as light/dark theme and version number
 void displaySettingsDialog(BuildContext context) {
   Get.back();
   showDialog(
@@ -36,7 +22,7 @@ class _SettingsDialog extends StatelessWidget {
 
     return StyledDialog(
       title: S.NAV_SETTINGS,
-      subtitle: S.NAV_SETTINGS_SUBTITLE,
+      subtitle: S.NAV_DISPLAY_MODE,
       hasOkButton: false,
       children: <Widget>[
         const Gap(12),

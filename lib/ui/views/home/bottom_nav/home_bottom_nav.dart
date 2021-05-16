@@ -3,7 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/items/items.dart';
+import 'package:wvems_protocols/ui/strings.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/dialogs.dart';
 
 class HomeBottomNav extends StatelessWidget {
   @override
@@ -21,18 +22,18 @@ class HomeBottomNav extends StatelessWidget {
         children: <Widget>[
           // todo: update UI to show read/unread messages
           _Button(
-            label: 'Messages',
+            label: S.NAV_MESSAGES,
             icon: Mdi.email,
             onPressed: () =>
                 displayMessages(context, unreadMessages, readMessages),
           ),
           _Button(
-            label: 'Share',
+            label: S.NAV_SHARE,
             icon: Mdi.shareVariant,
             onPressed: () => displayShareDialog(context),
           ),
           _Button(
-            label: 'Settings',
+            label: S.NAV_SETTINGS,
             icon: Mdi.cog,
             onPressed: () => displaySettingsDialog(context),
           ),
