@@ -5,6 +5,7 @@ import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/home/home_controller.dart';
 import 'package:wvems_protocols/ui/views/home/search/home_search_expanded.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/items/items.dart';
 
 class HomeScreenHeader extends StatelessWidget {
   // spec: https://github.com/bnxm/material_floating_search_bar/blob/master/example/lib/main.dart
@@ -19,8 +20,8 @@ class HomeScreenHeader extends StatelessWidget {
       FloatingSearchBarAction(
         showIfOpened: false,
         child: CircularButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () => homeController.toggleDrawer(),
+          icon: const Icon(Icons.help),
+          onPressed: () => displayAboutDialog(context),
         ),
       ),
       FloatingSearchBarAction.searchToClear(

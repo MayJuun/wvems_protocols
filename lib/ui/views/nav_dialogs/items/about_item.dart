@@ -32,6 +32,7 @@ class _AboutDialog extends StatelessWidget {
     return StyledDialog(
       title: S.NAV_ABOUT,
       subtitle: S.NAV_ABOUT_SUBTITLE,
+      hasOkButton: false,
       children: <Widget>[
         const Gap(24),
         Row(

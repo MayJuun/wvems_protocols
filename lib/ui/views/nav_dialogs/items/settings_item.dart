@@ -36,6 +36,7 @@ class _SettingsDialog extends StatelessWidget {
     return StyledDialog(
       title: S.NAV_SETTINGS,
       subtitle: S.NAV_SETTINGS_SUBTITLE,
+      hasOkButton: false,
       children: <Widget>[
         const Gap(12),
         RadioListTile(
