@@ -31,19 +31,21 @@ class StyledRibbonStack extends StatelessWidget {
           Container(),
           Padding(
             padding: padding,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                subtitle != null
-                    ? Text(
-                        subtitle!,
-                        textAlign: TextAlign.center,
-                        style: context.textTheme.headline6,
-                      )
-                    : Container(),
-                ...children,
-                ...hasOkButton ? _okButton : [Container()],
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  subtitle != null
+                      ? Text(
+                          subtitle!,
+                          textAlign: TextAlign.center,
+                          style: context.textTheme.headline6,
+                        )
+                      : Container(),
+                  ...children,
+                  ...hasOkButton ? _okButton : [Container()],
+                ],
+              ),
             ),
           ),
           Align(
@@ -86,7 +88,7 @@ class _StyledRibbon extends StatelessWidget {
       () => Stack(
         children: [
           // small ribbon on the side
-          const _StyledContainer(height: 140, width: 16),
+          const _StyledContainer(height: 140, width: 8),
           isRotated
               ? const _StyledContainer()
               : _StyledContainer(

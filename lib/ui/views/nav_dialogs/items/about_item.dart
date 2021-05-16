@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
-import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 
 class AboutItem extends StatelessWidget {
   @override
@@ -12,13 +12,13 @@ class AboutItem extends StatelessWidget {
       leading: const NavIcon(Icons.info),
       title: Text(S.NAV_ABOUT),
       subtitle: Text('Release ${S.APP_RELEASE}'),
-      onTap: () => _displayAboutDialog(context),
+      onTap: () => displayAboutDialog(context),
     );
   }
 }
 
 // pop-op dialog for "About"
-void _displayAboutDialog(BuildContext context) {
+void displayAboutDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,
@@ -32,12 +32,13 @@ class _AboutDialog extends StatelessWidget {
     return StyledDialog(
       title: S.NAV_ABOUT,
       subtitle: S.NAV_ABOUT_SUBTITLE,
+      hasOkButton: false,
       children: <Widget>[
         const Gap(24),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(S.NAV_ABOUT_RELEASE),
-            const Gap(48),
             Text(S.APP_RELEASE),
           ],
         ),

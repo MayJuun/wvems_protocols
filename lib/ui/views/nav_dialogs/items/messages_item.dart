@@ -4,7 +4,7 @@ import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/controllers/messaging_controller.dart';
 import 'package:wvems_protocols/ui/strings.dart';
-import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 
 class MessagesItem extends StatelessWidget {
   @override
@@ -45,12 +45,12 @@ class MessagesItem extends StatelessWidget {
             )
           : Text(S.NAV_MESSAGES),
       subtitle: Text(S.NAV_NOTIFICATIONS),
-      onTap: () => _displayMessages(context, unreadMessages, readMessages),
+      onTap: () => displayMessages(context, unreadMessages, readMessages),
     );
   }
 }
 
-void _displayMessages(
+void displayMessages(
   BuildContext context,
   Set<Map<String, dynamic>> unreadMessages,
   Set<Map<String, dynamic>> readMessages,

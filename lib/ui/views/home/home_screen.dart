@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/ui/views/home/fab/home_fab.dart';
 import 'package:wvems_protocols/ui/views/home/header/home_screen_header.dart';
-import 'package:wvems_protocols/ui/views/nav_drawer/nav_drawer.dart';
 
 import 'body/home_screen_body.dart';
+import 'bottom_nav/home_bottom_nav.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,22 +15,36 @@ class HomeScreen extends StatelessWidget {
       initState: (_) {},
       builder: (_) {
         return Scaffold(
-          appBar: AppBar(flexibleSpace: HomeScreenHeader()),
           resizeToAvoidBottomInset: false,
-          drawer: NavDrawer(),
+          // drawer: NavDrawer(),
           key: _.homeScaffoldKey,
           body: SafeArea(
-            child: Column(
-              children: [
-                Expanded(
-                  child: HomeScreenBody(),
-                ),
-              ],
+            child: HomeScreenHeader(
+              body: HomeScreenBody(),
             ),
           ),
+          bottomNavigationBar: HomeBottomNav(),
           floatingActionButton: HomeFab(),
+          floatingActionButtonLocation: _CustomFloatingActionButtonLocation(
+              FloatingActionButtonLocation.endDocked, -20, 0),
         );
       },
     );
+  }
+}
+
+// spec: https://www.programmersought.com/article/66765263481/
+class _CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
+  _CustomFloatingActionButtonLocation(
+      this.location, this.offsetX, this.offsetY);
+
+  FloatingActionButtonLocation location;
+  double offsetX; // Offset in X direction
+  double offsetY; // Offset in Y direction
+
+  @override
+  Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
+    final Offset offset = location.getOffset(scaffoldGeometry);
+    return Offset(offset.dx + offsetX, offset.dy + offsetY);
   }
 }

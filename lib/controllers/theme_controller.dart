@@ -35,7 +35,7 @@ class ThemeController extends GetxController {
     update();
   }
 
-  ThemeMode getThemeModeFromString(String theme) {
+  ThemeMode _getThemeModeFromString(String theme) {
     ThemeMode _setThemeMode = ThemeMode.system;
     if (theme == 'light') {
       _setThemeMode = ThemeMode.light;
@@ -48,7 +48,7 @@ class ThemeController extends GetxController {
 
   Future<void> getThemeModeFromStore() async {
     final String _themeString = _data.store.read('theme') ?? 'system';
-    await setThemeMode(getThemeModeFromString(_themeString));
+    await setThemeMode(_getThemeModeFromString(_themeString));
   }
 
   // checks whether darkmode is set via system or previously by user
@@ -66,12 +66,34 @@ class ThemeController extends GetxController {
   }
 
   // App Themes (Light vs Dark)
-  final AppTheme _lightTheme = AppTheme.fromType(ThemeType.LightMode);
-  AppTheme get lightTheme => _lightTheme;
-  final AppTheme _darkTheme = AppTheme.fromType(ThemeType.DarkMode);
-  AppTheme get darkTheme => _darkTheme;
+  final Rx<AppTheme> lightTheme =
+      AppTheme.fromType(themeType: ThemeType.LightMode).obs;
+  final Rx<AppTheme> darkTheme =
+      AppTheme.fromType(themeType: ThemeType.DarkMode).obs;
+
+  void setThemeColorsFromPdfData(String lightMode, String darkMode) {
+    final Color lightModeColor = Color(_parseColorStringToHex(lightMode));
+    final Color darkModeColor = Color(_parseColorStringToHex(darkMode));
+    lightTheme.value = AppTheme.fromType(
+      themeType: ThemeType.LightMode,
+      lightModeColor: lightModeColor,
+      darkModeColor: darkModeColor,
+    );
+    darkTheme.value = AppTheme.fromType(
+      themeType: ThemeType.DarkMode,
+      lightModeColor: lightModeColor,
+      darkModeColor: darkModeColor,
+    );
+    Get.changeTheme(Get.isDarkMode
+        ? darkTheme.value.themeData
+        : lightTheme.value.themeData);
+  }
+
+  // does this need error handling, in case the string is listed incorrectly?
+  int _parseColorStringToHex(String colorString) =>
+      int.parse(colorString, radix: 16) + 0xFF000000;
 
   AppTheme getAppThemeFromBrightness(Brightness b) {
-    return (b == Brightness.dark) ? _darkTheme : _lightTheme;
+    return (b == Brightness.dark) ? darkTheme.value : lightTheme.value;
   }
 }

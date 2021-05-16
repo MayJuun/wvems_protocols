@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
-import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 
 // Here, user selects the version (year) to display
 // This triggers 1) download (+load) a PDF from the cloud, or
@@ -15,13 +15,13 @@ class VersionItem extends StatelessWidget {
       leading: const NavIcon(Icons.description),
       title: Text(S.NAV_VERSION),
       subtitle: Text(S.NAV_VERSION_SUBTITLE),
-      onTap: () => _displayVersionDialog(context),
+      onTap: () => displayVersionDialog(context),
     );
   }
 }
 
 // pop-op dialog for "Download PDFs"
-void _displayVersionDialog(BuildContext context) {
+void displayVersionDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,

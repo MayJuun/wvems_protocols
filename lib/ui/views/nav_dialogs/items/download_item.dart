@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
-import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 
 // Action items for the currently displayed version.
 // Download assumes they want the whole document.
@@ -14,13 +14,13 @@ class DownloadItem extends StatelessWidget {
       leading: const NavIcon(Icons.file_download),
       title: Text(S.NAV_DOWNLOAD),
       subtitle: Text(S.NAV_DOWNLOAD_SUBTITLE),
-      onTap: () => _displayDownloadDialog(context),
+      onTap: () => displayDownloadDialog(context),
     );
   }
 }
 
 // pop-op dialog for "Download PDFs"
-void _displayDownloadDialog(BuildContext context) {
+void displayDownloadDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,

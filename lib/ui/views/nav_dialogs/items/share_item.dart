@@ -5,7 +5,7 @@ import 'package:mdi/mdi.dart';
 import 'package:share/share.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
-import 'package:wvems_protocols/ui/views/nav_drawer/shared/shared.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 
 // The action items for the currently displayed version. Share and Print
 // both fire a dialog to ask if the user wants to act on just the single
@@ -17,13 +17,13 @@ class ShareItem extends StatelessWidget {
     return ListTile(
       leading: const NavIcon(Icons.share),
       title: Text(S.NAV_SHARE),
-      onTap: () => _displayShareDialog(context),
+      onTap: () => displayShareDialog(context),
     );
   }
 }
 
 // pop-op dialog for "Download PDFs"
-void _displayShareDialog(BuildContext context) {
+void displayShareDialog(BuildContext context) {
   Get.back();
   showDialog(
     context: context,
