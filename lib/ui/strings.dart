@@ -22,7 +22,7 @@ class _Strings {
   String NAV_DOWNLOAD_SUBTITLE =
       'Select PDFs to save\nto your Documents Folder';
   String NAV_SETTINGS = 'Settings';
-  String NAV_SETTINGS_SUBTITLE = 'Select display mode';
+  String NAV_DISPLAY_MODE = 'Select display mode';
   String NAV_MODE_LIGHT = 'Light Mode';
   String NAV_MODE_DARK = 'Dark Mode';
   String NAV_MODE_SYSTEM = 'Match System';

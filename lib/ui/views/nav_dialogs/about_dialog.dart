@@ -3,19 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
-
-class AboutItem extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: const NavIcon(Icons.info),
-      title: Text(S.NAV_ABOUT),
-      subtitle: Text('Release ${S.APP_RELEASE}'),
-      onTap: () => displayAboutDialog(context),
-    );
-  }
-}
 
 // pop-op dialog for "About"
 void displayAboutDialog(BuildContext context) {

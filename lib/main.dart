@@ -27,10 +27,12 @@ Future<void> _initServices() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeController themeController = Get.find();
+
     return GetMaterialApp(
-      theme: ThemeController.to.lightTheme.value.themeData,
-      darkTheme: ThemeController.to.darkTheme.value.themeData,
-      themeMode: ThemeController.to.themeMode,
+      theme:
+          themeController.getThemeDataFromThemeMode(themeController.themeMode),
+      themeMode: themeController.themeMode,
       home: HomeScreen(),
     );
   }

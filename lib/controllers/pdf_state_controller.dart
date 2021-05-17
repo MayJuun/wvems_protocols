@@ -146,8 +146,9 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
       print('pdf table of contents loaded');
       // after loading this content, parse new data to update the theme
       // if no data, use the 2019 default colors instead
-      final lightMode = textList['lightMode'] ?? S.DEFAULT_LIGHT_MODE_COLOR;
-      final darkMode = textList['darkMode'] ?? S.DEFAULT_DARK_MODE_COLOR;
+      final String lightMode =
+          textList['lightMode'] ?? S.DEFAULT_LIGHT_MODE_COLOR;
+      final String darkMode = textList['darkMode'] ?? S.DEFAULT_DARK_MODE_COLOR;
       ThemeController.to.setThemeColorsFromPdfData(lightMode, darkMode);
     } catch (e, st) {
       pdfTableOfContentsState.value = PdfTableOfContentsState.error(e, st);

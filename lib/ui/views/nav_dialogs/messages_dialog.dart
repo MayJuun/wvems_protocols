@@ -4,7 +4,6 @@ import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/controllers/messaging_controller.dart';
 import 'package:wvems_protocols/ui/strings.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 
 class MessagesItem extends StatelessWidget {
   @override
@@ -21,7 +20,7 @@ class MessagesItem extends StatelessWidget {
       leading: Stack(
         alignment: AlignmentDirectional.topEnd,
         children: <Widget>[
-          const NavIcon(Icons.message),
+          // const NavIcon(Icons.message),
           Obx(
             () => Icon(
               Icons.circle,

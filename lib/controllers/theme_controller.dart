@@ -32,7 +32,9 @@ class ThemeController extends GetxController {
     _themeMode = obj;
     Get.changeThemeMode(_themeMode);
     await _data.store.write('theme', themeString.value);
-    update();
+
+    Get.changeTheme(
+        isDarkModeOn ? darkTheme.value.themeData : lightTheme.value.themeData);
   }
 
   ThemeMode _getThemeModeFromString(String theme) {
@@ -65,6 +67,17 @@ class ThemeController extends GetxController {
     return false;
   }
 
+  ThemeData getThemeDataFromThemeMode(ThemeMode themeMode) {
+    switch (themeMode) {
+      case ThemeMode.light:
+        return lightTheme.value.themeData;
+      case ThemeMode.dark:
+        return darkTheme.value.themeData;
+      default:
+        return lightTheme.value.themeData;
+    }
+  }
+
   // App Themes (Light vs Dark)
   final Rx<AppTheme> lightTheme =
       AppTheme.fromType(themeType: ThemeType.LightMode).obs;
@@ -84,9 +97,13 @@ class ThemeController extends GetxController {
       lightModeColor: lightModeColor,
       darkModeColor: darkModeColor,
     );
-    Get.changeTheme(Get.isDarkMode
-        ? darkTheme.value.themeData
-        : lightTheme.value.themeData);
+    _updateTheme();
+  }
+
+  void _updateTheme() {
+    Get.changeTheme(
+        isDarkModeOn ? darkTheme.value.themeData : lightTheme.value.themeData);
+    update();
   }
 
   // does this need error handling, in case the string is listed incorrectly?
