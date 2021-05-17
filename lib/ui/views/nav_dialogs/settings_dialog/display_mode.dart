@@ -6,7 +6,7 @@ import 'package:wvems_protocols/ui/strings.dart';
 class DisplayMode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeService = Get.find();
+    final ThemeController themeController = Get.find();
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -14,20 +14,20 @@ class DisplayMode extends StatelessWidget {
         RadioListTile(
           title: Text(S.NAV_MODE_LIGHT),
           value: ThemeMode.light,
-          groupValue: themeService.themeMode,
-          onChanged: (value) => themeService.setThemeMode(ThemeMode.light),
+          groupValue: themeController.themeMode,
+          onChanged: (value) => themeController.setThemeMode(ThemeMode.light),
         ),
         RadioListTile(
           title: Text(S.NAV_MODE_DARK),
           value: ThemeMode.dark,
-          groupValue: themeService.themeMode,
-          onChanged: (value) => themeService.setThemeMode(ThemeMode.dark),
+          groupValue: themeController.themeMode,
+          onChanged: (value) => themeController.setThemeMode(ThemeMode.dark),
         ),
         RadioListTile(
           title: Text(S.NAV_MODE_SYSTEM),
           value: ThemeMode.system,
-          groupValue: themeService.themeMode,
-          onChanged: (value) => themeService.setThemeMode(ThemeMode.system),
+          groupValue: themeController.themeMode,
+          onChanged: (value) => themeController.setThemeMode(ThemeMode.system),
         )
       ],
     );

@@ -135,11 +135,8 @@ class _StyledContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PdfStateController controller = Get.find();
-
-    return Obx(
-      () => Container(
-        decoration: BoxDecoration(
+    return Container(
+      decoration: BoxDecoration(
           borderRadius: const BorderRadiusDirectional.only(
             topStart: Radius.zero,
             topEnd: Radius.zero,
@@ -147,28 +144,26 @@ class _StyledContainer extends StatelessWidget {
             bottomEnd: _radius,
           ),
           boxShadow: kElevationToShadow[4],
-          color: VersionsUtil().wvemsColor(controller.activeYear.value),
-        ),
-        alignment: isTitleHeader ? Alignment.center : null,
-        // header text
-        child: isTitleHeader
-            ? Center(
-                child: title != null
-                    ? Text(title!,
-                        textAlign: TextAlign.center,
-                        style: context.textTheme.headline5)
-                    : Container(),
-              )
-            // body text, typically '2020'
-            : child != null
-                ? Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: child != null ? child : Container(),
-                  )
-                : null,
-        height: height,
-        width: width,
-      ),
+          color: Theme.of(context).colorScheme.primary),
+      alignment: isTitleHeader ? Alignment.center : null,
+      // header text
+      child: isTitleHeader
+          ? Center(
+              child: title != null
+                  ? Text(title!,
+                      textAlign: TextAlign.center,
+                      style: context.textTheme.headline5)
+                  : Container(),
+            )
+          // body text, typically '2020'
+          : child != null
+              ? Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: child != null ? child : Container(),
+                )
+              : null,
+      height: height,
+      width: width,
     );
   }
 }
