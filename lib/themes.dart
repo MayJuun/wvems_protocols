@@ -11,7 +11,7 @@ class _AppColors {
   static const Color grey = Color(0xFF636463);
   static const Color blackSurface = Color(0xff050505);
   static const Color blackBackground = Color(0xff181818);
-  static const Color textDark = Colors.white;
+  static const Color textDark = Color(0xFF0F0F0F);
   static const Color textLight = Color(0xFFf7f7f7);
 }
 
@@ -135,6 +135,26 @@ class AppTheme {
           selectionHandleColor: Colors.transparent,
         ),
         buttonColor: primary,
+
+        // this theme currently used for HomeButtonNav only
+        // if other TextButtons are used, it will need to be extracted
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            shape:
+                MaterialStateProperty.all<OutlinedBorder>(const CircleBorder()),
+            foregroundColor: MaterialStateProperty.all<Color>(txt),
+            overlayColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.hovered))
+                  return grey.withOpacity(0.04);
+                if (states.contains(MaterialState.focused) ||
+                    states.contains(MaterialState.pressed))
+                  return grey.withOpacity(0.12);
+                return null; // Defer to the widget's default.
+              },
+            ),
+          ),
+        ),
         highlightColor: primary,
         toggleableActiveColor: primary);
   }

@@ -55,8 +55,7 @@ class _Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      padding: const EdgeInsets.all(8.0),
+    return TextButton(
       onPressed: onPressed,
       child: Column(
         mainAxisSize: MainAxisSize.min,

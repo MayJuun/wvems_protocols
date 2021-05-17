@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
+import 'package:wvems_protocols/assets.dart';
+import 'package:wvems_protocols/controllers/controllers.dart';
 
 class ProtocolVersion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final PdfStateController controller = Get.find();
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -17,11 +22,13 @@ class ProtocolVersion extends StatelessWidget {
         const _ProtocolVersionItem(
           title: '2021 WVEMS Protocols',
         ),
-        const _ProtocolVersionItem(
+        _ProtocolVersionItem(
           title: '2020 WVEMS Protocols',
+          onPressed: () => controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
         ),
-        const _ProtocolVersionItem(
+        _ProtocolVersionItem(
           title: '2019 WVEMS Protocols',
+          onPressed: () => controller.loadNewPdf(2019, AppAssets.PROTOCOL_2019),
         )
       ],
     );
@@ -61,11 +68,23 @@ class _ProtocolVersionItem extends StatelessWidget {
                     flex: 2,
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Icon(Mdi.checkboxBlankCircleOutline),
-                          Icon(Mdi.cloudDownloadOutline),
-                          Icon(Mdi.shareVariant),
-                          Icon(Mdi.dotsVertical),
+                        children: [
+                          _ProtocolIconButton(
+                            icon: Mdi.checkboxBlankCircleOutline,
+                            onPressed: () {},
+                          ),
+                          _ProtocolIconButton(
+                            icon: Mdi.cloudDownloadOutline,
+                            onPressed: () {},
+                          ),
+                          _ProtocolIconButton(
+                            icon: Mdi.shareVariant,
+                            onPressed: () {},
+                          ),
+                          // _ProtocolIconButton(
+                          //   icon: Mdi.dotsVertical,
+                          //   onPressed: () {},
+                          // ),
                         ]),
                   ),
                   Flexible(
@@ -85,5 +104,23 @@ class _ProtocolVersionItem extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _ProtocolIconButton extends StatelessWidget {
+  const _ProtocolIconButton(
+      {Key? key, required this.icon, required this.onPressed})
+      : super(key: key);
+
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        padding: const EdgeInsets.all(4),
+        iconSize: 24,
+        icon: Icon(icon),
+        onPressed: onPressed);
   }
 }
