@@ -135,7 +135,6 @@ class AppTheme {
           selectionHandleColor: Colors.transparent,
         ),
         buttonColor: primary,
-
         // this theme currently used for HomeButtonNav only
         // if other TextButtons are used, it will need to be extracted
         textButtonTheme: TextButtonThemeData(

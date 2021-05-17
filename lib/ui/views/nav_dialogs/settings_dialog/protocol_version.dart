@@ -4,21 +4,31 @@ import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 
 class ProtocolVersion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PdfStateController controller = Get.find();
+    final firebaseController = Get.put(FirebaseController());
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(
-          'Select protocol version',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline6,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              'Select protocol version',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            StyledIconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () => firebaseController.getListExample())
+          ],
         ),
-        const Gap(8),
+        // const Gap(8),
         const _ProtocolVersionItem(
           title: '2021 WVEMS Protocols',
         ),
@@ -47,7 +57,16 @@ class _ProtocolVersionItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: InkWell(
-        highlightColor: Theme.of(context).primaryColor,
+        overlayColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.hovered))
+              return Colors.grey.withOpacity(0.04);
+            if (states.contains(MaterialState.focused) ||
+                states.contains(MaterialState.pressed))
+              return Colors.grey.withOpacity(0.12);
+            return null; // Defer to the widget's default.
+          },
+        ),
         borderRadius: BorderRadius.circular(12),
         onTap: onPressed ?? () {},
         child: Container(
@@ -117,7 +136,7 @@ class _ProtocolIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
+    return StyledIconButton(
         padding: const EdgeInsets.all(4),
         iconSize: 24,
         icon: Icon(icon),
