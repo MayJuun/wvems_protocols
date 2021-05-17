@@ -7,7 +7,8 @@ class StyledIconButton extends IconButton {
     required VoidCallback onPressed,
     required Icon icon,
     double? splashRadius,
-// defaults
+
+    // defaults
     double? iconSize,
     VisualDensity? visualDensity,
     EdgeInsetsGeometry? padding,
@@ -25,9 +26,12 @@ class StyledIconButton extends IconButton {
     bool? enableFeedback,
     BoxConstraints? constraints,
   }) : super(
+          // custom variables
           onPressed: onPressed,
           icon: icon,
           splashRadius: splashRadius ?? 24,
+
+          // defaults
           iconSize: iconSize ?? 24,
           visualDensity: visualDensity,
           padding: padding ?? const EdgeInsets.all(8.0),
