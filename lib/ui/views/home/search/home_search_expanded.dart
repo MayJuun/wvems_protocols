@@ -11,7 +11,7 @@ class HomeSearchExpanded extends StatelessWidget {
     final SearchController searchController = Get.find();
 
     return Material(
-      color: Colors.white,
+      color: Theme.of(context).canvasColor,
       elevation: 4.0,
       borderRadius: BorderRadius.circular(8),
       child: Obx(
