@@ -20,12 +20,14 @@ class HomeScreenHeader extends StatelessWidget {
 
     final actions = [
       /// Actions shown on the right of the search bar
-      FloatingSearchBarAction(
+      const FloatingSearchBarAction(
         showIfOpened: false,
-        child: CircularButton(
-          icon: const Icon(Icons.help),
-          onPressed: () => displayAboutDialog(context),
-        ),
+// Ekey 5/18 - changed this to a static icon... we can hide the acout text somewhere else...
+        child: Icon(Icons.search, size: 30.0),
+//        child: CircularButton(
+//          icon: const Icon(Icons.help),
+//          onPressed: () => displayAboutDialog(context),
+//        ),
       ),
       FloatingSearchBarAction.searchToClear(
         showIfClosed: false,
@@ -36,13 +38,21 @@ class HomeScreenHeader extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     return FloatingSearchBar(
+// Ekey 5/18 - reformatted the search box a bit...
+      margins: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
+      height: 44.0,
+      borderRadius: BorderRadius.circular(8.0),
+      elevation: 2.0,
+
+      iconColor: Theme.of(context).colorScheme.onBackground,
+      hintStyle: TextStyle(color: Theme.of(context).colorScheme.onBackground),
+      border: BorderSide(color: Theme.of(context).dividerColor),
       automaticallyImplyBackButton: false,
-      backgroundColor: context.theme.backgroundColor,
+     // backgroundColor: context.theme.backgroundColor,
       automaticallyImplyDrawerHamburger: false,
       controller: searchController.floatingSearchBarController,
       clearQueryOnClose: false,
       hint: S.SEARCH_BAR_HINT,
-      iconColor: Colors.grey,
       transitionDuration: const Duration(milliseconds: 800),
       transitionCurve: Curves.easeInOutCubic,
       physics: const NeverScrollableScrollPhysics(),
@@ -65,7 +75,14 @@ class HomeScreenHeader extends StatelessWidget {
           // it is used in place of an AppBar
           Container(
             height: 60,
-            color: Theme.of(context).primaryColor,
+//Ekey 5/18 - fixed up the colors...
+            color: Theme.of(context).backgroundColor,
+          ),
+//Ekey 5/18 - added this divider to make it slightly more google-like...
+          const Divider(
+            thickness: 1.0,
+            height: 1.0,
+            //color: Colors.grey[200],
           ),
           Expanded(child: body ?? Container()),
         ],

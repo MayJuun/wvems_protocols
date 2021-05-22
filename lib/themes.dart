@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 
 class _AppColors {
-  static const Color primary = Color(0xFFF0F0F0);
-  static const Color primaryDark = Color(0xFF9E9E9E);
-  static const Color accent = Color(0xFFE1994C);
-  static const Color accentDark = Color(0xFFd1893C);
-  static const Color redDarkMode = Color(0xFF984F46);
-  static const Color redLightMode = Color(0xFFB71C1C);
-  static const Color greySurface = Color(0xFFE4E4E3);
-  static const Color grey = Color(0xFF636463);
-  static const Color blackSurface = Color(0xff050505);
-  static const Color blackBackground = Color(0xff181818);
-  static const Color textDark = Color(0xFF0F0F0F);
-  static const Color textLight = Color(0xFFf7f7f7);
+  // Ekey 5/18 - first attempt at playing with the colors
+  //the light mode colors
+  static const Color lightBackground = Color(0xFFFFFFFF); //white background [aka: Theme.of(context).backgroundColor]
+  static const Color lightSearchBackground = Color(0xFFFFFFFF); //white background
+  static const Color lightOnBackground = Color(0xFF707070); //dark grey for text and icons (5:1 contrast with white background)
+  static const Color lightBackgroundYear = Color(0xFFB2B2B2); //yearly background color (this is 2019 by default, will be updated dynamically when a pdf loads...)
+  static const Color lightOnBackgroundYear = Color(0xFF0F0F0F); //near-black text for use on yearly background color (at least 7:1 contrast)
+  static const Color lightAccentGrey = Color(0xFFEEEEEE); //very light grey accent for borders/dividers on a light background (only 1.2:1 contrast with white)
+
+  //the dark mode colors
+  static const Color darkBackground = Color(0xFF000000); //black background
+  static const Color darkSearchBackground = Color(0xFF424242); //slightly less black background
+  static const Color darkOnBackground = Color(0xFFBDBDBD); //light grey for text and icons (11.2:1 contrast with black background)
+//  static const Color darkBackgroundYear = **not used right now
+//  static const Color darkOnBackgroundYear = **not used right now...
+  static const Color darkAccentGrey = Color(0xFF424242); //very dark grey accent for borders/dividers on a dark background (only 2.1:1 contrast with black)
+
+  //WVEMS colors for minor accents
+  static const Color darkBlueWVEMS = Color(0xFF2A2C7C); //dark WVEMS blue (12:1 with white background, but only 1.7:1 with black)
+  static const Color lightBlueWVEMS = Color(0xFF20A4CE); //WVEMS light blue (11.2:1 contrast with black background, but only 2.9:1 contrast with white)
 }
 
 TextTheme _buildTextTheme() {
@@ -31,7 +39,7 @@ TextTheme _buildTextTheme() {
     caption: _style(12.0, FontWeight.normal),
     overline: _style(16.0, FontWeight.normal),
     // );
-  ).apply(fontFamily: 'Lato');
+  ).apply(fontFamily: 'Barlow'); //the protocols are written in Barlow
 }
 
 TextStyle _style(double s, FontWeight w) =>
@@ -52,39 +60,45 @@ class AppTheme {
       Color? lightModeColor,
       Color? darkModeColor}) {
     switch (themeType) {
-      case ThemeType.LightMode:
+      case ThemeType.LightMode: //this is the light mode color scheme (this is where you assign the static colors to the elements)
         return AppTheme(
             lightModePrimaryColor: lightModeColor,
             darkModePrimaryColor: darkModeColor)
-          ..isDark = false
-          ..bg = _AppColors.greySurface
-          ..surface = Colors.white
-          ..primary = lightModeColor ?? _AppColors.primary
-          ..primaryVariant = darkModeColor ?? _AppColors.primaryDark
-          ..secondary = _AppColors.accent
-          ..secondaryVariant = _AppColors.accentDark
-          ..grey = _AppColors.grey
-          ..error = _AppColors.redLightMode
-          ..focus = _AppColors.grey
-          ..accentTxt = _AppColors.textLight
-          ..txt = _AppColors.textDark;
+          .._isDark = false
+          .._background = _AppColors.lightBackground
+          .._onBackground = _AppColors.lightOnBackground
 
-      case ThemeType.DarkMode:
+          .._primary = lightModeColor ?? _AppColors.lightBackgroundYear // this could be from the ToC of a pdf
+          .._primaryVariant  = _AppColors.lightBackgroundYear //ummmm unknown use so far....
+          .._onPrimary = _AppColors.lightOnBackgroundYear
+
+          .._secondary = _AppColors.darkBlueWVEMS
+          .._secondaryVariant = _AppColors.lightBlueWVEMS
+          .._onSecondary = _AppColors.darkAccentGrey
+
+          .._surface = _AppColors.lightSearchBackground
+          .._onSurface = _AppColors.lightOnBackground
+          .._divider = _AppColors.lightAccentGrey;
+
+      case ThemeType.DarkMode: //this is the dark mode color scheme (this is where you assign the static colors to the elements)
         return AppTheme(
             lightModePrimaryColor: lightModeColor,
             darkModePrimaryColor: darkModeColor)
-          ..isDark = true
-          ..bg = _AppColors.blackBackground
-          ..surface = _AppColors.blackSurface
-          ..primary = darkModeColor ?? _AppColors.primaryDark
-          ..primaryVariant = lightModeColor ?? _AppColors.primary
-          ..secondary = _AppColors.accentDark
-          ..secondaryVariant = _AppColors.accent
-          ..grey = _AppColors.grey
-          ..error = _AppColors.redDarkMode
-          ..focus = _AppColors.grey
-          ..accentTxt = _AppColors.textDark
-          ..txt = _AppColors.textLight;
+          .._isDark = true
+          .._background = _AppColors.darkBackground
+          .._onBackground = _AppColors.darkOnBackground
+
+          .._primary = lightModeColor ?? _AppColors.lightBackgroundYear // this could be from the ToC of a pdf (only light colors right now)
+          .._primaryVariant  = _AppColors.lightBackgroundYear //ummmm unknown use so far....
+          .._onPrimary = _AppColors.lightOnBackgroundYear
+
+          .._secondary = _AppColors.lightBlueWVEMS
+          .._secondaryVariant = _AppColors.darkBlueWVEMS
+          .._onSecondary = _AppColors.lightAccentGrey
+
+          .._surface = _AppColors.darkSearchBackground
+          .._onSurface = _AppColors.darkOnBackground
+          .._divider = _AppColors.darkAccentGrey;
     }
   }
   final Color? lightModePrimaryColor;
@@ -92,69 +106,78 @@ class AppTheme {
 
   static ThemeType defaultTheme = ThemeType.LightMode;
 
-  late bool isDark;
-  late Color bg;
-  late Color surface;
-  late Color primary;
-  late Color primaryVariant;
-  late Color secondary;
-  late Color secondaryVariant;
-  late Color grey;
-  late Color error;
-  late Color focus;
+  late bool  _isDark;
+  late Color _background;
+  late Color _onBackground;
 
-  late Color txt;
-  late Color accentTxt;
+  late Color _primary;
+  late Color _primaryVariant;
+  late Color _onPrimary;
 
-  ThemeData get themeData {
+  late Color _secondary;
+  late Color _secondaryVariant;
+  late Color _onSecondary;
+
+  late Color _surface;
+  late Color _onSurface;
+  late Color _divider;
+
+  ThemeData get themeData {  //this is just copying over the constructs above to the actual theme of the app
     final t = ThemeData.from(
       textTheme: _buildTextTheme(),
       colorScheme: ColorScheme(
-        brightness: isDark ? Brightness.dark : Brightness.light,
-        primary: primary,
-        primaryVariant: primaryVariant,
-        secondary: secondary,
-        secondaryVariant: secondaryVariant,
-        background: bg,
-        surface: surface,
-        onBackground: txt,
-        onSurface: txt,
-        onError: txt,
-        onPrimary: txt,
-        onSecondary: accentTxt,
-        error: error,
+        brightness: _isDark ? Brightness.dark : Brightness.light,
+        background: _background,
+        onBackground: _onBackground,
+
+        primary: _primary, // the year color
+        primaryVariant: _primaryVariant, //still unknown use....
+        onPrimary: _onPrimary, // near-black for text on the year color
+
+        secondary: _secondary, //WVEMS blue (high contrast on background)
+        secondaryVariant: _secondaryVariant, //WVEMS blue (low contrast on background)
+        onSecondary: _onSecondary, //grey
+
+        surface: _surface,
+        onSurface: _onSurface,
+
+        onError: const Color(0xFF39FF14), //neon error text
+        error: const Color(0xFFFF007F), //hot pink error
       ),
     );
     return t.copyWith(
+      canvasColor: _background,
+        scaffoldBackgroundColor: _background,
         typography: Typography.material2018(),
-        accentTextTheme: _buildTextTheme().apply(bodyColor: accentTxt),
+        accentTextTheme: _buildTextTheme().apply(bodyColor: _onBackground),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         textSelectionTheme: TextSelectionThemeData(
-          cursorColor: primary,
-          selectionColor: grey,
+          cursorColor: _secondary,
+          selectionColor: _secondaryVariant,
           selectionHandleColor: Colors.transparent,
         ),
-        buttonColor: primary,
+        dividerColor: _divider,
+        buttonColor: _secondary,
         // this theme currently used for HomeButtonNav only
         // if other TextButtons are used, it will need to be extracted
         textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
             shape:
                 MaterialStateProperty.all<OutlinedBorder>(const CircleBorder()),
-            foregroundColor: MaterialStateProperty.all<Color>(txt),
+            foregroundColor: MaterialStateProperty.all<Color>(_onBackground),
             overlayColor: MaterialStateProperty.resolveWith<Color?>(
               (Set<MaterialState> states) {
                 if (states.contains(MaterialState.hovered))
-                  return grey.withOpacity(0.04);
+                  return _onSecondary.withOpacity(0.04);
                 if (states.contains(MaterialState.focused) ||
                     states.contains(MaterialState.pressed))
-                  return grey.withOpacity(0.12);
+                  return _onSecondary.withOpacity(0.12);
                 return null; // Defer to the widget's default.
               },
             ),
           ),
         ),
-        highlightColor: primary,
-        toggleableActiveColor: primary);
+        highlightColor: _secondaryVariant,
+        toggleableActiveColor: _secondary);
   }
 }

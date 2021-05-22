@@ -31,7 +31,7 @@ class _Strings {
   String NAV_ABOUT_RELEASE = 'Application Release:';
   String NAV_OK = 'OK';
 
-  String SEARCH_BAR_HINT = 'Search Protocols';
+  String SEARCH_BAR_HINT = 'Search WVEMS Protocols';
 
   String WOMP_WOMP = 'Nothing Here!\nWomp Womp';
 }
