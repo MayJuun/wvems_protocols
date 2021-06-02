@@ -20,17 +20,17 @@ class _SettingsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return StyledDialog(
       title: S.NAV_SETTINGS,
-      subtitle: S.NAV_DISPLAY_MODE,
+      // subtitle: S.NAV_VERSION_SUBTITLE,
       hasOkButton: false,
       children: <Widget>[
+        ProtocolVersion(),
         const Gap(12),
-        DisplayMode(),
         Divider(
           color: Theme.of(context).accentColor,
           thickness: 1,
         ),
         const Gap(8),
-        ProtocolVersion(),
+        DisplayMode(),
       ],
     );
   }

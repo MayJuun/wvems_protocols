@@ -154,7 +154,10 @@ class AppTheme {
             ),
           ),
         ),
-        highlightColor: primary,
-        toggleableActiveColor: primary);
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: primary,
+        ),
+        highlightColor: primaryVariant,
+        toggleableActiveColor: primaryVariant);
   }
 }

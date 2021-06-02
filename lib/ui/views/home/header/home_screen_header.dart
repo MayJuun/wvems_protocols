@@ -64,8 +64,8 @@ class HomeScreenHeader extends StatelessWidget {
           // this container is directly below the material floating search bar
           // it is used in place of an AppBar
           Container(
-            height: 60,
-            color: Theme.of(context).primaryColor,
+            height: 64,
+            color: Theme.of(context).cardColor,
           ),
           Expanded(child: body ?? Container()),
         ],
