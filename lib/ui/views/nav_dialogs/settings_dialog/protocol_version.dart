@@ -71,52 +71,36 @@ class _ProtocolVersionItem extends StatelessWidget {
         onTap: onPressed ?? () {},
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(),
+            border: Border.all(color: context.theme.colorScheme.onSurface),
             borderRadius: BorderRadius.circular(12),
           ),
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.all(8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(title),
-              const Gap(8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    flex: 2,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _ProtocolIconButton(
-                            icon: Mdi.checkboxBlankCircleOutline,
-                            onPressed: () {},
-                          ),
-                          _ProtocolIconButton(
-                            icon: Mdi.cloudDownloadOutline,
-                            onPressed: () {},
-                          ),
-                          _ProtocolIconButton(
-                            icon: Mdi.shareVariant,
-                            onPressed: () {},
-                          ),
-                          // _ProtocolIconButton(
-                          //   icon: Mdi.dotsVertical,
-                          //   onPressed: () {},
-                          // ),
-                        ]),
-                  ),
-                  Flexible(
-                    child: Text(
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      title,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      // todo: replace with file size
                       '20 mb',
                       textAlign: TextAlign.end,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2
                           ?.apply(color: Theme.of(context).disabledColor),
-                    ),
-                  ),
-                ],
+                    )
+                  ],
+                ),
+              ),
+              _ProtocolIconButton(
+                icon: Mdi.cloudDownloadOutline,
+                onPressed: () {},
               ),
             ],
           ),
