@@ -19,16 +19,9 @@ class HomeScreenHeader extends StatelessWidget {
     final SearchController searchController = Get.find();
 
     final actions = [
-      /// Actions shown on the right of the search bar
-      FloatingSearchBarAction(
-        showIfOpened: false,
-        child: CircularButton(
-          icon: const Icon(Icons.help),
-          onPressed: () => displayAboutDialog(context),
-        ),
-      ),
+      // Actions shown on the right of the search bar
       FloatingSearchBarAction.searchToClear(
-        showIfClosed: false,
+        showIfClosed: true,
       ),
     ];
 

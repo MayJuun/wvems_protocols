@@ -9,7 +9,8 @@ class _AppColors {
   static const Color redDarkMode = Color(0xFF984F46);
   static const Color redLightMode = Color(0xFFB71C1C);
   static const Color greySurface = Color(0xFFE4E4E3);
-  static const Color grey = Color(0xFF636463);
+  // static const Color grey = Colors.grey.shade600;
+  static const Color grey = Color(0xFF757575);
   static const Color blackSurface = Color(0xff050505);
   static const Color blackBackground = Color(0xFF292929);
   static const Color textDark = Color(0xFF0F0F0F);
@@ -130,9 +131,7 @@ class AppTheme {
           selectionColor: grey,
           selectionHandleColor: Colors.transparent,
         ),
-        // iconTheme: IconThemeData(
-
-        // ),
+        iconTheme: IconThemeData(color: grey, size: 30),
         buttonColor: primary,
         // this theme currently used for HomeButtonNav only
         // if other TextButtons are used, it will need to be extracted
