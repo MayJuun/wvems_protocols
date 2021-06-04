@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 
 class _AppColors {
@@ -123,6 +124,11 @@ class AppTheme {
       ),
     );
     return t.copyWith(
+        appBarTheme: AppBarTheme(
+            systemOverlayStyle: isDark
+                ? SystemUiOverlayStyle.dark
+                : SystemUiOverlayStyle.light),
+        brightness: isDark ? Brightness.dark : Brightness.light,
         typography: Typography.material2018(),
         accentTextTheme: _buildTextTheme().apply(bodyColor: accentTxt),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
