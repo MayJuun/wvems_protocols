@@ -56,54 +56,37 @@ class _ProtocolVersionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: InkWell(
-        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.hovered))
-              return Colors.grey.withOpacity(0.04);
-            if (states.contains(MaterialState.focused) ||
-                states.contains(MaterialState.pressed))
-              return Colors.grey.withOpacity(0.12);
-            return null; // Defer to the widget's default.
-          },
-        ),
-        borderRadius: BorderRadius.circular(12),
-        onTap: onPressed ?? () {},
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: context.theme.colorScheme.onSurface),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          padding: const EdgeInsets.all(8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      title,
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      // todo: replace with file size
-                      '20 mb',
-                      textAlign: TextAlign.end,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2
-                          ?.apply(color: Theme.of(context).disabledColor),
-                    )
-                  ],
-                ),
+      child: StyledSelectableContainer(
+        onPressed: onPressed,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    // todo: replace with file size
+                    '20 mb',
+                    textAlign: TextAlign.end,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        ?.apply(color: Theme.of(context).disabledColor),
+                  )
+                ],
               ),
-              _ProtocolIconButton(
-                icon: Mdi.cloudDownloadOutline,
-                onPressed: () {},
-              ),
-            ],
-          ),
+            ),
+            const Gap(4),
+            _ProtocolIconButton(
+              icon: Mdi.cloudDownloadOutline,
+              onPressed: () {},
+            ),
+          ],
         ),
       ),
     );
@@ -122,7 +105,7 @@ class _ProtocolIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return StyledIconButton(
         padding: const EdgeInsets.all(4),
-        iconSize: 24,
+        iconSize: 30,
         icon: Icon(icon),
         onPressed: onPressed);
   }
