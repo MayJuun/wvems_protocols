@@ -23,14 +23,16 @@ class HomePdfScreen extends StatelessWidget {
           controller.resetPdfUI(goHome: false);
         }
         return Obx(
-          () => Container(
-            child:
-                // only display the PDFView screen if the 'isReady' tag is true
-                controller.errorMessage.value.isEmpty
-                    ? !controller.isReady.value
-                        ? Screenshot(
-                            controller: homePdfController.screenshotController,
-                            child: PDFView(
+          () => Screenshot(
+            controller: homePdfController.screenshotController,
+            child: Container(
+              // todo: remove color (used for screenshot testing)
+              color: Colors.green,
+              child:
+                  // only display the PDFView screen if the 'isReady' tag is true
+                  controller.errorMessage.value.isEmpty
+                      ? !controller.isReady.value
+                          ? PDFView(
                               filePath: path,
                               // required for Android
                               key: controller.pdfViewerKey,
@@ -52,12 +54,12 @@ class HomePdfScreen extends StatelessWidget {
                                   controller.onPdfLinkHandler,
                               // onPageChanged: (int1Arg, int2Arg) =>
                               //     controller.onPdfPageChanged,
-                            ),
-                          )
-                        : const Center(child: CircularProgressIndicator())
-                    : Center(
-                        child: Text(controller.errorMessage.value),
-                      ),
+                            )
+                          : const Center(child: CircularProgressIndicator())
+                      : Center(
+                          child: Text(controller.errorMessage.value),
+                        ),
+            ),
           ),
         );
       },
