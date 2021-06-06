@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/settings_dialog/more_info.dart';
 import 'display_mode.dart';
 import 'protocol_version.dart';
 
@@ -20,18 +21,29 @@ class _SettingsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return StyledDialog(
       title: S.NAV_SETTINGS,
-      // subtitle: S.NAV_VERSION_SUBTITLE,
       hasOkButton: false,
-      children: <Widget>[
+      children: const <Widget>[
         ProtocolVersion(),
-        const Gap(12),
-        Divider(
-          color: Theme.of(context).accentColor,
-          thickness: 1,
-        ),
-        const Gap(8),
+        Gap(12),
+        _Divider(),
+        Gap(8),
         DisplayMode(),
+        _Divider(),
+        Gap(8),
+        MoreInfo(),
       ],
+    );
+  }
+}
+
+class _Divider extends StatelessWidget {
+  const _Divider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      color: Theme.of(context).accentColor,
+      thickness: 1,
     );
   }
 }

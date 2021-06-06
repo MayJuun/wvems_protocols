@@ -14,7 +14,7 @@ class _Strings {
   String NAV_MESSAGES = 'Messages';
   String NAV_NOTIFICATIONS = 'Notifications from WVEMS';
   String NAV_VERSION = 'Protocol Version';
-  String NAV_VERSION_SUBTITLE = 'Select Protocol version';
+  String NAV_VERSION_SUBTITLE = 'Select protocol version';
   String NAV_SHARE = 'Share';
   String NAV_SHARE_SUBTITLE = 'Select what you want to share';
   String NAV_DOWNLOAD = 'Download PDFs';

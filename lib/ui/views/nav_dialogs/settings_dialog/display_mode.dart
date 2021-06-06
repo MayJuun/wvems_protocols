@@ -6,6 +6,8 @@ import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/nav_dialogs/dialogs.dart';
 
 class DisplayMode extends StatelessWidget {
+  const DisplayMode({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final ThemeController themeController = Get.find();
@@ -21,10 +23,10 @@ class DisplayMode extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline6,
             ),
-            IconButton(
-              onPressed: () => displayAboutDialog(context),
-              icon: const Icon(Icons.help),
-            ),
+            // IconButton(
+            //   onPressed: () => displayAboutDialog(context),
+            //   icon: const Icon(Icons.help),
+            // ),
           ],
         ),
         const Gap(12),

@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 
 class ProtocolVersion extends StatelessWidget {
+  const ProtocolVersion({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final PdfStateController controller = Get.find();
@@ -19,7 +22,7 @@ class ProtocolVersion extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              'Select protocol version',
+              S.NAV_VERSION_SUBTITLE,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline6,
             ),
@@ -28,10 +31,9 @@ class ProtocolVersion extends StatelessWidget {
                 onPressed: () => firebaseController.getListExample())
           ],
         ),
-        // const Gap(8),
-        const _ProtocolVersionItem(
-          title: '2021 WVEMS Protocols',
-        ),
+        // const _ProtocolVersionItem(
+        //   title: '2021 WVEMS Protocols',
+        // ),
         _ProtocolVersionItem(
           title: '2020 WVEMS Protocols',
           isActive: true,
