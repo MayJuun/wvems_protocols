@@ -78,7 +78,8 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   // ToDo: make sure this flow is correct
   Future<File> _updatePdfFromAssetPath(String assetPath) async {
     print('loading pdfs...');
-    final f = await _pdfService.fromAsset(assetPath, 'active.pdf');
+    final String assetFilename = AssetsUtil().assetToFilename(assetPath);
+    final f = await _pdfService.fromAsset(assetPath, assetFilename);
     pathPDF = f.path;
     print('pdf loaded: $pathPDF');
     resetPdfUI();
