@@ -16,7 +16,8 @@ class _Strings {
   String NAV_VERSION = 'Protocol Version';
   String NAV_VERSION_SUBTITLE = 'Select protocol version';
   String NAV_SHARE = 'Share';
-  String NAV_SHARE_SUBTITLE = 'Select what you want to share';
+  String NAV_SHARE_SUBTITLE = 'Select what to share';
+  String NAV_SHARE_QR_CODE = 'Share this app (QR Code)';
   String NAV_DOWNLOAD = 'Download PDFs';
   String NAV_DOWNLOAD_SUBTITLE =
       'Select PDFs to save\nto your Documents Folder';
@@ -28,6 +29,9 @@ class _Strings {
   String NAV_ABOUT = 'About';
   String NAV_ABOUT_SUBTITLE = 'About WVEMS Protocols';
   String NAV_ABOUT_RELEASE = 'Application Release:';
+  String NAV_ABOUT_MAYJUUN = 'About MayJuun';
+  String NAV_ABOUT_MAYJUUN_INFO =
+      'Created in collaboration with MayJuun. App\'s code is open source under the MIT license. https://mayjuun.com';
   String NAV_OK = 'OK';
 
   String SEARCH_BAR_HINT = 'Search Protocols';

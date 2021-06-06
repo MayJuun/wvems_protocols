@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 import 'package:wvems_protocols/ui/views/nav_dialogs/settings_dialog/more_info.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 import 'display_mode.dart';
 import 'protocol_version.dart';
 
@@ -25,25 +26,13 @@ class _SettingsDialog extends StatelessWidget {
       children: const <Widget>[
         ProtocolVersion(),
         Gap(12),
-        _Divider(),
+        NavDivider(),
         Gap(8),
         DisplayMode(),
-        _Divider(),
+        NavDivider(),
         Gap(8),
         MoreInfo(),
       ],
-    );
-  }
-}
-
-class _Divider extends StatelessWidget {
-  const _Divider({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Divider(
-      color: Theme.of(context).accentColor,
-      thickness: 1,
     );
   }
 }

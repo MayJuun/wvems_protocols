@@ -11,7 +11,7 @@ class MoreInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          S.NAV_ABOUT_SUBTITLE,
+          S.NAV_ABOUT,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline6,
         ),

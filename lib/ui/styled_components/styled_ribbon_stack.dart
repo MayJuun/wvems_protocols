@@ -33,11 +33,11 @@ class StyledRibbonStack extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   subtitle != null
                       ? Text(
                           subtitle!,
-                          textAlign: TextAlign.center,
                           style: context.textTheme.headline6,
                         )
                       : Container(),

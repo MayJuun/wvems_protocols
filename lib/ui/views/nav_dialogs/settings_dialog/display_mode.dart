@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/dialogs.dart';
 
 class DisplayMode extends StatelessWidget {
   const DisplayMode({Key? key}) : super(key: key);
@@ -14,20 +13,11 @@ class DisplayMode extends StatelessWidget {
 
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              S.NAV_DISPLAY_MODE,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            // IconButton(
-            //   onPressed: () => displayAboutDialog(context),
-            //   icon: const Icon(Icons.help),
-            // ),
-          ],
+        Text(
+          S.NAV_DISPLAY_MODE,
+          style: Theme.of(context).textTheme.headline6,
         ),
         const Gap(12),
         RadioListTile(
