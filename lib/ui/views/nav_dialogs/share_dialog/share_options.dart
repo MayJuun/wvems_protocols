@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
-import 'package:share/share.dart';
+import 'package:wvems_protocols/controllers/commands/commands.dart';
+import 'package:wvems_protocols/ui/strings.dart';
 
 class ShareOptions extends StatelessWidget {
   const ShareOptions({Key? key}) : super(key: key);
@@ -13,26 +15,28 @@ class ShareOptions extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _ShareOption(
-          title: 'Current\nPage',
+          title: S.NAV_SHARE_SCREEN,
           icon: Mdi.fileImage,
-          // todo: setup page share as png
-          onPressed: () => Share.share(
-              'This app is great! Download here: https://western.vaems.org/'),
+          onPressed: () async {
+            await ShareScreenCommand().execute();
+            Get.back();
+          },
         ),
         _ShareOption(
-          title: 'Current\nPDF',
-          icon: Mdi.pdfBox,
-          // todo: setup share as pdf
-          onPressed: () => Share.share(
-              'This app is great! Download here: https://western.vaems.org/'),
-        ),
+            title: S.NAV_SHARE_PDF,
+            icon: Mdi.pdfBox,
+            onPressed: () async {
+              await SharePdfCommand().execute();
+              Get.back();
+            }),
         _ShareOption(
-          title: 'This App\n(link)',
-          icon: Mdi.tabletCellphone,
-          // todo: extract string and add android/iOS download locations
-          onPressed: () => Share.share(
-              'This app is great! Download here: https://onelink.to/xu9aq8'),
-        ),
+            title: S.NAV_SHARE_LINK,
+            icon: Mdi.tabletCellphone,
+            // onPressed: () => Share.share(S.NAV_SHARE_LINK_INFO),
+            onPressed: () async {
+              await ShareLinkCommand().execute();
+              Get.back();
+            }),
       ],
     );
   }

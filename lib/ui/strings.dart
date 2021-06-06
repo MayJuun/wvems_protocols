@@ -15,23 +15,29 @@ class _Strings {
   String NAV_NOTIFICATIONS = 'Notifications from WVEMS';
   String NAV_VERSION = 'Protocol Version';
   String NAV_VERSION_SUBTITLE = 'Select protocol version';
+
   String NAV_SHARE = 'Share';
   String NAV_SHARE_SUBTITLE = 'Select what to share';
-  String NAV_SHARE_QR_CODE = 'Share this app (QR Code)';
-  String NAV_DOWNLOAD = 'Download PDFs';
-  String NAV_DOWNLOAD_SUBTITLE =
-      'Select PDFs to save\nto your Documents Folder';
+  String NAV_SHARE_SCREEN = 'Screen';
+  String NAV_SHARE_PDF = 'PDF';
+  String NAV_SHARE_LINK = 'App (link)';
+  String NAV_SHARE_LINK_INFO =
+      'Download the WVEMS Protocols App, available here: https://onelink.to/xu9aq8';
+  String NAV_SHARE_QR_CODE = 'Share app (QR code)';
+
   String NAV_SETTINGS = 'Settings';
   String NAV_DISPLAY_MODE = 'Select display mode';
   String NAV_MODE_LIGHT = 'Light Mode';
   String NAV_MODE_DARK = 'Dark Mode';
   String NAV_MODE_SYSTEM = 'Match System';
+
   String NAV_ABOUT = 'About';
   String NAV_ABOUT_SUBTITLE = 'About WVEMS Protocols';
   String NAV_ABOUT_RELEASE = 'Application Release:';
   String NAV_ABOUT_MAYJUUN = 'About MayJuun';
   String NAV_ABOUT_MAYJUUN_INFO =
       'Created in collaboration with MayJuun. App\'s code is open source under the MIT license. https://mayjuun.com';
+
   String NAV_OK = 'OK';
 
   String SEARCH_BAR_HINT = 'Search Protocols';
