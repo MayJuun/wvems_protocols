@@ -34,6 +34,7 @@ class ProtocolVersion extends StatelessWidget {
         ),
         _ProtocolVersionItem(
           title: '2020 WVEMS Protocols',
+          isActive: true,
           onPressed: () => controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
         ),
         _ProtocolVersionItem(
@@ -46,11 +47,16 @@ class ProtocolVersion extends StatelessWidget {
 }
 
 class _ProtocolVersionItem extends StatelessWidget {
-  const _ProtocolVersionItem({Key? key, required this.title, this.onPressed})
-      : super(key: key);
+  const _ProtocolVersionItem({
+    Key? key,
+    required this.title,
+    this.onPressed,
+    this.isActive = false,
+  }) : super(key: key);
 
   final String title;
   final VoidCallback? onPressed;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +64,7 @@ class _ProtocolVersionItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: StyledSelectableContainer(
         onPressed: onPressed,
+        isActive: isActive,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

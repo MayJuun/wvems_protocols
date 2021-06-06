@@ -23,4 +23,23 @@ class ColorUtil {
 
     return hslLight.toColor();
   }
+
+  Color lightenOrDarken(Color color, Brightness brightness,
+      [double amount = .1]) {
+    assert(amount >= 0 && amount <= 1);
+
+    // when in light mode, things get darker
+    // reverse happens if dark mode
+    return brightness == Brightness.light
+        ? darken(color, amount)
+        : lighten(color, amount);
+  }
+
+  // the primary color scheme is always designed with a lighter color
+  // this utility class will modify this separately based on current brightness
+  Color darkenedPrimaryText(Color color, Brightness brightness) {
+    return (brightness == Brightness.dark)
+        ? darken(color, 0.1)
+        : darken(color, 0.4);
+  }
 }
