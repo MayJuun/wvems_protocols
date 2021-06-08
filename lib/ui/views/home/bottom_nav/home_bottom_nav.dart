@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
@@ -16,29 +15,31 @@ class HomeBottomNav extends StatelessWidget {
 
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
-      color: Theme.of(context).primaryColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          // todo: update UI to show read/unread messages
-          _Button(
-            label: S.NAV_MESSAGES,
-            icon: Mdi.email,
-            onPressed: () =>
-                displayMessages(context, unreadMessages, readMessages),
-          ),
-          _Button(
-            label: S.NAV_SHARE,
-            icon: Mdi.shareVariant,
-            onPressed: () => displayShareDialog(context),
-          ),
-          _Button(
-            label: S.NAV_SETTINGS,
-            icon: Mdi.cog,
-            onPressed: () => displaySettingsDialog(context),
-          ),
-          const Gap(56),
-        ],
+      color: Theme.of(context).cardColor,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            // todo: update UI to show read/unread messages
+            _Button(
+              label: S.NAV_MESSAGES,
+              icon: Mdi.email,
+              onPressed: () =>
+                  displayMessages(context, unreadMessages, readMessages),
+            ),
+            _Button(
+              label: S.NAV_SHARE,
+              icon: Mdi.shareVariant,
+              onPressed: () => displayShareDialog(context),
+            ),
+            _Button(
+              label: S.NAV_SETTINGS,
+              icon: Mdi.cog,
+              onPressed: () => displaySettingsDialog(context),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -55,11 +56,11 @@ class _Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onPressed,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [Icon(icon, size: 36.0), Text(label)],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: IconButton(
+        onPressed: onPressed,
+        icon: Icon(icon, size: 30.0),
       ),
     );
   }

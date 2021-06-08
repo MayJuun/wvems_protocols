@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:wvems_protocols/_internal/utils/utils.dart';
 
 class _AppColors {
   static const Color primary = Color(0xFFF0F0F0);
-  static const Color primaryDark = Color(0xFF9E9E9E);
+  // static const Color primaryDark = Color(0xFF9E9E9E);
   static const Color accent = Color(0xFFE1994C);
   static const Color accentDark = Color(0xFFd1893C);
   static const Color redDarkMode = Color(0xFF984F46);
   static const Color redLightMode = Color(0xFFB71C1C);
   static const Color greySurface = Color(0xFFE4E4E3);
-  static const Color grey = Color(0xFF636463);
+  // static const Color grey = Colors.grey.shade600;
+  static const Color grey = Color(0xFF757575);
   static const Color blackSurface = Color(0xff050505);
-  static const Color blackBackground = Color(0xff181818);
+  static const Color blackBackground = Color(0xFF292929);
   static const Color textDark = Color(0xFF0F0F0F);
   static const Color textLight = Color(0xFFf7f7f7);
 }
@@ -44,23 +47,21 @@ TextStyle _style(double s, FontWeight w) =>
 enum ThemeType { LightMode, DarkMode }
 
 class AppTheme {
-  AppTheme({this.lightModePrimaryColor, this.darkModePrimaryColor});
+  AppTheme({this.primaryColor});
 
   /// fromType factory constructor
   factory AppTheme.fromType(
-      {required ThemeType themeType,
-      Color? lightModeColor,
-      Color? darkModeColor}) {
+      {required ThemeType themeType, Color? primaryColor}) {
+    final Color primaryColorVariant =
+        ColorUtil().darken(primaryColor ?? _AppColors.primary, 0.2);
     switch (themeType) {
       case ThemeType.LightMode:
-        return AppTheme(
-            lightModePrimaryColor: lightModeColor,
-            darkModePrimaryColor: darkModeColor)
+        return AppTheme(primaryColor: primaryColor)
           ..isDark = false
           ..bg = _AppColors.greySurface
           ..surface = Colors.white
-          ..primary = lightModeColor ?? _AppColors.primary
-          ..primaryVariant = darkModeColor ?? _AppColors.primaryDark
+          ..primary = primaryColor ?? _AppColors.primary
+          ..primaryVariant = primaryColorVariant
           ..secondary = _AppColors.accent
           ..secondaryVariant = _AppColors.accentDark
           ..grey = _AppColors.grey
@@ -70,14 +71,12 @@ class AppTheme {
           ..txt = _AppColors.textDark;
 
       case ThemeType.DarkMode:
-        return AppTheme(
-            lightModePrimaryColor: lightModeColor,
-            darkModePrimaryColor: darkModeColor)
+        return AppTheme(primaryColor: primaryColor)
           ..isDark = true
           ..bg = _AppColors.blackBackground
           ..surface = _AppColors.blackSurface
-          ..primary = darkModeColor ?? _AppColors.primaryDark
-          ..primaryVariant = lightModeColor ?? _AppColors.primary
+          ..primary = primaryColor ?? _AppColors.primary
+          ..primaryVariant = primaryColorVariant
           ..secondary = _AppColors.accentDark
           ..secondaryVariant = _AppColors.accent
           ..grey = _AppColors.grey
@@ -87,8 +86,7 @@ class AppTheme {
           ..txt = _AppColors.textLight;
     }
   }
-  final Color? lightModePrimaryColor;
-  final Color? darkModePrimaryColor;
+  final Color? primaryColor;
 
   static ThemeType defaultTheme = ThemeType.LightMode;
 
@@ -120,12 +118,17 @@ class AppTheme {
         onBackground: txt,
         onSurface: txt,
         onError: txt,
-        onPrimary: txt,
+        onPrimary: isDark ? accentTxt : txt,
         onSecondary: accentTxt,
         error: error,
       ),
     );
     return t.copyWith(
+        appBarTheme: AppBarTheme(
+            systemOverlayStyle: isDark
+                ? SystemUiOverlayStyle.dark
+                : SystemUiOverlayStyle.light),
+        brightness: isDark ? Brightness.dark : Brightness.light,
         typography: Typography.material2018(),
         accentTextTheme: _buildTextTheme().apply(bodyColor: accentTxt),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -134,6 +137,7 @@ class AppTheme {
           selectionColor: grey,
           selectionHandleColor: Colors.transparent,
         ),
+        iconTheme: IconThemeData(color: grey, size: 30),
         buttonColor: primary,
         // this theme currently used for HomeButtonNav only
         // if other TextButtons are used, it will need to be extracted
@@ -154,7 +158,11 @@ class AppTheme {
             ),
           ),
         ),
-        highlightColor: primary,
-        toggleableActiveColor: primary);
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: primary,
+          foregroundColor: isDark ? accentTxt : txt,
+        ),
+        highlightColor: primaryVariant,
+        toggleableActiveColor: primaryVariant);
   }
 }

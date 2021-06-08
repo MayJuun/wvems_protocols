@@ -18,6 +18,7 @@ class HomeScreen extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           // drawer: NavDrawer(),
           key: _.homeScaffoldKey,
+          appBar: AppBar(toolbarHeight: 0),
           body: SafeArea(
             child: HomeScreenHeader(
               body: HomeScreenBody(),

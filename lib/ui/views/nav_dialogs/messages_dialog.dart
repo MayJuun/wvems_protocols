@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/controllers/messaging_controller.dart';
 import 'package:wvems_protocols/ui/strings.dart';
@@ -25,8 +24,8 @@ class MessagesItem extends StatelessWidget {
             () => Icon(
               Icons.circle,
               size: 12.0,
-              color: VersionsUtil()
-                  .wvemsColor(pdfStateController.activeYear.value)
+              color: Theme.of(context)
+                  .primaryColor
                   // withAlpha used for Obx, so stream will always be called
                   // if empty, opacity is 0%, else 100%
                   .withAlpha(unreadMessages.isNotEmpty ? 255 : 0),

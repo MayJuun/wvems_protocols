@@ -78,7 +78,8 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   // ToDo: make sure this flow is correct
   Future<File> _updatePdfFromAssetPath(String assetPath) async {
     print('loading pdfs...');
-    final f = await _pdfService.fromAsset(assetPath, 'active.pdf');
+    final String assetFilename = AssetsUtil().assetToFilename(assetPath);
+    final f = await _pdfService.fromAsset(assetPath, assetFilename);
     pathPDF = f.path;
     print('pdf loaded: $pathPDF');
     resetPdfUI();
@@ -146,14 +147,18 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
       print('pdf table of contents loaded');
       // after loading this content, parse new data to update the theme
       // if no data, use the 2019 default colors instead
-      final String lightMode =
-          textList['lightMode'] ?? S.DEFAULT_LIGHT_MODE_COLOR;
-      final String darkMode = textList['darkMode'] ?? S.DEFAULT_DARK_MODE_COLOR;
-      ThemeController.to.setThemeColorsFromPdfData(lightMode, darkMode);
+      final String unparsedColor =
+          textList['primaryColor'] ?? S.DEFAULT_PRIMARY_COLOR;
+      final Color primaryColor = Color(_parseColorStringToHex(unparsedColor));
+      ThemeController.to.setThemeColorsFromPdfData(primaryColor);
     } catch (e, st) {
       pdfTableOfContentsState.value = PdfTableOfContentsState.error(e, st);
     }
   }
+
+  // does this need error handling, in case the string is listed incorrectly?
+  int _parseColorStringToHex(String colorString) =>
+      int.parse(colorString, radix: 16) + 0xFF000000;
 
   String getTableOfContentsFromPageNum(int pageNum) =>
       pdfTableOfContentsState.value.when(
