@@ -185,6 +185,14 @@ class SearchController extends GetxController {
   Future<void> addToSearchHistory(PdfSearchStrings searchStrings) async {
     _searchHistory.remove(searchStrings);
     _searchHistory.add(searchStrings);
+
+    // limit to 10 queries
+    if (_searchHistory.length > 10) {
+      final toRemove = _searchHistory.first;
+      print('pre: ${_searchHistory.length}');
+      _searchHistory.remove(toRemove);
+      print('post: ${_searchHistory.length}');
+    }
     _updateSearchHistoryStore();
   }
 

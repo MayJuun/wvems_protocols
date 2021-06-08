@@ -20,6 +20,9 @@ class SearchHistoryItem extends StatelessWidget {
     final SearchController searchController = Get.find();
     // final PdfStateController pdfStateController = Get.find();
     // final pdfPageText = pdfStateController.pdfSearchState;
+    final ThemeController themeController = Get.find();
+    final appTheme =
+        themeController.getAppThemeFromBrightness(Theme.of(context).brightness);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -67,18 +70,18 @@ class SearchHistoryItem extends StatelessWidget {
                             TextSpan(
                               text: '...${searchStrings.beforeResult}',
                               style: textTheme.bodyText2!
-                                  .copyWith(color: Colors.grey.shade600),
+                                  .copyWith(color: appTheme.grey),
                             ),
                             TextSpan(
                               text: searchStrings.result,
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold)
-                                      .copyWith(color: Colors.grey.shade600),
+                                      .copyWith(color: appTheme.grey),
                             ),
                             TextSpan(
                               text: '${searchStrings.afterResult}...',
                               style: textTheme.bodyText2!
-                                  .copyWith(color: Colors.grey.shade600),
+                                  .copyWith(color: appTheme.grey),
                             ),
                           ],
                         ),
@@ -86,8 +89,8 @@ class SearchHistoryItem extends StatelessWidget {
                       // const SizedBox(height: 2),
                       Text(
                         'page ${searchStrings.pageNumber}',
-                        style: textTheme.bodyText2!
-                            .copyWith(color: Colors.grey.shade600),
+                        style:
+                            textTheme.bodyText2!.copyWith(color: appTheme.grey),
                       ),
                     ],
                   ),
