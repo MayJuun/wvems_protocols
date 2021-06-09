@@ -20,10 +20,10 @@ class _Strings {
   String NAV_SHARE_SUBTITLE = 'Select what to share';
   String NAV_SHARE_SCREEN = 'Screen';
   String NAV_SHARE_PDF = 'PDF';
-  String NAV_SHARE_LINK = 'App (link)';
+  String NAV_SHARE_LINK = 'App (Link)';
   String NAV_SHARE_LINK_INFO =
       'Download the WVEMS Protocols App, available here: https://onelink.to/xu9aq8';
-  String NAV_SHARE_QR_CODE = 'Share app (QR code)';
+  String NAV_SHARE_QR_CODE = 'App (QR Code)';
 
   String NAV_SETTINGS = 'Settings';
   String NAV_DISPLAY_MODE = 'Select display mode';
