@@ -25,10 +25,7 @@ class _MessagesDialog extends StatelessWidget {
       hasOkButton: false,
       title: S.NAV_MESSAGES,
       children: const <Widget>[
-        Text(
-          '(click to toggle Read/Unread)',
-          textAlign: TextAlign.end,
-        ),
+        _ToggleReadUnreadInfo(),
         Gap(24),
         UnreadMessages(),
         Gap(8),
@@ -37,6 +34,22 @@ class _MessagesDialog extends StatelessWidget {
         ReadMessages(),
         Gap(8)
       ],
+    );
+  }
+}
+
+class _ToggleReadUnreadInfo extends StatelessWidget {
+  const _ToggleReadUnreadInfo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'click to toggle read/unread',
+      textAlign: TextAlign.end,
+      style: Theme.of(context)
+          .textTheme
+          .subtitle2!
+          .apply(fontStyle: FontStyle.italic),
     );
   }
 }

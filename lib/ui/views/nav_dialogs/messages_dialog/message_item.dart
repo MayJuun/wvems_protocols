@@ -37,6 +37,7 @@ class MessageItem extends StatelessWidget {
                   const Gap(12),
                   Text(
                     appMessage.body,
+                    style: context.textTheme.bodyText2,
                     textAlign: TextAlign.center,
                   ),
                   const Gap(8),

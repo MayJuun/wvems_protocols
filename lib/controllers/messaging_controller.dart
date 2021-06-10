@@ -49,7 +49,6 @@ class MessagingController extends GetxController {
       title: 'Delete message?',
       middleText: 'Are you sure you want to delete this message?',
       textConfirm: 'DELETE',
-      // textCancel: 'Cancel',
       onConfirm: () => tempMessages.remove(appMessage),
       onCancel: () => Get.back(),
     );
