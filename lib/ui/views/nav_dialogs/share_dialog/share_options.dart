@@ -14,14 +14,17 @@ class ShareOptions extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _ShareOption(
-          title: S.NAV_SHARE_SCREEN,
-          icon: Mdi.fileImage,
-          onPressed: () async {
-            await ShareScreenCommand().execute();
-            Get.back();
-          },
-        ),
+        /// todo: if you can figure out how to allow the 'Screenshot'
+        /// widget to work with PDFView, this option will work
+        ///
+        // _ShareOption(
+        //   title: S.NAV_SHARE_SCREEN,
+        //   icon: Mdi.fileImage,
+        //   onPressed: () async {
+        //     await ShareScreenCommand().execute();
+        //     Get.back();
+        //   },
+        // ),
         _ShareOption(
             title: S.NAV_SHARE_PDF,
             icon: Mdi.pdfBox,

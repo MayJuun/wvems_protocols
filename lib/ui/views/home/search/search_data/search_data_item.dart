@@ -20,6 +20,9 @@ class SearchDataItem extends StatelessWidget {
     final SearchController searchController = Get.find();
     // final PdfStateController pdfStateController = Get.find();
     // final pdfPageText = pdfStateController.pdfSearchState;
+    final ThemeController themeController = Get.find();
+    final appTheme =
+        themeController.getAppThemeFromBrightness(Theme.of(context).brightness);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -53,29 +56,28 @@ class SearchDataItem extends StatelessWidget {
                 ),
                 // const SizedBox(width: 16),
                 Expanded(
-                  child: RichText(
-                    overflow: TextOverflow.ellipsis,
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '...${searchStrings.beforeResult}',
-                          style: textTheme.bodyText2!
-                              .copyWith(color: Colors.grey.shade600),
-                        ),
-                        TextSpan(
-                          text: searchStrings.result,
-                          style: const TextStyle(fontWeight: FontWeight.bold)
-                              .copyWith(color: Colors.grey.shade600),
-                        ),
-                        TextSpan(
-                          text: '${searchStrings.afterResult}...',
-                          style: textTheme.bodyText2!
-                              .copyWith(color: Colors.grey.shade600),
-                        ),
-                      ],
-                    ),
+                    child: RichText(
+                  overflow: TextOverflow.ellipsis,
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '...${searchStrings.beforeResult}',
+                        style:
+                            textTheme.bodyText2!.copyWith(color: appTheme.grey),
+                      ),
+                      TextSpan(
+                        text: searchStrings.result,
+                        style: const TextStyle(fontWeight: FontWeight.bold)
+                            .copyWith(color: appTheme.grey),
+                      ),
+                      TextSpan(
+                        text: '${searchStrings.afterResult}...',
+                        style:
+                            textTheme.bodyText2!.copyWith(color: appTheme.grey),
+                      ),
+                    ],
                   ),
-                ),
+                )),
               ],
             ),
           ),

@@ -8,37 +8,55 @@ import 'package:wvems_protocols/ui/views/nav_dialogs/dialogs.dart';
 class HomeBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final PdfStateController pdfStateController = Get.find();
-    final messagingController = Get.put(MessagingController());
-    final unreadMessages = messagingController.unread;
-    final readMessages = messagingController.read;
+    final MessagingController messagingController = Get.find();
 
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       color: Theme.of(context).cardColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            // todo: update UI to show read/unread messages
-            _Button(
-              label: S.NAV_MESSAGES,
-              icon: Mdi.email,
-              onPressed: () =>
-                  displayMessages(context, unreadMessages, readMessages),
-            ),
-            _Button(
-              label: S.NAV_SHARE,
-              icon: Mdi.shareVariant,
-              onPressed: () => displayShareDialog(context),
-            ),
-            _Button(
-              label: S.NAV_SETTINGS,
-              icon: Mdi.cog,
-              onPressed: () => displaySettingsDialog(context),
-            ),
-          ],
+        child: Obx(
+          () => Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Stack(
+                alignment: const Alignment(0.6, -.7),
+                children: <Widget>[
+                  // const NavIcon(Icons.message),
+                  Obx(
+                    () => Icon(
+                      Icons.circle,
+                      size: 12.0,
+                      color: Theme.of(context)
+                          .primaryColor
+
+                          // withAlpha used for Obx, so stream will always be called
+                          // if empty, opacity is 0%, else 100%
+                          .withAlpha(
+                              messagingController.hasNewMessage() ? 255 : 0),
+                    ),
+                  ),
+                  _Button(
+                    label: S.NAV_MESSAGES,
+                    icon: messagingController.hasNewMessage()
+                        ? Mdi.emailOpen
+                        : Mdi.email,
+                    onPressed: () => displayMessagesDialog(context),
+                  ),
+                ],
+              ),
+              _Button(
+                label: S.NAV_SHARE,
+                icon: Mdi.shareVariant,
+                onPressed: () => displayShareDialog(context),
+              ),
+              _Button(
+                label: S.NAV_SETTINGS,
+                icon: Mdi.cog,
+                onPressed: () => displaySettingsDialog(context),
+              ),
+            ],
+          ),
         ),
       ),
     );

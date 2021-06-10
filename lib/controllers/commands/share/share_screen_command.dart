@@ -1,10 +1,7 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/controllers/commands/abstract_command.dart';
 import 'package:wvems_protocols/ui/views/home/body/home_pdf_controller.dart';
 

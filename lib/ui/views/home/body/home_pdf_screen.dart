@@ -27,7 +27,7 @@ class HomePdfScreen extends StatelessWidget {
             controller: homePdfController.screenshotController,
             child: Container(
               // todo: remove color (used for screenshot testing)
-              color: Colors.green,
+              // color: Colors.green,
               child:
                   // only display the PDFView screen if the 'isReady' tag is true
                   controller.errorMessage.value.isEmpty
