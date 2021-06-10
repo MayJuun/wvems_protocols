@@ -25,7 +25,11 @@ class _MessagesDialog extends StatelessWidget {
       hasOkButton: false,
       title: S.NAV_MESSAGES,
       children: const <Widget>[
-        Gap(8),
+        Text(
+          '(click to toggle Read/Unread)',
+          textAlign: TextAlign.end,
+        ),
+        Gap(24),
         UnreadMessages(),
         Gap(8),
         NavDivider(),

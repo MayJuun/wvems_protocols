@@ -44,6 +44,18 @@ class MessagingController extends GetxController {
     );
   }
 
+  void removeMessage(AppMessage appMessage) {
+    Get.defaultDialog(
+      title: 'Delete message?',
+      middleText: 'Are you sure you want to delete this message?',
+      textConfirm: 'DELETE',
+      // textCancel: 'Cancel',
+      onConfirm: () => tempMessages.remove(appMessage),
+      onCancel: () => Get.back(),
+    );
+    ;
+  }
+
   void setAsRead(String dateTimeSent) {
     final oldMessage =
         messages.firstWhere((message) => message.dateTime == dateTimeSent);

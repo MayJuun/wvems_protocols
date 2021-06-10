@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/views/nav_dialogs/messages_dialog/message_item.dart';
 
@@ -12,8 +13,15 @@ class UnreadMessages extends StatelessWidget {
     final messages = controller.tempMessages;
 
     return Obx(() => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ...messages
+            Text(
+              'Unread',
+              // textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            ...SortUtil()
+                .sortByTitle(messages.toList())
                 .where((e) => !e.beenRead)
                 .map((e) => MessageItem(appMessage: e)),
             Container(),

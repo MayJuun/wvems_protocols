@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
@@ -13,6 +14,9 @@ class MessageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MessagingController controller = Get.find();
+    final ThemeController themeController = Get.find();
+    final appTheme =
+        themeController.getAppThemeFromBrightness(Theme.of(context).brightness);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -30,14 +34,30 @@ class MessageItem extends StatelessWidget {
                     appMessage.title,
                     textAlign: TextAlign.center,
                   ),
+                  const Gap(12),
                   Text(
-                    // todo: replace with file size
-                    '20 mb',
-                    textAlign: TextAlign.end,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2
-                        ?.apply(color: Theme.of(context).disabledColor),
+                    appMessage.body,
+                    textAlign: TextAlign.center,
+                  ),
+                  const Gap(8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          // todo: extract into datetime conversion
+                          '12:35 pm today',
+                          textAlign: TextAlign.center,
+                          style: context.textTheme.subtitle1!
+                              .apply(color: appTheme.grey),
+                        ),
+                        StyledIconButton(
+                          icon: const Icon(Mdi.delete),
+                          onPressed: () => controller.removeMessage(appMessage),
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),
