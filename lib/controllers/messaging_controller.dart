@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:validators2/validators.dart';
 import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/models/temp_messages.dart';
 
@@ -22,6 +23,11 @@ class MessagingController extends GetxController {
 
   final tempMessages = tempMessageSet.obs;
 
+  bool hasNewMessage() {
+    final newMessageList = tempMessages.where((element) => !element.beenRead);
+    return newMessageList.isNotEmpty;
+  }
+
   void toggleRead(AppMessage appMessage) {
     tempMessages.remove(appMessage);
     tempMessages.add(
@@ -34,7 +40,10 @@ class MessagingController extends GetxController {
       title: 'Delete message?',
       middleText: 'Are you sure you want to delete this message?',
       textConfirm: 'DELETE',
-      onConfirm: () => tempMessages.remove(appMessage),
+      onConfirm: () {
+        Get.back();
+        tempMessages.remove(appMessage);
+      },
       onCancel: () => Get.back(),
     );
   }
