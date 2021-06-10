@@ -19,7 +19,6 @@ class HomeBottomNav extends StatelessWidget {
           () => Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              // todo: update UI to show read/unread messages
               Stack(
                 alignment: const Alignment(0.6, -.7),
                 children: <Widget>[
@@ -46,7 +45,6 @@ class HomeBottomNav extends StatelessWidget {
                   ),
                 ],
               ),
-
               _Button(
                 label: S.NAV_SHARE,
                 icon: Mdi.shareVariant,
