@@ -10,7 +10,7 @@ class HomeBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     // final PdfStateController pdfStateController = Get.find();
     final messagingController = Get.put(MessagingController());
-    final unreadMessages = messagingController.unread;
+    final unreadMessages = messagingController.tempMessages;
     final readMessages = messagingController.read;
 
     return BottomAppBar(

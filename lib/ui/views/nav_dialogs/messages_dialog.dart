@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/controllers/messaging_controller.dart';
+import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 
 class MessagesItem extends StatelessWidget {
@@ -9,7 +10,8 @@ class MessagesItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final PdfStateController pdfStateController = Get.find();
     final messagingController = Get.put(MessagingController());
-    final unreadMessages = messagingController.unread;
+    final unreadMessages = messagingController.tempMessages;
+    // final unreadMessages = messagingController.tempMessages.value;
     final readMessages = messagingController.read;
 
     // If there are _newMessages, then the mail icon will have a colored dot,
@@ -50,13 +52,13 @@ class MessagesItem extends StatelessWidget {
 
 void displayMessages(
   BuildContext context,
-  Set<Map<String, dynamic>> unreadMessages,
-  Set<Map<String, dynamic>> readMessages,
+  Set<AppMessage> unreadMessages,
+  Set<AppMessage> readMessages,
 ) {
-  Get.back();
+  // Get.back();
   final controller = Get.put(MessagingController());
-  final unreadList = Column(children: const []);
-  final readList = Column(children: const []);
+  var unreadList = Column(children: []);
+  var readList = Column(children: []);
 
   for (var message in unreadMessages) {
     unreadList.children.add(
@@ -65,17 +67,19 @@ void displayMessages(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
-                width: Get.width * 0.2,
-                child: Text('${message['dateTime']}'.substring(0, 16))),
+              width: Get.width * 0.2, child: Text('${message.dateTime}'),
+              // todo: reimplement
+              // child: Text('${message.dateTime}'.substring(0, 16)),
+            ),
             Container(
               width: Get.width * 0.5,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${message['title']}',
+                  Text('${message.title}',
                       style: const TextStyle(fontWeight: FontWeight.bold)),
                   Text(
-                    '${message['body']}',
+                    '${message.body}',
                     softWrap: true,
                   ),
                 ],
@@ -83,7 +87,7 @@ void displayMessages(
             ),
           ],
         ),
-        onLongPress: () => controller.setAsRead(message['dateTime']),
+        onLongPress: () => controller.setAsRead(message.dateTime),
         onPressed: () {},
       ),
     );
@@ -95,16 +99,16 @@ void displayMessages(
         children: [
           Container(
               width: Get.width * 0.2,
-              child: Text('${message['dateTime']}'.substring(0, 16))),
+              child: Text('${message.dateTime}'.substring(0, 16))),
           Container(
             width: Get.width * 0.5,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${message['title']}',
+                Text('${message.title}',
                     style: const TextStyle(fontWeight: FontWeight.bold)),
                 Text(
-                  '${message['body']}',
+                  '${message.body}',
                   softWrap: true,
                 ),
               ],

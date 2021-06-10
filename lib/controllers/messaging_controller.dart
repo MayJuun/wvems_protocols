@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/models/temp_messages.dart';
 
 class MessagingController extends GetxController {
@@ -17,29 +18,30 @@ class MessagingController extends GetxController {
       FlutterLocalNotificationsPlugin();
   final GetStorage store = GetStorage();
 
-  final messages = <Map<String, dynamic>>{}.obs;
+  final messages = <AppMessage>{}.obs;
 
   final tempMessages = tempMessageSet.obs;
 
   /// *************** Temporary, need to modify to set ****************///
-  Set<Map<String, dynamic>> get unread => sortByDate(
-          messages.where((message) => message['beenRead'] == false).toList())
+  Set<AppMessage> get unread => sortByDate(
+          messages.where((message) => message.beenRead == false).toList())
       .toSet();
 
-  Set<Map<String, dynamic>> get read => sortByDate(
-          messages.where((message) => message['beenRead'] == true).toList())
-      .toSet();
+  Set<AppMessage> get read =>
+      sortByDate(messages.where((message) => message.beenRead == true).toList())
+          .toSet();
 
-  List<Map<String, dynamic>> sortByDate(
-      List<Map<String, dynamic>> messageList) {
+  List<AppMessage> sortByDate(List<AppMessage> messageList) {
     messageList.sort((a, b) =>
-        DateTime.parse(a['dateTime']).compareTo(DateTime.parse(b['dateTime'])));
+        DateTime.parse(a.dateTime).compareTo(DateTime.parse(b.dateTime)));
     return messageList;
   }
 
   void setAsRead(String dateTimeSent) {
-    messages.firstWhere(
-        (message) => message['dateTime'] == dateTimeSent)['beenRead'] = true;
+    final oldMessage =
+        messages.firstWhere((message) => message.dateTime == dateTimeSent);
+    messages.remove(oldMessage);
+    messages.add(oldMessage.copyWith(beenRead: true));
   }
 
   /// *************** Initialize Class and necessary values ****************///
@@ -55,7 +57,7 @@ class MessagingController extends GetxController {
   Future<void> loadMessagesFromStore() async {
     final storeMessages = store.read('messages');
     if (storeMessages != null) {
-      messages.addAll(List<Map<String, dynamic>>.from(storeMessages));
+      messages.addAll(List<AppMessage>.from(storeMessages));
     }
     await saveMessagesToStore();
   }
@@ -75,12 +77,14 @@ class MessagingController extends GetxController {
         // todo: add iOS configuration
         if (notification != null && android != null) {
           print('${notification.title ?? ''} ${notification.body ?? ''}');
-          messages.add({
-            'title': notification.title,
-            'body': notification.body,
-            'dateTime': '${DateTime.now()}',
-            'beenRead': false,
-          });
+          messages.add(
+            AppMessage(
+              title: notification.title ?? '',
+              body: notification.body ?? '',
+              dateTime: '${DateTime.now()}',
+              beenRead: false,
+            ),
+          );
           await saveMessagesToStore();
 
           flutterLocalNotificationsPlugin.show(
