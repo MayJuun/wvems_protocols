@@ -11,8 +11,8 @@ class SortUtil {
 
   List<AppMessage> sortByDate(List<AppMessage> messageList) {
     final newList = messageList;
-    newList.sort((a, b) =>
-        DateTime.parse(a.dateTime).compareTo(DateTime.parse(b.dateTime)));
+    newList.sort((a, b) => DateTime.parse(b.dateTime.toString())
+        .compareTo(DateTime.parse(a.dateTime.toString())));
     return newList;
   }
 }

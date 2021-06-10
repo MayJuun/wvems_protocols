@@ -22,21 +22,6 @@ class MessagingController extends GetxController {
 
   final tempMessages = tempMessageSet.obs;
 
-  /// *************** Temporary, need to modify to set ****************///
-  Set<AppMessage> get unread => sortByDate(
-          messages.where((message) => message.beenRead == false).toList())
-      .toSet();
-
-  Set<AppMessage> get read =>
-      sortByDate(messages.where((message) => message.beenRead == true).toList())
-          .toSet();
-
-  List<AppMessage> sortByDate(List<AppMessage> messageList) {
-    messageList.sort((a, b) =>
-        DateTime.parse(a.dateTime).compareTo(DateTime.parse(b.dateTime)));
-    return messageList;
-  }
-
   void toggleRead(AppMessage appMessage) {
     tempMessages.remove(appMessage);
     tempMessages.add(
@@ -52,14 +37,6 @@ class MessagingController extends GetxController {
       onConfirm: () => tempMessages.remove(appMessage),
       onCancel: () => Get.back(),
     );
-    ;
-  }
-
-  void setAsRead(String dateTimeSent) {
-    final oldMessage =
-        messages.firstWhere((message) => message.dateTime == dateTimeSent);
-    messages.remove(oldMessage);
-    messages.add(oldMessage.copyWith(beenRead: true));
   }
 
   /// *************** Initialize Class and necessary values ****************///
@@ -99,7 +76,7 @@ class MessagingController extends GetxController {
             AppMessage(
               title: notification.title ?? '',
               body: notification.body ?? '',
-              dateTime: '${DateTime.now()}',
+              dateTime: DateTime.now(),
               beenRead: false,
             ),
           );

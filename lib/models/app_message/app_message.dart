@@ -7,10 +7,9 @@ part 'app_message.g.dart';
 class AppMessage with _$AppMessage {
   factory AppMessage({
     required String title,
-    @Default('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.')
+    required DateTime dateTime,
+    @Default('')
         String body,
-    //todo: change to datetime
-    @Default('DateTime') String dateTime,
     @Default(false) bool beenRead,
   }) = _AppMessage;
 

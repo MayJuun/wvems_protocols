@@ -4,15 +4,11 @@ import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/nav_dialogs/dialogs.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/messages_dialog/messages_dialog.dart';
 
 class HomeBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final PdfStateController pdfStateController = Get.find();
-    final messagingController = Get.put(MessagingController());
-    final unreadMessages = messagingController.tempMessages;
-    final readMessages = messagingController.read;
+    final MessagingController messagingController = Get.find();
 
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),

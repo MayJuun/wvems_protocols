@@ -1,3 +1,4 @@
+import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -47,8 +48,8 @@ class MessageItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          // todo: extract into datetime conversion
-                          '12:35 pm today',
+                          DateTimeFormat.relative(appMessage.dateTime,
+                              appendIfAfter: 'ago'),
                           textAlign: TextAlign.center,
                           style: context.textTheme.subtitle1!
                               .apply(color: appTheme.grey),

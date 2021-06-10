@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  date_time_format: ^2.0.1
   firebase_auth: ^1.2.0
   firebase_core: ^1.0.2
   firebase_messaging: ^10.0.1

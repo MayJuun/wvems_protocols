@@ -21,7 +21,7 @@ class UnreadMessages extends StatelessWidget {
               style: Theme.of(context).textTheme.headline6,
             ),
             ...SortUtil()
-                .sortByTitle(messages.toList())
+                .sortByDate(messages.toList())
                 .where((e) => !e.beenRead)
                 .map((e) => MessageItem(appMessage: e)),
             Container(),

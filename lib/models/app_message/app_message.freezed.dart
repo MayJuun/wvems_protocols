@@ -22,14 +22,13 @@ class _$AppMessageTearOff {
 
   _AppMessage call(
       {required String title,
-      String body =
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      String dateTime = 'DateTime',
+      required DateTime dateTime,
+      String body = '',
       bool beenRead = false}) {
     return _AppMessage(
       title: title,
-      body: body,
       dateTime: dateTime,
+      body: body,
       beenRead: beenRead,
     );
   }
@@ -45,9 +44,8 @@ const $AppMessage = _$AppMessageTearOff();
 /// @nodoc
 mixin _$AppMessage {
   String get title => throw _privateConstructorUsedError;
-  String get body =>
-      throw _privateConstructorUsedError; //todo: change to datetime
-  String get dateTime => throw _privateConstructorUsedError;
+  DateTime get dateTime => throw _privateConstructorUsedError;
+  String get body => throw _privateConstructorUsedError;
   bool get beenRead => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -61,7 +59,7 @@ abstract class $AppMessageCopyWith<$Res> {
   factory $AppMessageCopyWith(
           AppMessage value, $Res Function(AppMessage) then) =
       _$AppMessageCopyWithImpl<$Res>;
-  $Res call({String title, String body, String dateTime, bool beenRead});
+  $Res call({String title, DateTime dateTime, String body, bool beenRead});
 }
 
 /// @nodoc
@@ -75,8 +73,8 @@ class _$AppMessageCopyWithImpl<$Res> implements $AppMessageCopyWith<$Res> {
   @override
   $Res call({
     Object? title = freezed,
-    Object? body = freezed,
     Object? dateTime = freezed,
+    Object? body = freezed,
     Object? beenRead = freezed,
   }) {
     return _then(_value.copyWith(
@@ -84,13 +82,13 @@ class _$AppMessageCopyWithImpl<$Res> implements $AppMessageCopyWith<$Res> {
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      body: body == freezed
-          ? _value.body
-          : body // ignore: cast_nullable_to_non_nullable
-              as String,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      body: body == freezed
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as String,
       beenRead: beenRead == freezed
           ? _value.beenRead
@@ -106,7 +104,7 @@ abstract class _$AppMessageCopyWith<$Res> implements $AppMessageCopyWith<$Res> {
           _AppMessage value, $Res Function(_AppMessage) then) =
       __$AppMessageCopyWithImpl<$Res>;
   @override
-  $Res call({String title, String body, String dateTime, bool beenRead});
+  $Res call({String title, DateTime dateTime, String body, bool beenRead});
 }
 
 /// @nodoc
@@ -122,8 +120,8 @@ class __$AppMessageCopyWithImpl<$Res> extends _$AppMessageCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = freezed,
-    Object? body = freezed,
     Object? dateTime = freezed,
+    Object? body = freezed,
     Object? beenRead = freezed,
   }) {
     return _then(_AppMessage(
@@ -131,13 +129,13 @@ class __$AppMessageCopyWithImpl<$Res> extends _$AppMessageCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      body: body == freezed
-          ? _value.body
-          : body // ignore: cast_nullable_to_non_nullable
-              as String,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      body: body == freezed
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as String,
       beenRead: beenRead == freezed
           ? _value.beenRead
@@ -153,9 +151,8 @@ class __$AppMessageCopyWithImpl<$Res> extends _$AppMessageCopyWithImpl<$Res>
 class _$_AppMessage implements _AppMessage {
   _$_AppMessage(
       {required this.title,
-      this.body =
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      this.dateTime = 'DateTime',
+      required this.dateTime,
+      this.body = '',
       this.beenRead = false});
 
   factory _$_AppMessage.fromJson(Map<String, dynamic> json) =>
@@ -163,21 +160,18 @@ class _$_AppMessage implements _AppMessage {
 
   @override
   final String title;
-  @JsonKey(
-      defaultValue:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.')
+  @override
+  final DateTime dateTime;
+  @JsonKey(defaultValue: '')
   @override
   final String body;
-  @JsonKey(defaultValue: 'DateTime')
-  @override //todo: change to datetime
-  final String dateTime;
   @JsonKey(defaultValue: false)
   @override
   final bool beenRead;
 
   @override
   String toString() {
-    return 'AppMessage(title: $title, body: $body, dateTime: $dateTime, beenRead: $beenRead)';
+    return 'AppMessage(title: $title, dateTime: $dateTime, body: $body, beenRead: $beenRead)';
   }
 
   @override
@@ -186,11 +180,11 @@ class _$_AppMessage implements _AppMessage {
         (other is _AppMessage &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
-            (identical(other.body, body) ||
-                const DeepCollectionEquality().equals(other.body, body)) &&
             (identical(other.dateTime, dateTime) ||
                 const DeepCollectionEquality()
                     .equals(other.dateTime, dateTime)) &&
+            (identical(other.body, body) ||
+                const DeepCollectionEquality().equals(other.body, body)) &&
             (identical(other.beenRead, beenRead) ||
                 const DeepCollectionEquality()
                     .equals(other.beenRead, beenRead)));
@@ -200,8 +194,8 @@ class _$_AppMessage implements _AppMessage {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(title) ^
-      const DeepCollectionEquality().hash(body) ^
       const DeepCollectionEquality().hash(dateTime) ^
+      const DeepCollectionEquality().hash(body) ^
       const DeepCollectionEquality().hash(beenRead);
 
   @JsonKey(ignore: true)
@@ -218,8 +212,8 @@ class _$_AppMessage implements _AppMessage {
 abstract class _AppMessage implements AppMessage {
   factory _AppMessage(
       {required String title,
+      required DateTime dateTime,
       String body,
-      String dateTime,
       bool beenRead}) = _$_AppMessage;
 
   factory _AppMessage.fromJson(Map<String, dynamic> json) =
@@ -228,9 +222,9 @@ abstract class _AppMessage implements AppMessage {
   @override
   String get title => throw _privateConstructorUsedError;
   @override
+  DateTime get dateTime => throw _privateConstructorUsedError;
+  @override
   String get body => throw _privateConstructorUsedError;
-  @override //todo: change to datetime
-  String get dateTime => throw _privateConstructorUsedError;
   @override
   bool get beenRead => throw _privateConstructorUsedError;
   @override
