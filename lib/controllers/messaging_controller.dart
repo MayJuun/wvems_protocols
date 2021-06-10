@@ -37,6 +37,13 @@ class MessagingController extends GetxController {
     return messageList;
   }
 
+  void toggleRead(AppMessage appMessage) {
+    tempMessages.remove(appMessage);
+    tempMessages.add(
+      appMessage.copyWith(beenRead: !appMessage.beenRead),
+    );
+  }
+
   void setAsRead(String dateTimeSent) {
     final oldMessage =
         messages.firstWhere((message) => message.dateTime == dateTimeSent);

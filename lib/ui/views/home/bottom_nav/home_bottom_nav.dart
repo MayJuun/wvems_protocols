@@ -4,6 +4,7 @@ import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/nav_dialogs/dialogs.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/messages_dialog/messages_dialog.dart';
 
 class HomeBottomNav extends StatelessWidget {
   @override
@@ -25,8 +26,7 @@ class HomeBottomNav extends StatelessWidget {
             _Button(
               label: S.NAV_MESSAGES,
               icon: Mdi.email,
-              onPressed: () =>
-                  displayMessages(context, unreadMessages, readMessages),
+              onPressed: () => displayMessagesDialog(context),
             ),
             _Button(
               label: S.NAV_SHARE,
