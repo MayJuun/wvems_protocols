@@ -58,15 +58,26 @@ class MessagingController extends GetxController {
   }
 
   Future<void> loadMessagesFromStore() async {
-    final storeMessages = store.read('messages');
-    if (storeMessages != null) {
-      messages.addAll(List<AppMessage>.from(storeMessages));
+    final Map<String, dynamic> storeMessages = store.read('messages') ?? {};
+    if (storeMessages.isNotEmpty) {
+      // first, convert all messages to JSON prior to storing
+      final messagesAsModel = <AppMessage>{};
+      storeMessages.forEach(
+        (key, value) => messagesAsModel.add(AppMessage.fromJson(value)),
+      );
+      // messages.addAll(List<AppMessage>.from(storeMessages));
     }
     await saveMessagesToStore();
   }
 
-  Future<void> saveMessagesToStore() async =>
-      await store.write('messages', messages.toList());
+  Future<void> saveMessagesToStore() async {
+    // first, convert all messages to JSON prior to storing
+    final messagesAsJson = <String, dynamic>{};
+    messages.forEach((e) {
+      messagesAsJson[e.title] = e.toJson();
+    });
+    await store.write('messages', messagesAsJson);
+  }
 
   Future<void> listen() async {
     FirebaseMessaging.onMessage.listen(
