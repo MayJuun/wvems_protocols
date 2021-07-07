@@ -6,6 +6,8 @@ class CloudStorageService {
 
   Future<void> listExample() async {
     final ListResult result = await storage.ref().child('pdf').listAll();
+    //Simple Print Statement - Zaps
+    print('Ready to list examples!');
 
     result.items.forEach((Reference ref) {
       print('Found file: $ref');
