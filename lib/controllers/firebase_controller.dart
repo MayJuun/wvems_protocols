@@ -21,6 +21,7 @@ class FirebaseController extends GetxController {
     // note that if login failed, this will return nothing
     if (isLoggedIn.value) {
       try {
+        print('Logged in!');
         _cloudStorage.listExample();
       } catch (error) {
         print(error);

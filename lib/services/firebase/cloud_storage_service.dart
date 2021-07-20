@@ -10,35 +10,31 @@ class CloudStorageService {
     //Simple Print Statement - Zaps
     print('Ready to list examples!');
 
-    // List of file names
-    List pdfFileList = [];
-
     // Get the app directory
     final directory = await getApplicationDocumentsDirectory();
 
+    // Get list of items in app directory
+    List contents = directory.listSync(recursive: true, followLinks: true);
+
     // Get pdf filenames
     result.items.forEach((Reference ref) {
+      
+      // List Files in Firebase Storage - pdf directory
       String tmpFileName = ref.fullPath;
-      const start = 'pdf/';
-      tmpFileName = tmpFileName.substring(start.length);
-      tmpFileName = directory.path + '/' + tmpFileName;
-      pdfFileList.add(tmpFileName);
+      print(tmpFileName);
+
+      // Get filename and alter to match the Application Doc directory
+      //const start = 'pdf/';
+      //tmpFileName = tmpFileName.substring(start.length);
+      //tmpFileName = directory.path + '/' + tmpFileName;
+      //print(tmpFileName);
+
     });
 
     result.prefixes.forEach((Reference ref) {
       print('Found directory: $ref');
     });
 
-    // Get list of items in app directory
-    List contents = directory.listSync();
-
-    // Check to see if filenames match contents of app directory
-    for (var fileName in pdfFileList) {
-      if (contents.contains(fileName)) {
-        print('File: ' + fileName + ' is here!');
-      } else {
-        print('File: ' + fileName + ' is not here!');
-      }
-    }
+    
   }
 }
