@@ -23,7 +23,7 @@ class CloudStorageService {
     result.items.forEach((Reference ref) {
       // List Files in Firebase Storage - pdf directory
       String tmpFileName = ref.fullPath;
-      print(tmpFileName + ' is available in Firebase Stzorage');
+      print(tmpFileName + ' is available in Firebase Storage');
 
       // Download files anyway (force for testing)
 
