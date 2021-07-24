@@ -9,6 +9,8 @@ class CloudStorageService {
   Future<void> listExample() async {
     // List of items in the storage reference
 
+    final ListResult allFolders = await storage.ref().listAll();
+
     // PDF Files in Firebase Storage
     final ListResult result = await storage.ref().child('pdf').listAll();
 

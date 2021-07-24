@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
+import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
@@ -14,6 +15,7 @@ class ProtocolVersion extends StatelessWidget {
   Widget build(BuildContext context) {
     final PdfStateController controller = Get.find();
     final firebaseController = Get.put(FirebaseController());
+    final protocolVersionController = Get.put(ProtocolVersionController());
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -27,8 +29,10 @@ class ProtocolVersion extends StatelessWidget {
               style: Theme.of(context).textTheme.headline6,
             ),
             StyledIconButton(
-                icon: const Icon(Icons.refresh),
-                onPressed: () => firebaseController.getListExample())
+              icon: const Icon(Icons.refresh),
+              onPressed: () => protocolVersionController.testMethod(),
+              // onPressed: () => firebaseController.getListExample(),
+            )
           ],
         ),
         _ProtocolVersionItem(
