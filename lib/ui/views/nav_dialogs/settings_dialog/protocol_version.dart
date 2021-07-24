@@ -31,18 +31,11 @@ class ProtocolVersion extends StatelessWidget {
                 onPressed: () => firebaseController.getListExample())
           ],
         ),
-        // const _ProtocolVersionItem(
-        //   title: '2021 WVEMS Protocols',
-        // ),
         _ProtocolVersionItem(
           title: '2020 WVEMS Protocols',
           isActive: true,
           onPressed: () => controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
         ),
-        _ProtocolVersionItem(
-          title: '2019 WVEMS Protocols',
-          onPressed: () => controller.loadNewPdf(2019, AppAssets.PROTOCOL_2019),
-        )
       ],
     );
   }
