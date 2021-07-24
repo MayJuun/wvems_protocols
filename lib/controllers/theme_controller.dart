@@ -84,18 +84,14 @@ class ThemeController extends GetxController {
   final Rx<AppTheme> darkTheme =
       AppTheme.fromType(themeType: ThemeType.DarkMode).obs;
 
-  void setThemeColorsFromPdfData(String lightMode, String darkMode) {
-    final Color lightModeColor = Color(_parseColorStringToHex(lightMode));
-    final Color darkModeColor = Color(_parseColorStringToHex(darkMode));
+  void setThemeColorsFromPdfData(Color primaryColor) {
     lightTheme.value = AppTheme.fromType(
       themeType: ThemeType.LightMode,
-      lightModeColor: lightModeColor,
-      darkModeColor: darkModeColor,
+      primaryColor: primaryColor,
     );
     darkTheme.value = AppTheme.fromType(
       themeType: ThemeType.DarkMode,
-      lightModeColor: lightModeColor,
-      darkModeColor: darkModeColor,
+      primaryColor: primaryColor,
     );
     _updateTheme();
   }
@@ -105,10 +101,6 @@ class ThemeController extends GetxController {
         isDarkModeOn ? darkTheme.value.themeData : lightTheme.value.themeData);
     update();
   }
-
-  // does this need error handling, in case the string is listed incorrectly?
-  int _parseColorStringToHex(String colorString) =>
-      int.parse(colorString, radix: 16) + 0xFF000000;
 
   AppTheme getAppThemeFromBrightness(Brightness b) {
     return (b == Brightness.dark) ? darkTheme.value : lightTheme.value;

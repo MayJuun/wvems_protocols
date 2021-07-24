@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 
 class DisplayMode extends StatelessWidget {
+  const DisplayMode({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final ThemeController themeController = Get.find();
 
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
+        Text(
+          S.NAV_DISPLAY_MODE,
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        const Gap(12),
         RadioListTile(
           title: Text(S.NAV_MODE_LIGHT),
           value: ThemeMode.light,

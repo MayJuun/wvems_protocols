@@ -4,7 +4,6 @@ import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/home/search/home_search_expanded.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/dialogs.dart';
 
 class HomeScreenHeader extends StatelessWidget {
   // spec: https://github.com/bnxm/material_floating_search_bar/blob/master/example/lib/main.dart
@@ -19,16 +18,9 @@ class HomeScreenHeader extends StatelessWidget {
     final SearchController searchController = Get.find();
 
     final actions = [
-      /// Actions shown on the right of the search bar
-      FloatingSearchBarAction(
-        showIfOpened: false,
-        child: CircularButton(
-          icon: const Icon(Icons.help),
-          onPressed: () => displayAboutDialog(context),
-        ),
-      ),
+      // Actions shown on the right of the search bar
       FloatingSearchBarAction.searchToClear(
-        showIfClosed: false,
+        showIfClosed: true,
       ),
     ];
 
@@ -64,8 +56,8 @@ class HomeScreenHeader extends StatelessWidget {
           // this container is directly below the material floating search bar
           // it is used in place of an AppBar
           Container(
-            height: 60,
-            color: Theme.of(context).primaryColor,
+            height: 64,
+            color: Theme.of(context).cardColor,
           ),
           Expanded(child: body ?? Container()),
         ],

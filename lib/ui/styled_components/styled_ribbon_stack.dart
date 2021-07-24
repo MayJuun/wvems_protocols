@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 
@@ -34,11 +33,11 @@ class StyledRibbonStack extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   subtitle != null
                       ? Text(
                           subtitle!,
-                          textAlign: TextAlign.center,
                           style: context.textTheme.headline6,
                         )
                       : Container(),
@@ -97,14 +96,22 @@ class _StyledRibbon extends StatelessWidget {
                 ),
           isRotated
               ? _StyledContainer(
+                  isPrimaryColor: true,
                   child: RotatedBox(
                     quarterTurns: 2,
-                    child: Text(controller.activeYear.value.toString()),
+                    child: Text(
+                      controller.activeYear.value.toString(),
+                      style: context.textTheme.bodyText2!
+                          .apply(color: context.theme.colorScheme.onPrimary),
+                    ),
                   ),
                 )
               : _StyledContainer(
+                  isPrimaryColor: true,
                   child: Text(
                     controller.activeYear.value.toString(),
+                    style: context.textTheme.bodyText2!
+                        .apply(color: context.theme.colorScheme.onPrimary),
                   ),
                 ),
         ],
@@ -125,6 +132,7 @@ class _StyledContainer extends StatelessWidget {
     this.height = 32,
     this.width,
     this.isTitleHeader = false,
+    this.isPrimaryColor = false,
   }) : super(key: key);
 
   final String? title;
@@ -132,27 +140,35 @@ class _StyledContainer extends StatelessWidget {
   final double? height;
   final double? width;
   final bool isTitleHeader;
+  final bool isPrimaryColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: const BorderRadiusDirectional.only(
-            topStart: Radius.zero,
-            topEnd: Radius.zero,
-            bottomStart: _radius,
-            bottomEnd: _radius,
-          ),
-          boxShadow: kElevationToShadow[4],
-          color: Theme.of(context).colorScheme.primary),
+        borderRadius: const BorderRadiusDirectional.only(
+          topStart: Radius.zero,
+          topEnd: Radius.zero,
+          bottomStart: _radius,
+          bottomEnd: _radius,
+        ),
+        boxShadow: kElevationToShadow[4],
+        color: isPrimaryColor
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).cardColor,
+      ),
       alignment: isTitleHeader ? Alignment.center : null,
       // header text
       child: isTitleHeader
           ? Center(
               child: title != null
-                  ? Text(title!,
+                  ? Text(
+                      title!,
                       textAlign: TextAlign.center,
-                      style: context.textTheme.headline5)
+                      // always use darkMode on the primary color
+                      // assumes headline 6 cannot be null
+                      style: context.textTheme.headline6,
+                    )
                   : Container(),
             )
           // body text, typically '2020'

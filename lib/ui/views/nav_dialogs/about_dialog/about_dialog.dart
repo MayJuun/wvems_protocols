@@ -3,6 +3,9 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/about_dialog/about_may_juun.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/about_dialog/about_wvems_protocols.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 
 // pop-op dialog for "About"
 void displayAboutDialog(BuildContext context) {
@@ -20,20 +23,13 @@ class _AboutDialog extends StatelessWidget {
       title: S.NAV_ABOUT,
       subtitle: S.NAV_ABOUT_SUBTITLE,
       hasOkButton: false,
-      children: <Widget>[
-        const Gap(24),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(S.NAV_ABOUT_RELEASE),
-            Text(S.APP_RELEASE),
-          ],
-        ),
-        const Gap(24),
-        Text(
-          S.APP_COPYRIGHT,
-          textAlign: TextAlign.justify,
-        ),
+      children: const <Widget>[
+        Gap(12),
+        AboutWvemsProtocols(),
+        Gap(12),
+        NavDivider(),
+        Gap(8),
+        AboutMayJuun(),
       ],
     );
   }

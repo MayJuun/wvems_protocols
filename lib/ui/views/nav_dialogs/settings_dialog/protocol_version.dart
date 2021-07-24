@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 
 class ProtocolVersion extends StatelessWidget {
+  const ProtocolVersion({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final PdfStateController controller = Get.find();
@@ -19,7 +22,7 @@ class ProtocolVersion extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              'Select protocol version',
+              S.NAV_VERSION_SUBTITLE,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline6,
             ),
@@ -28,12 +31,12 @@ class ProtocolVersion extends StatelessWidget {
                 onPressed: () => firebaseController.getListExample())
           ],
         ),
-        // const Gap(8),
-        const _ProtocolVersionItem(
-          title: '2021 WVEMS Protocols',
-        ),
+        // const _ProtocolVersionItem(
+        //   title: '2021 WVEMS Protocols',
+        // ),
         _ProtocolVersionItem(
           title: '2020 WVEMS Protocols',
+          isActive: true,
           onPressed: () => controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
         ),
         _ProtocolVersionItem(
@@ -46,80 +49,53 @@ class ProtocolVersion extends StatelessWidget {
 }
 
 class _ProtocolVersionItem extends StatelessWidget {
-  const _ProtocolVersionItem({Key? key, required this.title, this.onPressed})
-      : super(key: key);
+  const _ProtocolVersionItem({
+    Key? key,
+    required this.title,
+    this.onPressed,
+    this.isActive = false,
+  }) : super(key: key);
 
   final String title;
   final VoidCallback? onPressed;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: InkWell(
-        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.hovered))
-              return Colors.grey.withOpacity(0.04);
-            if (states.contains(MaterialState.focused) ||
-                states.contains(MaterialState.pressed))
-              return Colors.grey.withOpacity(0.12);
-            return null; // Defer to the widget's default.
-          },
-        ),
-        borderRadius: BorderRadius.circular(12),
-        onTap: onPressed ?? () {},
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title),
-              const Gap(8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: StyledSelectableContainer(
+        onPressed: onPressed,
+        isActive: isActive,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Flexible(
-                    flex: 2,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _ProtocolIconButton(
-                            icon: Mdi.checkboxBlankCircleOutline,
-                            onPressed: () {},
-                          ),
-                          _ProtocolIconButton(
-                            icon: Mdi.cloudDownloadOutline,
-                            onPressed: () {},
-                          ),
-                          _ProtocolIconButton(
-                            icon: Mdi.shareVariant,
-                            onPressed: () {},
-                          ),
-                          // _ProtocolIconButton(
-                          //   icon: Mdi.dotsVertical,
-                          //   onPressed: () {},
-                          // ),
-                        ]),
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
                   ),
-                  Flexible(
-                    child: Text(
-                      '20 mb',
-                      textAlign: TextAlign.end,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2
-                          ?.apply(color: Theme.of(context).disabledColor),
-                    ),
-                  ),
+                  Text(
+                    // todo: replace with file size
+                    '20 mb',
+                    textAlign: TextAlign.end,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        ?.apply(color: Theme.of(context).disabledColor),
+                  )
                 ],
               ),
-            ],
-          ),
+            ),
+            const Gap(4),
+            _ProtocolIconButton(
+              icon: Mdi.cloudDownloadOutline,
+              onPressed: () {},
+            ),
+          ],
         ),
       ),
     );
@@ -138,7 +114,7 @@ class _ProtocolIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return StyledIconButton(
         padding: const EdgeInsets.all(4),
-        iconSize: 24,
+        iconSize: 30,
         icon: Icon(icon),
         onPressed: onPressed);
   }

@@ -3,6 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/settings_dialog/more_info.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
 import 'display_mode.dart';
 import 'protocol_version.dart';
 
@@ -20,17 +22,16 @@ class _SettingsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return StyledDialog(
       title: S.NAV_SETTINGS,
-      subtitle: S.NAV_DISPLAY_MODE,
       hasOkButton: false,
-      children: <Widget>[
-        const Gap(12),
-        DisplayMode(),
-        Divider(
-          color: Theme.of(context).accentColor,
-          thickness: 1,
-        ),
-        const Gap(8),
+      children: const <Widget>[
         ProtocolVersion(),
+        Gap(12),
+        NavDivider(),
+        Gap(8),
+        DisplayMode(),
+        NavDivider(),
+        Gap(8),
+        MoreInfo(),
       ],
     );
   }
