@@ -28,11 +28,10 @@ class ProtocolVersion extends StatelessWidget {
               style: Theme.of(context).textTheme.headline6,
             ),
             StyledIconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: () async =>
-                  await protocolVersionController.checkJsonForBundleVersion(
-                      AssetsUtil().toJsonWithToc(AppAssets.PROTOCOL_2020)),
-            )
+                icon: const Icon(Icons.refresh),
+                onPressed: () {
+                  // todo: refresh
+                })
           ],
         ),
         _ProtocolVersionItem(
