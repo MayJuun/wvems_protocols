@@ -70,10 +70,24 @@ class CloudStorageService {
     return status;
   }
 
-  DownloadTask _saveRefToLocalDirectory(
-      Reference reference, Directory localDir) {
-    final File newFile = File('${localDir.path}/${reference.fullPath}');
-    return reference.writeToFile(newFile);
+  Future<DownloadTask> _saveRefToLocalDirectory(
+      Reference reference, Directory localDir) async {
+    late final DownloadTask downloadTask;
+    late final File file;
+    try {
+      final String fullPath = '${localDir.path}/${reference.fullPath}';
+
+      if (File(fullPath).existsSync()) {
+        file = File(fullPath);
+      } else {
+        file = await File(fullPath).create(recursive: true);
+      }
+
+      downloadTask = reference.writeToFile(file);
+    } catch (error) {
+      print('error creating new file or writing to existing file: $error');
+    }
+    return downloadTask;
   }
 
   /// List all subdirectories within the main folder
