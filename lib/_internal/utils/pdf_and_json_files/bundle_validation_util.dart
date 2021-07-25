@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/models/models.dart';

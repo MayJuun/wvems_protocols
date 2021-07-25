@@ -7,7 +7,7 @@ class SelectOrDownloadFileCommand extends FirebaseCommand {
   Future<void> execute({ProtocolBundle? bundle}) async {
     /// Files have been downloaded already, handle remove
     if (bundle is ProtocolBundleAsFiles) {
-      // todo: select file here
+      pdfStateController.loadNewPdf(bundle);
       print('select file here');
     } else if (bundle is ProtocolBundleAsFirebaseRefs) {
       _confirmDownloadBundle(bundle);

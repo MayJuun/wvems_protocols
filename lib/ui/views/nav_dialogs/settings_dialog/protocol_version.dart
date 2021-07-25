@@ -63,8 +63,6 @@ class ProtocolVersion extends StatelessWidget {
                   /// then 'bundleId' should be the isActive check, not 'year'
                   isActive: bundle.year == controller.activeYear.value,
                   isDownloaded: true,
-                  onPressed: () =>
-                      controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
                   bundle: bundle,
                 ),
               ),
@@ -80,8 +78,6 @@ class ProtocolVersion extends StatelessWidget {
                                 .intBytesToMegabytes(bundle.pdfFileSize),
                             1),
                         isActive: false,
-                        onPressed: () => controller.loadNewPdf(
-                            2020, AppAssets.PROTOCOL_2020),
                         bundle: bundle,
                       )
                     : Container(),
@@ -98,7 +94,6 @@ class _ProtocolVersionItem extends StatelessWidget {
     required this.title,
     required this.fileSizeText,
     required this.bundle,
-    this.onPressed,
     this.isActive = false,
     this.isDownloaded = false,
   }) : super(key: key);
@@ -106,7 +101,6 @@ class _ProtocolVersionItem extends StatelessWidget {
   final String title;
   final String fileSizeText;
   final ProtocolBundle bundle;
-  final VoidCallback? onPressed;
   final bool isActive;
   final bool isDownloaded;
 

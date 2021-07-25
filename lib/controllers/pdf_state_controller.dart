@@ -3,11 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/_internal/utils/utils.dart';
-import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/controllers/search_controller.dart';
 import 'package:wvems_protocols/models/models.dart';
@@ -51,35 +48,31 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// *************** PDF FILE STATE METHODS *******************
   /// **********************************************************
 
-  Future<void> loadNewPdf(int newYear, String newAsset) async {
+  Future<void> loadNewPdf(ProtocolBundleAsFiles bundle) async {
     print('load new pdf');
-    asset.value = newAsset;
     pdfFileState.value = const PdfFileState.loading();
     try {
-      final newFile =
-          await _updatePdfFromAssetPath(AssetsUtil().toPdf(asset.value));
-      print('returned');
-
       /// First, save newly loaded file under PdfFileState
+      final newFile = await _updatePdfFromBundle(bundle);
       pdfFileState.value = PdfFileState.data(newFile);
+      print(bundle.pdfFile);
 
       /// Then, find/load the JSON file that contains all text
-      _loadNewPdfTextFromAssetPath(AssetsUtil().toJson(asset.value));
-      _loadNewPdfTableOfContentsFromAssetPath(
-          AssetsUtil().toJsonWithToc(asset.value));
+      await _loadNewPdfTextFromBundle(bundle);
+      await _loadNewPdfTableOfContentsFromBundle(bundle);
       print('file saved');
       SearchController.to.clear();
-      activeYear.value = newYear;
+      activeYear.value = bundle.year;
     } catch (e, st) {
       pdfFileState.value = PdfFileState.error(e, st);
     }
   }
 
-  // ToDo: make sure this flow is correct
-  Future<File> _updatePdfFromAssetPath(String assetPath) async {
+  // todo: is this method necessary?
+  Future<File> _updatePdfFromBundle(ProtocolBundleAsFiles bundle) async {
     print('loading pdfs...');
-    final String assetFilename = AssetsUtil().assetToFilename(assetPath);
-    final f = await _pdfService.fromAsset(assetPath, assetFilename);
+    // final String assetFilename = AssetsUtil().assetToFilename(assetPath);
+    final f = await _pdfService.loadFileFromBundle(bundle);
     pathPDF = f.path;
     print('pdf loaded: $pathPDF');
     resetPdfUI();
@@ -99,11 +92,11 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// *************** PDF TEXT STATE METHODS *******************
   /// **********************************************************
 
-  Future<void> _loadNewPdfTextFromAssetPath(String assetPath) async {
+  Future<void> _loadNewPdfTextFromBundle(ProtocolBundleAsFiles bundle) async {
     pdfTextListState.value = const PdfTextListState.loading();
 
     try {
-      final jsonString = await rootBundle.loadString(assetPath);
+      final jsonString = await bundle.jsonFile.readAsString();
       final textList = jsonDecode(jsonString);
       pdfTextListState.value = PdfTextListState.data(textList);
       print('pdf text loaded');
@@ -112,11 +105,12 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
     }
   }
 
-  Future<void> _loadNewPdfTableOfContentsFromAssetPath(String assetPath) async {
+  Future<void> _loadNewPdfTableOfContentsFromBundle(
+      ProtocolBundleAsFiles bundle) async {
     pdfTableOfContentsState.value = const PdfTableOfContentsState.loading();
 
     try {
-      final jsonString = await rootBundle.loadString(assetPath);
+      final jsonString = await bundle.tocJsonFile.readAsString();
       final Map<String, dynamic> textList = jsonDecode(jsonString);
       pdfTableOfContentsState.value = PdfTableOfContentsState.data(textList);
       print('pdf table of contents loaded');
@@ -148,8 +142,6 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   @override
   Future<void> onInit() async {
     super.onInit();
-    // Used for first load of embedded PDF
-    await loadNewPdf(2020, AppAssets.PROTOCOL_2020);
 
     // Used for Android layout changes
     WidgetsBinding.instance?.addObserver(this);

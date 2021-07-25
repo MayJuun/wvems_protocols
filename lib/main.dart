@@ -19,9 +19,9 @@ Future<void> _initServices() async {
   Get.put<ThemeController>(ThemeController());
   await ThemeController.to.getThemeModeFromStore();
   await Firebase.initializeApp();
-  Get.lazyPut<ProtocolBundleController>(() => ProtocolBundleController());
-  Get.lazyPut<PdfStateController>(() => PdfStateController());
-  Get.lazyPut<SearchController>(() => SearchController());
+  Get.put<PdfStateController>(PdfStateController());
+  Get.put<ProtocolBundleController>(ProtocolBundleController());
+  Get.putAsync<SearchController>(() async => SearchController());
   Get.putAsync<MessagingController>(() async => MessagingController());
 }
 

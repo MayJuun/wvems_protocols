@@ -13,7 +13,9 @@ import '../controllers.dart';
 
 class ProtocolBundleController extends GetxController {
   final FirebaseController _firebaseController = Get.put(FirebaseController());
+  final PdfStateController _pdfStateController = Get.find();
   final DocumentsService _documentsService = DocumentsService();
+  final PdfService _pdfService = PdfService();
 
   ///
   /// Utility classes, used to assist with object conversion and validation
@@ -50,6 +52,29 @@ class ProtocolBundleController extends GetxController {
     );
     list.sort((a, b) => b.bundleId.compareTo(a.bundleId));
     return list;
+  }
+
+  List<ProtocolBundleAsAssets> bundleAssets() {
+    final list = <ProtocolBundleAsAssets>[];
+    protocolBundleSet.forEach(
+      (bundle) {
+        if (bundle is ProtocolBundleAsAssets) {
+          list.add(bundle);
+        }
+      },
+    );
+    list.sort((a, b) => b.bundleId.compareTo(a.bundleId));
+    return list;
+  }
+
+  bool isBundleIdAnAsset(String bundleId) {
+    bool result = false;
+    bundleAssets().forEach((bundle) {
+      if (bundle.bundleId == bundleId) {
+        result = true;
+      }
+    });
+    return result;
   }
 
   bool isBundleStoredLocally(String bundleIdCheck) {
@@ -113,12 +138,28 @@ class ProtocolBundleController extends GetxController {
   }
 
   Future<bool> removeLocalBundle(ProtocolBundleAsFiles bundle) async {
-    final result = await _documentsService.removeLocalBundle(bundle);
-    if (result) {
-      protocolBundleSet.remove(bundle);
+    late final bool result;
+
+    /// if this exists as an asset, do not remove it
+    if (isBundleIdAnAsset(bundle.bundleId)) {
+      Get.defaultDialog(
+        title: 'Cannot remove PDF',
+        middleText:
+            'This PDF was included in the original app, so it cannot be removed',
+        textConfirm: 'OK',
+        onConfirm: () {
+          Get.back();
+        },
+      );
     } else {
-      print('unable to remove bundle');
+      result = await _documentsService.removeLocalBundle(bundle);
+      if (result) {
+        protocolBundleSet.remove(bundle);
+      } else {
+        print('unable to remove bundle');
+      }
     }
+
     return result;
   }
 
@@ -168,7 +209,9 @@ class ProtocolBundleController extends GetxController {
   /// from within the Settings Dialog
   ///
 
-  Future<void> _loadAssetBundles(String appAsset) async {
+  Future<ProtocolBundleAsFiles> _loadAssetBundles(String appAsset) async {
+    late final ProtocolBundleAsFiles result;
+
     final jsonString =
         await rootBundle.loadString(_assetsUtil.toJsonWithToc(appAsset));
     final tocJsonState =
@@ -182,18 +225,43 @@ class ProtocolBundleController extends GetxController {
     final tocJsonAssetPath = _assetsUtil.toJsonWithToc(appAsset);
 
     try {
-      protocolBundleSet.add(ProtocolBundle.asAssets(
+      /// create the asset version of this bundle
+      final newAppAsset = ProtocolBundle.asAssets(
         bundleId: appAsset,
         bundleVersion: bundleVersion,
         year: year,
         pdfAssetPath: pdfAssetPath,
         jsonAssetPath: jsonAssetPath,
         tocJsonAssetPath: tocJsonAssetPath,
-      ));
+      );
+
+      /// Add app asset to the [protocolBundleSet]
+      protocolBundleSet.add(newAppAsset);
+
+      final File pdfFile = await _pdfService.loadFileFromAsset(
+          pdfAssetPath, _documentsUtil.toPdf(appAsset));
+      final File jsonFile = await _pdfService.loadFileFromAsset(
+          jsonAssetPath, _documentsUtil.toJson(appAsset));
+      final File tocJsonFile = await _pdfService.loadFileFromAsset(
+          tocJsonAssetPath, _documentsUtil.toJsonWithToc(appAsset));
+
+      final pdfFileSize = _documentsService.getFileSize(pdfFile);
+
+      /// Then, convert this asset to a file, if it does not exist already
+      result = ProtocolBundleAsFiles(
+        bundleId: appAsset,
+        bundleVersion: bundleVersion,
+        year: year,
+        pdfFileSize: pdfFileSize,
+        pdfFile: pdfFile,
+        jsonFile: jsonFile,
+        tocJsonFile: tocJsonFile,
+      );
     } catch (error, stackTrace) {
       printError();
       protocolBundleSet.add(ProtocolBundle.error(error, stackTrace));
     }
+    return result;
   }
 
   /// Show all local files and directories
@@ -381,7 +449,13 @@ class ProtocolBundleController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     _appDirectory = await _documentsService.getAppDirectory();
-    await _loadAssetBundles(AppAssets.PROTOCOL_2020);
+
+    /// Convert asset into a Bundle (both as an asset and as a file)
+    /// if data do not exist already, save them locally
+    final ProtocolBundleAsFiles firstLoadBundle =
+        await _loadAssetBundles(AppAssets.PROTOCOL_2020);
+    await _pdfStateController.loadNewPdf(firstLoadBundle);
+
     await _loadLocalBundles();
   }
 
