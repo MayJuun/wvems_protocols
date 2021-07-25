@@ -69,6 +69,7 @@ class ProtocolVersion extends StatelessWidget {
                   isDownloaded: true,
                   onPressed: () =>
                       controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
+                  bundle: bundle,
                 );
               }
               return protocolWidget;
@@ -91,6 +92,7 @@ class ProtocolVersion extends StatelessWidget {
                   isActive: false,
                   onPressed: () =>
                       controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
+                  bundle: bundle,
                 );
               }
               return protocolWidget;
@@ -107,6 +109,7 @@ class _ProtocolVersionItem extends StatelessWidget {
     Key? key,
     required this.title,
     required this.fileSizeText,
+    required this.bundle,
     this.onPressed,
     this.isActive = false,
     this.isDownloaded = false,
@@ -114,6 +117,7 @@ class _ProtocolVersionItem extends StatelessWidget {
 
   final String title;
   final String fileSizeText;
+  final ProtocolBundle bundle;
   final VoidCallback? onPressed;
   final bool isActive;
   final bool isDownloaded;
@@ -123,7 +127,8 @@ class _ProtocolVersionItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: StyledSelectableContainer(
-        onPressed: onPressed,
+        onPressed: () async =>
+            await SelectOrDownloadFileCommand().execute(bundle: bundle),
         isActive: isActive,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -150,7 +155,8 @@ class _ProtocolVersionItem extends StatelessWidget {
             const Gap(4),
             _ProtocolIconButton(
               icon: isDownloaded ? Mdi.cloudDownload : Mdi.cloudDownloadOutline,
-              onPressed: () {},
+              onPressed: () async =>
+                  await DownloadOrDeleteBundleCommand().execute(bundle: bundle),
             ),
           ],
         ),

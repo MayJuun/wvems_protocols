@@ -1,4 +1,6 @@
+export 'firebase/download_or_delete_bundle_command.dart';
 export 'firebase/refresh_cloud_data_command.dart';
+export 'firebase/select_or_download_file_command.dart';
 export 'local_storage/refresh_local_files_command.dart';
 export 'search_item_removed_command.dart';
 export 'search_item_selected_command.dart';
