@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
@@ -13,8 +14,12 @@ import '../controllers.dart';
 class ProtocolVersionController extends GetxController {
   final FirebaseController _firebaseController = Get.put(FirebaseController());
   final DocumentsService _documentsService = DocumentsService();
-  final DocumentsUtil _documentsUtil = DocumentsUtil();
+
+  /// Utility classes, used to assist with object conversion and validation
   final AssetsUtil _assetsUtil = AssetsUtil();
+  final BundleValidationUtil _bundleValidationUtil = BundleValidationUtil();
+  final DocumentsUtil _documentsUtil = DocumentsUtil();
+
   late final Directory _appDirectory;
 
   final RxList<ProtocolVersionBundle> protocolBundleList =
@@ -91,11 +96,30 @@ class ProtocolVersionController extends GetxController {
   /// They also occur whenever the Refresh button is selected
   /// from within the Settings Dialog
 
-  void _loadAppAsset(String appAsset) {}
+  Future<void> _loadAppAssets(String appAsset) async {
+    final jsonString =
+        await rootBundle.loadString(_assetsUtil.toJsonWithToc(appAsset));
+    final tocJsonState =
+        await _bundleValidationUtil.loadTocJsonFromJsonString(jsonString);
+    final int bundleVersion =
+        _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonState);
+    final pdfAssetPath = _assetsUtil.toPdf(appAsset);
+    final jsonAssetPath = _assetsUtil.toJson(appAsset);
+    final tocJsonAssetPath = _assetsUtil.toJsonWithToc(appAsset);
+
+    try {
+      protocolBundleList.add(ProtocolVersionBundle.asAssets(appAsset,
+          bundleVersion, pdfAssetPath, jsonAssetPath, tocJsonAssetPath));
+    } catch (error, stackTrace) {
+      printError();
+      protocolBundleList.add(ProtocolVersionBundle.error(error, stackTrace));
+    }
+  }
 
   @override
   Future<void> onInit() async {
     super.onInit();
     _appDirectory = await _documentsService.getAppDirectory();
+    await _loadAppAssets(AppAssets.PROTOCOL_2020);
   }
 }

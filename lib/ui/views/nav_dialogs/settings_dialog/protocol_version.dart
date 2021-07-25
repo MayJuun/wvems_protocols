@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
-import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';

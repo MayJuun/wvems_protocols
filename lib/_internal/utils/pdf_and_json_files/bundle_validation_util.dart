@@ -1,46 +1,60 @@
 import 'dart:convert';
 
-import 'package:flutter/services.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/models/models.dart';
 
 class BundleValidationUtil {
-  Future<int> checkJsonForBundleVersion(String assetPath) async {
-    var jsonTocState = const PdfTableOfContentsState.loading();
+  Future<PdfTableOfContentsState> loadTocJsonFromJsonString(
+      String jsonString) async {
+    var tocJsonState = const PdfTableOfContentsState.loading();
+
+    /// Attempt to load the Table of Contents JSON
+    try {
+      final Map<String, dynamic> textList = jsonDecode(jsonString);
+
+      tocJsonState = PdfTableOfContentsState.data(textList);
+      print('Temporary JSON TOC loaded from Asset');
+    } catch (e, st) {
+      print('Error checking JSON Asset for bundle version: $e');
+      tocJsonState = PdfTableOfContentsState.error(e, st);
+    }
+    return tocJsonState;
+  }
+
+  /// Bundle versions retruned as -1 occur if integer is invalid, is NAN, or if null.
+  /// It also returns as -1 if any errors occurred loading the Table of Contents JSON.
+  int getBundleVersionFromTocJson(PdfTableOfContentsState tocJsonState) {
     final ValidatorsUtil validatorsUtil = ValidatorsUtil();
 
     late final int bundleVersion;
     late final String bundleVersionString;
 
-    /// First, attempt to load the Table of Contents JSON and obtain
-    /// the string value assigned to the key 'version'.
-    /// This should be an integer referencing the bundle's current version.
-    try {
-      final jsonString = await rootBundle.loadString(assetPath);
-      final Map<String, dynamic> textList = jsonDecode(jsonString);
+    tocJsonState.when(
+      /// Only attempt to decode bundleVersionString if the JSON was successfully loaded
+      data: (data) {
+        /// Obtain the string value assigned to the key 'version'.
+        /// This should be an integer referencing the bundle's current version.
+        bundleVersionString = data['version'] ?? '';
 
-      jsonTocState = PdfTableOfContentsState.data(textList);
-      print('Temporary json TOC loaded');
+        /// Set bundleVersion integer, if valid. Else, set it as -1
+        bundleVersion = validatorsUtil.isValidInteger(bundleVersionString)
+            ? validatorsUtil.stringToInt(bundleVersionString)
+            : -1;
+      },
+      loading: () {
+        print('Cannot set bundle version: still LOADING');
+        bundleVersionString = '';
+        bundleVersion = -1;
+      },
+      error: (error, st) {
+        print('Error checking bundle version: $error');
+        bundleVersionString = '';
+        bundleVersion = -1;
+      },
+    );
 
-      /// set bundleVersion as a string variable
-      bundleVersionString = textList['version'] ?? '';
-    } catch (e, st) {
-      print('error checking JSON for bundle version: $e');
-      jsonTocState = PdfTableOfContentsState.error(e, st);
-    }
+    print('Bundle #: $bundleVersion');
 
-    /// Only attempt to decode bundleVersionString if the JSON was successfully loaded
-    if (jsonTocState is PdfTableOfContentsStateData) {
-      bundleVersion = validatorsUtil.isValidInteger(bundleVersionString)
-          ? validatorsUtil.stringToInt(bundleVersionString)
-          : -1;
-    } else {
-      bundleVersion = -1;
-    }
-    print('Asset: $assetPath, Bundle #: $bundleVersion');
-
-    /// Bundle versions retruned as -1 occur if integer is invalid, is NAN, or if null.
-    /// It also returns as -1 if any errors occurred loading the Table of Contents JSON.
     return bundleVersion;
   }
 }
