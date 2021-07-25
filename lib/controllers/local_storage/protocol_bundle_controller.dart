@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/models/models.dart';
-import 'package:wvems_protocols/services/documents_service.dart';
 import 'package:wvems_protocols/services/services.dart';
 
 import '../controllers.dart';
