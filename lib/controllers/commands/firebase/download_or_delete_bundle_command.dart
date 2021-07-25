@@ -11,12 +11,7 @@ class DownloadOrDeleteBundleCommand extends FirebaseCommand {
       /// Files have been downloaded already, handle removal
       _confirmRemoveBundle(bundle);
     } else if (bundle is ProtocolBundleAsFirebaseRefs) {
-      /// setup temporary loading screen to inform user this button has been pressed
-      protocolBundleController.setTemporaryLoading();
-
-      /// download file, then update file list and redraw UI
-      await firebaseController.fetchBundleIfLoggedIn(bundle,
-          () async => await protocolBundleController.refreshLocalData());
+      protocolBundleController.downloadCloudBundle(bundle);
     }
   }
 

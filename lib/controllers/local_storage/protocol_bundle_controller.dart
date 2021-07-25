@@ -103,6 +103,15 @@ class ProtocolBundleController extends GetxController {
   Future<List<Reference>> getCloudFiles(Reference reference) async =>
       await _firebaseController.getFilesIfLoggedIn(reference) ?? <Reference>[];
 
+  Future<void> downloadCloudBundle(ProtocolBundleAsFirebaseRefs bundle) async {
+    /// setup temporary loading screen to inform user this button has been pressed
+    setTemporaryLoading();
+
+    /// download file, then update file list and redraw UI
+    await _firebaseController.fetchBundleIfLoggedIn(
+        bundle, () async => await refreshLocalData());
+  }
+
   Future<bool> removeLocalBundle(ProtocolBundleAsFiles bundle) async {
     final result = await _documentsService.removeLocalBundle(bundle);
     if (result) {
@@ -114,7 +123,7 @@ class ProtocolBundleController extends GetxController {
   }
 
   ///
-  /// Methods Used to Refresh Data
+  /// Methods Used to Download or Refresh Data
   /// These methods are optimally called via a command, so that
   /// the UI may remain as disconnected to controllers/services as possible
   ///
