@@ -7,6 +7,8 @@ class DocumentsUtil {
 
   String pathToFilename(String path) => path.split('/').last;
 
+  String bundleIdToTitle(String bundleId) => bundleId.replaceAll('-', ' ');
+
   // Converts a full path (long) into one without the original App Directory name (short)
   String removeAppDirectoryPath(Directory appDirectory, String fullPath) =>
       fullPath.replaceFirst(appDirectory.path + '/', '');

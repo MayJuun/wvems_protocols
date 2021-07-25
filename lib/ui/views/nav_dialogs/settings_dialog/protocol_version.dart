@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
+import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/controllers/commands/commands.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/models/protocol_bundle/protocol_bundle.dart';
+import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
 import 'package:wvems_protocols/ui/views/nav_dialogs/settings_dialog/protocol_version_controller.dart';
@@ -46,11 +47,19 @@ class ProtocolVersion extends StatelessWidget {
                   .contains(const ProtocolBundle.loading())
               ? const LinearProgressIndicator()
               : Container(),
-          _ProtocolVersionItem(
-            title: '2020 WVEMS Protocols',
-            isActive: true,
-            onPressed: () =>
-                controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
+          ...protocolBundleController.protocolBundleSet.map(
+            (bundle) {
+              Widget protocolWidget = Container();
+              if (bundle is ProtocolBundleAsFiles) {
+                protocolWidget = _ProtocolVersionItem(
+                  title: DocumentsUtil().bundleIdToTitle(bundle.bundleId),
+                  isActive: true,
+                  onPressed: () =>
+                      controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
+                );
+              }
+              return protocolWidget;
+            },
           ),
         ],
       ),
