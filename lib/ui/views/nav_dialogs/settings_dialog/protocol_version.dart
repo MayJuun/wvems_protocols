@@ -18,9 +18,10 @@ class ProtocolVersion extends StatelessWidget {
   Widget build(BuildContext context) {
     final PdfStateController controller = Get.find();
     final ProtocolBundleController protocolBundleController = Get.find();
-    // final ProtocolVersionController protocolVersionController =
     // on first load, refresh all cloud data
     Get.put(ProtocolVersionController());
+
+    final DocumentsUtil _documentsUtil = DocumentsUtil();
 
     return Obx(
       () => Column(
@@ -37,23 +38,47 @@ class ProtocolVersion extends StatelessWidget {
               StyledIconButton(
                   icon: const Icon(Icons.refresh),
                   onPressed: () async {
-                    // todo: reimplement
-                    // await RefreshLocalDataCommand().execute();
+                    await RefreshLocalDataCommand().execute();
                     await RefreshCloudDataCommand().execute();
                   })
             ],
           ),
+
+          /// Shows loading widget on data refresh
           protocolBundleController.protocolBundleSet
                   .contains(const ProtocolBundle.loading())
               ? const LinearProgressIndicator()
               : Container(),
+
+          /// Locally downloaded files are displayed first
           ...protocolBundleController.protocolBundleSet.map(
             (bundle) {
               Widget protocolWidget = Container();
+
               if (bundle is ProtocolBundleAsFiles) {
                 protocolWidget = _ProtocolVersionItem(
-                  title: DocumentsUtil().bundleIdToTitle(bundle.bundleId),
-                  isActive: true,
+                  title: _documentsUtil.bundleIdToTitle(bundle.bundleId),
+                  isActive: bundle.year == controller.activeYear.value,
+                  isDownloaded: true,
+                  onPressed: () =>
+                      controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
+                );
+              }
+              return protocolWidget;
+            },
+          ),
+
+          /// Data available on the cloud are displayed second
+          ...protocolBundleController.protocolBundleSet.map(
+            (bundle) {
+              Widget protocolWidget = Container();
+
+              if (bundle is ProtocolBundleAsFirebaseRefs &&
+                  !protocolBundleController
+                      .isBundleStoredLocally(bundle.bundleId)) {
+                protocolWidget = _ProtocolVersionItem(
+                  title: _documentsUtil.bundleIdToTitle(bundle.bundleId),
+                  isActive: false,
                   onPressed: () =>
                       controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
                 );
@@ -73,11 +98,13 @@ class _ProtocolVersionItem extends StatelessWidget {
     required this.title,
     this.onPressed,
     this.isActive = false,
+    this.isDownloaded = false,
   }) : super(key: key);
 
   final String title;
   final VoidCallback? onPressed;
   final bool isActive;
+  final bool isDownloaded;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +138,7 @@ class _ProtocolVersionItem extends StatelessWidget {
             ),
             const Gap(4),
             _ProtocolIconButton(
-              icon: Mdi.cloudDownloadOutline,
+              icon: isDownloaded ? Mdi.cloudDownload : Mdi.cloudDownloadOutline,
               onPressed: () {},
             ),
           ],

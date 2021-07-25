@@ -26,6 +26,32 @@ class ProtocolBundleController extends GetxController {
 
   final RxSet<ProtocolBundle> protocolBundleSet = <ProtocolBundle>{}.obs;
 
+  bool isBundleStoredLocally(String bundleIdCheck) {
+    bool response = false;
+    protocolBundleSet.forEach(
+      (bundle) {
+        if (bundle is ProtocolBundleAsFiles &&
+            bundle.bundleId == bundleIdCheck) {
+          response = true;
+        }
+      },
+    );
+    return response;
+  }
+
+  bool isBundleAvailableOnCloud(String bundleIdCheck) {
+    bool response = false;
+    protocolBundleSet.forEach(
+      (bundle) {
+        if (bundle is ProtocolBundleAsFirebaseRefs &&
+            bundle.bundleId == bundleIdCheck) {
+          response = true;
+        }
+      },
+    );
+    return response;
+  }
+
   ///
   /// Custom Getters and Setters
   ///
@@ -97,13 +123,21 @@ class ProtocolBundleController extends GetxController {
         await _bundleValidationUtil.loadTocJsonFromJsonString(jsonString);
     final int bundleVersion =
         _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonState);
+    final int year = _bundleValidationUtil.getYearFromTocJson(tocJsonState);
+
     final pdfAssetPath = _assetsUtil.toPdf(appAsset);
     final jsonAssetPath = _assetsUtil.toJson(appAsset);
     final tocJsonAssetPath = _assetsUtil.toJsonWithToc(appAsset);
 
     try {
-      protocolBundleSet.add(ProtocolBundle.asAssets(appAsset, bundleVersion,
-          pdfAssetPath, jsonAssetPath, tocJsonAssetPath));
+      protocolBundleSet.add(ProtocolBundle.asAssets(
+        bundleId: appAsset,
+        bundleVersion: bundleVersion,
+        year: year,
+        pdfAssetPath: pdfAssetPath,
+        jsonAssetPath: jsonAssetPath,
+        tocJsonAssetPath: tocJsonAssetPath,
+      ));
     } catch (error, stackTrace) {
       printError();
       protocolBundleSet.add(ProtocolBundle.error(error, stackTrace));
@@ -162,18 +196,27 @@ class ProtocolBundleController extends GetxController {
       final File? tocJsonFile =
           filesMap[_documentsUtil.toJsonWithToc(bundleId)];
 
-      /// Then, read the Table of Contents json to get the bundle version
+      /// Read the Table of Contents json to get the bundle version
       final String jsonString = await tocJsonFile?.readAsString() ?? '';
       final PdfTableOfContentsState tocJsonState =
           await _bundleValidationUtil.loadTocJsonFromJsonString(jsonString);
       final int bundleVersion =
           _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonState);
 
+      /// Read Table of Contents json to get year
+      final int year = _bundleValidationUtil.getYearFromTocJson(tocJsonState);
+
       // todo: get metadata of pdfFile here
 
       if (pdfFile != null && jsonFile != null && tocJsonFile != null) {
         bundleItem = ProtocolBundle.asFiles(
-            bundleId, bundleVersion, pdfFile, jsonFile, tocJsonFile);
+          bundleId: bundleId,
+          bundleVersion: bundleVersion,
+          year: year,
+          pdfFile: pdfFile,
+          jsonFile: jsonFile,
+          tocJsonFile: tocJsonFile,
+        );
       } else {
         throw 'FILE ERROR: Unable to find all Protocol Bundle data';
       }
@@ -253,10 +296,19 @@ class ProtocolBundleController extends GetxController {
         final int bundleVersion =
             _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonFile);
 
+        /// Read Table of Contents json to get year
+        final int year = _bundleValidationUtil.getYearFromTocJson(tocJsonFile);
+
         // todo: get metadata of pdfRef here
 
         bundleItem = ProtocolBundle.asFirebaseRefs(
-            bundleId, bundleVersion, pdfRef, jsonRef, tocJsonRef);
+          bundleId: bundleId,
+          bundleVersion: bundleVersion,
+          year: year,
+          pdfRef: pdfRef,
+          jsonRef: jsonRef,
+          tocJsonRef: tocJsonRef,
+        );
       } else {
         throw 'CLOUD REF ERROR: Unable to find all Protocol Bundle data';
       }

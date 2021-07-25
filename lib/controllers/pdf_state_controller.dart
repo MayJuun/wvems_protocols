@@ -96,31 +96,6 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   }
 
   /// **********************************************************
-  /// ************ PDF CONTROLLER CONFIG METHODS ***************
-  /// **********************************************************
-
-  // Future<bool> _createNewPdfController() async {
-  //   asyncController = Completer<PDFViewController>();
-  //   final newController = asyncController.future;
-  //   await _setOrResetRxPdfController(newController);
-  //   return true;
-  // }
-
-  // Future<void> _setOrResetRxPdfController(
-  //     Future<PDFViewController> newController) async {
-  //   if (rxPdfController != null) {
-  //     rxPdfController!.value = await newController;
-  //   } else {
-  //     rxPdfController = (await newController).obs;
-  //   }
-  // }
-
-  /// This methods establishes the PDFViewController on first load
-  /// If the active pdf ever changes...
-  /// This completer will re-run to reset the controller
-  /// todo: verify if this controller needs/takes a dispose() method
-
-  /// **********************************************************
   /// *************** PDF TEXT STATE METHODS *******************
   /// **********************************************************
 
