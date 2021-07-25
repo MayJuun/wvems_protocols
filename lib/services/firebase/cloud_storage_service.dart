@@ -6,6 +6,34 @@ import 'package:path_provider/path_provider.dart';
 class CloudStorageService {
   FirebaseStorage storage = FirebaseStorage.instance;
 
+  /// List all subdirectories within the main folder
+  /// This does not check for subdirectories within a subdirectory (recursive)
+  Future<List<Reference>> subDirectoriesList() async {
+    late final List<Reference> subDirectoriesRef;
+
+    try {
+      final ListResult firebaseRefList = await storage.ref().listAll();
+      subDirectoriesRef = firebaseRefList.prefixes;
+    } catch (error) {
+      print('error parsing Firebase storage subdirectories: $error');
+      subDirectoriesRef = [];
+    }
+
+    return subDirectoriesRef;
+  }
+
+  /// List all files within a single folder
+  Future<List<Reference>> filesList(Reference reference) async {
+    final filesList = <Reference>[];
+    try {
+      final allFiles = await reference.listAll();
+      allFiles.items.forEach((e) => filesList.add(e));
+    } catch (error) {
+      print('error parsing Firebase storage files: $error');
+    }
+    return filesList;
+  }
+
   Future<void> listExample() async {
     // List of items in the storage reference
 

@@ -18,7 +18,7 @@ class DocumentsService {
         }
       });
     } catch (error) {
-      print('error parsing file system entity: $error');
+      print('error parsing local file system entity: $error');
     }
 
     return subDirectoryList;
@@ -34,7 +34,7 @@ class DocumentsService {
         }
       });
     } catch (error) {
-      print('error parsing file system entity: $error');
+      print('error parsing local file system entity: $error');
     }
     return filesList;
   }

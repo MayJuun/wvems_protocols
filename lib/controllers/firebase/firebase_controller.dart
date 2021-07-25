@@ -1,8 +1,13 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/services/services.dart';
+
+/// This controller stores the state of Firebase Authentication
+/// It is directly used to manage CloudStorage and Auth functions
+/// Each function is 'wrapped' with a check to verify Firebase login status
 
 class FirebaseController extends GetxController {
   final _auth = AuthService();
@@ -11,7 +16,20 @@ class FirebaseController extends GetxController {
 
   final isLoggedIn = false.obs;
 
-  Future<void> getListExample() async {
+  Future<void> listExample() async =>
+      await _checkIfLoggedIn(() => _cloudStorage.listExample());
+
+  // *******************************************************************
+  // ******************* GETTERS AND SETTERS ***************************
+  // *******************************************************************
+  Future<List<Reference>>? getSubDirectoriesIfLoggedIn() async =>
+      await _checkIfLoggedIn(() => _cloudStorage.subDirectoriesList());
+
+  Future<List<Reference>>? getFilesIfLoggedIn(Reference reference) async =>
+      await _checkIfLoggedIn(() => _cloudStorage.filesList(reference));
+
+  // *******************************************************************
+  Future<dynamic> _checkIfLoggedIn(Function function) async {
     // first, try to login
     if (!isLoggedIn.value) {
       await _auth.signInAnonymously();
@@ -22,9 +40,10 @@ class FirebaseController extends GetxController {
     if (isLoggedIn.value) {
       try {
         print('Logged in!');
-        _cloudStorage.listExample();
+        return function();
       } catch (error) {
         print(error);
+        return null;
       }
     }
   }
