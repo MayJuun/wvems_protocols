@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/services/services.dart';
 
 /// This controller stores the state of Firebase Authentication
@@ -27,6 +28,11 @@ class FirebaseController extends GetxController {
 
   Future<List<Reference>>? getFilesIfLoggedIn(Reference reference) async =>
       await _checkIfLoggedIn(() => _cloudStorage.filesList(reference));
+
+  Future<PdfTableOfContentsState>? getTocJsonIfLoggedIn(
+          Reference reference) async =>
+      await _checkIfLoggedIn(
+          () => _cloudStorage.fetchTocJsonFromReference(reference));
 
   // *******************************************************************
   Future<dynamic> _checkIfLoggedIn(Function function) async {

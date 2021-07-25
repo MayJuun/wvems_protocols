@@ -15,10 +15,11 @@ class BundleValidationUtil {
   /// 2) bundleID/bundleID.json
   /// 3) bundleID/bundleID-toc.pdf
   ///
-  bool doesMapContainAllFiles(String bundleId, Map<String, File> filesMap) =>
-      filesMap.containsKey(_documentsUtil.toPdf(bundleId)) &&
-      filesMap.containsKey(_documentsUtil.toJson(bundleId)) &&
-      filesMap.containsKey(_documentsUtil.toJsonWithToc(bundleId));
+  bool doesMapContainAllBundleKeys(
+          String bundleId, Map<String, dynamic> dynamicMap) =>
+      dynamicMap.containsKey(_documentsUtil.toPdf(bundleId)) &&
+      dynamicMap.containsKey(_documentsUtil.toJson(bundleId)) &&
+      dynamicMap.containsKey(_documentsUtil.toJsonWithToc(bundleId));
 
   Future<PdfTableOfContentsState> loadTocJsonFromJsonString(
       String jsonString) async {
@@ -37,7 +38,7 @@ class BundleValidationUtil {
     return tocJsonState;
   }
 
-  /// Bundle versions retruned as -1 occur if integer is invalid, is NAN, or if null.
+  /// Bundle versions returned as -1 occur if integer is invalid, is NAN, or if null.
   /// It also returns as -1 if any errors occurred loading the Table of Contents JSON.
   int getBundleVersionFromTocJson(PdfTableOfContentsState tocJsonState) {
     final ValidatorsUtil validatorsUtil = ValidatorsUtil();

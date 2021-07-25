@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/assets.dart';
+import 'package:wvems_protocols/controllers/commands/commands.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/protocol_bundle/protocol_bundle.dart';
 import 'package:wvems_protocols/ui/strings.dart';
@@ -24,10 +25,6 @@ class ProtocolVersion extends StatelessWidget {
       () => Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          protocolBundleController.protocolBundleList
-                  .contains(const ProtocolBundle.loading())
-              ? const Text('LOADING')
-              : Container(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -38,11 +35,17 @@ class ProtocolVersion extends StatelessWidget {
               ),
               StyledIconButton(
                   icon: const Icon(Icons.refresh),
-                  onPressed: () {
-                    // todo: refresh
+                  onPressed: () async {
+                    // todo: reimplement
+                    // await RefreshLocalDataCommand().execute();
+                    await RefreshCloudDataCommand().execute();
                   })
             ],
           ),
+          protocolBundleController.protocolBundleSet
+                  .contains(const ProtocolBundle.loading())
+              ? const LinearProgressIndicator()
+              : Container(),
           _ProtocolVersionItem(
             title: '2020 WVEMS Protocols',
             isActive: true,

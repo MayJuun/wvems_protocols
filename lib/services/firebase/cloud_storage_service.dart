@@ -1,10 +1,37 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:wvems_protocols/_internal/utils/utils.dart';
+import 'package:wvems_protocols/models/models.dart';
 
 // Use the Firebase controller to access methods within this service.
 class CloudStorageService {
   FirebaseStorage storage = FirebaseStorage.instance;
+
+  Future<PdfTableOfContentsState> fetchTocJsonFromReference(
+      Reference reference) async {
+    late final PdfTableOfContentsState tocJsonState;
+
+    // final download = await reference.getData();
+
+    final downloadUrl = await reference.getDownloadURL();
+    final response = await http.get(Uri.parse(downloadUrl));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      tocJsonState =
+          await BundleValidationUtil().loadTocJsonFromJsonString(response.body);
+      // return _bundleValidationUtil.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load JSON from Firebase');
+      // tocJsonState = PdfTableOfContentsState.error(error, stackTrace);
+    }
+    return tocJsonState;
+  }
 
   /// List all subdirectories within the main folder
   /// This does not check for subdirectories within a subdirectory (recursive)
