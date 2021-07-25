@@ -5,13 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
-import 'package:wvems_protocols/models/protocol_version_bundle/protocol_version_bundle.dart';
+import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/services/documents_service.dart';
 import 'package:wvems_protocols/services/services.dart';
 
 import '../controllers.dart';
 
-class ProtocolVersionController extends GetxController {
+class ProtocolBundleController extends GetxController {
   final FirebaseController _firebaseController = Get.put(FirebaseController());
   final DocumentsService _documentsService = DocumentsService();
 
@@ -23,8 +23,7 @@ class ProtocolVersionController extends GetxController {
 
   late final Directory _appDirectory;
 
-  final RxList<ProtocolVersionBundle> protocolBundleList =
-      <ProtocolVersionBundle>[].obs;
+  final RxList<ProtocolBundle> protocolBundleList = <ProtocolBundle>[].obs;
 
   /// Custom Getters and Setters
   ///
@@ -67,11 +66,11 @@ class ProtocolVersionController extends GetxController {
     final tocJsonAssetPath = _assetsUtil.toJsonWithToc(appAsset);
 
     try {
-      protocolBundleList.add(ProtocolVersionBundle.asAssets(appAsset,
-          bundleVersion, pdfAssetPath, jsonAssetPath, tocJsonAssetPath));
+      protocolBundleList.add(ProtocolBundle.asAssets(appAsset, bundleVersion,
+          pdfAssetPath, jsonAssetPath, tocJsonAssetPath));
     } catch (error, stackTrace) {
       printError();
-      protocolBundleList.add(ProtocolVersionBundle.error(error, stackTrace));
+      protocolBundleList.add(ProtocolBundle.error(error, stackTrace));
     }
   }
 
@@ -117,7 +116,7 @@ class ProtocolVersionController extends GetxController {
 
   Future<void> _addFilesMapToBundleList(
       String bundleId, Map<String, File> filesMap) async {
-    late final ProtocolVersionBundle bundleItem;
+    late final ProtocolBundle bundleItem;
     try {
       /// First, attempt to load all files from the map
       final pdfFile = filesMap[_documentsUtil.toPdf(bundleId)] ?? File('');
@@ -132,11 +131,11 @@ class ProtocolVersionController extends GetxController {
       final int bundleVersion =
           _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonState);
 
-      bundleItem = ProtocolVersionBundle.asFiles(
+      bundleItem = ProtocolBundle.asFiles(
           bundleId, bundleVersion, pdfFile, jsonFile, tocJsonFile);
     } catch (error, stackTrace) {
       printError();
-      bundleItem = ProtocolVersionBundle.error(error, stackTrace);
+      bundleItem = ProtocolBundle.error(error, stackTrace);
     }
     protocolBundleList.add(bundleItem);
   }

@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'protocol_version_bundle.freezed.dart';
+part 'protocol_bundle.freezed.dart';
 
-/// Each protocol version consists of three files stored together as a 'bundle':
+/// Each protocol consists of three files stored together as a 'bundle':
 /// 1) [Protocol-Name.pdf], which is the actual pdf that is displayed
 /// 2) [Protocol-Name.json], which holds all content of text per page
 /// 3) [Protocol-Name-toc.json], which holds titles of each page and custom colors
@@ -16,35 +16,35 @@ part 'protocol_version_bundle.freezed.dart';
 /// C) As Files, which is the common pool to which A) and B) are downloaded/accessed in the app
 
 @freezed
-class ProtocolVersionBundle with _$ProtocolVersionBundle {
+class ProtocolBundle with _$ProtocolBundle {
   // shown on first load
-  const factory ProtocolVersionBundle.asAssets(
+  const factory ProtocolBundle.asAssets(
     String bundleId,
     int bundleVersion,
     String pdfAssetPath,
     String jsonAssetPath,
     String tocJsonAssetPath,
-  ) = ProtocolVersionBundleAsAssets;
+  ) = ProtocolBundleAsAssets;
 
   // available on Firebase Storage for download
-  const factory ProtocolVersionBundle.asFirebaseRefs(
+  const factory ProtocolBundle.asFirebaseRefs(
     String bundleId,
     int bundleVersion,
     Reference pdfRef,
     Reference jsonRef,
     Reference tocJsonRef,
-  ) = ProtocolVersionBundleAsFirebaseRefs;
+  ) = ProtocolBundleAsFirebaseRefs;
 
   // stored locally, all PDFs are loaded from this data model
-  const factory ProtocolVersionBundle.asFiles(
+  const factory ProtocolBundle.asFiles(
     String bundleId,
     int bundleVersion,
     File pdfFile,
     File jsonFile,
     File tocJsonFile,
-  ) = ProtocolVersionBundleAsFiles;
+  ) = ProtocolBundleAsFiles;
 
-  const factory ProtocolVersionBundle.loading() = ProtocolVersionBundleLoading;
-  const factory ProtocolVersionBundle.error(
-      Object error, StackTrace stackTrace) = ProtocolVersionBundleError;
+  const factory ProtocolBundle.loading() = ProtocolBundleLoading;
+  const factory ProtocolBundle.error(Object error, StackTrace stackTrace) =
+      ProtocolBundleError;
 }

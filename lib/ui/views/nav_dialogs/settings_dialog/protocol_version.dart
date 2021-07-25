@@ -13,7 +13,7 @@ class ProtocolVersion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PdfStateController controller = Get.find();
-    final ProtocolVersionController protocolVersionController = Get.find();
+    final ProtocolBundleController protocolBundleController = Get.find();
 
     return Column(
       mainAxisSize: MainAxisSize.min,
