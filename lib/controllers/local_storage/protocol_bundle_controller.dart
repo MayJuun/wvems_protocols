@@ -6,14 +6,15 @@ import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/models/models.dart';
-import 'package:wvems_protocols/services/documents_service.dart';
 import 'package:wvems_protocols/services/services.dart';
 
 import '../controllers.dart';
 
 class ProtocolBundleController extends GetxController {
   final FirebaseController _firebaseController = Get.put(FirebaseController());
+  final PdfStateController _pdfStateController = Get.find();
   final DocumentsService _documentsService = DocumentsService();
+  final PdfService _pdfService = PdfService();
 
   ///
   /// Utility classes, used to assist with object conversion and validation
@@ -25,6 +26,81 @@ class ProtocolBundleController extends GetxController {
   late final Directory _appDirectory;
 
   final RxSet<ProtocolBundle> protocolBundleSet = <ProtocolBundle>{}.obs;
+
+  List<ProtocolBundleAsFiles> bundleFiles() {
+    final list = <ProtocolBundleAsFiles>[];
+    protocolBundleSet.forEach(
+      (bundle) {
+        if (bundle is ProtocolBundleAsFiles) {
+          list.add(bundle);
+        }
+      },
+    );
+    list.sort((a, b) => b.bundleId.compareTo(a.bundleId));
+    return list;
+  }
+
+  List<ProtocolBundleAsFirebaseRefs> bundleFirebaseRefs() {
+    final list = <ProtocolBundleAsFirebaseRefs>[];
+    protocolBundleSet.forEach(
+      (bundle) {
+        if (bundle is ProtocolBundleAsFirebaseRefs) {
+          list.add(bundle);
+        }
+      },
+    );
+    list.sort((a, b) => b.bundleId.compareTo(a.bundleId));
+    return list;
+  }
+
+  List<ProtocolBundleAsAssets> bundleAssets() {
+    final list = <ProtocolBundleAsAssets>[];
+    protocolBundleSet.forEach(
+      (bundle) {
+        if (bundle is ProtocolBundleAsAssets) {
+          list.add(bundle);
+        }
+      },
+    );
+    list.sort((a, b) => b.bundleId.compareTo(a.bundleId));
+    return list;
+  }
+
+  bool isBundleIdAnAsset(String bundleId) {
+    bool result = false;
+    bundleAssets().forEach((bundle) {
+      if (bundle.bundleId == bundleId) {
+        result = true;
+      }
+    });
+    return result;
+  }
+
+  bool isBundleStoredLocally(String bundleIdCheck) {
+    bool response = false;
+    protocolBundleSet.forEach(
+      (bundle) {
+        if (bundle is ProtocolBundleAsFiles &&
+            bundle.bundleId == bundleIdCheck) {
+          response = true;
+        }
+      },
+    );
+    return response;
+  }
+
+  bool isBundleAvailableOnCloud(String bundleIdCheck) {
+    bool response = false;
+    protocolBundleSet.forEach(
+      (bundle) {
+        if (bundle is ProtocolBundleAsFirebaseRefs &&
+            bundle.bundleId == bundleIdCheck) {
+          response = true;
+        }
+      },
+    );
+    return response;
+  }
 
   ///
   /// Custom Getters and Setters
@@ -51,18 +127,58 @@ class ProtocolBundleController extends GetxController {
   Future<List<Reference>> getCloudFiles(Reference reference) async =>
       await _firebaseController.getFilesIfLoggedIn(reference) ?? <Reference>[];
 
+  Future<void> downloadCloudBundle(ProtocolBundleAsFirebaseRefs bundle) async {
+    /// setup temporary loading screen to inform user this button has been pressed
+    setTemporaryLoading();
+
+    /// download file, then update file list and redraw UI
+    await _firebaseController.fetchBundleIfLoggedIn(
+        bundle, () async => await refreshLocalData());
+  }
+
+  Future<bool> removeLocalBundle(ProtocolBundleAsFiles bundle) async {
+    late final bool result;
+
+    /// if this exists as an asset, do not remove it
+    if (isBundleIdAnAsset(bundle.bundleId)) {
+      Get.defaultDialog(
+        title: 'Cannot remove PDF',
+        middleText:
+            'This PDF was included in the original app, so it cannot be removed',
+        textConfirm: 'OK',
+        onConfirm: () {
+          Get.back();
+        },
+      );
+    } else {
+      result = await _documentsService.removeLocalBundle(bundle);
+      if (result) {
+        protocolBundleSet.remove(bundle);
+      } else {
+        print('unable to remove bundle');
+      }
+    }
+
+    return result;
+  }
+
   ///
-  /// Methods Used to Refresh Data
+  /// Methods Used to Download or Refresh Data
   /// These methods are optimally called via a command, so that
   /// the UI may remain as disconnected to controllers/services as possible
   ///
+
+  Future<void> setTemporaryLoading() async {
+    protocolBundleSet.add(const ProtocolBundle.loading());
+    await Future.delayed(const Duration(seconds: 2));
+    protocolBundleSet.remove(const ProtocolBundle.loading());
+  }
 
   /// Removes and reloads all cloud files saved in [protocolBundleSet]
   ///
   Future<bool> refreshCloudData() async {
     protocolBundleSet.add(const ProtocolBundle.loading());
 
-    // todo: refresh cloud data here
     await _loadCloudBundles();
     await Future.delayed(const Duration(seconds: 2));
 
@@ -74,6 +190,8 @@ class ProtocolBundleController extends GetxController {
   ///
   Future<bool> refreshLocalData() async {
     protocolBundleSet.add(const ProtocolBundle.loading());
+
+    await Future.delayed(const Duration(seconds: 1));
 
     protocolBundleSet
         .removeWhere((element) => element is ProtocolBundleAsFiles);
@@ -90,31 +208,66 @@ class ProtocolBundleController extends GetxController {
   /// from within the Settings Dialog
   ///
 
-  Future<void> _loadAssetBundles(String appAsset) async {
+  Future<ProtocolBundleAsFiles> _loadAssetBundles(String appAsset) async {
+    late final ProtocolBundleAsFiles result;
+
     final jsonString =
         await rootBundle.loadString(_assetsUtil.toJsonWithToc(appAsset));
     final tocJsonState =
         await _bundleValidationUtil.loadTocJsonFromJsonString(jsonString);
     final int bundleVersion =
         _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonState);
+    final int year = _bundleValidationUtil.getYearFromTocJson(tocJsonState);
+
     final pdfAssetPath = _assetsUtil.toPdf(appAsset);
     final jsonAssetPath = _assetsUtil.toJson(appAsset);
     final tocJsonAssetPath = _assetsUtil.toJsonWithToc(appAsset);
 
     try {
-      protocolBundleSet.add(ProtocolBundle.asAssets(appAsset, bundleVersion,
-          pdfAssetPath, jsonAssetPath, tocJsonAssetPath));
+      /// create the asset version of this bundle
+      final newAppAsset = ProtocolBundle.asAssets(
+        bundleId: appAsset,
+        bundleVersion: bundleVersion,
+        year: year,
+        pdfAssetPath: pdfAssetPath,
+        jsonAssetPath: jsonAssetPath,
+        tocJsonAssetPath: tocJsonAssetPath,
+      );
+
+      /// Add app asset to the [protocolBundleSet]
+      protocolBundleSet.add(newAppAsset);
+
+      final File pdfFile = await _pdfService.loadFileFromAsset(
+          pdfAssetPath, _documentsUtil.toPdf(appAsset));
+      final File jsonFile = await _pdfService.loadFileFromAsset(
+          jsonAssetPath, _documentsUtil.toJson(appAsset));
+      final File tocJsonFile = await _pdfService.loadFileFromAsset(
+          tocJsonAssetPath, _documentsUtil.toJsonWithToc(appAsset));
+
+      final pdfFileSize = _documentsService.getFileSize(pdfFile);
+
+      /// Then, convert this asset to a file, if it does not exist already
+      result = ProtocolBundleAsFiles(
+        bundleId: appAsset,
+        bundleVersion: bundleVersion,
+        year: year,
+        pdfFileSize: pdfFileSize,
+        pdfFile: pdfFile,
+        jsonFile: jsonFile,
+        tocJsonFile: tocJsonFile,
+      );
     } catch (error, stackTrace) {
       printError();
       protocolBundleSet.add(ProtocolBundle.error(error, stackTrace));
     }
+    return result;
   }
 
   /// Show all local files and directories
   /// Them proceed to validate each folder for 'bundle' data
   ///
   Future<bool> _loadLocalBundles() async {
-    final localDirectories = getLocalSubDirectories();
+    final List<Directory> localDirectories = getLocalSubDirectories();
 
     localDirectories.forEach((localDirectory) async =>
         await _checkDirectoryForBundleData(localDirectory));
@@ -162,18 +315,29 @@ class ProtocolBundleController extends GetxController {
       final File? tocJsonFile =
           filesMap[_documentsUtil.toJsonWithToc(bundleId)];
 
-      /// Then, read the Table of Contents json to get the bundle version
-      final String jsonString = await tocJsonFile?.readAsString() ?? '';
-      final PdfTableOfContentsState tocJsonState =
-          await _bundleValidationUtil.loadTocJsonFromJsonString(jsonString);
-      final int bundleVersion =
-          _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonState);
-
-      // todo: get metadata of pdfFile here
-
       if (pdfFile != null && jsonFile != null && tocJsonFile != null) {
+        /// Read the Table of Contents json to get the bundle version
+        final String jsonString = await tocJsonFile.readAsString();
+        final PdfTableOfContentsState tocJsonState =
+            await _bundleValidationUtil.loadTocJsonFromJsonString(jsonString);
+        final int bundleVersion =
+            _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonState);
+
+        /// Read Table of Contents json to get year
+        final int year = _bundleValidationUtil.getYearFromTocJson(tocJsonState);
+
+        /// Check size of PDF file
+        final int pdfFileSize = _documentsService.getFileSize(pdfFile);
+
         bundleItem = ProtocolBundle.asFiles(
-            bundleId, bundleVersion, pdfFile, jsonFile, tocJsonFile);
+          bundleId: bundleId,
+          bundleVersion: bundleVersion,
+          year: year,
+          pdfFile: pdfFile,
+          jsonFile: jsonFile,
+          tocJsonFile: tocJsonFile,
+          pdfFileSize: pdfFileSize,
+        );
       } else {
         throw 'FILE ERROR: Unable to find all Protocol Bundle data';
       }
@@ -253,10 +417,22 @@ class ProtocolBundleController extends GetxController {
         final int bundleVersion =
             _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonFile);
 
+        /// Read Table of Contents json to get year
+        final int year = _bundleValidationUtil.getYearFromTocJson(tocJsonFile);
+
         // todo: get metadata of pdfRef here
+        final int pdfFileSize =
+            await _firebaseController.getFileSizeIfLoggedIn(pdfRef) ?? -1;
 
         bundleItem = ProtocolBundle.asFirebaseRefs(
-            bundleId, bundleVersion, pdfRef, jsonRef, tocJsonRef);
+          bundleId: bundleId,
+          bundleVersion: bundleVersion,
+          year: year,
+          pdfFileSize: pdfFileSize,
+          pdfRef: pdfRef,
+          jsonRef: jsonRef,
+          tocJsonRef: tocJsonRef,
+        );
       } else {
         throw 'CLOUD REF ERROR: Unable to find all Protocol Bundle data';
       }
@@ -272,7 +448,13 @@ class ProtocolBundleController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     _appDirectory = await _documentsService.getAppDirectory();
-    await _loadAssetBundles(AppAssets.PROTOCOL_2020);
+
+    /// Convert asset into a Bundle (both as an asset and as a file)
+    /// if data do not exist already, save them locally
+    final ProtocolBundleAsFiles firstLoadBundle =
+        await _loadAssetBundles(AppAssets.PROTOCOL_2020);
+    await _pdfStateController.loadNewPdf(firstLoadBundle);
+
     await _loadLocalBundles();
   }
 

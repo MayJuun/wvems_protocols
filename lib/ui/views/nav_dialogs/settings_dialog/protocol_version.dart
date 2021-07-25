@@ -18,9 +18,11 @@ class ProtocolVersion extends StatelessWidget {
   Widget build(BuildContext context) {
     final PdfStateController controller = Get.find();
     final ProtocolBundleController protocolBundleController = Get.find();
-    // final ProtocolVersionController protocolVersionController =
     // on first load, refresh all cloud data
     Get.put(ProtocolVersionController());
+
+    final DocumentsUtil _documentsUtil = DocumentsUtil();
+    final ValidatorsUtil _validatorsUtil = ValidatorsUtil();
 
     return Obx(
       () => Column(
@@ -37,30 +39,49 @@ class ProtocolVersion extends StatelessWidget {
               StyledIconButton(
                   icon: const Icon(Icons.refresh),
                   onPressed: () async {
-                    // todo: reimplement
-                    // await RefreshLocalDataCommand().execute();
+                    await RefreshLocalDataCommand().execute();
                     await RefreshCloudDataCommand().execute();
                   })
             ],
           ),
+
+          /// Shows loading widget on data refresh
           protocolBundleController.protocolBundleSet
                   .contains(const ProtocolBundle.loading())
               ? const LinearProgressIndicator()
               : Container(),
-          ...protocolBundleController.protocolBundleSet.map(
-            (bundle) {
-              Widget protocolWidget = Container();
-              if (bundle is ProtocolBundleAsFiles) {
-                protocolWidget = _ProtocolVersionItem(
-                  title: DocumentsUtil().bundleIdToTitle(bundle.bundleId),
-                  isActive: true,
-                  onPressed: () =>
-                      controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
-                );
-              }
-              return protocolWidget;
-            },
-          ),
+
+          /// Locally downloaded files are displayed first
+          ...protocolBundleController.bundleFiles().map(
+                (bundle) => _ProtocolVersionItem(
+                  title: _documentsUtil.bundleIdToTitle(bundle.bundleId),
+                  fileSizeText: _validatorsUtil.numToStringAsFixed(
+                      _validatorsUtil.intBytesToMegabytes(bundle.pdfFileSize),
+                      1),
+
+                  /// Note, if additional protocols are added more than annually
+                  /// then 'bundleId' should be the isActive check, not 'year'
+                  isActive: bundle.year == controller.activeYear.value,
+                  isDownloaded: true,
+                  bundle: bundle,
+                ),
+              ),
+
+          /// Data available on the cloud are displayed second
+          ...protocolBundleController.bundleFirebaseRefs().map(
+                (bundle) => (!protocolBundleController
+                        .isBundleStoredLocally(bundle.bundleId))
+                    ? _ProtocolVersionItem(
+                        title: _documentsUtil.bundleIdToTitle(bundle.bundleId),
+                        fileSizeText: _validatorsUtil.numToStringAsFixed(
+                            _validatorsUtil
+                                .intBytesToMegabytes(bundle.pdfFileSize),
+                            1),
+                        isActive: false,
+                        bundle: bundle,
+                      )
+                    : Container(),
+              ),
         ],
       ),
     );
@@ -71,20 +92,25 @@ class _ProtocolVersionItem extends StatelessWidget {
   const _ProtocolVersionItem({
     Key? key,
     required this.title,
-    this.onPressed,
+    required this.fileSizeText,
+    required this.bundle,
     this.isActive = false,
+    this.isDownloaded = false,
   }) : super(key: key);
 
   final String title;
-  final VoidCallback? onPressed;
+  final String fileSizeText;
+  final ProtocolBundle bundle;
   final bool isActive;
+  final bool isDownloaded;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: StyledSelectableContainer(
-        onPressed: onPressed,
+        onPressed: () async =>
+            await SelectOrDownloadFileCommand().execute(bundle: bundle),
         isActive: isActive,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -98,8 +124,7 @@ class _ProtocolVersionItem extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    // todo: replace with file size
-                    '20 mb',
+                    '$fileSizeText mb',
                     textAlign: TextAlign.end,
                     style: Theme.of(context)
                         .textTheme
@@ -111,8 +136,9 @@ class _ProtocolVersionItem extends StatelessWidget {
             ),
             const Gap(4),
             _ProtocolIconButton(
-              icon: Mdi.cloudDownloadOutline,
-              onPressed: () {},
+              icon: isDownloaded ? Mdi.cloudDownload : Mdi.cloudDownloadOutline,
+              onPressed: () async =>
+                  await DownloadOrDeleteBundleCommand().execute(bundle: bundle),
             ),
           ],
         ),

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/services/services.dart';
@@ -33,6 +34,17 @@ class FirebaseController extends GetxController {
           Reference reference) async =>
       await _checkIfLoggedIn(
           () => _cloudStorage.fetchTocJsonFromReference(reference));
+
+  Future<int>? getFileSizeIfLoggedIn(Reference reference) async =>
+      await _checkIfLoggedIn(
+          () => _cloudStorage.fetchFileSizeFromReference(reference));
+
+  Future<bool> fetchBundleIfLoggedIn(
+      ProtocolBundleAsFirebaseRefs bundle, VoidCallback onComplete) async {
+    await _checkIfLoggedIn(
+        () => _cloudStorage.fetchBundleFromCloud(bundle, onComplete));
+    return true;
+  }
 
   // *******************************************************************
   Future<dynamic> _checkIfLoggedIn(Function function) async {

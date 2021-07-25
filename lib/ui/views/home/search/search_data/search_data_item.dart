@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:wvems_protocols/controllers/commands/search_item_selected_command.dart';
+import 'package:wvems_protocols/controllers/commands/commands.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
 

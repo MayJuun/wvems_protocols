@@ -18,31 +18,36 @@ part 'protocol_bundle.freezed.dart';
 @freezed
 class ProtocolBundle with _$ProtocolBundle {
   // shown on first load
-  const factory ProtocolBundle.asAssets(
-    String bundleId,
-    int bundleVersion,
-    String pdfAssetPath,
-    String jsonAssetPath,
-    String tocJsonAssetPath,
-  ) = ProtocolBundleAsAssets;
+  const factory ProtocolBundle.asAssets({
+    required String bundleId,
+    required int bundleVersion,
+    required int year,
+    required String pdfAssetPath,
+    required String jsonAssetPath,
+    required String tocJsonAssetPath,
+  }) = ProtocolBundleAsAssets;
 
   // available on Firebase Storage for download
-  const factory ProtocolBundle.asFirebaseRefs(
-    String bundleId,
-    int bundleVersion,
-    Reference pdfRef,
-    Reference jsonRef,
-    Reference tocJsonRef,
-  ) = ProtocolBundleAsFirebaseRefs;
+  const factory ProtocolBundle.asFirebaseRefs({
+    required String bundleId,
+    required int bundleVersion,
+    required int year,
+    required int pdfFileSize,
+    required Reference pdfRef,
+    required Reference jsonRef,
+    required Reference tocJsonRef,
+  }) = ProtocolBundleAsFirebaseRefs;
 
   // stored locally, all PDFs are loaded from this data model
-  const factory ProtocolBundle.asFiles(
-    String bundleId,
-    int bundleVersion,
-    File pdfFile,
-    File jsonFile,
-    File tocJsonFile,
-  ) = ProtocolBundleAsFiles;
+  const factory ProtocolBundle.asFiles({
+    required String bundleId,
+    required int bundleVersion,
+    required int year,
+    required int pdfFileSize,
+    required File pdfFile,
+    required File jsonFile,
+    required File tocJsonFile,
+  }) = ProtocolBundleAsFiles;
 
   const factory ProtocolBundle.loading() = ProtocolBundleLoading;
   const factory ProtocolBundle.error(Object error, StackTrace stackTrace) =

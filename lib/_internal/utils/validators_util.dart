@@ -14,4 +14,13 @@ class ValidatorsUtil {
   //     return -1;
   //   }
   // }
+
+  final _div = 1024;
+
+  double intBitsToMegabytes(int bits) => bits.toDouble() / _div / _div;
+
+  double intBytesToMegabytes(int bytes) => bytes.toDouble() / 1000 / 1000;
+
+  String numToStringAsFixed(num number, int fractionDigits) =>
+      number.toStringAsFixed(fractionDigits);
 }
