@@ -196,19 +196,20 @@ class ProtocolBundleController extends GetxController {
       final File? tocJsonFile =
           filesMap[_documentsUtil.toJsonWithToc(bundleId)];
 
-      /// Read the Table of Contents json to get the bundle version
-      final String jsonString = await tocJsonFile?.readAsString() ?? '';
-      final PdfTableOfContentsState tocJsonState =
-          await _bundleValidationUtil.loadTocJsonFromJsonString(jsonString);
-      final int bundleVersion =
-          _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonState);
-
-      /// Read Table of Contents json to get year
-      final int year = _bundleValidationUtil.getYearFromTocJson(tocJsonState);
-
-      // todo: get metadata of pdfFile here
-
       if (pdfFile != null && jsonFile != null && tocJsonFile != null) {
+        /// Read the Table of Contents json to get the bundle version
+        final String jsonString = await tocJsonFile.readAsString();
+        final PdfTableOfContentsState tocJsonState =
+            await _bundleValidationUtil.loadTocJsonFromJsonString(jsonString);
+        final int bundleVersion =
+            _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonState);
+
+        /// Read Table of Contents json to get year
+        final int year = _bundleValidationUtil.getYearFromTocJson(tocJsonState);
+
+        /// Check size of PDF file
+        final int pdfFileSize = _documentsService.getFileSize(pdfFile);
+
         bundleItem = ProtocolBundle.asFiles(
           bundleId: bundleId,
           bundleVersion: bundleVersion,
@@ -216,6 +217,7 @@ class ProtocolBundleController extends GetxController {
           pdfFile: pdfFile,
           jsonFile: jsonFile,
           tocJsonFile: tocJsonFile,
+          pdfFileSize: pdfFileSize,
         );
       } else {
         throw 'FILE ERROR: Unable to find all Protocol Bundle data';
@@ -300,11 +302,14 @@ class ProtocolBundleController extends GetxController {
         final int year = _bundleValidationUtil.getYearFromTocJson(tocJsonFile);
 
         // todo: get metadata of pdfRef here
+        final int pdfFileSize =
+            await _firebaseController.getFileSizeIfLoggedIn(pdfRef) ?? -1;
 
         bundleItem = ProtocolBundle.asFirebaseRefs(
           bundleId: bundleId,
           bundleVersion: bundleVersion,
           year: year,
+          pdfFileSize: pdfFileSize,
           pdfRef: pdfRef,
           jsonRef: jsonRef,
           tocJsonRef: tocJsonRef,

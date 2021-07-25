@@ -34,6 +34,10 @@ class FirebaseController extends GetxController {
       await _checkIfLoggedIn(
           () => _cloudStorage.fetchTocJsonFromReference(reference));
 
+  Future<int>? getFileSizeIfLoggedIn(Reference reference) async =>
+      await _checkIfLoggedIn(
+          () => _cloudStorage.fetchFileSizeFromReference(reference));
+
   // *******************************************************************
   Future<dynamic> _checkIfLoggedIn(Function function) async {
     // first, try to login

@@ -38,4 +38,6 @@ class DocumentsService {
     }
     return filesList;
   }
+
+  int getFileSize(File file) => file.lengthSync();
 }

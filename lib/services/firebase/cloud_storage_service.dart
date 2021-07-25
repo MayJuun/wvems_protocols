@@ -33,6 +33,11 @@ class CloudStorageService {
     return tocJsonState;
   }
 
+  Future<int?> fetchFileSizeFromReference(Reference reference) async {
+    final FullMetadata fullMetadata = await reference.getMetadata();
+    return fullMetadata.size;
+  }
+
   /// List all subdirectories within the main folder
   /// This does not check for subdirectories within a subdirectory (recursive)
   Future<List<Reference>> subDirectoriesList() async {

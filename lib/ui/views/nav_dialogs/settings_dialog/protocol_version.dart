@@ -22,6 +22,7 @@ class ProtocolVersion extends StatelessWidget {
     Get.put(ProtocolVersionController());
 
     final DocumentsUtil _documentsUtil = DocumentsUtil();
+    final ValidatorsUtil _validatorsUtil = ValidatorsUtil();
 
     return Obx(
       () => Column(
@@ -58,6 +59,12 @@ class ProtocolVersion extends StatelessWidget {
               if (bundle is ProtocolBundleAsFiles) {
                 protocolWidget = _ProtocolVersionItem(
                   title: _documentsUtil.bundleIdToTitle(bundle.bundleId),
+                  fileSizeText: _validatorsUtil.numToStringAsFixed(
+                      _validatorsUtil.intBytesToMegabytes(bundle.pdfFileSize),
+                      1),
+
+                  /// Note, if additional protocols are added more than annually
+                  /// then 'bundleId' should be the isActive check, not 'year'
                   isActive: bundle.year == controller.activeYear.value,
                   isDownloaded: true,
                   onPressed: () =>
@@ -78,6 +85,9 @@ class ProtocolVersion extends StatelessWidget {
                       .isBundleStoredLocally(bundle.bundleId)) {
                 protocolWidget = _ProtocolVersionItem(
                   title: _documentsUtil.bundleIdToTitle(bundle.bundleId),
+                  fileSizeText: _validatorsUtil.numToStringAsFixed(
+                      _validatorsUtil.intBytesToMegabytes(bundle.pdfFileSize),
+                      1),
                   isActive: false,
                   onPressed: () =>
                       controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
@@ -96,12 +106,14 @@ class _ProtocolVersionItem extends StatelessWidget {
   const _ProtocolVersionItem({
     Key? key,
     required this.title,
+    required this.fileSizeText,
     this.onPressed,
     this.isActive = false,
     this.isDownloaded = false,
   }) : super(key: key);
 
   final String title;
+  final String fileSizeText;
   final VoidCallback? onPressed;
   final bool isActive;
   final bool isDownloaded;
@@ -125,8 +137,7 @@ class _ProtocolVersionItem extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    // todo: replace with file size
-                    '20 mb',
+                    '$fileSizeText mb',
                     textAlign: TextAlign.end,
                     style: Theme.of(context)
                         .textTheme
