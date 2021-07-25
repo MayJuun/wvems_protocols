@@ -18,7 +18,7 @@ class SelectOrDownloadFileCommand extends FirebaseCommand {
     Get.defaultDialog(
       title: 'Download PDF?',
       middleText:
-          'This file has not currently been downloaded.\n\nDo you want to download and select this PDF?',
+          'This file has not currently been downloaded.\n\nDo you want to download this PDF?',
       textConfirm: 'DOWNLOAD',
       onConfirm: () {
         Get.back();
