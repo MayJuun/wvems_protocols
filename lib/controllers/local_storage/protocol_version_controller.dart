@@ -5,7 +5,7 @@ import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/models/protocol_version_bundle/protocol_version_bundle.dart';
 import 'package:wvems_protocols/services/documents_service.dart';
 
-import 'controllers.dart';
+import '../controllers.dart';
 
 class ProtocolVersionController extends GetxController {
   final FirebaseController _firebaseController = Get.find();
