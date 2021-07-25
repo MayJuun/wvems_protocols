@@ -48,6 +48,14 @@ class ProtocolBundleController extends GetxController {
   Future<List<Reference>> getCloudFiles(Reference reference) async =>
       await _firebaseController.getFilesIfLoggedIn(reference) ?? <Reference>[];
 
+  /// Methods Used to Refresh Data
+  ///
+  Future<void> refreshCloudData() async =>
+      protocolBundleList.add(const ProtocolBundle.loading());
+
+  Future<void> refreshLocalData() async =>
+      protocolBundleList.add(const ProtocolBundle.loading());
+
   /// Mapping Functions
   ///
   /// These functions typically occur on first load of the app.
