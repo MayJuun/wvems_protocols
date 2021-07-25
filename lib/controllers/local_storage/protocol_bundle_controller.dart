@@ -26,6 +26,32 @@ class ProtocolBundleController extends GetxController {
 
   final RxSet<ProtocolBundle> protocolBundleSet = <ProtocolBundle>{}.obs;
 
+  List<ProtocolBundleAsFiles> bundleFiles() {
+    final list = <ProtocolBundleAsFiles>[];
+    protocolBundleSet.forEach(
+      (bundle) {
+        if (bundle is ProtocolBundleAsFiles) {
+          list.add(bundle);
+        }
+      },
+    );
+    list.sort((a, b) => b.bundleId.compareTo(a.bundleId));
+    return list;
+  }
+
+  List<ProtocolBundleAsFirebaseRefs> bundleFirebaseRefs() {
+    final list = <ProtocolBundleAsFirebaseRefs>[];
+    protocolBundleSet.forEach(
+      (bundle) {
+        if (bundle is ProtocolBundleAsFirebaseRefs) {
+          list.add(bundle);
+        }
+      },
+    );
+    list.sort((a, b) => b.bundleId.compareTo(a.bundleId));
+    return list;
+  }
+
   bool isBundleStoredLocally(String bundleIdCheck) {
     bool response = false;
     protocolBundleSet.forEach(
@@ -77,18 +103,33 @@ class ProtocolBundleController extends GetxController {
   Future<List<Reference>> getCloudFiles(Reference reference) async =>
       await _firebaseController.getFilesIfLoggedIn(reference) ?? <Reference>[];
 
+  Future<bool> removeLocalBundle(ProtocolBundleAsFiles bundle) async {
+    final result = await _documentsService.removeLocalBundle(bundle);
+    if (result) {
+      protocolBundleSet.remove(bundle);
+    } else {
+      print('unable to remove bundle');
+    }
+    return result;
+  }
+
   ///
   /// Methods Used to Refresh Data
   /// These methods are optimally called via a command, so that
   /// the UI may remain as disconnected to controllers/services as possible
   ///
 
+  Future<void> setTemporaryLoading() async {
+    protocolBundleSet.add(const ProtocolBundle.loading());
+    await Future.delayed(const Duration(seconds: 2));
+    protocolBundleSet.remove(const ProtocolBundle.loading());
+  }
+
   /// Removes and reloads all cloud files saved in [protocolBundleSet]
   ///
   Future<bool> refreshCloudData() async {
     protocolBundleSet.add(const ProtocolBundle.loading());
 
-    // todo: refresh cloud data here
     await _loadCloudBundles();
     await Future.delayed(const Duration(seconds: 2));
 
@@ -100,6 +141,8 @@ class ProtocolBundleController extends GetxController {
   ///
   Future<bool> refreshLocalData() async {
     protocolBundleSet.add(const ProtocolBundle.loading());
+
+    await Future.delayed(const Duration(seconds: 1));
 
     protocolBundleSet
         .removeWhere((element) => element is ProtocolBundleAsFiles);
@@ -148,7 +191,7 @@ class ProtocolBundleController extends GetxController {
   /// Them proceed to validate each folder for 'bundle' data
   ///
   Future<bool> _loadLocalBundles() async {
-    final localDirectories = getLocalSubDirectories();
+    final List<Directory> localDirectories = getLocalSubDirectories();
 
     localDirectories.forEach((localDirectory) async =>
         await _checkDirectoryForBundleData(localDirectory));

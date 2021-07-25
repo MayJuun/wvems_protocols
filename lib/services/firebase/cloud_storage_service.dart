@@ -1,9 +1,18 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/models/models.dart';
+import 'package:wvems_protocols/services/services.dart';
+
+/// Firebase downloads default to 10mb.
+/// If we ever need to call ref.getData(), we will set the max
+/// filesize to be the known PDF filesize + 2 mb as buffer
+/// this constant would be used for the 2mb buffer
+///
+/// const int _kTwoMbExtra = 2097152;
 
 // Use the Firebase controller to access methods within this service.
 class CloudStorageService {
@@ -36,6 +45,35 @@ class CloudStorageService {
   Future<int?> fetchFileSizeFromReference(Reference reference) async {
     final FullMetadata fullMetadata = await reference.getMetadata();
     return fullMetadata.size;
+  }
+
+  Future<bool> fetchBundleFromCloud(
+      ProtocolBundleAsFirebaseRefs bundle, VoidCallback onComplete) async {
+    final DocumentsService _documentsService = DocumentsService();
+
+    late final bool status;
+
+    try {
+      final Directory localDir = await _documentsService.getAppDirectory();
+
+      _saveRefToLocalDirectory(bundle.jsonRef, localDir);
+      _saveRefToLocalDirectory(bundle.tocJsonRef, localDir);
+      _saveRefToLocalDirectory(bundle.pdfRef, localDir)
+          .whenComplete(onComplete);
+      print('bundle saved from cloud for ${bundle.bundleId}');
+      status = true;
+    } catch (error) {
+      print('error downloading bundle from cloud: $error');
+      status = false;
+    }
+
+    return status;
+  }
+
+  DownloadTask _saveRefToLocalDirectory(
+      Reference reference, Directory localDir) {
+    final File newFile = File('${localDir.path}/${reference.fullPath}');
+    return reference.writeToFile(newFile);
   }
 
   /// List all subdirectories within the main folder

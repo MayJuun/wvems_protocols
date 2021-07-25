@@ -52,12 +52,8 @@ class ProtocolVersion extends StatelessWidget {
               : Container(),
 
           /// Locally downloaded files are displayed first
-          ...protocolBundleController.protocolBundleSet.map(
-            (bundle) {
-              Widget protocolWidget = Container();
-
-              if (bundle is ProtocolBundleAsFiles) {
-                protocolWidget = _ProtocolVersionItem(
+          ...protocolBundleController.bundleFiles().map(
+                (bundle) => _ProtocolVersionItem(
                   title: _documentsUtil.bundleIdToTitle(bundle.bundleId),
                   fileSizeText: _validatorsUtil.numToStringAsFixed(
                       _validatorsUtil.intBytesToMegabytes(bundle.pdfFileSize),
@@ -70,34 +66,26 @@ class ProtocolVersion extends StatelessWidget {
                   onPressed: () =>
                       controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
                   bundle: bundle,
-                );
-              }
-              return protocolWidget;
-            },
-          ),
+                ),
+              ),
 
           /// Data available on the cloud are displayed second
-          ...protocolBundleController.protocolBundleSet.map(
-            (bundle) {
-              Widget protocolWidget = Container();
-
-              if (bundle is ProtocolBundleAsFirebaseRefs &&
-                  !protocolBundleController
-                      .isBundleStoredLocally(bundle.bundleId)) {
-                protocolWidget = _ProtocolVersionItem(
-                  title: _documentsUtil.bundleIdToTitle(bundle.bundleId),
-                  fileSizeText: _validatorsUtil.numToStringAsFixed(
-                      _validatorsUtil.intBytesToMegabytes(bundle.pdfFileSize),
-                      1),
-                  isActive: false,
-                  onPressed: () =>
-                      controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
-                  bundle: bundle,
-                );
-              }
-              return protocolWidget;
-            },
-          ),
+          ...protocolBundleController.bundleFirebaseRefs().map(
+                (bundle) => (!protocolBundleController
+                        .isBundleStoredLocally(bundle.bundleId))
+                    ? _ProtocolVersionItem(
+                        title: _documentsUtil.bundleIdToTitle(bundle.bundleId),
+                        fileSizeText: _validatorsUtil.numToStringAsFixed(
+                            _validatorsUtil
+                                .intBytesToMegabytes(bundle.pdfFileSize),
+                            1),
+                        isActive: false,
+                        onPressed: () => controller.loadNewPdf(
+                            2020, AppAssets.PROTOCOL_2020),
+                        bundle: bundle,
+                      )
+                    : Container(),
+              ),
         ],
       ),
     );

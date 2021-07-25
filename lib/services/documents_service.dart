@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:wvems_protocols/models/models.dart';
 
 // CRUD operations for all locally stored documents and files
 class DocumentsService {
@@ -40,4 +41,28 @@ class DocumentsService {
   }
 
   int getFileSize(File file) => file.lengthSync();
+
+  Future<bool> removeLocalBundle(ProtocolBundleAsFiles bundle) async {
+    late final bool status;
+
+    try {
+      final appDirectory = await getAppDirectory();
+
+      final directoryPath =
+          Directory('${appDirectory.path}/${bundle.bundleId}');
+      print(directoryPath);
+      if (directoryPath.existsSync()) {
+        directoryPath.deleteSync(recursive: true);
+        print('${bundle.bundleId} folder deleted');
+        status = true;
+      } else {
+        print('error: ${bundle.bundleId} is not a directory');
+        status = false;
+      }
+    } catch (error) {
+      print('error deleting local bundle: $error');
+      status = false;
+    }
+    return status;
+  }
 }
