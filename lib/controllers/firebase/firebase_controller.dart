@@ -39,10 +39,10 @@ class FirebaseController extends GetxController {
     // note that if login failed, this will return nothing
     if (isLoggedIn.value) {
       try {
-        print('Logged in!');
+        // print('Check: user is logged in!');
         return function();
       } catch (error) {
-        print(error);
+        print('Error, not logged in: $error');
         return null;
       }
     }

@@ -19,9 +19,10 @@ Future<void> _initServices() async {
   Get.put<ThemeController>(ThemeController());
   await ThemeController.to.getThemeModeFromStore();
   await Firebase.initializeApp();
-  Get.put<MessagingController>(MessagingController());
-  Get.put(PdfStateController());
-  Get.put(SearchController());
+  Get.lazyPut<ProtocolVersionController>(() => ProtocolVersionController());
+  Get.lazyPut<PdfStateController>(() => PdfStateController());
+  Get.lazyPut<SearchController>(() => SearchController());
+  Get.putAsync<MessagingController>(() async => MessagingController());
 }
 
 class MyApp extends StatelessWidget {
