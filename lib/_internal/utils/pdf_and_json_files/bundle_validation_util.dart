@@ -1,9 +1,25 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/models/models.dart';
 
 class BundleValidationUtil {
+  final DocumentsUtil _documentsUtil = DocumentsUtil();
+
+  /// Verify that the three files that are necessary for a
+  /// given bundle are named appropriately:
+  ///
+  /// Naming convention is defined by the `bundleId` value
+  /// 1) bundleID/bundleID.pdf
+  /// 2) bundleID/bundleID.json
+  /// 3) bundleID/bundleID-toc.pdf
+  ///
+  bool doesMapContainAllFiles(String bundleId, Map<String, File> filesMap) =>
+      filesMap.containsKey(_documentsUtil.toPdf(bundleId)) &&
+      filesMap.containsKey(_documentsUtil.toJson(bundleId)) &&
+      filesMap.containsKey(_documentsUtil.toJsonWithToc(bundleId));
+
   Future<PdfTableOfContentsState> loadTocJsonFromJsonString(
       String jsonString) async {
     var tocJsonState = const PdfTableOfContentsState.loading();
