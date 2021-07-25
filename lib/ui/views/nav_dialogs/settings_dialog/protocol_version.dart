@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
+import 'package:wvems_protocols/_internal/utils/utils.dart';
 import 'package:wvems_protocols/assets.dart';
+import 'package:wvems_protocols/controllers/commands/commands.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:wvems_protocols/models/models.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
+import 'package:wvems_protocols/ui/views/nav_dialogs/settings_dialog/protocol_version_controller.dart';
 
 class ProtocolVersion extends StatelessWidget {
   const ProtocolVersion({Key? key}) : super(key: key);
@@ -13,37 +17,52 @@ class ProtocolVersion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PdfStateController controller = Get.find();
-    final firebaseController = Get.put(FirebaseController());
+    final ProtocolBundleController protocolBundleController = Get.find();
+    // final ProtocolVersionController protocolVersionController =
+    // on first load, refresh all cloud data
+    Get.put(ProtocolVersionController());
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              S.NAV_VERSION_SUBTITLE,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            StyledIconButton(
-                icon: const Icon(Icons.refresh),
-                onPressed: () => firebaseController.getListExample())
-          ],
-        ),
-        // const _ProtocolVersionItem(
-        //   title: '2021 WVEMS Protocols',
-        // ),
-        _ProtocolVersionItem(
-          title: '2020 WVEMS Protocols',
-          isActive: true,
-          onPressed: () => controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
-        ),
-        _ProtocolVersionItem(
-          title: '2019 WVEMS Protocols',
-          onPressed: () => controller.loadNewPdf(2019, AppAssets.PROTOCOL_2019),
-        )
-      ],
+    return Obx(
+      () => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                S.NAV_VERSION_SUBTITLE,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              StyledIconButton(
+                  icon: const Icon(Icons.refresh),
+                  onPressed: () async {
+                    // todo: reimplement
+                    // await RefreshLocalDataCommand().execute();
+                    await RefreshCloudDataCommand().execute();
+                  })
+            ],
+          ),
+          protocolBundleController.protocolBundleSet
+                  .contains(const ProtocolBundle.loading())
+              ? const LinearProgressIndicator()
+              : Container(),
+          ...protocolBundleController.protocolBundleSet.map(
+            (bundle) {
+              Widget protocolWidget = Container();
+              if (bundle is ProtocolBundleAsFiles) {
+                protocolWidget = _ProtocolVersionItem(
+                  title: DocumentsUtil().bundleIdToTitle(bundle.bundleId),
+                  isActive: true,
+                  onPressed: () =>
+                      controller.loadNewPdf(2020, AppAssets.PROTOCOL_2020),
+                );
+              }
+              return protocolWidget;
+            },
+          ),
+        ],
+      ),
     );
   }
 }
