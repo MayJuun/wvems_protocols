@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,8 +9,24 @@ import 'package:wvems_protocols/ui/views/views.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+  Get.put<MessagingController>(MessagingController());
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   await _initServices();
   runApp(MyApp());
+}
+
+// spec: https://firebase.flutter.dev/docs/messaging/usage
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+
+  print('Handling a background message: ${message.messageId}');
+  final MessagingController messagingController = Get.find();
+  await messagingController.handleMessage(message);
 }
 
 Future<void> _initServices() async {
@@ -22,7 +39,6 @@ Future<void> _initServices() async {
   Get.put<PdfStateController>(PdfStateController());
   Get.put<ProtocolBundleController>(ProtocolBundleController());
   Get.putAsync<SearchController>(() async => SearchController());
-  Get.putAsync<MessagingController>(() async => MessagingController());
 }
 
 class MyApp extends StatelessWidget {

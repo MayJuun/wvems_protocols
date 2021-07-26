@@ -20,7 +20,7 @@ class MessageItem extends StatelessWidget {
         themeController.getAppThemeFromBrightness(Theme.of(context).brightness);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: StyledSelectableContainer(
         onPressed: () => controller.toggleRead(appMessage),
         isActive: !appMessage.beenRead,
@@ -35,13 +35,13 @@ class MessageItem extends StatelessWidget {
                     appMessage.title,
                     textAlign: TextAlign.center,
                   ),
-                  const Gap(12),
+                  const Gap(8),
                   Text(
                     appMessage.body,
                     style: context.textTheme.bodyText2,
                     textAlign: TextAlign.center,
                   ),
-                  const Gap(8),
+                  const Gap(4),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(
@@ -65,10 +65,6 @@ class MessageItem extends StatelessWidget {
               ),
             ),
             const Gap(4),
-            // _ProtocolIconButton(
-            //   icon: Mdi.cloudDownloadOutline,
-            //   onPressed: () {},
-            // ),
           ],
         ),
       ),

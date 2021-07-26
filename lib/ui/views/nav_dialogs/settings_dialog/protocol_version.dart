@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
-import 'package:wvems_protocols/assets.dart';
 import 'package:wvems_protocols/controllers/commands/commands.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';

@@ -452,7 +452,7 @@ class ProtocolBundleController extends GetxController {
     /// Convert asset into a Bundle (both as an asset and as a file)
     /// if data do not exist already, save them locally
     final ProtocolBundleAsFiles firstLoadBundle =
-        await _loadAssetBundles(AppAssets.PROTOCOL_2020);
+        await _loadAssetBundles(AppAssets.PROTOCOL_2021);
     await _pdfStateController.loadNewPdf(firstLoadBundle);
 
     await _loadLocalBundles();
@@ -489,7 +489,7 @@ class ProtocolBundleController extends GetxController {
       },
     );
 
-    showAppAssets(AppAssets.PROTOCOL_2020);
+    showAppAssets(AppAssets.PROTOCOL_2021);
   }
 
   // show asset files
