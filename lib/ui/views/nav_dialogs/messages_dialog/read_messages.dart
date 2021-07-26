@@ -10,7 +10,7 @@ class ReadMessages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MessagingController controller = Get.find();
-    final messages = controller.tempMessages;
+    final messages = controller.appMessages;
 
     return Obx(() => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

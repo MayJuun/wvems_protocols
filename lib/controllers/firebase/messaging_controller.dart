@@ -3,7 +3,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:wvems_protocols/models/models.dart';
-import 'package:wvems_protocols/models/temp_messages.dart';
 
 class MessagingController extends GetxController {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -16,20 +15,19 @@ class MessagingController extends GetxController {
   );
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
   final GetStorage store = GetStorage();
 
-  final messages = <AppMessage>{}.obs;
-
-  final tempMessages = tempMessageSet.obs;
+  final appMessages = <AppMessage>{}.obs;
 
   bool hasNewMessage() {
-    final newMessageList = tempMessages.where((element) => !element.beenRead);
+    final newMessageList = appMessages.where((element) => !element.beenRead);
     return newMessageList.isNotEmpty;
   }
 
   void toggleRead(AppMessage appMessage) {
-    tempMessages.remove(appMessage);
-    tempMessages.add(
+    appMessages.remove(appMessage);
+    appMessages.add(
       appMessage.copyWith(beenRead: !appMessage.beenRead),
     );
   }
@@ -41,7 +39,7 @@ class MessagingController extends GetxController {
       textConfirm: 'DELETE',
       onConfirm: () {
         Get.back();
-        tempMessages.remove(appMessage);
+        appMessages.remove(appMessage);
       },
       onCancel: () => Get.back(),
     );
@@ -52,70 +50,131 @@ class MessagingController extends GetxController {
   Future<void> onInit() async {
     settings = await _requestPermissions();
     await _createNotificationChannel();
+
+    // spec: https://firebase.flutter.dev/docs/messaging/notifications#ios-configuration
+    await messaging.setForegroundNotificationPresentationOptions(
+      alert: true, // Required to display a heads up notification
+      badge: true,
+      sound: true,
+    );
     await loadMessagesFromStore();
+
+    setupInteractedMessage();
     super.onInit();
-    listen();
   }
 
   Future<void> loadMessagesFromStore() async {
     final Map<String, dynamic> storeMessages = store.read('messages') ?? {};
     if (storeMessages.isNotEmpty) {
       // first, convert all messages to JSON prior to storing
-      final messagesAsModel = <AppMessage>{};
+      final tempMessagesSet = <AppMessage>{};
       storeMessages.forEach(
-        (key, value) => messagesAsModel.add(AppMessage.fromJson(value)),
+        (key, value) => tempMessagesSet.add(AppMessage.fromJson(value)),
       );
-      // messages.addAll(List<AppMessage>.from(storeMessages));
+      appMessages.addAll(tempMessagesSet);
+      print('$appMessages');
     }
-    await saveMessagesToStore();
+
+    // await saveMessagesToStore();
   }
 
   Future<void> saveMessagesToStore() async {
     // first, convert all messages to JSON prior to storing
     final messagesAsJson = <String, dynamic>{};
-    messages.forEach((e) {
+    appMessages.forEach((e) {
       messagesAsJson[e.title] = e.toJson();
     });
     await store.write('messages', messagesAsJson);
   }
 
-  Future<void> listen() async {
-    FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) async {
-        final RemoteNotification? notification = message.notification;
-        final AndroidNotification? android = message.notification?.android;
+  // Future<void> listen() async {
+  //   FirebaseMessaging.onMessage.listen(
+  //     (RemoteMessage message) async {
+  //       final RemoteNotification? notification = message.notification;
+  //       final AndroidNotification? android = message.notification?.android;
 
-        // If `onMessage` is triggered with a notification, construct our own
-        // local notification to show to users using the created channel.
-        // todo: this is currently setup for android only
-        // todo: add iOS configuration
-        if (notification != null && android != null) {
-          print('${notification.title ?? ''} ${notification.body ?? ''}');
-          messages.add(
-            AppMessage(
-              title: notification.title ?? '',
-              body: notification.body ?? '',
-              dateTime: DateTime.now(),
-              beenRead: false,
+  //       // If `onMessage` is triggered with a notification, construct our own
+  //       // local notification to show to users using the created channel.
+  //       if (notification != null && android != null) {
+  //         flutterLocalNotificationsPlugin.show(
+  //             notification.hashCode,
+  //             notification.title,
+  //             notification.body,
+  //             NotificationDetails(
+  //               android: AndroidNotificationDetails(
+  //                 channel.id,
+  //                 channel.name,
+  //                 channel.description,
+  //                 icon: 'ic_launcher',
+  //               ),
+  //             ));
+  //       }
+  //     },
+  //   );
+  // }
+
+  /// spec: https://firebase.flutter.dev/docs/messaging/notifications#handling-interaction
+  /// It is assumed that all messages contain a data field with the key 'type'
+  ///
+  Future<void> setupInteractedMessage() async {
+    // Get any messages which caused the application to open from
+    // a terminated state.
+    final RemoteMessage? initialMessage =
+        await messaging.getInitialMessage().then((initMessage) {
+      if (initMessage != null) {
+        handleMessage(initMessage);
+      }
+    });
+
+    // Handle any interaction when the app is in the background via a
+    // Stream listener
+    FirebaseMessaging.onMessage
+        .listen((RemoteMessage message) async => handleMessage(message));
+
+    // todo: is this stream necessary?
+    // it's shown here https://firebase.flutter.dev/docs/messaging/notifications#handling-interaction
+    // ...but doesn't seem to work as intended
+    FirebaseMessaging.onMessageOpenedApp
+        .listen((RemoteMessage message) async => handleMessage(message));
+  }
+
+  Future<void> handleMessage(RemoteMessage message) async {
+    final RemoteNotification? notification = message.notification;
+    final AndroidNotification? android = message.notification?.android;
+
+    if (notification != null) {
+      // todo: handle messages here
+      print(
+          'NOTIFICATION RECEIVED  title: ${notification.title} body: ${notification.body}');
+      appMessages.add(
+        AppMessage(
+          title: notification.title ?? '',
+          body: notification.body ?? '',
+          dateTime: DateTime.now(),
+          beenRead: false,
+        ),
+      );
+      await saveMessagesToStore();
+    }
+
+    /// Android only
+    ///
+    /// If `onMessage` is triggered with a notification, construct our own
+    /// local notification to show to users using the created channel.
+    if (notification != null && android != null) {
+      flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channel.description,
+              icon: 'ic_launcher',
             ),
-          );
-          await saveMessagesToStore();
-
-          flutterLocalNotificationsPlugin.show(
-              notification.hashCode,
-              notification.title,
-              notification.body,
-              NotificationDetails(
-                android: AndroidNotificationDetails(
-                  channel.id,
-                  channel.name,
-                  channel.description,
-                  icon: 'ic_launcher',
-                ),
-              ));
-        }
-      },
-    );
+          ));
+    }
   }
 
   /// ************* Initialize Class and necessary values ***************///
@@ -135,4 +194,18 @@ class MessagingController extends GetxController {
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()
           ?.createNotificationChannel(channel);
+
+  AuthorizationStatus getAuthStatus() {
+    final authStatus = settings.authorizationStatus;
+    if (authStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (authStatus == AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+    return authStatus;
+  }
 }
+
+// format of app message as JSON:   {AppMessage(title: Message Title, dateTime: 2021-07-25 20:14:09.492419, body: Notification text goes here, beenRead: false)}
