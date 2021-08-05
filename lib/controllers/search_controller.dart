@@ -113,7 +113,12 @@ class SearchController extends GetxController {
 
         /// the indexes for this particular page where the search string is found
         final List<int> stringIndexes = [];
-        int curIndex = pageValue.indexOf(query);
+
+        final lowerCasePageValue = pageValue.toLowerCase();
+        final lowerCaseQuery = query.toLowerCase();
+
+        // final pageVal = pageValue.toString().toLowerCase();
+        int curIndex = lowerCasePageValue.indexOf(lowerCaseQuery);
         final pageIndex = _pageKeyList.indexOf(pageKey);
 
         /// find the index of each matching string on a page
@@ -122,7 +127,7 @@ class SearchController extends GetxController {
           searchResultStringsList.add(
             _getSearchStringsFromIndex(
               stringIndex: curIndex,
-              query: query,
+              lowerCaseQuery: lowerCaseQuery,
               pageNumber: ValidatorsUtil().stringToInt(pageKey),
               pageIndex: pageIndex,
               pageTextValue: pageValue,
@@ -130,7 +135,7 @@ class SearchController extends GetxController {
           );
 
           resultsCounter++;
-          curIndex = pageValue.indexOf(query, curIndex + 1);
+          curIndex = lowerCasePageValue.indexOf(lowerCaseQuery, curIndex + 1);
         }
 
         // Add all search results for the given page
@@ -149,7 +154,7 @@ class SearchController extends GetxController {
 
   PdfSearchStrings _getSearchStringsFromIndex(
       {required int stringIndex,
-      required String query,
+      required String lowerCaseQuery,
       required int pageNumber,
       required int pageIndex,
       required String pageTextValue}) {
@@ -161,14 +166,14 @@ class SearchController extends GetxController {
         stringIndex);
 
     // 'result' is the search string itself, which is displayed separately (e.g. bold)
-    final result = query;
+    final result = lowerCaseQuery;
 
     // The 'after' substring conists of SUBSTRING characters after the search string
     final after = pageTextValue.substring(
-        stringIndex + query.length,
-        stringIndex + _SUBSTRING + query.length >= pageTextValue.length
+        stringIndex + lowerCaseQuery.length,
+        stringIndex + _SUBSTRING + lowerCaseQuery.length >= pageTextValue.length
             ? pageTextValue.length - 1
-            : stringIndex + _SUBSTRING + query.length);
+            : stringIndex + _SUBSTRING + lowerCaseQuery.length);
 
     return PdfSearchStrings(
         pageNumber: pageNumber,
