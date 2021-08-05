@@ -1,4 +1,4 @@
-package dev.fhirfli.wvems_protocols
+package com.WVEMSProtocols
 
 import io.flutter.embedding.android.FlutterActivity
 
