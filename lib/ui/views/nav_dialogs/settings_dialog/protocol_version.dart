@@ -72,6 +72,22 @@ class ProtocolVersion extends StatelessWidget {
                 ),
               ),
 
+          /// Files in the process of being actively downloaded are displayed second
+          ...protocolBundleController.bundleFilesDownloading().map(
+                // ...protocolBundleController.bundleFilesDownloading().map(
+                (bundle) => _ProtocolVersionItem(
+                  title: _documentsUtil.bundleIdToTitle(bundle.bundleId),
+                  fileSizeText: '...',
+
+                  /// Note, if additional protocols are added more than annually
+                  /// then 'bundleId' should be the isActive check, not 'year'
+                  isActive: false,
+                  isDownloaded: false,
+                  isDownloading: true,
+                  bundle: bundle,
+                ),
+              ),
+
           /// Data available on the cloud are displayed second
           ...protocolBundleController.bundleFirebaseRefs().map(
                 (bundle) => (!protocolBundleController
@@ -101,6 +117,7 @@ class _ProtocolVersionItem extends StatelessWidget {
     required this.bundle,
     this.isActive = false,
     this.isDownloaded = false,
+    this.isDownloading = false,
   }) : super(key: key);
 
   final String title;
@@ -108,14 +125,17 @@ class _ProtocolVersionItem extends StatelessWidget {
   final ProtocolBundle bundle;
   final bool isActive;
   final bool isDownloaded;
+  final bool isDownloading;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: StyledSelectableContainer(
-        onPressed: () async =>
-            await SelectOrDownloadFileCommand().execute(bundle: bundle),
+        onPressed: isDownloading
+            ? null
+            : () async =>
+                await SelectOrDownloadFileCommand().execute(bundle: bundle),
         isActive: isActive,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -129,7 +149,7 @@ class _ProtocolVersionItem extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    '$fileSizeText mb',
+                    isDownloading ? '$fileSizeText' : '$fileSizeText mb',
                     textAlign: TextAlign.end,
                     style: Theme.of(context)
                         .textTheme
@@ -140,11 +160,15 @@ class _ProtocolVersionItem extends StatelessWidget {
               ),
             ),
             const Gap(4),
-            _ProtocolIconButton(
-              icon: isDownloaded ? Mdi.cloudDownload : Mdi.cloudDownloadOutline,
-              onPressed: () async =>
-                  await DownloadOrDeleteBundleCommand().execute(bundle: bundle),
-            ),
+            isDownloading
+                ? const CircularProgressIndicator()
+                : _ProtocolIconButton(
+                    icon: isDownloaded
+                        ? Mdi.cloudDownload
+                        : Mdi.cloudDownloadOutline,
+                    onPressed: () async => await DownloadOrDeleteBundleCommand()
+                        .execute(bundle: bundle),
+                  ),
           ],
         ),
       ),

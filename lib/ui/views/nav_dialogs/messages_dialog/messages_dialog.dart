@@ -55,10 +55,10 @@ class _ToggleReadUnreadInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        const StyledSubtitleText('Click to read/unread'),
+        const StyledSubtitleText('Click to read / unread'),
         Expanded(child: Container()),
         const Icon(Mdi.delete, size: 18),
-        const StyledSubtitleText(' to delete'),
+        const StyledSubtitleText('= delete'),
       ],
     );
   }

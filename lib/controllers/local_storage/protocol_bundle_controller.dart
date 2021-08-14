@@ -25,7 +25,7 @@ class ProtocolBundleController extends GetxController {
 
   late final Directory _appDirectory;
 
-  final RxSet<ProtocolBundle> protocolBundleSet = <ProtocolBundle>{}.obs;
+  final RxList<ProtocolBundle> protocolBundleSet = <ProtocolBundle>[].obs;
 
   List<ProtocolBundleAsFiles> bundleFiles() {
     final list = <ProtocolBundleAsFiles>[];
@@ -39,6 +39,9 @@ class ProtocolBundleController extends GetxController {
     list.sort((a, b) => b.bundleId.compareTo(a.bundleId));
     return list;
   }
+
+  List<ProtocoleBundleDownloading> bundleFilesDownloading() =>
+      protocolBundleSet.whereType<ProtocoleBundleDownloading>().toList();
 
   List<ProtocolBundleAsFirebaseRefs> bundleFirebaseRefs() {
     final list = <ProtocolBundleAsFirebaseRefs>[];
@@ -131,9 +134,17 @@ class ProtocolBundleController extends GetxController {
     /// setup temporary loading screen to inform user this button has been pressed
     setTemporaryLoading();
 
+    protocolBundleSet.remove(bundle);
+    protocolBundleSet
+        .add(ProtocolBundle.downloading(bundleId: bundle.bundleId));
+
     /// download file, then update file list and redraw UI
     await _firebaseController.fetchBundleIfLoggedIn(
-        bundle, () async => await refreshLocalData());
+        bundle,
+        () async => await refreshLocalData().then((value) =>
+            Future.delayed(const Duration(seconds: 2)).then((value) =>
+                protocolBundleSet.remove(
+                    ProtocolBundle.downloading(bundleId: bundle.bundleId)))));
   }
 
   Future<bool> removeLocalBundle(ProtocolBundleAsFiles bundle) async {
@@ -154,6 +165,7 @@ class ProtocolBundleController extends GetxController {
       result = await _documentsService.removeLocalBundle(bundle);
       if (result) {
         protocolBundleSet.remove(bundle);
+        refreshCloudData();
       } else {
         print('unable to remove bundle');
       }
@@ -170,7 +182,7 @@ class ProtocolBundleController extends GetxController {
 
   Future<void> setTemporaryLoading() async {
     protocolBundleSet.add(const ProtocolBundle.loading());
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     protocolBundleSet.remove(const ProtocolBundle.loading());
   }
 
@@ -179,8 +191,10 @@ class ProtocolBundleController extends GetxController {
   Future<bool> refreshCloudData() async {
     protocolBundleSet.add(const ProtocolBundle.loading());
 
+    protocolBundleSet.removeWhere((e) => e is ProtocolBundleAsFirebaseRefs);
+
     await _loadCloudBundles();
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
     protocolBundleSet.remove(const ProtocolBundle.loading());
     return true;
@@ -189,13 +203,12 @@ class ProtocolBundleController extends GetxController {
   /// Removes and reloads all local files saved in [protocolBundleSet]
   ///
   Future<bool> refreshLocalData() async {
+    // protocolBundleSet.clear();
     protocolBundleSet.add(const ProtocolBundle.loading());
 
-    await Future.delayed(const Duration(seconds: 1));
-
-    protocolBundleSet
-        .removeWhere((element) => element is ProtocolBundleAsFiles);
+    protocolBundleSet.removeWhere((e) => e is ProtocolBundleAsFiles);
     await _loadLocalBundles();
+    await Future.delayed(const Duration(milliseconds: 400));
 
     protocolBundleSet.remove(const ProtocolBundle.loading());
     return true;
@@ -316,6 +329,11 @@ class ProtocolBundleController extends GetxController {
           filesMap[_documentsUtil.toJsonWithToc(bundleId)];
 
       if (pdfFile != null && jsonFile != null && tocJsonFile != null) {
+        // loop indefinitely if the PDF file size doesn't exist
+        while (_documentsService.getFileSize(pdfFile) == 0) {
+          await Future.delayed(const Duration(milliseconds: 400));
+        }
+
         /// Read the Table of Contents json to get the bundle version
         final String jsonString = await tocJsonFile.readAsString();
         final PdfTableOfContentsState tocJsonState =

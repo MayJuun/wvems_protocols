@@ -49,6 +49,9 @@ class ProtocolBundle with _$ProtocolBundle {
     required File tocJsonFile,
   }) = ProtocolBundleAsFiles;
 
+  const factory ProtocolBundle.downloading({required String bundleId}) =
+      ProtocoleBundleDownloading;
+
   const factory ProtocolBundle.loading() = ProtocolBundleLoading;
   const factory ProtocolBundle.error(Object error, StackTrace stackTrace) =
       ProtocolBundleError;
