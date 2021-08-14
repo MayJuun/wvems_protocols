@@ -24,16 +24,14 @@ class HomeBottomNav extends StatelessWidget {
                 children: <Widget>[
                   // const NavIcon(Icons.message),
                   Obx(
-                    () => Icon(
-                      Icons.circle,
-                      size: 12.0,
-                      color: Theme.of(context)
-                          .primaryColor
-
-                          // withAlpha used for Obx, so stream will always be called
-                          // if empty, opacity is 0%, else 100%
-                          .withAlpha(
-                              messagingController.hasNewMessage() ? 255 : 0),
+                    () => Opacity(
+                      opacity: messagingController.hasNewMessage() ? 1 : 0,
+                      child: Icon(
+                        Icons.circle,
+                        size: 12.0,
+                        color: context.theme.accentColor,
+                        // color: Theme.of(context).primaryColor,
+                      ),
                     ),
                   ),
                   _Button(

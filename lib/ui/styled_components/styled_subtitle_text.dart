@@ -9,7 +9,7 @@ class StyledSubtitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      textAlign: TextAlign.end,
+      textAlign: TextAlign.center,
       style: Theme.of(context)
           .textTheme
           .subtitle2!

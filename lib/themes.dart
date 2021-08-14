@@ -29,7 +29,7 @@ TextTheme _buildTextTheme() {
     bodyText1: _style(18.0, FontWeight.normal),
     bodyText2: _style(16.0, FontWeight.normal),
     subtitle1: _style(16.0, FontWeight.normal),
-    subtitle2: _style(14.0, FontWeight.normal),
+    subtitle2: _style(12.0, FontWeight.w300),
     button: _style(18.0, FontWeight.normal),
     caption: _style(12.0, FontWeight.normal),
     overline: _style(16.0, FontWeight.normal),

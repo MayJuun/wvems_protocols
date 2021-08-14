@@ -30,10 +30,12 @@ class ProtocolVersion extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
-                S.NAV_VERSION_SUBTITLE,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline6,
+              Expanded(
+                child: Text(
+                  S.NAV_VERSION_SUBTITLE,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline6,
+                ),
               ),
               StyledIconButton(
                   icon: const Icon(Icons.refresh),
@@ -44,6 +46,7 @@ class ProtocolVersion extends StatelessWidget {
             ],
           ),
 
+          const Gap(8),
           const _ToggleDownloadInfo(),
           const Gap(8),
 
@@ -173,14 +176,38 @@ class _ToggleDownloadInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        const Icon(Mdi.refresh, size: 18),
-        const StyledSubtitleText(' to refresh'),
-        Expanded(child: Container()),
-        const Icon(Mdi.cloudDownloadOutline, size: 18),
-        const StyledSubtitleText(' to download/remove'),
+        Flexible(
+          // fit: FlexFit.tight,
+          child: FractionallySizedBox(
+            alignment: Alignment.centerLeft,
+            widthFactor: 0.9,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Icon(Mdi.refresh, size: 18),
+                Gap(4),
+                Expanded(child: StyledSubtitleText('= refresh content')),
+              ],
+            ),
+          ),
+        ),
+        Flexible(
+          child: FractionallySizedBox(
+            widthFactor: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Icon(Mdi.cloudDownloadOutline, size: 18),
+                Gap(4),
+                Expanded(child: StyledSubtitleText('= download / remove')),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
