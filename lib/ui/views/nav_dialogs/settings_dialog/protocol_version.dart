@@ -44,6 +44,9 @@ class ProtocolVersion extends StatelessWidget {
             ],
           ),
 
+          const _ToggleDownloadInfo(),
+          const Gap(8),
+
           /// Shows loading widget on data refresh
           protocolBundleController.protocolBundleSet
                   .contains(const ProtocolBundle.loading())
@@ -161,5 +164,24 @@ class _ProtocolIconButton extends StatelessWidget {
         iconSize: 30,
         icon: Icon(icon),
         onPressed: onPressed);
+  }
+}
+
+class _ToggleDownloadInfo extends StatelessWidget {
+  const _ToggleDownloadInfo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        const Icon(Mdi.refresh, size: 18),
+        const StyledSubtitleText(' to refresh'),
+        Expanded(child: Container()),
+        const Icon(Mdi.cloudDownloadOutline, size: 18),
+        const StyledSubtitleText(' to download/remove'),
+      ],
+    );
   }
 }

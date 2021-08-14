@@ -1,10 +1,12 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
 
 class MessagingController extends GetxController {
+  final StorageController storageController = Get.find();
+
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   late NotificationSettings settings;
   final AndroidNotificationChannel channel = const AndroidNotificationChannel(
@@ -16,9 +18,7 @@ class MessagingController extends GetxController {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  final GetStorage store = GetStorage();
-
-  final appMessages = <AppMessage>{}.obs;
+  late final RxSet<AppMessage> appMessages;
 
   bool hasNewMessage() {
     final newMessageList = appMessages.where((element) => !element.beenRead);
@@ -30,6 +30,7 @@ class MessagingController extends GetxController {
     appMessages.add(
       appMessage.copyWith(beenRead: !appMessage.beenRead),
     );
+    saveMessagesToStore();
   }
 
   void removeMessage(AppMessage appMessage) {
@@ -48,6 +49,10 @@ class MessagingController extends GetxController {
   /// *************** Initialize Class and necessary values ****************///
   @override
   Future<void> onInit() async {
+    super.onInit();
+
+    appMessages = await _loadMessagesFromStore();
+
     settings = await _requestPermissions();
     await _createNotificationChannel();
 
@@ -57,23 +62,24 @@ class MessagingController extends GetxController {
       badge: true,
       sound: true,
     );
-    await loadMessagesFromStore();
 
     setupInteractedMessage();
-    super.onInit();
   }
 
-  Future<void> loadMessagesFromStore() async {
-    final Map<String, dynamic> storeMessages = store.read('messages') ?? {};
+  Future<RxSet<AppMessage>> _loadMessagesFromStore() async {
+    final Map<String, dynamic> storeMessages =
+        storageController.store.read('messages') ?? {};
+    final RxSet<AppMessage> newSet = <AppMessage>{}.obs;
     if (storeMessages.isNotEmpty) {
       // first, convert all messages to JSON prior to storing
       final tempMessagesSet = <AppMessage>{};
       storeMessages.forEach(
         (key, value) => tempMessagesSet.add(AppMessage.fromJson(value)),
       );
-      appMessages.addAll(tempMessagesSet);
-      print('$appMessages');
+      newSet.addAll(tempMessagesSet);
+      print('$newSet');
     }
+    return newSet;
 
     // await saveMessagesToStore();
   }
@@ -84,7 +90,7 @@ class MessagingController extends GetxController {
     appMessages.forEach((e) {
       messagesAsJson[e.title] = e.toJson();
     });
-    await store.write('messages', messagesAsJson);
+    await storageController.store.write('messages', messagesAsJson);
   }
 
   // Future<void> listen() async {
