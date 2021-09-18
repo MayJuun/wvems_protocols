@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdi/mdi.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/nav_dialogs/dialogs.dart';
 
 class HomeBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MessagingController messagingController = Get.find();
-
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       color: Theme.of(context).cardColor,
@@ -19,30 +16,6 @@ class HomeBottomNav extends StatelessWidget {
           () => Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Stack(
-                alignment: const Alignment(0.6, -.7),
-                children: <Widget>[
-                  // const NavIcon(Icons.message),
-                  Obx(
-                    () => Opacity(
-                      opacity: messagingController.hasNewMessage() ? 1 : 0,
-                      child: Icon(
-                        Icons.circle,
-                        size: 12.0,
-                        color: context.theme.accentColor,
-                        // color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ),
-                  _Button(
-                    label: S.NAV_MESSAGES,
-                    icon: messagingController.hasNewMessage()
-                        ? Mdi.emailOpen
-                        : Mdi.email,
-                    onPressed: () => displayMessagesDialog(context),
-                  ),
-                ],
-              ),
               _Button(
                 label: S.NAV_SHARE,
                 icon: Mdi.shareVariant,

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'protocol_bundle.freezed.dart';
@@ -26,17 +25,6 @@ class ProtocolBundle with _$ProtocolBundle {
     required String jsonAssetPath,
     required String tocJsonAssetPath,
   }) = ProtocolBundleAsAssets;
-
-  // available on Firebase Storage for download
-  const factory ProtocolBundle.asFirebaseRefs({
-    required String bundleId,
-    required int bundleVersion,
-    required int year,
-    required int pdfFileSize,
-    required Reference pdfRef,
-    required Reference jsonRef,
-    required Reference tocJsonRef,
-  }) = ProtocolBundleAsFirebaseRefs;
 
   // stored locally, all PDFs are loaded from this data model
   const factory ProtocolBundle.asFiles({

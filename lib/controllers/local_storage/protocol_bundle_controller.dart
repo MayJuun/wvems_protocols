@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/_internal/utils/utils.dart';
@@ -11,7 +10,6 @@ import 'package:wvems_protocols/services/services.dart';
 import '../controllers.dart';
 
 class ProtocolBundleController extends GetxController {
-  final FirebaseController _firebaseController = Get.put(FirebaseController());
   final PdfStateController _pdfStateController = Get.find();
   final DocumentsService _documentsService = DocumentsService();
   final PdfService _pdfService = PdfService();
@@ -42,19 +40,6 @@ class ProtocolBundleController extends GetxController {
 
   List<ProtocoleBundleDownloading> bundleFilesDownloading() =>
       protocolBundleSet.whereType<ProtocoleBundleDownloading>().toList();
-
-  List<ProtocolBundleAsFirebaseRefs> bundleFirebaseRefs() {
-    final list = <ProtocolBundleAsFirebaseRefs>[];
-    protocolBundleSet.forEach(
-      (bundle) {
-        if (bundle is ProtocolBundleAsFirebaseRefs) {
-          list.add(bundle);
-        }
-      },
-    );
-    list.sort((a, b) => b.bundleId.compareTo(a.bundleId));
-    return list;
-  }
 
   List<ProtocolBundleAsAssets> bundleAssets() {
     final list = <ProtocolBundleAsAssets>[];
@@ -92,19 +77,6 @@ class ProtocolBundleController extends GetxController {
     return response;
   }
 
-  bool isBundleAvailableOnCloud(String bundleIdCheck) {
-    bool response = false;
-    protocolBundleSet.forEach(
-      (bundle) {
-        if (bundle is ProtocolBundleAsFirebaseRefs &&
-            bundle.bundleId == bundleIdCheck) {
-          response = true;
-        }
-      },
-    );
-    return response;
-  }
-
   ///
   /// Custom Getters and Setters
   ///
@@ -124,56 +96,6 @@ class ProtocolBundleController extends GetxController {
   List<File> getLocalFiles(Directory directory) =>
       _documentsService.filesList(directory);
 
-  Future<List<Reference>> getCloudSubDirectories() async =>
-      await _firebaseController.getSubDirectoriesIfLoggedIn() ?? <Reference>[];
-
-  Future<List<Reference>> getCloudFiles(Reference reference) async =>
-      await _firebaseController.getFilesIfLoggedIn(reference) ?? <Reference>[];
-
-  Future<void> downloadCloudBundle(ProtocolBundleAsFirebaseRefs bundle) async {
-    /// setup temporary loading screen to inform user this button has been pressed
-    setTemporaryLoading();
-
-    protocolBundleSet.remove(bundle);
-    protocolBundleSet
-        .add(ProtocolBundle.downloading(bundleId: bundle.bundleId));
-
-    /// download file, then update file list and redraw UI
-    await _firebaseController.fetchBundleIfLoggedIn(
-        bundle,
-        () async => await refreshLocalData().then((value) =>
-            Future.delayed(const Duration(seconds: 2)).then((value) =>
-                protocolBundleSet.remove(
-                    ProtocolBundle.downloading(bundleId: bundle.bundleId)))));
-  }
-
-  Future<bool> removeLocalBundle(ProtocolBundleAsFiles bundle) async {
-    late final bool result;
-
-    /// if this exists as an asset, do not remove it
-    if (isBundleIdAnAsset(bundle.bundleId)) {
-      Get.defaultDialog(
-        title: 'Cannot remove PDF',
-        middleText:
-            'This PDF was included in the original app, so it cannot be removed',
-        textConfirm: 'OK',
-        onConfirm: () {
-          Get.back();
-        },
-      );
-    } else {
-      result = await _documentsService.removeLocalBundle(bundle);
-      if (result) {
-        protocolBundleSet.remove(bundle);
-        refreshCloudData();
-      } else {
-        print('unable to remove bundle');
-      }
-    }
-
-    return result;
-  }
-
   ///
   /// Methods Used to Download or Refresh Data
   /// These methods are optimally called via a command, so that
@@ -184,20 +106,6 @@ class ProtocolBundleController extends GetxController {
     protocolBundleSet.add(const ProtocolBundle.loading());
     await Future.delayed(const Duration(seconds: 1));
     protocolBundleSet.remove(const ProtocolBundle.loading());
-  }
-
-  /// Removes and reloads all cloud files saved in [protocolBundleSet]
-  ///
-  Future<bool> refreshCloudData() async {
-    protocolBundleSet.add(const ProtocolBundle.loading());
-
-    protocolBundleSet.removeWhere((e) => e is ProtocolBundleAsFirebaseRefs);
-
-    await _loadCloudBundles();
-    await Future.delayed(const Duration(seconds: 1));
-
-    protocolBundleSet.remove(const ProtocolBundle.loading());
-    return true;
   }
 
   /// Removes and reloads all local files saved in [protocolBundleSet]
@@ -367,101 +275,6 @@ class ProtocolBundleController extends GetxController {
     return true;
   }
 
-  /// Show all cloud-based files and directories
-  /// Them proceed to validate each folder for 'bundle' data
-  ///
-  Future<bool> _loadCloudBundles() async {
-    final cloudDirectories = await getCloudSubDirectories();
-
-    cloudDirectories.forEach(
-      (cloudFolderRef) async => await _checkReferenceForBundleData(
-        bundleId: cloudFolderRef.fullPath,
-        cloudFolderRef: cloudFolderRef,
-      ),
-    );
-    return true;
-  }
-
-  /// The main folder is defined as a [bundleId]
-  /// Each file within is loaded into a temporary map for validation.
-  /// If validation checks are successful, add them to [protocolBundleSet]
-  ///
-  Future<bool> _checkReferenceForBundleData(
-      {required String bundleId, required Reference cloudFolderRef}) async {
-    // print('***CLOUD ${cloudFolderRef.fullPath}***');
-
-    /// load all files into temporary list
-    final cloudFiles = await getCloudFiles(cloudFolderRef);
-
-    /// create a searchable map, populated with each file reference
-    final Map<String, Reference> fileReferenceMap = <String, Reference>{};
-    cloudFiles.forEach((cloudFileRef) {
-      final cfPath = cloudFileRef.fullPath;
-
-      fileReferenceMap[cfPath] = cloudFileRef;
-      // print('file: $cfPath');
-    });
-
-    /// check map
-    if (_bundleValidationUtil.doesMapContainAllBundleKeys(
-        bundleId, fileReferenceMap)) {
-      print('Map for $bundleId VALID:  ${fileReferenceMap.keys}');
-      await _addFileReferenceMapToBundleList(bundleId, fileReferenceMap);
-    } else {
-      print('Map for $bundleId INVALID:  ${fileReferenceMap.keys}');
-    }
-    return true;
-  }
-
-  Future<bool> _addFileReferenceMapToBundleList(
-      String bundleId, Map<String, Reference> fileReferenceMap) async {
-    late final ProtocolBundle bundleItem;
-    try {
-      /// First, attempt to load all files from the map
-      final Reference? pdfRef =
-          fileReferenceMap[_documentsUtil.toPdf(bundleId)];
-      final Reference? jsonRef =
-          fileReferenceMap[_documentsUtil.toJson(bundleId)];
-      final Reference? tocJsonRef =
-          fileReferenceMap[_documentsUtil.toJsonWithToc(bundleId)];
-
-      if (pdfRef != null && jsonRef != null && tocJsonRef != null) {
-        final tocJsonFile =
-            await _firebaseController.getTocJsonIfLoggedIn(tocJsonRef) ??
-                PdfTableOfContentsState.error(
-                    'no cloud TOC Json data', StackTrace.current);
-
-        /// Read the Table of Contents json to get the bundle version
-        final int bundleVersion =
-            _bundleValidationUtil.getBundleVersionFromTocJson(tocJsonFile);
-
-        /// Read Table of Contents json to get year
-        final int year = _bundleValidationUtil.getYearFromTocJson(tocJsonFile);
-
-        // todo: get metadata of pdfRef here
-        final int pdfFileSize =
-            await _firebaseController.getFileSizeIfLoggedIn(pdfRef) ?? -1;
-
-        bundleItem = ProtocolBundle.asFirebaseRefs(
-          bundleId: bundleId,
-          bundleVersion: bundleVersion,
-          year: year,
-          pdfFileSize: pdfFileSize,
-          pdfRef: pdfRef,
-          jsonRef: jsonRef,
-          tocJsonRef: tocJsonRef,
-        );
-      } else {
-        throw 'CLOUD REF ERROR: Unable to find all Protocol Bundle data';
-      }
-    } catch (error, stackTrace) {
-      printError();
-      bundleItem = ProtocolBundle.error(error, stackTrace);
-    }
-    protocolBundleSet.add(bundleItem);
-    return true;
-  }
-
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -495,17 +308,6 @@ class ProtocolBundleController extends GetxController {
         print('file: $lfPath');
       });
     });
-
-    // show all cloud files and directories:
-    final cloudDirectories = await getCloudSubDirectories();
-
-    cloudDirectories.forEach(
-      (refDir) async {
-        final cloudFiles = await getCloudFiles(refDir);
-        print('***CLOUD ${refDir.fullPath}***');
-        cloudFiles.forEach((cf) => print('file: ${cf.fullPath}'));
-      },
-    );
 
     showAppAssets(AppAssets.PROTOCOL_2021);
   }

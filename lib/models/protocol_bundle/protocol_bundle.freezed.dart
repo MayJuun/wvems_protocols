@@ -33,25 +33,6 @@ class _$ProtocolBundleTearOff {
     );
   }
 
-  ProtocolBundleAsFirebaseRefs asFirebaseRefs(
-      {required String bundleId,
-      required int bundleVersion,
-      required int year,
-      required int pdfFileSize,
-      required Reference pdfRef,
-      required Reference jsonRef,
-      required Reference tocJsonRef}) {
-    return ProtocolBundleAsFirebaseRefs(
-      bundleId: bundleId,
-      bundleVersion: bundleVersion,
-      year: year,
-      pdfFileSize: pdfFileSize,
-      pdfRef: pdfRef,
-      jsonRef: jsonRef,
-      tocJsonRef: tocJsonRef,
-    );
-  }
-
   ProtocolBundleAsFiles asFiles(
       {required String bundleId,
       required int bundleVersion,
@@ -99,15 +80,6 @@ mixin _$ProtocolBundle {
     required TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)
         asAssets,
-    required TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)
-        asFirebaseRefs,
     required TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)
         asFiles,
@@ -121,15 +93,6 @@ mixin _$ProtocolBundle {
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
         asAssets,
-    TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)?
-        asFirebaseRefs,
     TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
         asFiles,
@@ -142,8 +105,6 @@ mixin _$ProtocolBundle {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProtocolBundleAsAssets value) asAssets,
-    required TResult Function(ProtocolBundleAsFirebaseRefs value)
-        asFirebaseRefs,
     required TResult Function(ProtocolBundleAsFiles value) asFiles,
     required TResult Function(ProtocoleBundleDownloading value) downloading,
     required TResult Function(ProtocolBundleLoading value) loading,
@@ -153,7 +114,6 @@ mixin _$ProtocolBundle {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
-    TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
     TResult Function(ProtocolBundleAsFiles value)? asFiles,
     TResult Function(ProtocoleBundleDownloading value)? downloading,
     TResult Function(ProtocolBundleLoading value)? loading,
@@ -316,15 +276,6 @@ class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
     required TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)
         asAssets,
-    required TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)
-        asFirebaseRefs,
     required TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)
         asFiles,
@@ -342,15 +293,6 @@ class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
         asAssets,
-    TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)?
-        asFirebaseRefs,
     TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
         asFiles,
@@ -370,8 +312,6 @@ class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProtocolBundleAsAssets value) asAssets,
-    required TResult Function(ProtocolBundleAsFirebaseRefs value)
-        asFirebaseRefs,
     required TResult Function(ProtocolBundleAsFiles value) asFiles,
     required TResult Function(ProtocoleBundleDownloading value) downloading,
     required TResult Function(ProtocolBundleLoading value) loading,
@@ -384,7 +324,6 @@ class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
-    TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
     TResult Function(ProtocolBundleAsFiles value)? asFiles,
     TResult Function(ProtocoleBundleDownloading value)? downloading,
     TResult Function(ProtocolBundleLoading value)? loading,
@@ -416,261 +355,6 @@ abstract class ProtocolBundleAsAssets implements ProtocolBundle {
   @JsonKey(ignore: true)
   $ProtocolBundleAsAssetsCopyWith<ProtocolBundleAsAssets> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ProtocolBundleAsFirebaseRefsCopyWith<$Res> {
-  factory $ProtocolBundleAsFirebaseRefsCopyWith(
-          ProtocolBundleAsFirebaseRefs value,
-          $Res Function(ProtocolBundleAsFirebaseRefs) then) =
-      _$ProtocolBundleAsFirebaseRefsCopyWithImpl<$Res>;
-  $Res call(
-      {String bundleId,
-      int bundleVersion,
-      int year,
-      int pdfFileSize,
-      Reference pdfRef,
-      Reference jsonRef,
-      Reference tocJsonRef});
-}
-
-/// @nodoc
-class _$ProtocolBundleAsFirebaseRefsCopyWithImpl<$Res>
-    extends _$ProtocolBundleCopyWithImpl<$Res>
-    implements $ProtocolBundleAsFirebaseRefsCopyWith<$Res> {
-  _$ProtocolBundleAsFirebaseRefsCopyWithImpl(
-      ProtocolBundleAsFirebaseRefs _value,
-      $Res Function(ProtocolBundleAsFirebaseRefs) _then)
-      : super(_value, (v) => _then(v as ProtocolBundleAsFirebaseRefs));
-
-  @override
-  ProtocolBundleAsFirebaseRefs get _value =>
-      super._value as ProtocolBundleAsFirebaseRefs;
-
-  @override
-  $Res call({
-    Object? bundleId = freezed,
-    Object? bundleVersion = freezed,
-    Object? year = freezed,
-    Object? pdfFileSize = freezed,
-    Object? pdfRef = freezed,
-    Object? jsonRef = freezed,
-    Object? tocJsonRef = freezed,
-  }) {
-    return _then(ProtocolBundleAsFirebaseRefs(
-      bundleId: bundleId == freezed
-          ? _value.bundleId
-          : bundleId // ignore: cast_nullable_to_non_nullable
-              as String,
-      bundleVersion: bundleVersion == freezed
-          ? _value.bundleVersion
-          : bundleVersion // ignore: cast_nullable_to_non_nullable
-              as int,
-      year: year == freezed
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as int,
-      pdfFileSize: pdfFileSize == freezed
-          ? _value.pdfFileSize
-          : pdfFileSize // ignore: cast_nullable_to_non_nullable
-              as int,
-      pdfRef: pdfRef == freezed
-          ? _value.pdfRef
-          : pdfRef // ignore: cast_nullable_to_non_nullable
-              as Reference,
-      jsonRef: jsonRef == freezed
-          ? _value.jsonRef
-          : jsonRef // ignore: cast_nullable_to_non_nullable
-              as Reference,
-      tocJsonRef: tocJsonRef == freezed
-          ? _value.tocJsonRef
-          : tocJsonRef // ignore: cast_nullable_to_non_nullable
-              as Reference,
-    ));
-  }
-}
-
-/// @nodoc
-class _$ProtocolBundleAsFirebaseRefs implements ProtocolBundleAsFirebaseRefs {
-  const _$ProtocolBundleAsFirebaseRefs(
-      {required this.bundleId,
-      required this.bundleVersion,
-      required this.year,
-      required this.pdfFileSize,
-      required this.pdfRef,
-      required this.jsonRef,
-      required this.tocJsonRef});
-
-  @override
-  final String bundleId;
-  @override
-  final int bundleVersion;
-  @override
-  final int year;
-  @override
-  final int pdfFileSize;
-  @override
-  final Reference pdfRef;
-  @override
-  final Reference jsonRef;
-  @override
-  final Reference tocJsonRef;
-
-  @override
-  String toString() {
-    return 'ProtocolBundle.asFirebaseRefs(bundleId: $bundleId, bundleVersion: $bundleVersion, year: $year, pdfFileSize: $pdfFileSize, pdfRef: $pdfRef, jsonRef: $jsonRef, tocJsonRef: $tocJsonRef)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is ProtocolBundleAsFirebaseRefs &&
-            (identical(other.bundleId, bundleId) ||
-                const DeepCollectionEquality()
-                    .equals(other.bundleId, bundleId)) &&
-            (identical(other.bundleVersion, bundleVersion) ||
-                const DeepCollectionEquality()
-                    .equals(other.bundleVersion, bundleVersion)) &&
-            (identical(other.year, year) ||
-                const DeepCollectionEquality().equals(other.year, year)) &&
-            (identical(other.pdfFileSize, pdfFileSize) ||
-                const DeepCollectionEquality()
-                    .equals(other.pdfFileSize, pdfFileSize)) &&
-            (identical(other.pdfRef, pdfRef) ||
-                const DeepCollectionEquality().equals(other.pdfRef, pdfRef)) &&
-            (identical(other.jsonRef, jsonRef) ||
-                const DeepCollectionEquality()
-                    .equals(other.jsonRef, jsonRef)) &&
-            (identical(other.tocJsonRef, tocJsonRef) ||
-                const DeepCollectionEquality()
-                    .equals(other.tocJsonRef, tocJsonRef)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(bundleId) ^
-      const DeepCollectionEquality().hash(bundleVersion) ^
-      const DeepCollectionEquality().hash(year) ^
-      const DeepCollectionEquality().hash(pdfFileSize) ^
-      const DeepCollectionEquality().hash(pdfRef) ^
-      const DeepCollectionEquality().hash(jsonRef) ^
-      const DeepCollectionEquality().hash(tocJsonRef);
-
-  @JsonKey(ignore: true)
-  @override
-  $ProtocolBundleAsFirebaseRefsCopyWith<ProtocolBundleAsFirebaseRefs>
-      get copyWith => _$ProtocolBundleAsFirebaseRefsCopyWithImpl<
-          ProtocolBundleAsFirebaseRefs>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String bundleId, int bundleVersion, int year,
-            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)
-        asAssets,
-    required TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)
-        asFirebaseRefs,
-    required TResult Function(String bundleId, int bundleVersion, int year,
-            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)
-        asFiles,
-    required TResult Function(String bundleId) downloading,
-    required TResult Function() loading,
-    required TResult Function(Object error, StackTrace stackTrace) error,
-  }) {
-    return asFirebaseRefs(bundleId, bundleVersion, year, pdfFileSize, pdfRef,
-        jsonRef, tocJsonRef);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String bundleId, int bundleVersion, int year,
-            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
-        asAssets,
-    TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)?
-        asFirebaseRefs,
-    TResult Function(String bundleId, int bundleVersion, int year,
-            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
-        asFiles,
-    TResult Function(String bundleId)? downloading,
-    TResult Function()? loading,
-    TResult Function(Object error, StackTrace stackTrace)? error,
-    required TResult orElse(),
-  }) {
-    if (asFirebaseRefs != null) {
-      return asFirebaseRefs(bundleId, bundleVersion, year, pdfFileSize, pdfRef,
-          jsonRef, tocJsonRef);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(ProtocolBundleAsAssets value) asAssets,
-    required TResult Function(ProtocolBundleAsFirebaseRefs value)
-        asFirebaseRefs,
-    required TResult Function(ProtocolBundleAsFiles value) asFiles,
-    required TResult Function(ProtocoleBundleDownloading value) downloading,
-    required TResult Function(ProtocolBundleLoading value) loading,
-    required TResult Function(ProtocolBundleError value) error,
-  }) {
-    return asFirebaseRefs(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(ProtocolBundleAsAssets value)? asAssets,
-    TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
-    TResult Function(ProtocolBundleAsFiles value)? asFiles,
-    TResult Function(ProtocoleBundleDownloading value)? downloading,
-    TResult Function(ProtocolBundleLoading value)? loading,
-    TResult Function(ProtocolBundleError value)? error,
-    required TResult orElse(),
-  }) {
-    if (asFirebaseRefs != null) {
-      return asFirebaseRefs(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ProtocolBundleAsFirebaseRefs implements ProtocolBundle {
-  const factory ProtocolBundleAsFirebaseRefs(
-      {required String bundleId,
-      required int bundleVersion,
-      required int year,
-      required int pdfFileSize,
-      required Reference pdfRef,
-      required Reference jsonRef,
-      required Reference tocJsonRef}) = _$ProtocolBundleAsFirebaseRefs;
-
-  String get bundleId => throw _privateConstructorUsedError;
-  int get bundleVersion => throw _privateConstructorUsedError;
-  int get year => throw _privateConstructorUsedError;
-  int get pdfFileSize => throw _privateConstructorUsedError;
-  Reference get pdfRef => throw _privateConstructorUsedError;
-  Reference get jsonRef => throw _privateConstructorUsedError;
-  Reference get tocJsonRef => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ProtocolBundleAsFirebaseRefsCopyWith<ProtocolBundleAsFirebaseRefs>
-      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -822,15 +506,6 @@ class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
     required TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)
         asAssets,
-    required TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)
-        asFirebaseRefs,
     required TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)
         asFiles,
@@ -848,15 +523,6 @@ class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
         asAssets,
-    TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)?
-        asFirebaseRefs,
     TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
         asFiles,
@@ -876,8 +542,6 @@ class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProtocolBundleAsAssets value) asAssets,
-    required TResult Function(ProtocolBundleAsFirebaseRefs value)
-        asFirebaseRefs,
     required TResult Function(ProtocolBundleAsFiles value) asFiles,
     required TResult Function(ProtocoleBundleDownloading value) downloading,
     required TResult Function(ProtocolBundleLoading value) loading,
@@ -890,7 +554,6 @@ class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
-    TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
     TResult Function(ProtocolBundleAsFiles value)? asFiles,
     TResult Function(ProtocoleBundleDownloading value)? downloading,
     TResult Function(ProtocolBundleLoading value)? loading,
@@ -997,15 +660,6 @@ class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
     required TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)
         asAssets,
-    required TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)
-        asFirebaseRefs,
     required TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)
         asFiles,
@@ -1022,15 +676,6 @@ class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
         asAssets,
-    TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)?
-        asFirebaseRefs,
     TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
         asFiles,
@@ -1049,8 +694,6 @@ class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProtocolBundleAsAssets value) asAssets,
-    required TResult Function(ProtocolBundleAsFirebaseRefs value)
-        asFirebaseRefs,
     required TResult Function(ProtocolBundleAsFiles value) asFiles,
     required TResult Function(ProtocoleBundleDownloading value) downloading,
     required TResult Function(ProtocolBundleLoading value) loading,
@@ -1063,7 +706,6 @@ class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
-    TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
     TResult Function(ProtocolBundleAsFiles value)? asFiles,
     TResult Function(ProtocoleBundleDownloading value)? downloading,
     TResult Function(ProtocolBundleLoading value)? loading,
@@ -1129,15 +771,6 @@ class _$ProtocolBundleLoading implements ProtocolBundleLoading {
     required TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)
         asAssets,
-    required TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)
-        asFirebaseRefs,
     required TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)
         asFiles,
@@ -1154,15 +787,6 @@ class _$ProtocolBundleLoading implements ProtocolBundleLoading {
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
         asAssets,
-    TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)?
-        asFirebaseRefs,
     TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
         asFiles,
@@ -1181,8 +805,6 @@ class _$ProtocolBundleLoading implements ProtocolBundleLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProtocolBundleAsAssets value) asAssets,
-    required TResult Function(ProtocolBundleAsFirebaseRefs value)
-        asFirebaseRefs,
     required TResult Function(ProtocolBundleAsFiles value) asFiles,
     required TResult Function(ProtocoleBundleDownloading value) downloading,
     required TResult Function(ProtocolBundleLoading value) loading,
@@ -1195,7 +817,6 @@ class _$ProtocolBundleLoading implements ProtocolBundleLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
-    TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
     TResult Function(ProtocolBundleAsFiles value)? asFiles,
     TResult Function(ProtocoleBundleDownloading value)? downloading,
     TResult Function(ProtocolBundleLoading value)? loading,
@@ -1292,15 +913,6 @@ class _$ProtocolBundleError implements ProtocolBundleError {
     required TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)
         asAssets,
-    required TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)
-        asFirebaseRefs,
     required TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)
         asFiles,
@@ -1317,15 +929,6 @@ class _$ProtocolBundleError implements ProtocolBundleError {
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
         asAssets,
-    TResult Function(
-            String bundleId,
-            int bundleVersion,
-            int year,
-            int pdfFileSize,
-            Reference pdfRef,
-            Reference jsonRef,
-            Reference tocJsonRef)?
-        asFirebaseRefs,
     TResult Function(String bundleId, int bundleVersion, int year,
             int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
         asFiles,
@@ -1344,8 +947,6 @@ class _$ProtocolBundleError implements ProtocolBundleError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProtocolBundleAsAssets value) asAssets,
-    required TResult Function(ProtocolBundleAsFirebaseRefs value)
-        asFirebaseRefs,
     required TResult Function(ProtocolBundleAsFiles value) asFiles,
     required TResult Function(ProtocoleBundleDownloading value) downloading,
     required TResult Function(ProtocolBundleLoading value) loading,
@@ -1358,7 +959,6 @@ class _$ProtocolBundleError implements ProtocolBundleError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
-    TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
     TResult Function(ProtocolBundleAsFiles value)? asFiles,
     TResult Function(ProtocoleBundleDownloading value)? downloading,
     TResult Function(ProtocolBundleLoading value)? loading,
