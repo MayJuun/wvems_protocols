@@ -4,7 +4,6 @@ class NavDivider extends StatelessWidget {
   const NavDivider({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Divider(color: Theme.of(context).accentColor, thickness: 1);
-  }
+  Widget build(BuildContext context) =>
+      Divider(color: Theme.of(context).colorScheme.secondary, thickness: 1);
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:wvems_protocols/assets.dart';
-import 'package:wvems_protocols/ui/strings.dart';
+import 'package:quick_reference/assets.dart';
+import 'package:quick_reference/ui/strings.dart';
 
 class ShareQrCode extends StatelessWidget {
   const ShareQrCode({Key? key}) : super(key: key);

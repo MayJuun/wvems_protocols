@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/ui/views/home/fab/home_fab.dart';
-import 'package:wvems_protocols/ui/views/home/header/home_screen_header.dart';
+import 'package:quick_reference/ui/views/home/fab/home_fab.dart';
+import 'package:quick_reference/ui/views/home/header/home_screen_header.dart';
 
 import 'body/home_screen_body.dart';
 import 'bottom_nav/home_bottom_nav.dart';
@@ -18,11 +18,11 @@ class HomeScreen extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           key: _.homeScaffoldKey,
           appBar: AppBar(toolbarHeight: 0),
-          // body: SafeArea(
-          //   child: HomeScreenHeader(
-          //     body: HomeScreenBody(),
-          //   ),
-          // ),
+          body: SafeArea(
+            child: HomeScreenHeader(
+              body: HomeScreenBody(),
+            ),
+          ),
           bottomNavigationBar: HomeBottomNav(),
           floatingActionButton: HomeFab(),
           floatingActionButtonLocation: _CustomFloatingActionButtonLocation(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/ui/strings.dart';
+import 'package:quick_reference/controllers/controllers.dart';
+import 'package:quick_reference/ui/strings.dart';
 
 const _padding = EdgeInsets.symmetric(vertical: 48.0, horizontal: 32.0);
 
@@ -82,43 +82,27 @@ class _StyledRibbon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PdfStateController controller = Get.find();
-    final Widget _stack = Obx(
-      () => Stack(
-        children: [
-          // small ribbon on the side
-          const _StyledContainer(height: 140, width: 8),
-          isRotated
-              ? const _StyledContainer()
-              : _StyledContainer(
-                  title: title,
-                  isTitleHeader: true,
-                ),
-          isRotated
-              ? _StyledContainer(
-                  isPrimaryColor: true,
-                  child: RotatedBox(
-                    quarterTurns: 2,
-                    child: Text(
-                      controller.activeYear.value.toString(),
-                      style: context.textTheme.bodyText2!
-                          .apply(color: context.theme.colorScheme.onPrimary),
-                    ),
-                  ),
-                )
-              : _StyledContainer(
-                  isPrimaryColor: true,
-                  child: Text(
-                    controller.activeYear.value.toString(),
-                    style: context.textTheme.bodyText2!
-                        .apply(color: context.theme.colorScheme.onPrimary),
-                  ),
-                ),
-        ],
-      ),
-    );
-
-    return isRotated ? RotatedBox(quarterTurns: 2, child: _stack) : _stack;
+    return isRotated
+        ? RotatedBox(
+            quarterTurns: 2,
+            child: Stack(
+              children: const [
+                // small ribbon on the side
+                _StyledContainer(height: 140, width: 8),
+                _StyledContainer()
+              ],
+            ),
+          )
+        : Stack(
+            children: [
+              // small ribbon on the side
+              const _StyledContainer(height: 140, width: 8),
+              _StyledContainer(
+                title: title,
+                isTitleHeader: true,
+              ),
+            ],
+          );
   }
 }
 

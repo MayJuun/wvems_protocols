@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'pdf_text_list_state.dart';
 
@@ -47,6 +48,13 @@ mixin _$PdfTextListState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Map<String, dynamic> textList)? data,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, dynamic> textList)? data,
     TResult Function()? loading,
@@ -59,6 +67,13 @@ mixin _$PdfTextListState {
     required TResult Function(PdfTextListStateData value) data,
     required TResult Function(PdfTextListStateLoading value) loading,
     required TResult Function(PdfTextListStateError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfTextListStateData value)? data,
+    TResult Function(PdfTextListStateLoading value)? loading,
+    TResult Function(PdfTextListStateError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -121,6 +136,7 @@ class _$PdfTextListStateDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PdfTextListStateData implements PdfTextListStateData {
   const _$PdfTextListStateData(this.textList);
 
@@ -163,6 +179,16 @@ class _$PdfTextListStateData implements PdfTextListStateData {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Map<String, dynamic> textList)? data,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return data?.call(textList);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, dynamic> textList)? data,
     TResult Function()? loading,
@@ -183,6 +209,16 @@ class _$PdfTextListStateData implements PdfTextListStateData {
     required TResult Function(PdfTextListStateError value) error,
   }) {
     return data(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfTextListStateData value)? data,
+    TResult Function(PdfTextListStateLoading value)? loading,
+    TResult Function(PdfTextListStateError value)? error,
+  }) {
+    return data?.call(this);
   }
 
   @override
@@ -230,6 +266,7 @@ class _$PdfTextListStateLoadingCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PdfTextListStateLoading implements PdfTextListStateLoading {
   const _$PdfTextListStateLoading();
 
@@ -258,6 +295,16 @@ class _$PdfTextListStateLoading implements PdfTextListStateLoading {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Map<String, dynamic> textList)? data,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, dynamic> textList)? data,
     TResult Function()? loading,
@@ -278,6 +325,16 @@ class _$PdfTextListStateLoading implements PdfTextListStateLoading {
     required TResult Function(PdfTextListStateError value) error,
   }) {
     return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfTextListStateData value)? data,
+    TResult Function(PdfTextListStateLoading value)? loading,
+    TResult Function(PdfTextListStateError value)? error,
+  }) {
+    return loading?.call(this);
   }
 
   @override
@@ -337,6 +394,7 @@ class _$PdfTextListStateErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PdfTextListStateError implements PdfTextListStateError {
   const _$PdfTextListStateError(this.error, this.stackTrace);
 
@@ -385,6 +443,16 @@ class _$PdfTextListStateError implements PdfTextListStateError {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Map<String, dynamic> textList)? data,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return error?.call(this.error, stackTrace);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, dynamic> textList)? data,
     TResult Function()? loading,
@@ -405,6 +473,16 @@ class _$PdfTextListStateError implements PdfTextListStateError {
     required TResult Function(PdfTextListStateError value) error,
   }) {
     return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfTextListStateData value)? data,
+    TResult Function(PdfTextListStateLoading value)? loading,
+    TResult Function(PdfTextListStateError value)? error,
+  }) {
+    return error?.call(this);
   }
 
   @override

@@ -1,5 +1,5 @@
-import 'package:validators2/validators.dart' as validate;
 import 'package:validators2/sanitizers.dart' as sanitize;
+import 'package:validators2/validators.dart' as validate;
 
 class ValidatorsUtil {
   bool isValidInteger(String str) => validate.isInt(str) && str != '';

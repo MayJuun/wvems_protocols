@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wvems_protocols/models/models.dart';
+import 'package:quick_reference/models/models.dart';
 
 part 'pdf_search_state.freezed.dart';
 part 'pdf_search_state.g.dart';

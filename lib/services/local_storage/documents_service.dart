@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:wvems_protocols/models/models.dart';
+import 'package:quick_reference/models/models.dart';
 
 // CRUD operations for all locally stored documents and files
 class DocumentsService {

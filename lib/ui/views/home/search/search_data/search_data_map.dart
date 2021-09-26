@@ -3,9 +3,9 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/models/models.dart';
-import 'package:wvems_protocols/ui/views/home/search/search_data/search_data_list.dart';
+import 'package:quick_reference/controllers/controllers.dart';
+import 'package:quick_reference/models/models.dart';
+import 'package:quick_reference/ui/views/home/search/search_data/search_data_list.dart';
 
 class SearchDataMap extends StatelessWidget {
   const SearchDataMap({Key? key, required this.searchResultsPageMap})

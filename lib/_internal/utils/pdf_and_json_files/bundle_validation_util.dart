@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:wvems_protocols/_internal/utils/utils.dart';
-import 'package:wvems_protocols/models/models.dart';
+import 'package:quick_reference/_internal/utils/utils.dart';
+import 'package:quick_reference/models/models.dart';
 
+/// ToDo: review if this entire class is necessary
 class BundleValidationUtil {
   final DocumentsUtil _documentsUtil = DocumentsUtil();
 

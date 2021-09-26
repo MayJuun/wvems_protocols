@@ -1,6 +1,6 @@
+import 'package:quick_reference/controllers/commands/abstract_command.dart';
+import 'package:quick_reference/ui/strings.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:wvems_protocols/controllers/commands/abstract_command.dart';
-import 'package:wvems_protocols/ui/strings.dart';
 
 class ShareLinkCommand extends AbstractCommand {
   @override

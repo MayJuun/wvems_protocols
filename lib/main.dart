@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/ui/views/views.dart';
+import 'package:quick_reference/controllers/controllers.dart';
+import 'package:quick_reference/ui/views/views.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,8 +19,8 @@ Future<void> _initServices() async {
   Get.put<ThemeController>(ThemeController());
   await ThemeController.to.getThemeModeFromStore();
   Get.put<PdfStateController>(PdfStateController());
-  // Get.put<ProtocolBundleController>(ProtocolBundleController());
-  // Get.putAsync<SearchController>(() async => SearchController());
+  Get.put<ProtocolBundleController>(ProtocolBundleController());
+  Get.putAsync<SearchController>(() async => SearchController());
 }
 
 class MyApp extends StatelessWidget {

@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'pdf_file_state.dart';
 
@@ -47,6 +48,13 @@ mixin _$PdfFileState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(File file)? data,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File file)? data,
     TResult Function()? loading,
@@ -59,6 +67,13 @@ mixin _$PdfFileState {
     required TResult Function(PdfFileStateData value) data,
     required TResult Function(PdfFileStateLoading value) loading,
     required TResult Function(PdfFileStateError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfFileStateData value)? data,
+    TResult Function(PdfFileStateLoading value)? loading,
+    TResult Function(PdfFileStateError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -120,6 +135,7 @@ class _$PdfFileStateDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PdfFileStateData implements PdfFileStateData {
   const _$PdfFileStateData(this.file);
 
@@ -160,6 +176,16 @@ class _$PdfFileStateData implements PdfFileStateData {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(File file)? data,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return data?.call(file);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File file)? data,
     TResult Function()? loading,
@@ -180,6 +206,16 @@ class _$PdfFileStateData implements PdfFileStateData {
     required TResult Function(PdfFileStateError value) error,
   }) {
     return data(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfFileStateData value)? data,
+    TResult Function(PdfFileStateLoading value)? loading,
+    TResult Function(PdfFileStateError value)? error,
+  }) {
+    return data?.call(this);
   }
 
   @override
@@ -226,6 +262,7 @@ class _$PdfFileStateLoadingCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PdfFileStateLoading implements PdfFileStateLoading {
   const _$PdfFileStateLoading();
 
@@ -254,6 +291,16 @@ class _$PdfFileStateLoading implements PdfFileStateLoading {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(File file)? data,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File file)? data,
     TResult Function()? loading,
@@ -274,6 +321,16 @@ class _$PdfFileStateLoading implements PdfFileStateLoading {
     required TResult Function(PdfFileStateError value) error,
   }) {
     return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfFileStateData value)? data,
+    TResult Function(PdfFileStateLoading value)? loading,
+    TResult Function(PdfFileStateError value)? error,
+  }) {
+    return loading?.call(this);
   }
 
   @override
@@ -333,6 +390,7 @@ class _$PdfFileStateErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PdfFileStateError implements PdfFileStateError {
   const _$PdfFileStateError(this.error, this.stackTrace);
 
@@ -380,6 +438,16 @@ class _$PdfFileStateError implements PdfFileStateError {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(File file)? data,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return error?.call(this.error, stackTrace);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File file)? data,
     TResult Function()? loading,
@@ -400,6 +468,16 @@ class _$PdfFileStateError implements PdfFileStateError {
     required TResult Function(PdfFileStateError value) error,
   }) {
     return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfFileStateData value)? data,
+    TResult Function(PdfFileStateLoading value)? loading,
+    TResult Function(PdfFileStateError value)? error,
+  }) {
+    return error?.call(this);
   }
 
   @override

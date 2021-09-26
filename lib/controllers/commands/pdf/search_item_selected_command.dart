@@ -1,7 +1,7 @@
-import 'package:wvems_protocols/_internal/utils/utils.dart';
-import 'package:wvems_protocols/controllers/commands/abstract_command.dart';
-import 'package:wvems_protocols/controllers/commands/commands.dart';
-import 'package:wvems_protocols/models/models.dart';
+import 'package:quick_reference/_internal/utils/utils.dart';
+import 'package:quick_reference/controllers/commands/abstract_command.dart';
+import 'package:quick_reference/controllers/commands/commands.dart';
+import 'package:quick_reference/models/models.dart';
 
 class SearchItemSelectedCommand extends AbstractCommand {
   @override

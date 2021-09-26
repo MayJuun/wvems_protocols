@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/ui/strings.dart';
+import 'package:quick_reference/controllers/controllers.dart';
+import 'package:quick_reference/ui/strings.dart';
 
 class DisplayMode extends StatelessWidget {
   const DisplayMode({Key? key}) : super(key: key);

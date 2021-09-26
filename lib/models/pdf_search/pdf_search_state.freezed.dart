@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'pdf_search_state.dart';
 
@@ -13,7 +14,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 PdfSearchState _$PdfSearchStateFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String) {
+  switch (json['runtimeType'] as String?) {
     case 'data':
       return PdfSearchStateData.fromJson(json);
     case 'history':
@@ -24,7 +25,8 @@ PdfSearchState _$PdfSearchStateFromJson(Map<String, dynamic> json) {
       return PdfSearchStateError.fromJson(json);
 
     default:
-      throw FallThroughError();
+      throw CheckedFromJsonException(json, 'runtimeType', 'PdfSearchState',
+          'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
@@ -77,6 +79,15 @@ mixin _$PdfSearchState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
+        data,
+    TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
+    TResult Function()? loading,
+    TResult Function(Object error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
         data,
@@ -92,6 +103,14 @@ mixin _$PdfSearchState {
     required TResult Function(PdfSearchStateHistory value) history,
     required TResult Function(PdfSearchStateLoading value) loading,
     required TResult Function(PdfSearchStateError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfSearchStateData value)? data,
+    TResult Function(PdfSearchStateHistory value)? history,
+    TResult Function(PdfSearchStateLoading value)? loading,
+    TResult Function(PdfSearchStateError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -155,14 +174,13 @@ class _$PdfSearchStateDataCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$PdfSearchStateData implements PdfSearchStateData {
   const _$PdfSearchStateData(this.searchStringDataMap);
 
   factory _$PdfSearchStateData.fromJson(Map<String, dynamic> json) =>
-      _$_$PdfSearchStateDataFromJson(json);
+      _$$PdfSearchStateDataFromJson(json);
 
   @override
   final Map<String, List<PdfSearchStrings>> searchStringDataMap;
@@ -207,6 +225,18 @@ class _$PdfSearchStateData implements PdfSearchStateData {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
+        data,
+    TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
+    TResult Function()? loading,
+    TResult Function(Object error)? error,
+  }) {
+    return data?.call(searchStringDataMap);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
         data,
@@ -234,6 +264,17 @@ class _$PdfSearchStateData implements PdfSearchStateData {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfSearchStateData value)? data,
+    TResult Function(PdfSearchStateHistory value)? history,
+    TResult Function(PdfSearchStateLoading value)? loading,
+    TResult Function(PdfSearchStateError value)? error,
+  }) {
+    return data?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PdfSearchStateData value)? data,
     TResult Function(PdfSearchStateHistory value)? history,
@@ -249,7 +290,7 @@ class _$PdfSearchStateData implements PdfSearchStateData {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$PdfSearchStateDataToJson(this)..['runtimeType'] = 'data';
+    return _$$PdfSearchStateDataToJson(this)..['runtimeType'] = 'data';
   }
 }
 
@@ -300,14 +341,13 @@ class _$PdfSearchStateHistoryCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$PdfSearchStateHistory implements PdfSearchStateHistory {
   const _$PdfSearchStateHistory(this.searchStringHistoryList);
 
   factory _$PdfSearchStateHistory.fromJson(Map<String, dynamic> json) =>
-      _$_$PdfSearchStateHistoryFromJson(json);
+      _$$PdfSearchStateHistoryFromJson(json);
 
   @override
   final Set<PdfSearchStrings> searchStringHistoryList;
@@ -354,6 +394,18 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
+        data,
+    TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
+    TResult Function()? loading,
+    TResult Function(Object error)? error,
+  }) {
+    return history?.call(searchStringHistoryList);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
         data,
@@ -381,6 +433,17 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfSearchStateData value)? data,
+    TResult Function(PdfSearchStateHistory value)? history,
+    TResult Function(PdfSearchStateLoading value)? loading,
+    TResult Function(PdfSearchStateError value)? error,
+  }) {
+    return history?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PdfSearchStateData value)? data,
     TResult Function(PdfSearchStateHistory value)? history,
@@ -396,7 +459,7 @@ class _$PdfSearchStateHistory implements PdfSearchStateHistory {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$PdfSearchStateHistoryToJson(this)..['runtimeType'] = 'history';
+    return _$$PdfSearchStateHistoryToJson(this)..['runtimeType'] = 'history';
   }
 }
 
@@ -433,14 +496,13 @@ class _$PdfSearchStateLoadingCopyWithImpl<$Res>
   PdfSearchStateLoading get _value => super._value as PdfSearchStateLoading;
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$PdfSearchStateLoading implements PdfSearchStateLoading {
   const _$PdfSearchStateLoading();
 
   factory _$PdfSearchStateLoading.fromJson(Map<String, dynamic> json) =>
-      _$_$PdfSearchStateLoadingFromJson(json);
+      _$$PdfSearchStateLoadingFromJson(json);
 
   @override
   String toString() {
@@ -467,6 +529,18 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
     required TResult Function(Object error) error,
   }) {
     return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
+        data,
+    TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
+    TResult Function()? loading,
+    TResult Function(Object error)? error,
+  }) {
+    return loading?.call();
   }
 
   @override
@@ -498,6 +572,17 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfSearchStateData value)? data,
+    TResult Function(PdfSearchStateHistory value)? history,
+    TResult Function(PdfSearchStateLoading value)? loading,
+    TResult Function(PdfSearchStateError value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PdfSearchStateData value)? data,
     TResult Function(PdfSearchStateHistory value)? history,
@@ -513,7 +598,7 @@ class _$PdfSearchStateLoading implements PdfSearchStateLoading {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$PdfSearchStateLoadingToJson(this)..['runtimeType'] = 'loading';
+    return _$$PdfSearchStateLoadingToJson(this)..['runtimeType'] = 'loading';
   }
 }
 
@@ -556,14 +641,13 @@ class _$PdfSearchStateErrorCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$PdfSearchStateError implements PdfSearchStateError {
   const _$PdfSearchStateError(this.error);
 
   factory _$PdfSearchStateError.fromJson(Map<String, dynamic> json) =>
-      _$_$PdfSearchStateErrorFromJson(json);
+      _$$PdfSearchStateErrorFromJson(json);
 
   @override
   final Object error;
@@ -606,6 +690,18 @@ class _$PdfSearchStateError implements PdfSearchStateError {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
+        data,
+    TResult Function(Set<PdfSearchStrings> searchStringHistoryList)? history,
+    TResult Function()? loading,
+    TResult Function(Object error)? error,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<PdfSearchStrings>> searchStringDataMap)?
         data,
@@ -633,6 +729,17 @@ class _$PdfSearchStateError implements PdfSearchStateError {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PdfSearchStateData value)? data,
+    TResult Function(PdfSearchStateHistory value)? history,
+    TResult Function(PdfSearchStateLoading value)? loading,
+    TResult Function(PdfSearchStateError value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PdfSearchStateData value)? data,
     TResult Function(PdfSearchStateHistory value)? history,
@@ -648,7 +755,7 @@ class _$PdfSearchStateError implements PdfSearchStateError {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$PdfSearchStateErrorToJson(this)..['runtimeType'] = 'error';
+    return _$$PdfSearchStateErrorToJson(this)..['runtimeType'] = 'error';
   }
 }
 

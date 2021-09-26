@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:wvems_protocols/ui/strings.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/dialogs.dart';
+import 'package:quick_reference/ui/strings.dart';
+import 'package:quick_reference/ui/views/nav_dialogs/dialogs.dart';
 
 class HomeBottomNav extends StatelessWidget {
   @override
@@ -11,22 +10,20 @@ class HomeBottomNav extends StatelessWidget {
       color: Theme.of(context).cardColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Obx(
-          () => Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              _Button(
-                label: S.NAV_SHARE,
-                icon: Icons.share,
-                onPressed: () => displayShareDialog(context),
-              ),
-              _Button(
-                label: S.NAV_SETTINGS,
-                icon: Icons.settings_applications_sharp,
-                onPressed: () => displaySettingsDialog(context),
-              ),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            _Button(
+              label: S.NAV_SHARE,
+              icon: Icons.share,
+              onPressed: () => displayShareDialog(context),
+            ),
+            _Button(
+              label: S.NAV_SETTINGS,
+              icon: Icons.settings_applications_sharp,
+              onPressed: () => displaySettingsDialog(context),
+            ),
+          ],
         ),
       ),
     );

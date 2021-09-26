@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/assets.dart';
+import 'package:quick_reference/assets.dart';
 
 class AppLogo extends StatelessWidget {
   @override

@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:wvems_protocols/models/models.dart';
+import 'package:quick_reference/models/models.dart';
 
 class PdfService {
   Future<File> createFileOfPdfUrl() async {

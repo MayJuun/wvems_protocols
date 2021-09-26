@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/_internal/utils/utils.dart';
-import 'package:wvems_protocols/assets.dart';
-import 'package:wvems_protocols/models/models.dart';
-import 'package:wvems_protocols/services/services.dart';
+import 'package:quick_reference/_internal/utils/utils.dart';
+import 'package:quick_reference/assets.dart';
+import 'package:quick_reference/models/models.dart';
+import 'package:quick_reference/services/services.dart';
 
 import '../controllers.dart';
 
@@ -287,29 +287,6 @@ class ProtocolBundleController extends GetxController {
     await _pdfStateController.loadNewPdf(firstLoadBundle);
 
     await _loadLocalBundles();
-  }
-
-  /// Temporary methods used only for testing and to verify files are
-  /// displayed/formatted similarly across locations.
-  /// Possible locations include hard-coded assets, local files, and cloud
-  ///
-  Future<void> _showAllFiles() async {
-    final localDirectories = getLocalSubDirectories();
-
-    // show all local files and directories:
-    localDirectories.forEach((localDir) {
-      final shortPath =
-          _documentsUtil.removeAppDirectoryPath(_appDirectory, localDir.path);
-      print('****LOCAL DIRECTORY: $shortPath****');
-      final localFiles = getLocalFiles(localDir);
-      localFiles.forEach((lf) {
-        final lfPath =
-            _documentsUtil.removeAppDirectoryPath(_appDirectory, lf.path);
-        print('file: $lfPath');
-      });
-    });
-
-    showAppAssets(AppAssets.PROTOCOL_2021);
   }
 
   // show asset files

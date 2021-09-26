@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:wvems_protocols/ui/strings.dart';
+import 'package:quick_reference/ui/strings.dart';
 
-class AboutWvemsProtocols extends StatelessWidget {
-  const AboutWvemsProtocols({Key? key}) : super(key: key);
+class AboutQuickReference extends StatelessWidget {
+  const AboutQuickReference({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

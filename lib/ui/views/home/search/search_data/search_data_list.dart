@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wvems_protocols/models/models.dart';
-import 'package:wvems_protocols/ui/views/home/search/search_data/search_data_item.dart';
-import 'package:wvems_protocols/ui/views/home/search/search_data/search_data_toc_title.dart';
+import 'package:quick_reference/models/models.dart';
+import 'package:quick_reference/ui/views/home/search/search_data/search_data_item.dart';
+import 'package:quick_reference/ui/views/home/search/search_data/search_data_toc_title.dart';
 
 class SearchDataList extends StatelessWidget {
   const SearchDataList({Key? key, required this.searchStringsList})

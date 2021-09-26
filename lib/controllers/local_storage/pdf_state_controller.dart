@@ -5,11 +5,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/controllers/search_controller.dart';
-import 'package:wvems_protocols/models/models.dart';
-import 'package:wvems_protocols/services/services.dart';
-import 'package:wvems_protocols/ui/strings.dart';
+import 'package:quick_reference/controllers/controllers.dart';
+import 'package:quick_reference/controllers/search_controller.dart';
+import 'package:quick_reference/models/models.dart';
+import 'package:quick_reference/services/services.dart';
+import 'package:quick_reference/ui/strings.dart';
 
 class PdfStateController extends GetxController with WidgetsBindingObserver {
   /// Used to load current, active PDF via file or web
@@ -33,7 +33,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final currentPage = 0.obs;
   final isReady = false.obs;
   final errorMessage = ''.obs;
-  String pathPDF = '';
+  String pathPDF = 'assets/quick-reference/quick-reference.pdf';
   final RxString asset = ''.obs;
 
   Orientation? currentOrientation = Get.context?.orientation;

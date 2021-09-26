@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/_internal/utils/utils.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/themes.dart';
+import 'package:quick_reference/_internal/utils/utils.dart';
+import 'package:quick_reference/controllers/controllers.dart';
+import 'package:quick_reference/themes.dart';
 
 // spec: https://github.com/FireJuun/prapare/blob/main/lib/controllers/theme_controller.dart
 // spec: https://github.com/delay/flutter_starter

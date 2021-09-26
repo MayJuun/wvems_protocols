@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wvems_protocols/ui/strings.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/dialogs.dart';
+import 'package:quick_reference/ui/strings.dart';
+import 'package:quick_reference/ui/views/nav_dialogs/dialogs.dart';
 
 class MoreInfo extends StatelessWidget {
   const MoreInfo({Key? key}) : super(key: key);

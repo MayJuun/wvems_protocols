@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:quick_reference/controllers/controllers.dart';
 
 import 'body.dart';
 

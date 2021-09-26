@@ -1,4 +1,4 @@
-import 'package:wvems_protocols/controllers/commands/abstract_command.dart';
+import 'package:quick_reference/controllers/commands/abstract_command.dart';
 
 class RefreshLocalDataCommand extends AbstractCommand {
   @override

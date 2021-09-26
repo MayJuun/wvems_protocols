@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/ui/strings.dart';
-import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/share_dialog/share_options.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/share_dialog/share_qr_code.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
+import 'package:quick_reference/ui/strings.dart';
+import 'package:quick_reference/ui/styled_components/styled_components.dart';
+import 'package:quick_reference/ui/views/nav_dialogs/share_dialog/share_options.dart';
+import 'package:quick_reference/ui/views/nav_dialogs/share_dialog/share_qr_code.dart';
+import 'package:quick_reference/ui/views/nav_dialogs/shared/shared.dart';
 
 // The action items for the currently displayed version. Share and Print
 // both fire a dialog to ask if the user wants to act on just the single

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:quick_reference/controllers/controllers.dart';
 
 abstract class AbstractCommand {
   final StorageController storageController = Get.find();

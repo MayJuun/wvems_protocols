@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:quick_reference/controllers/controllers.dart';
 
 import 'search_data/search_data_map.dart';
 import 'search_history/search_history_set.dart';

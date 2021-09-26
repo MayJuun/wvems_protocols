@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:quick_reference/controllers/controllers.dart';
 
 class SearchDataTocTitle extends StatelessWidget {
   const SearchDataTocTitle({Key? key, required this.pageNumber})

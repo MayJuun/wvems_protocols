@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:wvems_protocols/controllers/commands/commands.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/models/models.dart';
+import 'package:quick_reference/controllers/commands/commands.dart';
+import 'package:quick_reference/controllers/controllers.dart';
+import 'package:quick_reference/models/models.dart';
 
 /// This shows the 'history' of previous items that have been searched for in the past
 class SearchHistoryItem extends StatelessWidget {

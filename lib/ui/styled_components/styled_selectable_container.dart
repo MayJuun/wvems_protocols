@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wvems_protocols/_internal/utils/utils.dart';
+import 'package:quick_reference/_internal/utils/utils.dart';
 
 final _kBorderRadius = BorderRadius.circular(12);
 

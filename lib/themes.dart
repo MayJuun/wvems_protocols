@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wvems_protocols/_internal/utils/utils.dart';
+import 'package:quick_reference/_internal/utils/utils.dart';
 
 class _AppColors {
   static const Color primary = Color(0xFFF0F0F0);

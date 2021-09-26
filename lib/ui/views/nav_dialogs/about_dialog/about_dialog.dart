@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/ui/strings.dart';
-import 'package:wvems_protocols/ui/styled_components/styled_components.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/about_dialog/about_may_juun.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/about_dialog/about_wvems_protocols.dart';
-import 'package:wvems_protocols/ui/views/nav_dialogs/shared/shared.dart';
+import 'package:quick_reference/ui/strings.dart';
+import 'package:quick_reference/ui/styled_components/styled_components.dart';
+import 'package:quick_reference/ui/views/nav_dialogs/about_dialog/about_may_juun.dart';
+import 'package:quick_reference/ui/views/nav_dialogs/about_dialog/about_quick_reference.dart';
+import 'package:quick_reference/ui/views/nav_dialogs/shared/shared.dart';
 
 // pop-op dialog for "About"
 void displayAboutDialog(BuildContext context) {
@@ -25,7 +25,7 @@ class _AboutDialog extends StatelessWidget {
       hasOkButton: false,
       children: const <Widget>[
         Gap(12),
-        AboutWvemsProtocols(),
+        AboutQuickReference(),
         Gap(12),
         NavDivider(),
         Gap(8),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:wvems_protocols/ui/strings.dart';
+import 'package:quick_reference/ui/strings.dart';
 
 class AboutMayJuun extends StatelessWidget {
   const AboutMayJuun({Key? key}) : super(key: key);

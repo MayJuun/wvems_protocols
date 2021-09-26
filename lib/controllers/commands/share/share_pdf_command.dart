@@ -1,5 +1,5 @@
+import 'package:quick_reference/controllers/commands/abstract_command.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:wvems_protocols/controllers/commands/abstract_command.dart';
 
 class SharePdfCommand extends AbstractCommand {
   @override

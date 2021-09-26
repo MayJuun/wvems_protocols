@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:wvems_protocols/controllers/commands/commands.dart';
-import 'package:wvems_protocols/ui/strings.dart';
+import 'package:quick_reference/controllers/commands/commands.dart';
+import 'package:quick_reference/ui/strings.dart';
 
 class ShareOptions extends StatelessWidget {
   const ShareOptions({Key? key}) : super(key: key);

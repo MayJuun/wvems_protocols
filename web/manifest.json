@@ -1,6 +1,6 @@
 {
-    "name": "wvems_protocols",
-    "short_name": "wvems_protocols",
+    "name": "quick_reference",
+    "short_name": "quick_reference",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

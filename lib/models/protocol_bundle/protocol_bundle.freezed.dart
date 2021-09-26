@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'protocol_bundle.dart';
 
@@ -89,6 +90,19 @@ mixin _$ProtocolBundle {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult Function(String bundleId)? downloading,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
@@ -109,6 +123,15 @@ mixin _$ProtocolBundle {
     required TResult Function(ProtocoleBundleDownloading value) downloading,
     required TResult Function(ProtocolBundleLoading value) loading,
     required TResult Function(ProtocolBundleError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult Function(ProtocoleBundleDownloading value)? downloading,
+    TResult Function(ProtocolBundleLoading value)? loading,
+    TResult Function(ProtocolBundleError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -204,6 +227,7 @@ class _$ProtocolBundleAsAssetsCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
   const _$ProtocolBundleAsAssets(
       {required this.bundleId,
@@ -289,6 +313,23 @@ class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult Function(String bundleId)? downloading,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return asAssets?.call(bundleId, bundleVersion, year, pdfAssetPath,
+        jsonAssetPath, tocJsonAssetPath);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
@@ -318,6 +359,18 @@ class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
     required TResult Function(ProtocolBundleError value) error,
   }) {
     return asAssets(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult Function(ProtocoleBundleDownloading value)? downloading,
+    TResult Function(ProtocolBundleLoading value)? loading,
+    TResult Function(ProtocolBundleError value)? error,
+  }) {
+    return asAssets?.call(this);
   }
 
   @override
@@ -427,6 +480,7 @@ class _$ProtocolBundleAsFilesCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
   const _$ProtocolBundleAsFiles(
       {required this.bundleId,
@@ -519,6 +573,23 @@ class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult Function(String bundleId)? downloading,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return asFiles?.call(bundleId, bundleVersion, year, pdfFileSize, pdfFile,
+        jsonFile, tocJsonFile);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
@@ -548,6 +619,18 @@ class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
     required TResult Function(ProtocolBundleError value) error,
   }) {
     return asFiles(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult Function(ProtocoleBundleDownloading value)? downloading,
+    TResult Function(ProtocolBundleLoading value)? loading,
+    TResult Function(ProtocolBundleError value)? error,
+  }) {
+    return asFiles?.call(this);
   }
 
   @override
@@ -623,6 +706,7 @@ class _$ProtocoleBundleDownloadingCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
   const _$ProtocoleBundleDownloading({required this.bundleId});
 
@@ -672,6 +756,22 @@ class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult Function(String bundleId)? downloading,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return downloading?.call(bundleId);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
@@ -700,6 +800,18 @@ class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
     required TResult Function(ProtocolBundleError value) error,
   }) {
     return downloading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult Function(ProtocoleBundleDownloading value)? downloading,
+    TResult Function(ProtocolBundleLoading value)? loading,
+    TResult Function(ProtocolBundleError value)? error,
+  }) {
+    return downloading?.call(this);
   }
 
   @override
@@ -749,6 +861,7 @@ class _$ProtocolBundleLoadingCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$ProtocolBundleLoading implements ProtocolBundleLoading {
   const _$ProtocolBundleLoading();
 
@@ -783,6 +896,22 @@ class _$ProtocolBundleLoading implements ProtocolBundleLoading {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult Function(String bundleId)? downloading,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
@@ -811,6 +940,18 @@ class _$ProtocolBundleLoading implements ProtocolBundleLoading {
     required TResult Function(ProtocolBundleError value) error,
   }) {
     return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult Function(ProtocoleBundleDownloading value)? downloading,
+    TResult Function(ProtocolBundleLoading value)? loading,
+    TResult Function(ProtocolBundleError value)? error,
+  }) {
+    return loading?.call(this);
   }
 
   @override
@@ -872,6 +1013,7 @@ class _$ProtocolBundleErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$ProtocolBundleError implements ProtocolBundleError {
   const _$ProtocolBundleError(this.error, this.stackTrace);
 
@@ -925,6 +1067,22 @@ class _$ProtocolBundleError implements ProtocolBundleError {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult Function(String bundleId)? downloading,
+    TResult Function()? loading,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return error?.call(this.error, stackTrace);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String bundleId, int bundleVersion, int year,
             String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
@@ -953,6 +1111,18 @@ class _$ProtocolBundleError implements ProtocolBundleError {
     required TResult Function(ProtocolBundleError value) error,
   }) {
     return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult Function(ProtocoleBundleDownloading value)? downloading,
+    TResult Function(ProtocolBundleLoading value)? loading,
+    TResult Function(ProtocolBundleError value)? error,
+  }) {
+    return error?.call(this);
   }
 
   @override
