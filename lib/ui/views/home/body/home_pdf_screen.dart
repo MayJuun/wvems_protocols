@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
-import 'package:screenshot/screenshot.dart';
 import 'package:quick_reference/controllers/controllers.dart';
 import 'package:quick_reference/ui/views/home/body/home_pdf_controller.dart';
+import 'package:screenshot/screenshot.dart';
 
 class HomePdfScreen extends StatelessWidget {
   const HomePdfScreen({Key? key, required this.path}) : super(key: key);

@@ -130,7 +130,6 @@ class AppTheme {
                 : SystemUiOverlayStyle.light),
         brightness: isDark ? Brightness.dark : Brightness.light,
         typography: Typography.material2018(),
-        accentTextTheme: _buildTextTheme().apply(bodyColor: accentTxt),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: primary,
@@ -138,7 +137,6 @@ class AppTheme {
           selectionHandleColor: Colors.transparent,
         ),
         iconTheme: IconThemeData(color: grey, size: 30),
-        buttonColor: primary,
         // this theme currently used for HomeButtonNav only
         // if other TextButtons are used, it will need to be extracted
         textButtonTheme: TextButtonThemeData(

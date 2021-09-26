@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:quick_reference/controllers/controllers.dart';
 import 'package:quick_reference/ui/strings.dart';
 
 const _padding = EdgeInsets.symmetric(vertical: 48.0, horizontal: 32.0);
