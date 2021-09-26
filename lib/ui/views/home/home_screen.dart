@@ -16,14 +16,13 @@ class HomeScreen extends StatelessWidget {
       builder: (_) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          // drawer: NavDrawer(),
           key: _.homeScaffoldKey,
           appBar: AppBar(toolbarHeight: 0),
-          body: SafeArea(
-            child: HomeScreenHeader(
-              body: HomeScreenBody(),
-            ),
-          ),
+          // body: SafeArea(
+          //   child: HomeScreenHeader(
+          //     body: HomeScreenBody(),
+          //   ),
+          // ),
           bottomNavigationBar: HomeBottomNav(),
           floatingActionButton: HomeFab(),
           floatingActionButtonLocation: _CustomFloatingActionButtonLocation(

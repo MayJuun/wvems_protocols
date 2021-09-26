@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/controllers/commands/commands.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 
@@ -27,14 +26,14 @@ class ShareOptions extends StatelessWidget {
         // ),
         _ShareOption(
             title: S.NAV_SHARE_PDF,
-            icon: Mdi.pdfBox,
+            icon: Icons.picture_as_pdf,
             onPressed: () async {
               await SharePdfCommand().execute();
               Get.back();
             }),
         _ShareOption(
             title: S.NAV_SHARE_LINK,
-            icon: Mdi.tabletCellphone,
+            icon: Icons.phonelink_ring,
             // onPressed: () => Share.share(S.NAV_SHARE_LINK_INFO),
             onPressed: () async {
               await ShareLinkCommand().execute();

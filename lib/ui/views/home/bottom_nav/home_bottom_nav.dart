@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/ui/strings.dart';
 import 'package:wvems_protocols/ui/views/nav_dialogs/dialogs.dart';
 
@@ -18,12 +17,12 @@ class HomeBottomNav extends StatelessWidget {
             children: <Widget>[
               _Button(
                 label: S.NAV_SHARE,
-                icon: Mdi.shareVariant,
+                icon: Icons.share,
                 onPressed: () => displayShareDialog(context),
               ),
               _Button(
                 label: S.NAV_SETTINGS,
-                icon: Mdi.cog,
+                icon: Icons.settings_applications_sharp,
                 onPressed: () => displaySettingsDialog(context),
               ),
             ],

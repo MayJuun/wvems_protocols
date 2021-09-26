@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:mdi/mdi.dart';
 import 'package:wvems_protocols/controllers/commands/commands.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
 import 'package:wvems_protocols/models/models.dart';
@@ -69,7 +68,7 @@ class _ToggleDownloadInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: const <Widget>[
-                Icon(Mdi.refresh, size: 18),
+                Icon(Icons.refresh, size: 18),
                 Gap(4),
                 Expanded(child: StyledSubtitleText('= refresh content')),
               ],
@@ -83,7 +82,7 @@ class _ToggleDownloadInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
               children: const <Widget>[
-                Icon(Mdi.cloudDownloadOutline, size: 18),
+                Icon(Icons.cloud_download_outlined, size: 18),
                 Gap(4),
                 Expanded(child: StyledSubtitleText('= download / remove')),
               ],

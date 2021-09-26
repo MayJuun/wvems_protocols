@@ -19,8 +19,8 @@ Future<void> _initServices() async {
   Get.put<ThemeController>(ThemeController());
   await ThemeController.to.getThemeModeFromStore();
   Get.put<PdfStateController>(PdfStateController());
-  Get.put<ProtocolBundleController>(ProtocolBundleController());
-  Get.putAsync<SearchController>(() async => SearchController());
+  // Get.put<ProtocolBundleController>(ProtocolBundleController());
+  // Get.putAsync<SearchController>(() async => SearchController());
 }
 
 class MyApp extends StatelessWidget {
