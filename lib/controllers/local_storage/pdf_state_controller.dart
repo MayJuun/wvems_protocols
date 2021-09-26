@@ -35,7 +35,6 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final errorMessage = ''.obs;
   String pathPDF = '';
   final RxString asset = ''.obs;
-  final RxInt activeYear = 2020.obs;
 
   Orientation? currentOrientation = Get.context?.orientation;
 
@@ -62,7 +61,6 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
       await _loadNewPdfTableOfContentsFromBundle(bundle);
       print('file saved');
       SearchController.to.clear();
-      activeYear.value = bundle.year;
     } catch (e, st) {
       pdfFileState.value = PdfFileState.error(e, st);
     }
