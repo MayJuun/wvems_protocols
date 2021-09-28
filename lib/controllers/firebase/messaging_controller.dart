@@ -41,6 +41,7 @@ class MessagingController extends GetxController {
       onConfirm: () {
         Get.back();
         appMessages.remove(appMessage);
+        saveMessagesToStore();
       },
       onCancel: () => Get.back(),
     );
