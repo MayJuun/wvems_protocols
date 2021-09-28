@@ -56,9 +56,9 @@ class CloudStorageService {
     try {
       final Directory localDir = await _documentsService.getAppDirectory();
 
-      _saveRefToLocalDirectory(bundle.jsonRef, localDir);
-      _saveRefToLocalDirectory(bundle.tocJsonRef, localDir);
-      _saveRefToLocalDirectory(bundle.pdfRef, localDir)
+      await _saveRefToLocalDirectory(bundle.jsonRef, localDir);
+      await _saveRefToLocalDirectory(bundle.tocJsonRef, localDir);
+      await _saveRefToLocalDirectory(bundle.pdfRef, localDir)
           .whenComplete(onComplete);
       print('bundle saved from cloud for ${bundle.bundleId}');
       status = true;
@@ -70,10 +70,11 @@ class CloudStorageService {
     return status;
   }
 
-  Future<DownloadTask> _saveRefToLocalDirectory(
+  Future<bool> _saveRefToLocalDirectory(
       Reference reference, Directory localDir) async {
     late final DownloadTask downloadTask;
     late final File file;
+    late final bool response;
     try {
       final String fullPath = '${localDir.path}/${reference.fullPath}';
 
@@ -84,10 +85,13 @@ class CloudStorageService {
       }
 
       downloadTask = reference.writeToFile(file);
+      await downloadTask.whenComplete(() => response = true);
+      while (!response) {}
+      return response;
     } catch (error) {
       print('error creating new file or writing to existing file: $error');
+      return false;
     }
-    return downloadTask;
   }
 
   /// List all subdirectories within the main folder
