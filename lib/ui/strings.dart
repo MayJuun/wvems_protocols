@@ -36,7 +36,8 @@ class _Strings {
   final String NAV_ABOUT_RELEASE = 'Application Release:';
   final String NAV_ABOUT_MAYJUUN = 'About MayJuun';
   final String NAV_ABOUT_MAYJUUN_INFO =
-      'Created in collaboration with MayJuun. App\'s code is open source under the MIT license. https://mayjuun.com';
+      "Created in collaboration with MayJuun. App's code is open source under the MIT license.";
+  final String NAV_ABOUT_MAYJUUN_SITE = 'https://mayjuun.com';
 
   final String NAV_OK = 'OK';
 

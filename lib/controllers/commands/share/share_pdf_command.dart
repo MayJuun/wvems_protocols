@@ -5,10 +5,6 @@ class SharePdfCommand extends AbstractCommand {
   @override
   Future<void> execute() async {
     print('share pdf');
-    await Share.shareFiles(
-      [pdfStateController.pathPDF],
-      subject: 'Subject',
-      text: 'Text',
-    );
+    await Share.shareFiles([pdfStateController.pathPDF]);
   }
 }
