@@ -140,7 +140,8 @@ class CloudStorageService {
     final directory = await getApplicationDocumentsDirectory();
 
     // Get list of items in app directory
-    List contents = directory.listSync(recursive: true, followLinks: true);
+    final List contents =
+        directory.listSync(recursive: true, followLinks: true);
 
     // Get pdf filenames
     result.items.forEach((Reference ref) {
@@ -158,7 +159,7 @@ class CloudStorageService {
       } else {
         print(tmpFileName + ' is not here!');
         print('Downloading');
-        File downloadToFile = File(tmpFileName);
+        final File downloadToFile = File(tmpFileName);
         ref.writeToFile(downloadToFile);
       }
     });
@@ -178,12 +179,13 @@ class CloudStorageService {
       } else {
         print(tmpJSONFileName + ' is not here!');
         print('Downloading');
-        File downloadToFile = File(tmpJSONFileName);
+        final File downloadToFile = File(tmpJSONFileName);
         ref.writeToFile(downloadToFile);
       }
     });
 
-    for (var item in contents) {
+    for (int i = 0; i < contents.length; i++) {
+      final item = contents[i];
       print(item);
     }
 

@@ -29,7 +29,7 @@ class HomeBottomNav extends StatelessWidget {
                       child: Icon(
                         Icons.circle,
                         size: 12.0,
-                        color: context.theme.accentColor,
+                        color: context.theme.colorScheme.secondary,
                         // color: Theme.of(context).primaryColor,
                       ),
                     ),
