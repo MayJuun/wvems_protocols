@@ -5,6 +5,7 @@ class NavDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider(color: Theme.of(context).accentColor, thickness: 1);
+    return Divider(
+        color: Theme.of(context).colorScheme.secondary, thickness: 1);
   }
 }

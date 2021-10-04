@@ -3,8 +3,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:wvems_protocols/controllers/firebase/messaging_controller.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
+import 'package:wvems_protocols/controllers/firebase/messaging_controller.dart';
 import 'package:wvems_protocols/ui/views/views.dart';
 
 Future<void> main() async {
