@@ -52,6 +52,7 @@ class MyApp extends StatelessWidget {
           themeController.getThemeDataFromThemeMode(themeController.themeMode),
       themeMode: themeController.themeMode,
       home: HomeScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
