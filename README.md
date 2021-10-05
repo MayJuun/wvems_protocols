@@ -4,13 +4,21 @@ A provider-facing Flutter app to view clinical / EMS protocols quickly and effic
 
 This app includes the current operational guidelines and protocols developed by the EMS Operational Medical Directors in the Western Virginia EMS Region, along with other helpful resources to view offline and online. The app contains interactive features such as push notifications, videos, collaboration tools, external links, interactivity with our social media channels, and much more. Easy navigation tools, search functions, and bookmarks are in our application
 
-Copyright is held by the Western Virginia EMS Council, Inc.
+Copyright is held by the [Western Virginia EMS Council, Inc](https://western.vaems.org/).
 
 <img align="right" src="wvems-demo.gif" width="320"/>
 
-## Design
+## Where to Find
 
-Prototype / wireframes, if relevant.
+This app is available on the [Apple App Store](https://apps.apple.com/ca/app/wvems-protocols-operational/id1437286516) and the [Google Play Store](https://play.google.com/store/apps/details?id=com.WVEMSProtocols). It is free to download.
+
+A single link to this protocol can be found here (Play Store + App Store + PDF, depending on which system is used to open it):
+
+https://onelink.to/xu9aq8
+
+That link is accessible via QR code as well:
+
+<img align="center" src="assets/png/share_qr_code.png" width="320"/>
 
 ## Architecture
 
