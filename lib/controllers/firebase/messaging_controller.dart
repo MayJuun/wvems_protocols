@@ -12,7 +12,7 @@ class MessagingController extends GetxController {
   final AndroidNotificationChannel channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
-    'This channel is used for important notifications.', // description
+    description: 'This channel is used for important notifications.', // description
     importance: Importance.max,
   );
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -177,7 +177,7 @@ class MessagingController extends GetxController {
             android: AndroidNotificationDetails(
               channel.id,
               channel.name,
-              channel.description,
+              channelDescription: channel.description,
               icon: 'ic_launcher',
             ),
           ));
