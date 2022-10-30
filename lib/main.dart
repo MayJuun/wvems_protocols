@@ -10,7 +10,13 @@ import 'package:wvems_protocols/ui/views/views.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+    appId: 'AAA',
+    projectId: 'BBB',
+    apiKey: 'CCC',
+    messagingSenderId: 'DDD',
+  ));
 
   await _initServices();
 
