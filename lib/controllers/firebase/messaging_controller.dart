@@ -1,4 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart'
+    show defaultTargetPlatform, TargetPlatform;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
@@ -7,12 +9,13 @@ import 'package:wvems_protocols/models/models.dart';
 class MessagingController extends GetxController {
   final StorageController storageController = Get.find();
 
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  late NotificationSettings settings;
+  late final FirebaseMessaging messaging;
+  late final NotificationSettings settings;
   final AndroidNotificationChannel channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
-    'This channel is used for important notifications.', // description
+    description:
+        'This channel is used for important notifications.', // description
     importance: Importance.max,
   );
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -54,7 +57,16 @@ class MessagingController extends GetxController {
 
     appMessages = await _loadMessagesFromStore();
 
-    settings = await _requestPermissions();
+    messaging = FirebaseMessaging.instance;
+
+    /// RequestPermissions doesn't work for Android anymore
+    /// but it's still important for iOS, macOS, and web
+    /// spec: https://firebase.google.com/docs/cloud-messaging/flutter/receive#request_permission_to_receive_messages_apple_and_web
+    /// For this app, we're only targeting iOS + Android
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      settings = await _requestPermissions();
+    }
+
     await _createNotificationChannel();
 
     // spec: https://firebase.flutter.dev/docs/messaging/notifications#ios-configuration
@@ -131,6 +143,7 @@ class MessagingController extends GetxController {
       if (initMessage != null) {
         handleMessage(initMessage);
       }
+      return null;
     });
 
     // Handle any interaction when the app is in the background via a
@@ -177,7 +190,7 @@ class MessagingController extends GetxController {
             android: AndroidNotificationDetails(
               channel.id,
               channel.name,
-              channel.description,
+              channelDescription: channel.description,
               icon: 'ic_launcher',
             ),
           ));

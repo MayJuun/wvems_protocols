@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/controllers/firebase/messaging_controller.dart';
+import 'package:wvems_protocols/firebase_options.dart';
 import 'package:wvems_protocols/ui/views/views.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await _initServices();
 

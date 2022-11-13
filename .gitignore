@@ -125,6 +125,9 @@ app.*.map.json
 lib/api/*
 # ...but public API keys are not ignored
 !lib/api/api_public.dart
-android/app/google-services.json
-ios/GoogleService-Info.plist
+
+# Ignore FlutterFire CLI generated API keys and IDs
+**GoogleService-Info.plist
 **google-services.json
+**firebase_app_id_file.json
+**firebase_options.dart
