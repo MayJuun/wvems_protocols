@@ -5,7 +5,7 @@ abstract class AbstractCommand {
   final StorageController storageController = Get.find();
   final PdfStateController pdfStateController = Get.find();
   final ProtocolBundleController protocolBundleController = Get.find();
-  final SearchController searchController = Get.find();
+  final PdfSearchController pdfSearchController = Get.find();
 
   Future<void> execute();
 }

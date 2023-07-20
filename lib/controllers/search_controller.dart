@@ -8,8 +8,8 @@ import 'package:wvems_protocols/models/models.dart';
 const _SUBSTRING = 20;
 
 /// Floating Search Bar spec: https://pub.dev/packages/material_floating_search_bar
-class SearchController extends GetxController {
-  static SearchController get to => Get.find();
+class PdfSearchController extends GetxController {
+  static PdfSearchController get to => Get.find();
 
   final PdfStateController _pdfStateController = Get.find();
   final StorageController _data = Get.find();

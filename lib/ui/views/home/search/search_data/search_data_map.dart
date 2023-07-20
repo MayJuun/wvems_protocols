@@ -15,14 +15,14 @@ class SearchDataMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SearchController searchController = Get.find();
+    final PdfSearchController pdfSearchController = Get.find();
 
     return Column(
       children: [
         const Gap(8),
         Obx(
           () => Text(
-              'Number of Results: ${searchController.numberOfResults.value}'),
+              'Number of Results: ${pdfSearchController.numberOfResults.value}'),
         ),
         const Gap(8),
         SizedBox(

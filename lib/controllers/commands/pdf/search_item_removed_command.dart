@@ -11,7 +11,7 @@ class SearchItemRemovedCommand extends AbstractCommand {
     final searchString = pdfSearchStrings ?? _ERROR_SEARCH_STRING;
 
     /// Add search strings to history
-    searchController.removeFromSearchHistory(searchString);
+    pdfSearchController.removeFromSearchHistory(searchString);
   }
 }
 

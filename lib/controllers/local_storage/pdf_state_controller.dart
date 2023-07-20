@@ -60,7 +60,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
       await _loadNewPdfTextFromBundle(bundle);
       await _loadNewPdfTableOfContentsFromBundle(bundle);
       print('file saved');
-      SearchController.to.clear();
+      PdfSearchController.to.clear();
       activeYear.value = bundle.year;
     } catch (e, st) {
       pdfFileState.value = PdfFileState.error(e, st);

@@ -41,7 +41,7 @@ Future<void> _initServices() async {
   await Firebase.initializeApp();
   Get.put<PdfStateController>(PdfStateController());
   Get.put<ProtocolBundleController>(ProtocolBundleController());
-  Get.putAsync<SearchController>(() async => SearchController());
+  Get.putAsync<PdfSearchController>(() async => PdfSearchController());
 }
 
 class MyApp extends StatelessWidget {

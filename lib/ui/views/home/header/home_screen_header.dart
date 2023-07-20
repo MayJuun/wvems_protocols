@@ -15,7 +15,7 @@ class HomeScreenHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SearchController searchController = Get.find();
+    final PdfSearchController pdfSearchController = Get.find();
 
     final actions = [
       // Actions shown on the right of the search bar
@@ -29,9 +29,9 @@ class HomeScreenHeader extends StatelessWidget {
 
     return FloatingSearchBar(
       automaticallyImplyBackButton: false,
-      backgroundColor: context.theme.backgroundColor,
+      backgroundColor: context.theme.colorScheme.background,
       automaticallyImplyDrawerHamburger: false,
-      controller: searchController.floatingSearchBarController,
+      controller: pdfSearchController.floatingSearchBarController,
       clearQueryOnClose: false,
       hint: S.SEARCH_BAR_HINT,
       iconColor: Colors.grey,
@@ -41,10 +41,10 @@ class HomeScreenHeader extends StatelessWidget {
       axisAlignment: isPortrait ? 0.0 : -1.0,
       openAxisAlignment: 0.0,
       actions: actions,
-      progress: searchController.isLoading.value,
+      progress: pdfSearchController.isLoading.value,
       debounceDelay: const Duration(milliseconds: 450),
       onQueryChanged: (String newValue) async =>
-          await searchController.onQueryChanged(newValue),
+          await pdfSearchController.onQueryChanged(newValue),
       transition: CircularFloatingSearchBarTransition(),
 
       /// When search bar is clicked, this widget is shown

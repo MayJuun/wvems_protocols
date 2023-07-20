@@ -17,7 +17,7 @@ class SearchDataItem extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
-    final SearchController searchController = Get.find();
+    final PdfSearchController pdfSearchController = Get.find();
     // final PdfStateController pdfStateController = Get.find();
     // final pdfPageText = pdfStateController.pdfSearchState;
     final ThemeController themeController = Get.find();
@@ -44,7 +44,7 @@ class SearchDataItem extends StatelessWidget {
                     duration: const Duration(milliseconds: 500),
                     // todo: reimplement
                     child: Obx(
-                      () => searchController.pdfSearchState.value.maybeWhen(
+                      () => pdfSearchController.pdfSearchState.value.maybeWhen(
                         data: (data) => const Icon(Icons.find_in_page_outlined,
                             key: Key('search')),
                         history: (history) =>
@@ -62,8 +62,8 @@ class SearchDataItem extends StatelessWidget {
                     children: <TextSpan>[
                       TextSpan(
                         text: '...${searchStrings.beforeResult}',
-                        style:
-                            textTheme.bodyText2!.copyWith(color: appTheme.grey),
+                        style: textTheme.bodyMedium!
+                            .copyWith(color: appTheme.grey),
                       ),
                       TextSpan(
                         text: searchStrings.result,
@@ -72,8 +72,8 @@ class SearchDataItem extends StatelessWidget {
                       ),
                       TextSpan(
                         text: '${searchStrings.afterResult}...',
-                        style:
-                            textTheme.bodyText2!.copyWith(color: appTheme.grey),
+                        style: textTheme.bodyMedium!
+                            .copyWith(color: appTheme.grey),
                       ),
                     ],
                   ),

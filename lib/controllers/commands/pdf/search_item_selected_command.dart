@@ -17,13 +17,13 @@ class SearchItemSelectedCommand extends AbstractCommand {
     SetPageCommand().execute(pageIndex: pageIndex);
 
     /// Add search strings to history
-    searchController.addToSearchHistory(searchString);
+    pdfSearchController.addToSearchHistory(searchString);
 
     /// if we want to clear the controller on each search...
     /// then re-implement this method
     // Future.delayed(
     //   const Duration(milliseconds: 500),
-    //   () => searchController.clear(),
+    //   () => pdfSearchController.clear(),
     // );
   }
 }
