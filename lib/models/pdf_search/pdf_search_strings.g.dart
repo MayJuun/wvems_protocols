@@ -1,25 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: non_constant_identifier_names
-
 part of 'pdf_search_strings.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PdfSearchStringsData _$_$PdfSearchStringsDataFromJson(
-    Map<String, dynamic> json) {
-  return _$PdfSearchStringsData(
-    pageNumber: json['pageNumber'] as int,
-    pageIndex: json['pageIndex'] as int,
-    beforeResult: json['beforeResult'] as String,
-    result: json['result'] as String,
-    afterResult: json['afterResult'] as String,
-  );
-}
+_$PdfSearchStringsData _$$PdfSearchStringsDataFromJson(
+        Map<String, dynamic> json) =>
+    _$PdfSearchStringsData(
+      pageNumber: json['pageNumber'] as int,
+      pageIndex: json['pageIndex'] as int,
+      beforeResult: json['beforeResult'] as String,
+      result: json['result'] as String,
+      afterResult: json['afterResult'] as String,
+    );
 
-Map<String, dynamic> _$_$PdfSearchStringsDataToJson(
+Map<String, dynamic> _$$PdfSearchStringsDataToJson(
         _$PdfSearchStringsData instance) =>
     <String, dynamic>{
       'pageNumber': instance.pageNumber,

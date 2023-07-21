@@ -1,5 +1,7 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'pdf_table_of_contents_state.dart';
 
@@ -10,32 +12,7 @@ part of 'pdf_table_of_contents_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$PdfTableOfContentsStateTearOff {
-  const _$PdfTableOfContentsStateTearOff();
-
-  PdfTableOfContentsStateData data(Map<String, dynamic> textList) {
-    return PdfTableOfContentsStateData(
-      textList,
-    );
-  }
-
-  PdfTableOfContentsStateLoading loading() {
-    return const PdfTableOfContentsStateLoading();
-  }
-
-  PdfTableOfContentsStateError error(Object error, StackTrace stackTrace) {
-    return PdfTableOfContentsStateError(
-      error,
-      stackTrace,
-    );
-  }
-}
-
-/// @nodoc
-const $PdfTableOfContentsState = _$PdfTableOfContentsStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$PdfTableOfContentsState {
@@ -44,6 +21,13 @@ mixin _$PdfTableOfContentsState {
     required TResult Function(Map<String, dynamic> textList) data,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, dynamic> textList)? data,
+    TResult? Function()? loading,
+    TResult? Function(Object error, StackTrace stackTrace)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,6 +46,13 @@ mixin _$PdfTableOfContentsState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PdfTableOfContentsStateData value)? data,
+    TResult? Function(PdfTableOfContentsStateLoading value)? loading,
+    TResult? Function(PdfTableOfContentsStateError value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PdfTableOfContentsStateData value)? data,
     TResult Function(PdfTableOfContentsStateLoading value)? loading,
@@ -75,47 +66,49 @@ mixin _$PdfTableOfContentsState {
 abstract class $PdfTableOfContentsStateCopyWith<$Res> {
   factory $PdfTableOfContentsStateCopyWith(PdfTableOfContentsState value,
           $Res Function(PdfTableOfContentsState) then) =
-      _$PdfTableOfContentsStateCopyWithImpl<$Res>;
+      _$PdfTableOfContentsStateCopyWithImpl<$Res, PdfTableOfContentsState>;
 }
 
 /// @nodoc
-class _$PdfTableOfContentsStateCopyWithImpl<$Res>
+class _$PdfTableOfContentsStateCopyWithImpl<$Res,
+        $Val extends PdfTableOfContentsState>
     implements $PdfTableOfContentsStateCopyWith<$Res> {
   _$PdfTableOfContentsStateCopyWithImpl(this._value, this._then);
 
-  final PdfTableOfContentsState _value;
   // ignore: unused_field
-  final $Res Function(PdfTableOfContentsState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class $PdfTableOfContentsStateDataCopyWith<$Res> {
-  factory $PdfTableOfContentsStateDataCopyWith(
-          PdfTableOfContentsStateData value,
-          $Res Function(PdfTableOfContentsStateData) then) =
-      _$PdfTableOfContentsStateDataCopyWithImpl<$Res>;
+abstract class _$$PdfTableOfContentsStateDataCopyWith<$Res> {
+  factory _$$PdfTableOfContentsStateDataCopyWith(
+          _$PdfTableOfContentsStateData value,
+          $Res Function(_$PdfTableOfContentsStateData) then) =
+      __$$PdfTableOfContentsStateDataCopyWithImpl<$Res>;
+  @useResult
   $Res call({Map<String, dynamic> textList});
 }
 
 /// @nodoc
-class _$PdfTableOfContentsStateDataCopyWithImpl<$Res>
-    extends _$PdfTableOfContentsStateCopyWithImpl<$Res>
-    implements $PdfTableOfContentsStateDataCopyWith<$Res> {
-  _$PdfTableOfContentsStateDataCopyWithImpl(PdfTableOfContentsStateData _value,
-      $Res Function(PdfTableOfContentsStateData) _then)
-      : super(_value, (v) => _then(v as PdfTableOfContentsStateData));
+class __$$PdfTableOfContentsStateDataCopyWithImpl<$Res>
+    extends _$PdfTableOfContentsStateCopyWithImpl<$Res,
+        _$PdfTableOfContentsStateData>
+    implements _$$PdfTableOfContentsStateDataCopyWith<$Res> {
+  __$$PdfTableOfContentsStateDataCopyWithImpl(
+      _$PdfTableOfContentsStateData _value,
+      $Res Function(_$PdfTableOfContentsStateData) _then)
+      : super(_value, _then);
 
-  @override
-  PdfTableOfContentsStateData get _value =>
-      super._value as PdfTableOfContentsStateData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? textList = freezed,
+    Object? textList = null,
   }) {
-    return _then(PdfTableOfContentsStateData(
-      textList == freezed
-          ? _value.textList
+    return _then(_$PdfTableOfContentsStateData(
+      null == textList
+          ? _value._textList
           : textList // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ));
@@ -123,11 +116,18 @@ class _$PdfTableOfContentsStateDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$PdfTableOfContentsStateData implements PdfTableOfContentsStateData {
-  const _$PdfTableOfContentsStateData(this.textList);
 
+class _$PdfTableOfContentsStateData implements PdfTableOfContentsStateData {
+  const _$PdfTableOfContentsStateData(final Map<String, dynamic> textList)
+      : _textList = textList;
+
+  final Map<String, dynamic> _textList;
   @override
-  final Map<String, dynamic> textList;
+  Map<String, dynamic> get textList {
+    if (_textList is EqualUnmodifiableMapView) return _textList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_textList);
+  }
 
   @override
   String toString() {
@@ -137,21 +137,21 @@ class _$PdfTableOfContentsStateData implements PdfTableOfContentsStateData {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is PdfTableOfContentsStateData &&
-            (identical(other.textList, textList) ||
-                const DeepCollectionEquality()
-                    .equals(other.textList, textList)));
+        (other.runtimeType == runtimeType &&
+            other is _$PdfTableOfContentsStateData &&
+            const DeepCollectionEquality().equals(other._textList, _textList));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(textList);
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_textList));
 
   @JsonKey(ignore: true)
   @override
-  $PdfTableOfContentsStateDataCopyWith<PdfTableOfContentsStateData>
-      get copyWith => _$PdfTableOfContentsStateDataCopyWithImpl<
-          PdfTableOfContentsStateData>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$PdfTableOfContentsStateDataCopyWith<_$PdfTableOfContentsStateData>
+      get copyWith => __$$PdfTableOfContentsStateDataCopyWithImpl<
+          _$PdfTableOfContentsStateData>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -161,6 +161,16 @@ class _$PdfTableOfContentsStateData implements PdfTableOfContentsStateData {
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) {
     return data(textList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, dynamic> textList)? data,
+    TResult? Function()? loading,
+    TResult? Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return data?.call(textList);
   }
 
   @override
@@ -189,6 +199,16 @@ class _$PdfTableOfContentsStateData implements PdfTableOfContentsStateData {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PdfTableOfContentsStateData value)? data,
+    TResult? Function(PdfTableOfContentsStateLoading value)? loading,
+    TResult? Function(PdfTableOfContentsStateError value)? error,
+  }) {
+    return data?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PdfTableOfContentsStateData value)? data,
     TResult Function(PdfTableOfContentsStateLoading value)? loading,
@@ -203,38 +223,36 @@ class _$PdfTableOfContentsStateData implements PdfTableOfContentsStateData {
 }
 
 abstract class PdfTableOfContentsStateData implements PdfTableOfContentsState {
-  const factory PdfTableOfContentsStateData(Map<String, dynamic> textList) =
-      _$PdfTableOfContentsStateData;
+  const factory PdfTableOfContentsStateData(
+      final Map<String, dynamic> textList) = _$PdfTableOfContentsStateData;
 
-  Map<String, dynamic> get textList => throw _privateConstructorUsedError;
+  Map<String, dynamic> get textList;
   @JsonKey(ignore: true)
-  $PdfTableOfContentsStateDataCopyWith<PdfTableOfContentsStateData>
+  _$$PdfTableOfContentsStateDataCopyWith<_$PdfTableOfContentsStateData>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PdfTableOfContentsStateLoadingCopyWith<$Res> {
-  factory $PdfTableOfContentsStateLoadingCopyWith(
-          PdfTableOfContentsStateLoading value,
-          $Res Function(PdfTableOfContentsStateLoading) then) =
-      _$PdfTableOfContentsStateLoadingCopyWithImpl<$Res>;
+abstract class _$$PdfTableOfContentsStateLoadingCopyWith<$Res> {
+  factory _$$PdfTableOfContentsStateLoadingCopyWith(
+          _$PdfTableOfContentsStateLoading value,
+          $Res Function(_$PdfTableOfContentsStateLoading) then) =
+      __$$PdfTableOfContentsStateLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PdfTableOfContentsStateLoadingCopyWithImpl<$Res>
-    extends _$PdfTableOfContentsStateCopyWithImpl<$Res>
-    implements $PdfTableOfContentsStateLoadingCopyWith<$Res> {
-  _$PdfTableOfContentsStateLoadingCopyWithImpl(
-      PdfTableOfContentsStateLoading _value,
-      $Res Function(PdfTableOfContentsStateLoading) _then)
-      : super(_value, (v) => _then(v as PdfTableOfContentsStateLoading));
-
-  @override
-  PdfTableOfContentsStateLoading get _value =>
-      super._value as PdfTableOfContentsStateLoading;
+class __$$PdfTableOfContentsStateLoadingCopyWithImpl<$Res>
+    extends _$PdfTableOfContentsStateCopyWithImpl<$Res,
+        _$PdfTableOfContentsStateLoading>
+    implements _$$PdfTableOfContentsStateLoadingCopyWith<$Res> {
+  __$$PdfTableOfContentsStateLoadingCopyWithImpl(
+      _$PdfTableOfContentsStateLoading _value,
+      $Res Function(_$PdfTableOfContentsStateLoading) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
+
 class _$PdfTableOfContentsStateLoading
     implements PdfTableOfContentsStateLoading {
   const _$PdfTableOfContentsStateLoading();
@@ -246,7 +264,9 @@ class _$PdfTableOfContentsStateLoading
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PdfTableOfContentsStateLoading);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PdfTableOfContentsStateLoading);
   }
 
   @override
@@ -260,6 +280,16 @@ class _$PdfTableOfContentsStateLoading
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) {
     return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, dynamic> textList)? data,
+    TResult? Function()? loading,
+    TResult? Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return loading?.call();
   }
 
   @override
@@ -288,6 +318,16 @@ class _$PdfTableOfContentsStateLoading
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PdfTableOfContentsStateData value)? data,
+    TResult? Function(PdfTableOfContentsStateLoading value)? loading,
+    TResult? Function(PdfTableOfContentsStateError value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PdfTableOfContentsStateData value)? data,
     TResult Function(PdfTableOfContentsStateLoading value)? loading,
@@ -308,38 +348,34 @@ abstract class PdfTableOfContentsStateLoading
 }
 
 /// @nodoc
-abstract class $PdfTableOfContentsStateErrorCopyWith<$Res> {
-  factory $PdfTableOfContentsStateErrorCopyWith(
-          PdfTableOfContentsStateError value,
-          $Res Function(PdfTableOfContentsStateError) then) =
-      _$PdfTableOfContentsStateErrorCopyWithImpl<$Res>;
+abstract class _$$PdfTableOfContentsStateErrorCopyWith<$Res> {
+  factory _$$PdfTableOfContentsStateErrorCopyWith(
+          _$PdfTableOfContentsStateError value,
+          $Res Function(_$PdfTableOfContentsStateError) then) =
+      __$$PdfTableOfContentsStateErrorCopyWithImpl<$Res>;
+  @useResult
   $Res call({Object error, StackTrace stackTrace});
 }
 
 /// @nodoc
-class _$PdfTableOfContentsStateErrorCopyWithImpl<$Res>
-    extends _$PdfTableOfContentsStateCopyWithImpl<$Res>
-    implements $PdfTableOfContentsStateErrorCopyWith<$Res> {
-  _$PdfTableOfContentsStateErrorCopyWithImpl(
-      PdfTableOfContentsStateError _value,
-      $Res Function(PdfTableOfContentsStateError) _then)
-      : super(_value, (v) => _then(v as PdfTableOfContentsStateError));
+class __$$PdfTableOfContentsStateErrorCopyWithImpl<$Res>
+    extends _$PdfTableOfContentsStateCopyWithImpl<$Res,
+        _$PdfTableOfContentsStateError>
+    implements _$$PdfTableOfContentsStateErrorCopyWith<$Res> {
+  __$$PdfTableOfContentsStateErrorCopyWithImpl(
+      _$PdfTableOfContentsStateError _value,
+      $Res Function(_$PdfTableOfContentsStateError) _then)
+      : super(_value, _then);
 
-  @override
-  PdfTableOfContentsStateError get _value =>
-      super._value as PdfTableOfContentsStateError;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? error = freezed,
-    Object? stackTrace = freezed,
+    Object? error = null,
+    Object? stackTrace = null,
   }) {
-    return _then(PdfTableOfContentsStateError(
-      error == freezed
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as Object,
-      stackTrace == freezed
+    return _then(_$PdfTableOfContentsStateError(
+      null == error ? _value.error : error,
+      null == stackTrace
           ? _value.stackTrace
           : stackTrace // ignore: cast_nullable_to_non_nullable
               as StackTrace,
@@ -348,6 +384,7 @@ class _$PdfTableOfContentsStateErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PdfTableOfContentsStateError implements PdfTableOfContentsStateError {
   const _$PdfTableOfContentsStateError(this.error, this.stackTrace);
 
@@ -364,25 +401,23 @@ class _$PdfTableOfContentsStateError implements PdfTableOfContentsStateError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is PdfTableOfContentsStateError &&
-            (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)) &&
+        (other.runtimeType == runtimeType &&
+            other is _$PdfTableOfContentsStateError &&
+            const DeepCollectionEquality().equals(other.error, error) &&
             (identical(other.stackTrace, stackTrace) ||
-                const DeepCollectionEquality()
-                    .equals(other.stackTrace, stackTrace)));
+                other.stackTrace == stackTrace));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(error) ^
-      const DeepCollectionEquality().hash(stackTrace);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(error), stackTrace);
 
   @JsonKey(ignore: true)
   @override
-  $PdfTableOfContentsStateErrorCopyWith<PdfTableOfContentsStateError>
-      get copyWith => _$PdfTableOfContentsStateErrorCopyWithImpl<
-          PdfTableOfContentsStateError>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$PdfTableOfContentsStateErrorCopyWith<_$PdfTableOfContentsStateError>
+      get copyWith => __$$PdfTableOfContentsStateErrorCopyWithImpl<
+          _$PdfTableOfContentsStateError>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -392,6 +427,16 @@ class _$PdfTableOfContentsStateError implements PdfTableOfContentsStateError {
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) {
     return error(this.error, stackTrace);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, dynamic> textList)? data,
+    TResult? Function()? loading,
+    TResult? Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return error?.call(this.error, stackTrace);
   }
 
   @override
@@ -420,6 +465,16 @@ class _$PdfTableOfContentsStateError implements PdfTableOfContentsStateError {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PdfTableOfContentsStateData value)? data,
+    TResult? Function(PdfTableOfContentsStateLoading value)? loading,
+    TResult? Function(PdfTableOfContentsStateError value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PdfTableOfContentsStateData value)? data,
     TResult Function(PdfTableOfContentsStateLoading value)? loading,
@@ -435,11 +490,12 @@ class _$PdfTableOfContentsStateError implements PdfTableOfContentsStateError {
 
 abstract class PdfTableOfContentsStateError implements PdfTableOfContentsState {
   const factory PdfTableOfContentsStateError(
-      Object error, StackTrace stackTrace) = _$PdfTableOfContentsStateError;
+          final Object error, final StackTrace stackTrace) =
+      _$PdfTableOfContentsStateError;
 
-  Object get error => throw _privateConstructorUsedError;
-  StackTrace get stackTrace => throw _privateConstructorUsedError;
+  Object get error;
+  StackTrace get stackTrace;
   @JsonKey(ignore: true)
-  $PdfTableOfContentsStateErrorCopyWith<PdfTableOfContentsStateError>
+  _$$PdfTableOfContentsStateErrorCopyWith<_$PdfTableOfContentsStateError>
       get copyWith => throw _privateConstructorUsedError;
 }

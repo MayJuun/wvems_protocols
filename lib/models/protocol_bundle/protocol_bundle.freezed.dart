@@ -1,5 +1,7 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'protocol_bundle.dart';
 
@@ -10,87 +12,7 @@ part of 'protocol_bundle.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$ProtocolBundleTearOff {
-  const _$ProtocolBundleTearOff();
-
-  ProtocolBundleAsAssets asAssets(
-      {required String bundleId,
-      required int bundleVersion,
-      required int year,
-      required String pdfAssetPath,
-      required String jsonAssetPath,
-      required String tocJsonAssetPath}) {
-    return ProtocolBundleAsAssets(
-      bundleId: bundleId,
-      bundleVersion: bundleVersion,
-      year: year,
-      pdfAssetPath: pdfAssetPath,
-      jsonAssetPath: jsonAssetPath,
-      tocJsonAssetPath: tocJsonAssetPath,
-    );
-  }
-
-  ProtocolBundleAsFirebaseRefs asFirebaseRefs(
-      {required String bundleId,
-      required int bundleVersion,
-      required int year,
-      required int pdfFileSize,
-      required Reference pdfRef,
-      required Reference jsonRef,
-      required Reference tocJsonRef}) {
-    return ProtocolBundleAsFirebaseRefs(
-      bundleId: bundleId,
-      bundleVersion: bundleVersion,
-      year: year,
-      pdfFileSize: pdfFileSize,
-      pdfRef: pdfRef,
-      jsonRef: jsonRef,
-      tocJsonRef: tocJsonRef,
-    );
-  }
-
-  ProtocolBundleAsFiles asFiles(
-      {required String bundleId,
-      required int bundleVersion,
-      required int year,
-      required int pdfFileSize,
-      required File pdfFile,
-      required File jsonFile,
-      required File tocJsonFile}) {
-    return ProtocolBundleAsFiles(
-      bundleId: bundleId,
-      bundleVersion: bundleVersion,
-      year: year,
-      pdfFileSize: pdfFileSize,
-      pdfFile: pdfFile,
-      jsonFile: jsonFile,
-      tocJsonFile: tocJsonFile,
-    );
-  }
-
-  ProtocoleBundleDownloading downloading({required String bundleId}) {
-    return ProtocoleBundleDownloading(
-      bundleId: bundleId,
-    );
-  }
-
-  ProtocolBundleLoading loading() {
-    return const ProtocolBundleLoading();
-  }
-
-  ProtocolBundleError error(Object error, StackTrace stackTrace) {
-    return ProtocolBundleError(
-      error,
-      stackTrace,
-    );
-  }
-}
-
-/// @nodoc
-const $ProtocolBundle = _$ProtocolBundleTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$ProtocolBundle {
@@ -114,6 +36,28 @@ mixin _$ProtocolBundle {
     required TResult Function(String bundleId) downloading,
     required TResult Function() loading,
     required TResult Function(Object error, StackTrace stackTrace) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult? Function(
+            String bundleId,
+            int bundleVersion,
+            int year,
+            int pdfFileSize,
+            Reference pdfRef,
+            Reference jsonRef,
+            Reference tocJsonRef)?
+        asFirebaseRefs,
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult? Function(String bundleId)? downloading,
+    TResult? Function()? loading,
+    TResult? Function(Object error, StackTrace stackTrace)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -151,6 +95,16 @@ mixin _$ProtocolBundle {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult? Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
+    TResult? Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult? Function(ProtocoleBundleDownloading value)? downloading,
+    TResult? Function(ProtocolBundleLoading value)? loading,
+    TResult? Function(ProtocolBundleError value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
     TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
@@ -167,24 +121,26 @@ mixin _$ProtocolBundle {
 abstract class $ProtocolBundleCopyWith<$Res> {
   factory $ProtocolBundleCopyWith(
           ProtocolBundle value, $Res Function(ProtocolBundle) then) =
-      _$ProtocolBundleCopyWithImpl<$Res>;
+      _$ProtocolBundleCopyWithImpl<$Res, ProtocolBundle>;
 }
 
 /// @nodoc
-class _$ProtocolBundleCopyWithImpl<$Res>
+class _$ProtocolBundleCopyWithImpl<$Res, $Val extends ProtocolBundle>
     implements $ProtocolBundleCopyWith<$Res> {
   _$ProtocolBundleCopyWithImpl(this._value, this._then);
 
-  final ProtocolBundle _value;
   // ignore: unused_field
-  final $Res Function(ProtocolBundle) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class $ProtocolBundleAsAssetsCopyWith<$Res> {
-  factory $ProtocolBundleAsAssetsCopyWith(ProtocolBundleAsAssets value,
-          $Res Function(ProtocolBundleAsAssets) then) =
-      _$ProtocolBundleAsAssetsCopyWithImpl<$Res>;
+abstract class _$$ProtocolBundleAsAssetsCopyWith<$Res> {
+  factory _$$ProtocolBundleAsAssetsCopyWith(_$ProtocolBundleAsAssets value,
+          $Res Function(_$ProtocolBundleAsAssets) then) =
+      __$$ProtocolBundleAsAssetsCopyWithImpl<$Res>;
+  @useResult
   $Res call(
       {String bundleId,
       int bundleVersion,
@@ -195,47 +151,45 @@ abstract class $ProtocolBundleAsAssetsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProtocolBundleAsAssetsCopyWithImpl<$Res>
-    extends _$ProtocolBundleCopyWithImpl<$Res>
-    implements $ProtocolBundleAsAssetsCopyWith<$Res> {
-  _$ProtocolBundleAsAssetsCopyWithImpl(ProtocolBundleAsAssets _value,
-      $Res Function(ProtocolBundleAsAssets) _then)
-      : super(_value, (v) => _then(v as ProtocolBundleAsAssets));
+class __$$ProtocolBundleAsAssetsCopyWithImpl<$Res>
+    extends _$ProtocolBundleCopyWithImpl<$Res, _$ProtocolBundleAsAssets>
+    implements _$$ProtocolBundleAsAssetsCopyWith<$Res> {
+  __$$ProtocolBundleAsAssetsCopyWithImpl(_$ProtocolBundleAsAssets _value,
+      $Res Function(_$ProtocolBundleAsAssets) _then)
+      : super(_value, _then);
 
-  @override
-  ProtocolBundleAsAssets get _value => super._value as ProtocolBundleAsAssets;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? bundleId = freezed,
-    Object? bundleVersion = freezed,
-    Object? year = freezed,
-    Object? pdfAssetPath = freezed,
-    Object? jsonAssetPath = freezed,
-    Object? tocJsonAssetPath = freezed,
+    Object? bundleId = null,
+    Object? bundleVersion = null,
+    Object? year = null,
+    Object? pdfAssetPath = null,
+    Object? jsonAssetPath = null,
+    Object? tocJsonAssetPath = null,
   }) {
-    return _then(ProtocolBundleAsAssets(
-      bundleId: bundleId == freezed
+    return _then(_$ProtocolBundleAsAssets(
+      bundleId: null == bundleId
           ? _value.bundleId
           : bundleId // ignore: cast_nullable_to_non_nullable
               as String,
-      bundleVersion: bundleVersion == freezed
+      bundleVersion: null == bundleVersion
           ? _value.bundleVersion
           : bundleVersion // ignore: cast_nullable_to_non_nullable
               as int,
-      year: year == freezed
+      year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
-      pdfAssetPath: pdfAssetPath == freezed
+      pdfAssetPath: null == pdfAssetPath
           ? _value.pdfAssetPath
           : pdfAssetPath // ignore: cast_nullable_to_non_nullable
               as String,
-      jsonAssetPath: jsonAssetPath == freezed
+      jsonAssetPath: null == jsonAssetPath
           ? _value.jsonAssetPath
           : jsonAssetPath // ignore: cast_nullable_to_non_nullable
               as String,
-      tocJsonAssetPath: tocJsonAssetPath == freezed
+      tocJsonAssetPath: null == tocJsonAssetPath
           ? _value.tocJsonAssetPath
           : tocJsonAssetPath // ignore: cast_nullable_to_non_nullable
               as String,
@@ -244,6 +198,7 @@ class _$ProtocolBundleAsAssetsCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
   const _$ProtocolBundleAsAssets(
       {required this.bundleId,
@@ -274,40 +229,30 @@ class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is ProtocolBundleAsAssets &&
+        (other.runtimeType == runtimeType &&
+            other is _$ProtocolBundleAsAssets &&
             (identical(other.bundleId, bundleId) ||
-                const DeepCollectionEquality()
-                    .equals(other.bundleId, bundleId)) &&
+                other.bundleId == bundleId) &&
             (identical(other.bundleVersion, bundleVersion) ||
-                const DeepCollectionEquality()
-                    .equals(other.bundleVersion, bundleVersion)) &&
-            (identical(other.year, year) ||
-                const DeepCollectionEquality().equals(other.year, year)) &&
+                other.bundleVersion == bundleVersion) &&
+            (identical(other.year, year) || other.year == year) &&
             (identical(other.pdfAssetPath, pdfAssetPath) ||
-                const DeepCollectionEquality()
-                    .equals(other.pdfAssetPath, pdfAssetPath)) &&
+                other.pdfAssetPath == pdfAssetPath) &&
             (identical(other.jsonAssetPath, jsonAssetPath) ||
-                const DeepCollectionEquality()
-                    .equals(other.jsonAssetPath, jsonAssetPath)) &&
+                other.jsonAssetPath == jsonAssetPath) &&
             (identical(other.tocJsonAssetPath, tocJsonAssetPath) ||
-                const DeepCollectionEquality()
-                    .equals(other.tocJsonAssetPath, tocJsonAssetPath)));
+                other.tocJsonAssetPath == tocJsonAssetPath));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(bundleId) ^
-      const DeepCollectionEquality().hash(bundleVersion) ^
-      const DeepCollectionEquality().hash(year) ^
-      const DeepCollectionEquality().hash(pdfAssetPath) ^
-      const DeepCollectionEquality().hash(jsonAssetPath) ^
-      const DeepCollectionEquality().hash(tocJsonAssetPath);
+  int get hashCode => Object.hash(runtimeType, bundleId, bundleVersion, year,
+      pdfAssetPath, jsonAssetPath, tocJsonAssetPath);
 
   @JsonKey(ignore: true)
   @override
-  $ProtocolBundleAsAssetsCopyWith<ProtocolBundleAsAssets> get copyWith =>
-      _$ProtocolBundleAsAssetsCopyWithImpl<ProtocolBundleAsAssets>(
+  @pragma('vm:prefer-inline')
+  _$$ProtocolBundleAsAssetsCopyWith<_$ProtocolBundleAsAssets> get copyWith =>
+      __$$ProtocolBundleAsAssetsCopyWithImpl<_$ProtocolBundleAsAssets>(
           this, _$identity);
 
   @override
@@ -334,6 +279,32 @@ class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
   }) {
     return asAssets(bundleId, bundleVersion, year, pdfAssetPath, jsonAssetPath,
         tocJsonAssetPath);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult? Function(
+            String bundleId,
+            int bundleVersion,
+            int year,
+            int pdfFileSize,
+            Reference pdfRef,
+            Reference jsonRef,
+            Reference tocJsonRef)?
+        asFirebaseRefs,
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult? Function(String bundleId)? downloading,
+    TResult? Function()? loading,
+    TResult? Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return asAssets?.call(bundleId, bundleVersion, year, pdfAssetPath,
+        jsonAssetPath, tocJsonAssetPath);
   }
 
   @override
@@ -382,6 +353,19 @@ class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult? Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
+    TResult? Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult? Function(ProtocoleBundleDownloading value)? downloading,
+    TResult? Function(ProtocolBundleLoading value)? loading,
+    TResult? Function(ProtocolBundleError value)? error,
+  }) {
+    return asAssets?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
     TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
@@ -400,30 +384,31 @@ class _$ProtocolBundleAsAssets implements ProtocolBundleAsAssets {
 
 abstract class ProtocolBundleAsAssets implements ProtocolBundle {
   const factory ProtocolBundleAsAssets(
-      {required String bundleId,
-      required int bundleVersion,
-      required int year,
-      required String pdfAssetPath,
-      required String jsonAssetPath,
-      required String tocJsonAssetPath}) = _$ProtocolBundleAsAssets;
+      {required final String bundleId,
+      required final int bundleVersion,
+      required final int year,
+      required final String pdfAssetPath,
+      required final String jsonAssetPath,
+      required final String tocJsonAssetPath}) = _$ProtocolBundleAsAssets;
 
-  String get bundleId => throw _privateConstructorUsedError;
-  int get bundleVersion => throw _privateConstructorUsedError;
-  int get year => throw _privateConstructorUsedError;
-  String get pdfAssetPath => throw _privateConstructorUsedError;
-  String get jsonAssetPath => throw _privateConstructorUsedError;
-  String get tocJsonAssetPath => throw _privateConstructorUsedError;
+  String get bundleId;
+  int get bundleVersion;
+  int get year;
+  String get pdfAssetPath;
+  String get jsonAssetPath;
+  String get tocJsonAssetPath;
   @JsonKey(ignore: true)
-  $ProtocolBundleAsAssetsCopyWith<ProtocolBundleAsAssets> get copyWith =>
+  _$$ProtocolBundleAsAssetsCopyWith<_$ProtocolBundleAsAssets> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProtocolBundleAsFirebaseRefsCopyWith<$Res> {
-  factory $ProtocolBundleAsFirebaseRefsCopyWith(
-          ProtocolBundleAsFirebaseRefs value,
-          $Res Function(ProtocolBundleAsFirebaseRefs) then) =
-      _$ProtocolBundleAsFirebaseRefsCopyWithImpl<$Res>;
+abstract class _$$ProtocolBundleAsFirebaseRefsCopyWith<$Res> {
+  factory _$$ProtocolBundleAsFirebaseRefsCopyWith(
+          _$ProtocolBundleAsFirebaseRefs value,
+          $Res Function(_$ProtocolBundleAsFirebaseRefs) then) =
+      __$$ProtocolBundleAsFirebaseRefsCopyWithImpl<$Res>;
+  @useResult
   $Res call(
       {String bundleId,
       int bundleVersion,
@@ -435,54 +420,51 @@ abstract class $ProtocolBundleAsFirebaseRefsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProtocolBundleAsFirebaseRefsCopyWithImpl<$Res>
-    extends _$ProtocolBundleCopyWithImpl<$Res>
-    implements $ProtocolBundleAsFirebaseRefsCopyWith<$Res> {
-  _$ProtocolBundleAsFirebaseRefsCopyWithImpl(
-      ProtocolBundleAsFirebaseRefs _value,
-      $Res Function(ProtocolBundleAsFirebaseRefs) _then)
-      : super(_value, (v) => _then(v as ProtocolBundleAsFirebaseRefs));
+class __$$ProtocolBundleAsFirebaseRefsCopyWithImpl<$Res>
+    extends _$ProtocolBundleCopyWithImpl<$Res, _$ProtocolBundleAsFirebaseRefs>
+    implements _$$ProtocolBundleAsFirebaseRefsCopyWith<$Res> {
+  __$$ProtocolBundleAsFirebaseRefsCopyWithImpl(
+      _$ProtocolBundleAsFirebaseRefs _value,
+      $Res Function(_$ProtocolBundleAsFirebaseRefs) _then)
+      : super(_value, _then);
 
-  @override
-  ProtocolBundleAsFirebaseRefs get _value =>
-      super._value as ProtocolBundleAsFirebaseRefs;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? bundleId = freezed,
-    Object? bundleVersion = freezed,
-    Object? year = freezed,
-    Object? pdfFileSize = freezed,
-    Object? pdfRef = freezed,
-    Object? jsonRef = freezed,
-    Object? tocJsonRef = freezed,
+    Object? bundleId = null,
+    Object? bundleVersion = null,
+    Object? year = null,
+    Object? pdfFileSize = null,
+    Object? pdfRef = null,
+    Object? jsonRef = null,
+    Object? tocJsonRef = null,
   }) {
-    return _then(ProtocolBundleAsFirebaseRefs(
-      bundleId: bundleId == freezed
+    return _then(_$ProtocolBundleAsFirebaseRefs(
+      bundleId: null == bundleId
           ? _value.bundleId
           : bundleId // ignore: cast_nullable_to_non_nullable
               as String,
-      bundleVersion: bundleVersion == freezed
+      bundleVersion: null == bundleVersion
           ? _value.bundleVersion
           : bundleVersion // ignore: cast_nullable_to_non_nullable
               as int,
-      year: year == freezed
+      year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
-      pdfFileSize: pdfFileSize == freezed
+      pdfFileSize: null == pdfFileSize
           ? _value.pdfFileSize
           : pdfFileSize // ignore: cast_nullable_to_non_nullable
               as int,
-      pdfRef: pdfRef == freezed
+      pdfRef: null == pdfRef
           ? _value.pdfRef
           : pdfRef // ignore: cast_nullable_to_non_nullable
               as Reference,
-      jsonRef: jsonRef == freezed
+      jsonRef: null == jsonRef
           ? _value.jsonRef
           : jsonRef // ignore: cast_nullable_to_non_nullable
               as Reference,
-      tocJsonRef: tocJsonRef == freezed
+      tocJsonRef: null == tocJsonRef
           ? _value.tocJsonRef
           : tocJsonRef // ignore: cast_nullable_to_non_nullable
               as Reference,
@@ -491,6 +473,7 @@ class _$ProtocolBundleAsFirebaseRefsCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$ProtocolBundleAsFirebaseRefs implements ProtocolBundleAsFirebaseRefs {
   const _$ProtocolBundleAsFirebaseRefs(
       {required this.bundleId,
@@ -524,44 +507,31 @@ class _$ProtocolBundleAsFirebaseRefs implements ProtocolBundleAsFirebaseRefs {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is ProtocolBundleAsFirebaseRefs &&
+        (other.runtimeType == runtimeType &&
+            other is _$ProtocolBundleAsFirebaseRefs &&
             (identical(other.bundleId, bundleId) ||
-                const DeepCollectionEquality()
-                    .equals(other.bundleId, bundleId)) &&
+                other.bundleId == bundleId) &&
             (identical(other.bundleVersion, bundleVersion) ||
-                const DeepCollectionEquality()
-                    .equals(other.bundleVersion, bundleVersion)) &&
-            (identical(other.year, year) ||
-                const DeepCollectionEquality().equals(other.year, year)) &&
+                other.bundleVersion == bundleVersion) &&
+            (identical(other.year, year) || other.year == year) &&
             (identical(other.pdfFileSize, pdfFileSize) ||
-                const DeepCollectionEquality()
-                    .equals(other.pdfFileSize, pdfFileSize)) &&
-            (identical(other.pdfRef, pdfRef) ||
-                const DeepCollectionEquality().equals(other.pdfRef, pdfRef)) &&
-            (identical(other.jsonRef, jsonRef) ||
-                const DeepCollectionEquality()
-                    .equals(other.jsonRef, jsonRef)) &&
+                other.pdfFileSize == pdfFileSize) &&
+            (identical(other.pdfRef, pdfRef) || other.pdfRef == pdfRef) &&
+            (identical(other.jsonRef, jsonRef) || other.jsonRef == jsonRef) &&
             (identical(other.tocJsonRef, tocJsonRef) ||
-                const DeepCollectionEquality()
-                    .equals(other.tocJsonRef, tocJsonRef)));
+                other.tocJsonRef == tocJsonRef));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(bundleId) ^
-      const DeepCollectionEquality().hash(bundleVersion) ^
-      const DeepCollectionEquality().hash(year) ^
-      const DeepCollectionEquality().hash(pdfFileSize) ^
-      const DeepCollectionEquality().hash(pdfRef) ^
-      const DeepCollectionEquality().hash(jsonRef) ^
-      const DeepCollectionEquality().hash(tocJsonRef);
+  int get hashCode => Object.hash(runtimeType, bundleId, bundleVersion, year,
+      pdfFileSize, pdfRef, jsonRef, tocJsonRef);
 
   @JsonKey(ignore: true)
   @override
-  $ProtocolBundleAsFirebaseRefsCopyWith<ProtocolBundleAsFirebaseRefs>
-      get copyWith => _$ProtocolBundleAsFirebaseRefsCopyWithImpl<
-          ProtocolBundleAsFirebaseRefs>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$ProtocolBundleAsFirebaseRefsCopyWith<_$ProtocolBundleAsFirebaseRefs>
+      get copyWith => __$$ProtocolBundleAsFirebaseRefsCopyWithImpl<
+          _$ProtocolBundleAsFirebaseRefs>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -587,6 +557,32 @@ class _$ProtocolBundleAsFirebaseRefs implements ProtocolBundleAsFirebaseRefs {
   }) {
     return asFirebaseRefs(bundleId, bundleVersion, year, pdfFileSize, pdfRef,
         jsonRef, tocJsonRef);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult? Function(
+            String bundleId,
+            int bundleVersion,
+            int year,
+            int pdfFileSize,
+            Reference pdfRef,
+            Reference jsonRef,
+            Reference tocJsonRef)?
+        asFirebaseRefs,
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult? Function(String bundleId)? downloading,
+    TResult? Function()? loading,
+    TResult? Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return asFirebaseRefs?.call(bundleId, bundleVersion, year, pdfFileSize,
+        pdfRef, jsonRef, tocJsonRef);
   }
 
   @override
@@ -635,6 +631,19 @@ class _$ProtocolBundleAsFirebaseRefs implements ProtocolBundleAsFirebaseRefs {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult? Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
+    TResult? Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult? Function(ProtocoleBundleDownloading value)? downloading,
+    TResult? Function(ProtocolBundleLoading value)? loading,
+    TResult? Function(ProtocolBundleError value)? error,
+  }) {
+    return asFirebaseRefs?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
     TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
@@ -653,31 +662,32 @@ class _$ProtocolBundleAsFirebaseRefs implements ProtocolBundleAsFirebaseRefs {
 
 abstract class ProtocolBundleAsFirebaseRefs implements ProtocolBundle {
   const factory ProtocolBundleAsFirebaseRefs(
-      {required String bundleId,
-      required int bundleVersion,
-      required int year,
-      required int pdfFileSize,
-      required Reference pdfRef,
-      required Reference jsonRef,
-      required Reference tocJsonRef}) = _$ProtocolBundleAsFirebaseRefs;
+      {required final String bundleId,
+      required final int bundleVersion,
+      required final int year,
+      required final int pdfFileSize,
+      required final Reference pdfRef,
+      required final Reference jsonRef,
+      required final Reference tocJsonRef}) = _$ProtocolBundleAsFirebaseRefs;
 
-  String get bundleId => throw _privateConstructorUsedError;
-  int get bundleVersion => throw _privateConstructorUsedError;
-  int get year => throw _privateConstructorUsedError;
-  int get pdfFileSize => throw _privateConstructorUsedError;
-  Reference get pdfRef => throw _privateConstructorUsedError;
-  Reference get jsonRef => throw _privateConstructorUsedError;
-  Reference get tocJsonRef => throw _privateConstructorUsedError;
+  String get bundleId;
+  int get bundleVersion;
+  int get year;
+  int get pdfFileSize;
+  Reference get pdfRef;
+  Reference get jsonRef;
+  Reference get tocJsonRef;
   @JsonKey(ignore: true)
-  $ProtocolBundleAsFirebaseRefsCopyWith<ProtocolBundleAsFirebaseRefs>
+  _$$ProtocolBundleAsFirebaseRefsCopyWith<_$ProtocolBundleAsFirebaseRefs>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProtocolBundleAsFilesCopyWith<$Res> {
-  factory $ProtocolBundleAsFilesCopyWith(ProtocolBundleAsFiles value,
-          $Res Function(ProtocolBundleAsFiles) then) =
-      _$ProtocolBundleAsFilesCopyWithImpl<$Res>;
+abstract class _$$ProtocolBundleAsFilesCopyWith<$Res> {
+  factory _$$ProtocolBundleAsFilesCopyWith(_$ProtocolBundleAsFiles value,
+          $Res Function(_$ProtocolBundleAsFiles) then) =
+      __$$ProtocolBundleAsFilesCopyWithImpl<$Res>;
+  @useResult
   $Res call(
       {String bundleId,
       int bundleVersion,
@@ -689,52 +699,50 @@ abstract class $ProtocolBundleAsFilesCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProtocolBundleAsFilesCopyWithImpl<$Res>
-    extends _$ProtocolBundleCopyWithImpl<$Res>
-    implements $ProtocolBundleAsFilesCopyWith<$Res> {
-  _$ProtocolBundleAsFilesCopyWithImpl(
-      ProtocolBundleAsFiles _value, $Res Function(ProtocolBundleAsFiles) _then)
-      : super(_value, (v) => _then(v as ProtocolBundleAsFiles));
+class __$$ProtocolBundleAsFilesCopyWithImpl<$Res>
+    extends _$ProtocolBundleCopyWithImpl<$Res, _$ProtocolBundleAsFiles>
+    implements _$$ProtocolBundleAsFilesCopyWith<$Res> {
+  __$$ProtocolBundleAsFilesCopyWithImpl(_$ProtocolBundleAsFiles _value,
+      $Res Function(_$ProtocolBundleAsFiles) _then)
+      : super(_value, _then);
 
-  @override
-  ProtocolBundleAsFiles get _value => super._value as ProtocolBundleAsFiles;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? bundleId = freezed,
-    Object? bundleVersion = freezed,
-    Object? year = freezed,
-    Object? pdfFileSize = freezed,
-    Object? pdfFile = freezed,
-    Object? jsonFile = freezed,
-    Object? tocJsonFile = freezed,
+    Object? bundleId = null,
+    Object? bundleVersion = null,
+    Object? year = null,
+    Object? pdfFileSize = null,
+    Object? pdfFile = null,
+    Object? jsonFile = null,
+    Object? tocJsonFile = null,
   }) {
-    return _then(ProtocolBundleAsFiles(
-      bundleId: bundleId == freezed
+    return _then(_$ProtocolBundleAsFiles(
+      bundleId: null == bundleId
           ? _value.bundleId
           : bundleId // ignore: cast_nullable_to_non_nullable
               as String,
-      bundleVersion: bundleVersion == freezed
+      bundleVersion: null == bundleVersion
           ? _value.bundleVersion
           : bundleVersion // ignore: cast_nullable_to_non_nullable
               as int,
-      year: year == freezed
+      year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
-      pdfFileSize: pdfFileSize == freezed
+      pdfFileSize: null == pdfFileSize
           ? _value.pdfFileSize
           : pdfFileSize // ignore: cast_nullable_to_non_nullable
               as int,
-      pdfFile: pdfFile == freezed
+      pdfFile: null == pdfFile
           ? _value.pdfFile
           : pdfFile // ignore: cast_nullable_to_non_nullable
               as File,
-      jsonFile: jsonFile == freezed
+      jsonFile: null == jsonFile
           ? _value.jsonFile
           : jsonFile // ignore: cast_nullable_to_non_nullable
               as File,
-      tocJsonFile: tocJsonFile == freezed
+      tocJsonFile: null == tocJsonFile
           ? _value.tocJsonFile
           : tocJsonFile // ignore: cast_nullable_to_non_nullable
               as File,
@@ -743,6 +751,7 @@ class _$ProtocolBundleAsFilesCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
   const _$ProtocolBundleAsFiles(
       {required this.bundleId,
@@ -776,44 +785,31 @@ class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is ProtocolBundleAsFiles &&
+        (other.runtimeType == runtimeType &&
+            other is _$ProtocolBundleAsFiles &&
             (identical(other.bundleId, bundleId) ||
-                const DeepCollectionEquality()
-                    .equals(other.bundleId, bundleId)) &&
+                other.bundleId == bundleId) &&
             (identical(other.bundleVersion, bundleVersion) ||
-                const DeepCollectionEquality()
-                    .equals(other.bundleVersion, bundleVersion)) &&
-            (identical(other.year, year) ||
-                const DeepCollectionEquality().equals(other.year, year)) &&
+                other.bundleVersion == bundleVersion) &&
+            (identical(other.year, year) || other.year == year) &&
             (identical(other.pdfFileSize, pdfFileSize) ||
-                const DeepCollectionEquality()
-                    .equals(other.pdfFileSize, pdfFileSize)) &&
-            (identical(other.pdfFile, pdfFile) ||
-                const DeepCollectionEquality()
-                    .equals(other.pdfFile, pdfFile)) &&
+                other.pdfFileSize == pdfFileSize) &&
+            (identical(other.pdfFile, pdfFile) || other.pdfFile == pdfFile) &&
             (identical(other.jsonFile, jsonFile) ||
-                const DeepCollectionEquality()
-                    .equals(other.jsonFile, jsonFile)) &&
+                other.jsonFile == jsonFile) &&
             (identical(other.tocJsonFile, tocJsonFile) ||
-                const DeepCollectionEquality()
-                    .equals(other.tocJsonFile, tocJsonFile)));
+                other.tocJsonFile == tocJsonFile));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(bundleId) ^
-      const DeepCollectionEquality().hash(bundleVersion) ^
-      const DeepCollectionEquality().hash(year) ^
-      const DeepCollectionEquality().hash(pdfFileSize) ^
-      const DeepCollectionEquality().hash(pdfFile) ^
-      const DeepCollectionEquality().hash(jsonFile) ^
-      const DeepCollectionEquality().hash(tocJsonFile);
+  int get hashCode => Object.hash(runtimeType, bundleId, bundleVersion, year,
+      pdfFileSize, pdfFile, jsonFile, tocJsonFile);
 
   @JsonKey(ignore: true)
   @override
-  $ProtocolBundleAsFilesCopyWith<ProtocolBundleAsFiles> get copyWith =>
-      _$ProtocolBundleAsFilesCopyWithImpl<ProtocolBundleAsFiles>(
+  @pragma('vm:prefer-inline')
+  _$$ProtocolBundleAsFilesCopyWith<_$ProtocolBundleAsFiles> get copyWith =>
+      __$$ProtocolBundleAsFilesCopyWithImpl<_$ProtocolBundleAsFiles>(
           this, _$identity);
 
   @override
@@ -839,6 +835,32 @@ class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) {
     return asFiles(bundleId, bundleVersion, year, pdfFileSize, pdfFile,
+        jsonFile, tocJsonFile);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult? Function(
+            String bundleId,
+            int bundleVersion,
+            int year,
+            int pdfFileSize,
+            Reference pdfRef,
+            Reference jsonRef,
+            Reference tocJsonRef)?
+        asFirebaseRefs,
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult? Function(String bundleId)? downloading,
+    TResult? Function()? loading,
+    TResult? Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return asFiles?.call(bundleId, bundleVersion, year, pdfFileSize, pdfFile,
         jsonFile, tocJsonFile);
   }
 
@@ -888,6 +910,19 @@ class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult? Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
+    TResult? Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult? Function(ProtocoleBundleDownloading value)? downloading,
+    TResult? Function(ProtocolBundleLoading value)? loading,
+    TResult? Function(ProtocolBundleError value)? error,
+  }) {
+    return asFiles?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
     TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
@@ -906,52 +941,52 @@ class _$ProtocolBundleAsFiles implements ProtocolBundleAsFiles {
 
 abstract class ProtocolBundleAsFiles implements ProtocolBundle {
   const factory ProtocolBundleAsFiles(
-      {required String bundleId,
-      required int bundleVersion,
-      required int year,
-      required int pdfFileSize,
-      required File pdfFile,
-      required File jsonFile,
-      required File tocJsonFile}) = _$ProtocolBundleAsFiles;
+      {required final String bundleId,
+      required final int bundleVersion,
+      required final int year,
+      required final int pdfFileSize,
+      required final File pdfFile,
+      required final File jsonFile,
+      required final File tocJsonFile}) = _$ProtocolBundleAsFiles;
 
-  String get bundleId => throw _privateConstructorUsedError;
-  int get bundleVersion => throw _privateConstructorUsedError;
-  int get year => throw _privateConstructorUsedError;
-  int get pdfFileSize => throw _privateConstructorUsedError;
-  File get pdfFile => throw _privateConstructorUsedError;
-  File get jsonFile => throw _privateConstructorUsedError;
-  File get tocJsonFile => throw _privateConstructorUsedError;
+  String get bundleId;
+  int get bundleVersion;
+  int get year;
+  int get pdfFileSize;
+  File get pdfFile;
+  File get jsonFile;
+  File get tocJsonFile;
   @JsonKey(ignore: true)
-  $ProtocolBundleAsFilesCopyWith<ProtocolBundleAsFiles> get copyWith =>
+  _$$ProtocolBundleAsFilesCopyWith<_$ProtocolBundleAsFiles> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProtocoleBundleDownloadingCopyWith<$Res> {
-  factory $ProtocoleBundleDownloadingCopyWith(ProtocoleBundleDownloading value,
-          $Res Function(ProtocoleBundleDownloading) then) =
-      _$ProtocoleBundleDownloadingCopyWithImpl<$Res>;
+abstract class _$$ProtocoleBundleDownloadingCopyWith<$Res> {
+  factory _$$ProtocoleBundleDownloadingCopyWith(
+          _$ProtocoleBundleDownloading value,
+          $Res Function(_$ProtocoleBundleDownloading) then) =
+      __$$ProtocoleBundleDownloadingCopyWithImpl<$Res>;
+  @useResult
   $Res call({String bundleId});
 }
 
 /// @nodoc
-class _$ProtocoleBundleDownloadingCopyWithImpl<$Res>
-    extends _$ProtocolBundleCopyWithImpl<$Res>
-    implements $ProtocoleBundleDownloadingCopyWith<$Res> {
-  _$ProtocoleBundleDownloadingCopyWithImpl(ProtocoleBundleDownloading _value,
-      $Res Function(ProtocoleBundleDownloading) _then)
-      : super(_value, (v) => _then(v as ProtocoleBundleDownloading));
+class __$$ProtocoleBundleDownloadingCopyWithImpl<$Res>
+    extends _$ProtocolBundleCopyWithImpl<$Res, _$ProtocoleBundleDownloading>
+    implements _$$ProtocoleBundleDownloadingCopyWith<$Res> {
+  __$$ProtocoleBundleDownloadingCopyWithImpl(
+      _$ProtocoleBundleDownloading _value,
+      $Res Function(_$ProtocoleBundleDownloading) _then)
+      : super(_value, _then);
 
-  @override
-  ProtocoleBundleDownloading get _value =>
-      super._value as ProtocoleBundleDownloading;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? bundleId = freezed,
+    Object? bundleId = null,
   }) {
-    return _then(ProtocoleBundleDownloading(
-      bundleId: bundleId == freezed
+    return _then(_$ProtocoleBundleDownloading(
+      bundleId: null == bundleId
           ? _value.bundleId
           : bundleId // ignore: cast_nullable_to_non_nullable
               as String,
@@ -960,6 +995,7 @@ class _$ProtocoleBundleDownloadingCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
   const _$ProtocoleBundleDownloading({required this.bundleId});
 
@@ -974,22 +1010,21 @@ class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is ProtocoleBundleDownloading &&
+        (other.runtimeType == runtimeType &&
+            other is _$ProtocoleBundleDownloading &&
             (identical(other.bundleId, bundleId) ||
-                const DeepCollectionEquality()
-                    .equals(other.bundleId, bundleId)));
+                other.bundleId == bundleId));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(bundleId);
+  int get hashCode => Object.hash(runtimeType, bundleId);
 
   @JsonKey(ignore: true)
   @override
-  $ProtocoleBundleDownloadingCopyWith<ProtocoleBundleDownloading>
-      get copyWith =>
-          _$ProtocoleBundleDownloadingCopyWithImpl<ProtocoleBundleDownloading>(
-              this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$ProtocoleBundleDownloadingCopyWith<_$ProtocoleBundleDownloading>
+      get copyWith => __$$ProtocoleBundleDownloadingCopyWithImpl<
+          _$ProtocoleBundleDownloading>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1014,6 +1049,31 @@ class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) {
     return downloading(bundleId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult? Function(
+            String bundleId,
+            int bundleVersion,
+            int year,
+            int pdfFileSize,
+            Reference pdfRef,
+            Reference jsonRef,
+            Reference tocJsonRef)?
+        asFirebaseRefs,
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult? Function(String bundleId)? downloading,
+    TResult? Function()? loading,
+    TResult? Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return downloading?.call(bundleId);
   }
 
   @override
@@ -1061,6 +1121,19 @@ class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult? Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
+    TResult? Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult? Function(ProtocoleBundleDownloading value)? downloading,
+    TResult? Function(ProtocolBundleLoading value)? loading,
+    TResult? Function(ProtocolBundleError value)? error,
+  }) {
+    return downloading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
     TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
@@ -1078,35 +1151,33 @@ class _$ProtocoleBundleDownloading implements ProtocoleBundleDownloading {
 }
 
 abstract class ProtocoleBundleDownloading implements ProtocolBundle {
-  const factory ProtocoleBundleDownloading({required String bundleId}) =
+  const factory ProtocoleBundleDownloading({required final String bundleId}) =
       _$ProtocoleBundleDownloading;
 
-  String get bundleId => throw _privateConstructorUsedError;
+  String get bundleId;
   @JsonKey(ignore: true)
-  $ProtocoleBundleDownloadingCopyWith<ProtocoleBundleDownloading>
+  _$$ProtocoleBundleDownloadingCopyWith<_$ProtocoleBundleDownloading>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProtocolBundleLoadingCopyWith<$Res> {
-  factory $ProtocolBundleLoadingCopyWith(ProtocolBundleLoading value,
-          $Res Function(ProtocolBundleLoading) then) =
-      _$ProtocolBundleLoadingCopyWithImpl<$Res>;
+abstract class _$$ProtocolBundleLoadingCopyWith<$Res> {
+  factory _$$ProtocolBundleLoadingCopyWith(_$ProtocolBundleLoading value,
+          $Res Function(_$ProtocolBundleLoading) then) =
+      __$$ProtocolBundleLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ProtocolBundleLoadingCopyWithImpl<$Res>
-    extends _$ProtocolBundleCopyWithImpl<$Res>
-    implements $ProtocolBundleLoadingCopyWith<$Res> {
-  _$ProtocolBundleLoadingCopyWithImpl(
-      ProtocolBundleLoading _value, $Res Function(ProtocolBundleLoading) _then)
-      : super(_value, (v) => _then(v as ProtocolBundleLoading));
-
-  @override
-  ProtocolBundleLoading get _value => super._value as ProtocolBundleLoading;
+class __$$ProtocolBundleLoadingCopyWithImpl<$Res>
+    extends _$ProtocolBundleCopyWithImpl<$Res, _$ProtocolBundleLoading>
+    implements _$$ProtocolBundleLoadingCopyWith<$Res> {
+  __$$ProtocolBundleLoadingCopyWithImpl(_$ProtocolBundleLoading _value,
+      $Res Function(_$ProtocolBundleLoading) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
+
 class _$ProtocolBundleLoading implements ProtocolBundleLoading {
   const _$ProtocolBundleLoading();
 
@@ -1117,7 +1188,8 @@ class _$ProtocolBundleLoading implements ProtocolBundleLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ProtocolBundleLoading);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ProtocolBundleLoading);
   }
 
   @override
@@ -1146,6 +1218,31 @@ class _$ProtocolBundleLoading implements ProtocolBundleLoading {
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) {
     return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult? Function(
+            String bundleId,
+            int bundleVersion,
+            int year,
+            int pdfFileSize,
+            Reference pdfRef,
+            Reference jsonRef,
+            Reference tocJsonRef)?
+        asFirebaseRefs,
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult? Function(String bundleId)? downloading,
+    TResult? Function()? loading,
+    TResult? Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return loading?.call();
   }
 
   @override
@@ -1193,6 +1290,19 @@ class _$ProtocolBundleLoading implements ProtocolBundleLoading {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult? Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
+    TResult? Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult? Function(ProtocoleBundleDownloading value)? downloading,
+    TResult? Function(ProtocolBundleLoading value)? loading,
+    TResult? Function(ProtocolBundleError value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
     TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
@@ -1214,35 +1324,31 @@ abstract class ProtocolBundleLoading implements ProtocolBundle {
 }
 
 /// @nodoc
-abstract class $ProtocolBundleErrorCopyWith<$Res> {
-  factory $ProtocolBundleErrorCopyWith(
-          ProtocolBundleError value, $Res Function(ProtocolBundleError) then) =
-      _$ProtocolBundleErrorCopyWithImpl<$Res>;
+abstract class _$$ProtocolBundleErrorCopyWith<$Res> {
+  factory _$$ProtocolBundleErrorCopyWith(_$ProtocolBundleError value,
+          $Res Function(_$ProtocolBundleError) then) =
+      __$$ProtocolBundleErrorCopyWithImpl<$Res>;
+  @useResult
   $Res call({Object error, StackTrace stackTrace});
 }
 
 /// @nodoc
-class _$ProtocolBundleErrorCopyWithImpl<$Res>
-    extends _$ProtocolBundleCopyWithImpl<$Res>
-    implements $ProtocolBundleErrorCopyWith<$Res> {
-  _$ProtocolBundleErrorCopyWithImpl(
-      ProtocolBundleError _value, $Res Function(ProtocolBundleError) _then)
-      : super(_value, (v) => _then(v as ProtocolBundleError));
+class __$$ProtocolBundleErrorCopyWithImpl<$Res>
+    extends _$ProtocolBundleCopyWithImpl<$Res, _$ProtocolBundleError>
+    implements _$$ProtocolBundleErrorCopyWith<$Res> {
+  __$$ProtocolBundleErrorCopyWithImpl(
+      _$ProtocolBundleError _value, $Res Function(_$ProtocolBundleError) _then)
+      : super(_value, _then);
 
-  @override
-  ProtocolBundleError get _value => super._value as ProtocolBundleError;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? error = freezed,
-    Object? stackTrace = freezed,
+    Object? error = null,
+    Object? stackTrace = null,
   }) {
-    return _then(ProtocolBundleError(
-      error == freezed
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as Object,
-      stackTrace == freezed
+    return _then(_$ProtocolBundleError(
+      null == error ? _value.error : error,
+      null == stackTrace
           ? _value.stackTrace
           : stackTrace // ignore: cast_nullable_to_non_nullable
               as StackTrace,
@@ -1251,6 +1357,7 @@ class _$ProtocolBundleErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$ProtocolBundleError implements ProtocolBundleError {
   const _$ProtocolBundleError(this.error, this.stackTrace);
 
@@ -1267,24 +1374,23 @@ class _$ProtocolBundleError implements ProtocolBundleError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is ProtocolBundleError &&
-            (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)) &&
+        (other.runtimeType == runtimeType &&
+            other is _$ProtocolBundleError &&
+            const DeepCollectionEquality().equals(other.error, error) &&
             (identical(other.stackTrace, stackTrace) ||
-                const DeepCollectionEquality()
-                    .equals(other.stackTrace, stackTrace)));
+                other.stackTrace == stackTrace));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(error) ^
-      const DeepCollectionEquality().hash(stackTrace);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(error), stackTrace);
 
   @JsonKey(ignore: true)
   @override
-  $ProtocolBundleErrorCopyWith<ProtocolBundleError> get copyWith =>
-      _$ProtocolBundleErrorCopyWithImpl<ProtocolBundleError>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$ProtocolBundleErrorCopyWith<_$ProtocolBundleError> get copyWith =>
+      __$$ProtocolBundleErrorCopyWithImpl<_$ProtocolBundleError>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1309,6 +1415,31 @@ class _$ProtocolBundleError implements ProtocolBundleError {
     required TResult Function(Object error, StackTrace stackTrace) error,
   }) {
     return error(this.error, stackTrace);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            String pdfAssetPath, String jsonAssetPath, String tocJsonAssetPath)?
+        asAssets,
+    TResult? Function(
+            String bundleId,
+            int bundleVersion,
+            int year,
+            int pdfFileSize,
+            Reference pdfRef,
+            Reference jsonRef,
+            Reference tocJsonRef)?
+        asFirebaseRefs,
+    TResult? Function(String bundleId, int bundleVersion, int year,
+            int pdfFileSize, File pdfFile, File jsonFile, File tocJsonFile)?
+        asFiles,
+    TResult? Function(String bundleId)? downloading,
+    TResult? Function()? loading,
+    TResult? Function(Object error, StackTrace stackTrace)? error,
+  }) {
+    return error?.call(this.error, stackTrace);
   }
 
   @override
@@ -1356,6 +1487,19 @@ class _$ProtocolBundleError implements ProtocolBundleError {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProtocolBundleAsAssets value)? asAssets,
+    TResult? Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
+    TResult? Function(ProtocolBundleAsFiles value)? asFiles,
+    TResult? Function(ProtocoleBundleDownloading value)? downloading,
+    TResult? Function(ProtocolBundleLoading value)? loading,
+    TResult? Function(ProtocolBundleError value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProtocolBundleAsAssets value)? asAssets,
     TResult Function(ProtocolBundleAsFirebaseRefs value)? asFirebaseRefs,
@@ -1373,12 +1517,12 @@ class _$ProtocolBundleError implements ProtocolBundleError {
 }
 
 abstract class ProtocolBundleError implements ProtocolBundle {
-  const factory ProtocolBundleError(Object error, StackTrace stackTrace) =
-      _$ProtocolBundleError;
+  const factory ProtocolBundleError(
+      final Object error, final StackTrace stackTrace) = _$ProtocolBundleError;
 
-  Object get error => throw _privateConstructorUsedError;
-  StackTrace get stackTrace => throw _privateConstructorUsedError;
+  Object get error;
+  StackTrace get stackTrace;
   @JsonKey(ignore: true)
-  $ProtocolBundleErrorCopyWith<ProtocolBundleError> get copyWith =>
+  _$$ProtocolBundleErrorCopyWith<_$ProtocolBundleError> get copyWith =>
       throw _privateConstructorUsedError;
 }
