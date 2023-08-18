@@ -34,7 +34,7 @@ class PdfStateController extends GetxController with WidgetsBindingObserver {
   final errorMessage = ''.obs;
   String pathPDF = '';
   final RxString asset = ''.obs;
-  final RxInt activeYear = 2020.obs;
+  final RxInt activeYear = 2023.obs;
 
   Orientation? currentOrientation = Get.context?.orientation;
 
