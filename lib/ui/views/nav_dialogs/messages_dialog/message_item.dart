@@ -38,7 +38,7 @@ class MessageItem extends StatelessWidget {
                   const Gap(8),
                   Text(
                     appMessage.body,
-                    style: context.textTheme.bodyText2,
+                    style: context.textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
                   const Gap(4),
@@ -51,7 +51,7 @@ class MessageItem extends StatelessWidget {
                           DateTimeFormat.relative(appMessage.dateTime,
                               appendIfAfter: 'ago'),
                           textAlign: TextAlign.center,
-                          style: context.textTheme.subtitle1!
+                          style: context.textTheme.titleMedium!
                               .apply(color: appTheme.grey),
                         ),
                         StyledIconButton(

@@ -38,7 +38,7 @@ class StyledRibbonStack extends StatelessWidget {
                   subtitle != null
                       ? Text(
                           subtitle!,
-                          style: context.textTheme.headline6,
+                          style: context.textTheme.titleLarge,
                         )
                       : Container(),
                   ...children,
@@ -101,7 +101,7 @@ class _StyledRibbon extends StatelessWidget {
                     quarterTurns: 2,
                     child: Text(
                       controller.activeYear.value.toString(),
-                      style: context.textTheme.bodyText2!
+                      style: context.textTheme.bodyMedium!
                           .apply(color: context.theme.colorScheme.onPrimary),
                     ),
                   ),
@@ -110,7 +110,7 @@ class _StyledRibbon extends StatelessWidget {
                   isPrimaryColor: true,
                   child: Text(
                     controller.activeYear.value.toString(),
-                    style: context.textTheme.bodyText2!
+                    style: context.textTheme.bodyMedium!
                         .apply(color: context.theme.colorScheme.onPrimary),
                   ),
                 ),
@@ -167,7 +167,7 @@ class _StyledContainer extends StatelessWidget {
                       textAlign: TextAlign.center,
                       // always use darkMode on the primary color
                       // assumes headline 6 cannot be null
-                      style: context.textTheme.headline6,
+                      style: context.textTheme.titleLarge,
                     )
                   : Container(),
             )

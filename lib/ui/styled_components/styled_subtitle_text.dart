@@ -12,7 +12,7 @@ class StyledSubtitleText extends StatelessWidget {
       textAlign: TextAlign.center,
       style: Theme.of(context)
           .textTheme
-          .subtitle2!
+          .titleSmall!
           .apply(fontStyle: FontStyle.italic),
     );
   }

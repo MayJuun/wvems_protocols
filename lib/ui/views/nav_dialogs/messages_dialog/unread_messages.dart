@@ -18,7 +18,7 @@ class UnreadMessages extends StatelessWidget {
             Text(
               'Unread',
               // textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             ...SortUtil()
                 .sortByDate(messages.toList())

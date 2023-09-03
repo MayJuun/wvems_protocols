@@ -14,7 +14,7 @@ class ShareQrCode extends StatelessWidget {
       children: <Widget>[
         Text(
           S.NAV_SHARE_QR_CODE,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
           textAlign: TextAlign.center,
         ),
         const Gap(24),

@@ -13,7 +13,7 @@ class MoreInfo extends StatelessWidget {
         Text(
           S.NAV_ABOUT,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         IconButton(
           onPressed: () => displayAboutDialog(context),

@@ -17,7 +17,7 @@ class DisplayMode extends StatelessWidget {
       children: <Widget>[
         Text(
           S.NAV_DISPLAY_MODE,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         const Gap(12),
         RadioListTile(

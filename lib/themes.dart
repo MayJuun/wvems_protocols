@@ -20,19 +20,19 @@ class _AppColors {
 
 TextTheme _buildTextTheme() {
   return TextTheme(
-    headline1: _style(96.0, FontWeight.normal),
-    headline2: _style(60.0, FontWeight.bold),
-    headline3: _style(48.0, FontWeight.normal),
-    headline4: _style(36.0, FontWeight.bold),
-    headline5: _style(22.0, FontWeight.w500),
-    headline6: _style(18.0, FontWeight.w500),
-    bodyText1: _style(18.0, FontWeight.normal),
-    bodyText2: _style(16.0, FontWeight.normal),
-    subtitle1: _style(16.0, FontWeight.normal),
-    subtitle2: _style(12.0, FontWeight.w300),
-    button: _style(18.0, FontWeight.normal),
-    caption: _style(12.0, FontWeight.normal),
-    overline: _style(16.0, FontWeight.normal),
+    displayLarge: _style(96.0, FontWeight.normal),
+    displayMedium: _style(60.0, FontWeight.bold),
+    displaySmall: _style(48.0, FontWeight.normal),
+    headlineMedium: _style(36.0, FontWeight.bold),
+    headlineSmall: _style(22.0, FontWeight.w500),
+    titleLarge: _style(18.0, FontWeight.w500),
+    bodyLarge: _style(18.0, FontWeight.normal),
+    bodyMedium: _style(16.0, FontWeight.normal),
+    titleMedium: _style(16.0, FontWeight.normal),
+    titleSmall: _style(12.0, FontWeight.w300),
+    labelLarge: _style(18.0, FontWeight.normal),
+    bodySmall: _style(12.0, FontWeight.normal),
+    labelSmall: _style(16.0, FontWeight.normal),
     // );
   ).apply(fontFamily: 'Lato');
 }
@@ -161,6 +161,51 @@ class AppTheme {
           foregroundColor: isDark ? accentTxt : txt,
         ),
         highlightColor: primaryVariant,
-        toggleableActiveColor: primaryVariant);
+        checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return null;
+            }
+            if (states.contains(MaterialState.selected)) {
+              return primaryVariant;
+            }
+            return null;
+          }),
+        ),
+        radioTheme: RadioThemeData(
+          fillColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return null;
+            }
+            if (states.contains(MaterialState.selected)) {
+              return primaryVariant;
+            }
+            return null;
+          }),
+        ),
+        switchTheme: SwitchThemeData(
+          thumbColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return null;
+            }
+            if (states.contains(MaterialState.selected)) {
+              return primaryVariant;
+            }
+            return null;
+          }),
+          trackColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return null;
+            }
+            if (states.contains(MaterialState.selected)) {
+              return primaryVariant;
+            }
+            return null;
+          }),
+        ));
   }
 }

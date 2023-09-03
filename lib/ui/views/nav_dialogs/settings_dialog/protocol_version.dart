@@ -34,7 +34,7 @@ class ProtocolVersion extends StatelessWidget {
                 child: Text(
                   S.NAV_VERSION_SUBTITLE,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               StyledIconButton(
@@ -153,7 +153,7 @@ class _ProtocolVersionItem extends StatelessWidget {
                     textAlign: TextAlign.end,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText2
+                        .bodyMedium
                         ?.apply(color: Theme.of(context).disabledColor),
                   )
                 ],
@@ -199,7 +199,7 @@ class _ToggleDownloadInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Flexible(
@@ -210,7 +210,7 @@ class _ToggleDownloadInfo extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
+              children: <Widget>[
                 Icon(Mdi.refresh, size: 18),
                 Gap(4),
                 Expanded(child: StyledSubtitleText('= refresh content')),
@@ -224,7 +224,7 @@ class _ToggleDownloadInfo extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
+              children: <Widget>[
                 Icon(Mdi.cloudDownloadOutline, size: 18),
                 Gap(4),
                 Expanded(child: StyledSubtitleText('= download / remove')),

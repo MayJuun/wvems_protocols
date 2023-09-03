@@ -20,7 +20,7 @@ class AboutWvemsProtocols extends StatelessWidget {
         Text(
           S.APP_COPYRIGHT,
           textAlign: TextAlign.justify,
-          style: Theme.of(context).textTheme.subtitle2,
+          style: Theme.of(context).textTheme.titleSmall,
         ),
       ],
     );
