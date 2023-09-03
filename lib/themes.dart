@@ -110,9 +110,9 @@ class AppTheme {
       colorScheme: ColorScheme(
         brightness: isDark ? Brightness.dark : Brightness.light,
         primary: primary,
-        primaryVariant: primaryVariant,
+        primaryContainer: primaryVariant,
         secondary: secondary,
-        secondaryVariant: secondaryVariant,
+        secondaryContainer: secondaryVariant,
         background: bg,
         surface: surface,
         onBackground: txt,

@@ -17,12 +17,12 @@ class AboutMayJuun extends StatelessWidget {
       children: <Widget>[
         Text(
           S.NAV_ABOUT_MAYJUUN,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         const Gap(12),
         Text(
           S.NAV_ABOUT_MAYJUUN_INFO,
-          style: Theme.of(context).textTheme.subtitle2,
+          style: Theme.of(context).textTheme.titleSmall,
         ),
         const Gap(12),
         RichText(
@@ -41,10 +41,11 @@ class _RichSpanLink extends TextSpan {
   _RichSpanLink(String data, String url, BuildContext context)
       : super(
           text: data,
-          style: context.textTheme.bodyText2?.apply(
+          style: context.textTheme.bodyMedium?.apply(
             color: (context.isDarkMode)
                 ? context.theme.colorScheme.secondary
-                : ColorUtil().darken(context.theme.colorScheme.primaryVariant),
+                : ColorUtil()
+                    .darken(context.theme.colorScheme.primaryContainer),
             // color: ColorUtil().lightenOrDarken(
             //     Theme.of(context).colorScheme.primary,
             //     Theme.of(context).brightness,
