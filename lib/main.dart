@@ -1,60 +1,58 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:wvems_protocols/controllers/controllers.dart';
-import 'package:wvems_protocols/firebase_options.dart';
-import 'package:wvems_protocols/ui/views/views.dart';
+// ignore:depend_on_referenced_packages
+import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-Future<void> main() async {
+import 'wvems_protocols.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+  // turn off the # in the URLs on the web
+  usePathUrlStrategy();
+  // final localCartRepository = await SembastCartRepository.makeDefault();
+  // * Create ProviderContainer with any required overrides
+  final container = ProviderContainer(
+    overrides: [
+      // localCartRepositoryProvider.overrideWithValue(localCartRepository),
+    ],
+    observers: [AsyncErrorLogger()],
   );
-
-  await _initServices();
-
-  Get.put<MessagingController>(MessagingController());
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  runApp(MyApp());
+  // * Initialize CartSyncService to start the listener
+  // container.read(cartSyncServiceProvider);
+  final errorLogger = container.read(errorLoggerProvider);
+  // * Register error handlers. For more info, see:
+  // * https://docs.flutter.dev/testing/errors
+  registerErrorHandlers(errorLogger);
+  // * Entry point of the app
+  runApp(UncontrolledProviderScope(
+    container: container,
+    child: const MyApp(),
+  ));
 }
 
-// spec: https://firebase.flutter.dev/docs/messaging/usage
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-
-  print('Handling a background message: ${message.messageId}');
-  final MessagingController messagingController = Get.find();
-  await messagingController.handleMessage(message);
-}
-
-Future<void> _initServices() async {
-  await GetStorage.init();
-  Get.put<StorageController>(StorageController());
-  StorageController.to.getFirstLoadInfoFromStore();
-  Get.put<ThemeController>(ThemeController());
-  await ThemeController.to.getThemeModeFromStore();
-  await Firebase.initializeApp();
-  Get.put<PdfStateController>(PdfStateController());
-  Get.put<ProtocolBundleController>(ProtocolBundleController());
-  Get.putAsync<PdfSearchController>(() async => PdfSearchController());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final ThemeController themeController = Get.find();
-
-    return GetMaterialApp(
-      theme:
-          themeController.getThemeDataFromThemeMode(themeController.themeMode),
-      themeMode: themeController.themeMode,
-      home: HomeScreen(),
-      debugShowCheckedModeBanner: false,
+/// Original source: Andrea Bizzotto
+/// https://github.com/bizz84/complete-flutter-course
+///
+void registerErrorHandlers(ErrorLogger errorLogger) {
+  // * Show some error UI if any uncaught exception happens
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+    errorLogger.logError(details.exception, details.stack);
+  };
+  // * Handle errors from the underlying platform/OS
+  PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
+    errorLogger.logError(error, stack);
+    return true;
+  };
+  // * Show some error UI when any widget in the app fails to build
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        title: Text('An error occurred'.hardcoded),
+      ),
+      body: Center(child: Text(details.toString())),
     );
-  }
+  };
 }
