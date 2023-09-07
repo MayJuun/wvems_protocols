@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'active_pdf_repository.dart';
+part of 'pdf_bundle_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$activePdfRepositoryHash() =>
-    r'1e87bfd03c88288a064c25a75bc17d9cadfe3f50';
+String _$pdfBundleRepositoryHash() =>
+    r'99d200220fcb05669d85ed10cc759a7cb04eb7d4';
 
-/// See also [activePdfRepository].
-@ProviderFor(activePdfRepository)
-final activePdfRepositoryProvider = Provider<ActivePdfRepository>.internal(
-  activePdfRepository,
-  name: r'activePdfRepositoryProvider',
+/// See also [pdfBundleRepository].
+@ProviderFor(pdfBundleRepository)
+final pdfBundleRepositoryProvider = Provider<PdfBundleRepository>.internal(
+  pdfBundleRepository,
+  name: r'pdfBundleRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$activePdfRepositoryHash,
+      : _$pdfBundleRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef ActivePdfRepositoryRef = ProviderRef<ActivePdfRepository>;
+typedef PdfBundleRepositoryRef = ProviderRef<PdfBundleRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

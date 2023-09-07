@@ -10,17 +10,18 @@ class PdfScreenController extends _$PdfScreenController {
   FutureOr<void> build() {
     // nothing to do
   }
-  ActivePdfRepository get activePdfRepository =>
-      ref.read(activePdfRepositoryProvider);
+
+  PdfBundleRepository get pdfBundleRepository =>
+      ref.read(pdfBundleRepositoryProvider);
 
   Future<void> loadPdfFromAsset(String assetPath) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-        () => activePdfRepository.setActivePdfFromAsset(assetPath));
+        () => pdfBundleRepository.setPdfBundleFromAsset(assetPath));
   }
 
   Future<void> clearActivePdf() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => activePdfRepository.clearActivePdf());
+    state = await AsyncValue.guard(() => pdfBundleRepository.clearPdfBundle());
   }
 }

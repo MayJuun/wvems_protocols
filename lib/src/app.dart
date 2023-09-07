@@ -12,7 +12,7 @@ class MyApp extends ConsumerWidget {
       routerConfig: goRouter,
       debugShowCheckedModeBanner: false,
       restorationScopeId: 'app',
-      onGenerateTitle: (BuildContext context) => 'My Shop'.hardcoded,
+      onGenerateTitle: (BuildContext context) => 'WVEMS Protocols'.hardcoded,
       theme: ThemeData(
         primarySwatch: Colors.grey,
         appBarTheme: const AppBarTheme(

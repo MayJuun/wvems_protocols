@@ -5,32 +5,30 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:wvems_protocols/src/features/pdf/domain/pdf_meta.dart';
-import 'package:wvems_protocols/src/features/pdf/domain/pdf_table_of_contents.dart';
 
 import '../../../../wvems_protocols.dart';
 
-part 'active_pdf_repository.g.dart';
+part 'pdf_bundle_repository.g.dart';
 
-class ActivePdfRepository {
-  ActivePdfRepository({this.addDelay = true});
+class PdfBundleRepository {
+  PdfBundleRepository({this.addDelay = false});
   final bool addDelay;
 
-  final _pdf = InMemoryStore<PdfBundle?>(null);
+  final _pdfBundle = InMemoryStore<PdfBundle?>(null);
 
-  Future<PdfBundle?> fetchPdf() => Future.value(_pdf.value);
+  PdfBundle? get currentPdfBundle => _pdfBundle.value;
+  Stream<PdfBundle?> bundleStateChanges() => _pdfBundle.stream;
 
-  Stream<PdfBundle?> watchPdf() => _pdf.stream;
+  Future<void> clearPdfBundle() async => _pdfBundle.value = null;
+  void dispose() => _pdfBundle.close();
 
-  Future<void> clearActivePdf() async => _pdf.value = null;
-
-  Future<void> setActivePdfFromAsset(String assetPath) async {
+  Future<void> setPdfBundleFromAsset(String assetPath) async {
     final pdf = await loadFile(assetPath);
     final pdfMeta = await loadMeta(assetPath);
     final pdfTableOfContents = await loadTableOfContents(assetPath);
     final pdfText = await loadText(assetPath);
 
-    _pdf.value = PdfBundle(
+    _pdfBundle.value = PdfBundle(
         pdf: pdf,
         pdfMeta: pdfMeta,
         pdfTableOfContents: pdfTableOfContents,
@@ -39,7 +37,7 @@ class ActivePdfRepository {
 
   @visibleForTesting
   Future<File> loadFile(String assetPath) async {
-    /// spec: https://pub.dev/packages/flutter_pdfview/example
+    /// spec: https://pub.dev/packages/flutter_pdfviewBundle/example
     final Completer<File> completer = Completer();
 
     try {
@@ -77,6 +75,6 @@ class ActivePdfRepository {
 }
 
 @Riverpod(keepAlive: true)
-ActivePdfRepository activePdfRepository(ActivePdfRepositoryRef ref) {
-  return ActivePdfRepository(addDelay: false);
+PdfBundleRepository pdfBundleRepository(PdfBundleRepositoryRef ref) {
+  return PdfBundleRepository(addDelay: false);
 }

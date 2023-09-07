@@ -29,7 +29,8 @@ class PdfText extends Equatable {
     try {
       map.entries.forEach((e) {
         final pageId = int.parse(e.key);
-        assert(pageId > 0);
+        assert(pageId > 0,
+            'Page should be a number greater than 0, otherwise the index will be out of range');
         data[pageId] = e.value;
       });
     } catch (error) {

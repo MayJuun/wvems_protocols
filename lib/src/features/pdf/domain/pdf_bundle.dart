@@ -3,9 +3,6 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 
-import 'package:wvems_protocols/src/features/pdf/domain/pdf_meta.dart';
-import 'package:wvems_protocols/src/features/pdf/domain/pdf_table_of_contents.dart';
-
 import 'export.dart';
 
 typedef PageId = int;
