@@ -27,20 +27,28 @@ void main() {
       expect(pdfBundleRepository.bundleStateChanges(), emits(null));
     });
 
-    // TODO(FireJuun): figure out why this test is failing
     test(
         'setPdfBundleFromAsset should set currentPdfBundle with the correct values',
         () async {
       // setup
       TestWidgetsFlutterBinding.ensureInitialized();
 
+      // while the File('*.pdf') has a different hashtag, and thus can't be checked easily...the other JSON data don't have this same limitation
+      final expectedMeta = PdfMeta.fromJson(
+          await rootBundle.loadString('$testBundle-meta.json'));
+      final expectedTableOfContents = PdfTableOfContents.fromJson(
+          await rootBundle.loadString('$testBundle-toc.json'));
+      final expectedText = PdfText.fromJson(
+          await rootBundle.loadString('$testBundle-text.json'));
+
       // required to access pdf assets in testing
+      // of note, this will also save the file locally
       // https://stackoverflow.com/questions/56158676/why-does-applicationsdocumentsdirectory-return-null-for-unit-test
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
               const MethodChannel('plugins.flutter.io/path_provider'),
               (MethodCall methodCall) async {
-        return '.';
+        return './test/src/features/pdf/data';
       });
       final pdfBundleRepository = makePdfBundleRepository();
 
@@ -48,11 +56,12 @@ void main() {
       await pdfBundleRepository.setPdfBundleFromAsset(testBundle);
 
       // verify
-      expect(pdfBundleRepository.currentPdfBundle?.pdf, isNotNull);
-      expect(pdfBundleRepository.currentPdfBundle?.pdfMeta, isNotNull);
-      expect(
-          pdfBundleRepository.currentPdfBundle?.pdfTableOfContents, isNotNull);
-      expect(pdfBundleRepository.currentPdfBundle?.pdfText, isNotNull);
+      expect(pdfBundleRepository.currentPdfBundle?.pdf, isA<File>());
+      expect(pdfBundleRepository.currentPdfBundle?.pdfMeta, expectedMeta);
+      expect(pdfBundleRepository.currentPdfBundle?.pdfTableOfContents,
+          expectedTableOfContents);
+      expect(pdfBundleRepository.currentPdfBundle?.pdfText, expectedText);
+      expect(pdfBundleRepository.currentPdfBundle, isA<PdfBundle>());
     });
 
     group('load pdf metadata', () {
@@ -71,11 +80,10 @@ void main() {
         },
       );
 
+      // TODO(FireJuun): setup additional failing tests, such as missing colors or inaccurate data
       test(
-        'fails',
-        () async {
-          // TODO(FireJuun): setup failing tests, such as missing colors or inaccurate data
-        },
+        'fails, inaccurate data',
+        () async {},
       );
     });
     group('load pdf table of contents', () {
