@@ -33,8 +33,8 @@ class PdfScreen extends ConsumerWidget {
               );
             }),
       floatingActionButton: FloatingActionButton(
-          onPressed: () =>
-              ref.read(pdfScreenControllerProvider.notifier).clearActivePdf()),
+          onPressed:
+              ref.read(pdfScreenControllerProvider.notifier).clearActivePdf),
     );
   }
 }
@@ -46,25 +46,43 @@ class NoDataLoaded extends StatelessWidget {
   Widget build(BuildContext context) {
     const assetPaths = AssetPaths.values;
 
-    return Column(
-      children: [
-        Text('No Protocols Loaded. Select an Option:'.hardcoded),
-        Expanded(
-          child: ListView.builder(
-            itemCount: assetPaths.length,
-            itemBuilder: (context, index) {
-              final asset = assetPaths[index];
-              return Consumer(builder: (context, ref, child) {
-                return ElevatedButton(
-                    onPressed: () => ref
-                        .read(pdfScreenControllerProvider.notifier)
-                        .loadPdfFromAsset(asset.path),
-                    child: Text(asset.name));
-              });
-            },
-          ),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                Text(
+                  'Please select a protocol:'.hardcoded,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                gapH4,
+                Text(
+                  'It will load automatically the next time you open this app'
+                      .hardcoded,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            gapH32,
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 12.0,
+              children: assetPaths
+                  .map((asset) => Consumer(builder: (context, ref, child) {
+                        return ElevatedButton(
+                            onPressed: () => ref
+                                .read(pdfScreenControllerProvider.notifier)
+                                .loadPdfFromAsset(asset.path),
+                            child: Text(asset.name));
+                      }))
+                  .toList(),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

@@ -15,11 +15,11 @@
 ///
 enum AssetPaths {
   Wvems22(
-    name: 'WVEMS 2022',
+    name: 'WVEMS Protocols 2022',
     path: 'assets/2022-WVEMS-Protocols/2022-WVEMS-Protocols',
   ),
   Wvems23(
-    name: 'WVEMS 2023',
+    name: 'WVEMS Protocols 2023',
     path: 'assets/2023-WVEMS-Protocols/2023-WVEMS-Protocols',
   );
 
