@@ -42,7 +42,8 @@ class NoDataLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const assetPaths = AssetPaths.values;
+    final assetPaths =
+        AssetPaths.values.where((e) => e != AssetPaths.TestBundle);
 
     return Center(
       child: Padding(
@@ -91,8 +92,93 @@ class DataLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PDFView(
-      filePath: pdf.path,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const PdfSearch(),
+
+        // This PDF View fills the whole screen, which means clicking to the side won't close an overlay
+        // In theory, GestureDetectors can help...but they won't pass through click inputs if in a stack
+        // more info: https://stackoverflow.com/a/75845879
+        // if you can set the pass-through to work, use: FocusManager.instance.primaryFocus?.unfocus();
+        Expanded(
+          child: PDFView(
+            filePath: pdf.path,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SearchBarApp extends StatefulWidget {
+  const SearchBarApp({super.key});
+
+  @override
+  State<SearchBarApp> createState() => _SearchBarAppState();
+}
+
+class _SearchBarAppState extends State<SearchBarApp> {
+  bool isDark = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData themeData = ThemeData(
+        useMaterial3: true,
+        brightness: isDark ? Brightness.dark : Brightness.light);
+
+    return MaterialApp(
+      theme: themeData,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Search Bar Sample')),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SearchAnchor(
+              builder: (BuildContext context, SearchController controller) {
+            return SearchBar(
+              controller: controller,
+              padding: const MaterialStatePropertyAll<EdgeInsets>(
+                  EdgeInsets.symmetric(horizontal: 16.0)),
+              onTap: () {
+                controller.openView();
+              },
+              onChanged: (_) {
+                controller.openView();
+              },
+              leading: const Icon(Icons.search),
+              trailing: <Widget>[
+                Tooltip(
+                  message: 'Change brightness mode',
+                  child: IconButton(
+                    isSelected: isDark,
+                    onPressed: () {
+                      setState(() {
+                        isDark = !isDark;
+                      });
+                    },
+                    icon: const Icon(Icons.wb_sunny_outlined),
+                    selectedIcon: const Icon(Icons.brightness_2_outlined),
+                  ),
+                )
+              ],
+            );
+          }, suggestionsBuilder:
+                  (BuildContext context, SearchController controller) {
+            return List<ListTile>.generate(5, (int index) {
+              final String item = 'item $index';
+              return ListTile(
+                title: Text(item),
+                onTap: () {
+                  setState(() {
+                    controller.closeView(item);
+                  });
+                },
+              );
+            });
+          }),
+        ),
+      ),
     );
   }
 }
