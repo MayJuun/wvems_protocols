@@ -3,17 +3,21 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 
-import 'export.dart';
+import '../../../../wvems_protocols.dart';
 
 typedef PageId = int;
 
 class PdfBundle extends Equatable {
   const PdfBundle({
+    required this.assetPath,
     required this.pdf,
     required this.pdfMeta,
     required this.pdfTableOfContents,
     required this.pdfText,
   });
+
+  /// The reference to the locally hosted app, used for later retrieval
+  final AssetPaths assetPath;
 
   /// The PDF, pre-loaded in memory
   final File pdf;

@@ -7,7 +7,7 @@ part of 'pdf_screen_controller.dart';
 // **************************************************************************
 
 String _$pdfScreenControllerHash() =>
-    r'7dda5dfd7ef6ec503449ef47ba577b2bc756ebcc';
+    r'0ac1be817baa6f6b2a5f2d4f6e0f95c93e2f8068';
 
 /// See also [PdfScreenController].
 @ProviderFor(PdfScreenController)

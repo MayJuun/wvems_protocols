@@ -34,12 +34,13 @@ void main() {
       TestWidgetsFlutterBinding.ensureInitialized();
 
       // while the File('*.pdf') has a different hashtag, and thus can't be checked easily...the other JSON data don't have this same limitation
-      final expectedMeta = PdfMeta.fromJson(
-          await rootBundle.loadString('$testBundle-meta.json'));
+      final path = testBundle.path;
+      final expectedMeta =
+          PdfMeta.fromJson(await rootBundle.loadString('$path-meta.json'));
       final expectedTableOfContents = PdfTableOfContents.fromJson(
-          await rootBundle.loadString('$testBundle-toc.json'));
-      final expectedText = PdfText.fromJson(
-          await rootBundle.loadString('$testBundle-text.json'));
+          await rootBundle.loadString('$path-toc.json'));
+      final expectedText =
+          PdfText.fromJson(await rootBundle.loadString('$path-text.json'));
 
       // required to access pdf assets in testing
       // of note, this will also save the file locally

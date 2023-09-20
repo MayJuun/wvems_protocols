@@ -1,6 +1,6 @@
 part of 'pdf_bundle_repository_test.dart';
 
-const testBundle = 'assets/test-bundle/test-bundle';
+const testBundle = AssetPaths.TestBundle;
 
 final testMeta = {'year': '2023', 'version': '1', 'primaryColor': '69A2D3'};
 

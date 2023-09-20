@@ -18,9 +18,7 @@ class PdfScreen extends ConsumerWidget {
 
     final state = ref.watch(pdfScreenControllerProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('WVEMS Protocols'.hardcoded),
-      ),
+      appBar: AppBar(toolbarHeight: 0),
       body: state.isLoading
           ? const Center(child: CircularProgressIndicator())
           : Consumer(builder: (context, ref, child) {
@@ -75,7 +73,7 @@ class NoDataLoaded extends StatelessWidget {
                         return ElevatedButton(
                             onPressed: () => ref
                                 .read(pdfScreenControllerProvider.notifier)
-                                .loadPdfFromAsset(asset.path),
+                                .loadPdfFromAsset(asset),
                             child: Text(asset.name));
                       }))
                   .toList(),

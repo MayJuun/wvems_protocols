@@ -15,16 +15,28 @@
 ///
 enum AssetPaths {
   Wvems22(
-    name: 'WVEMS Protocols 2022',
+    title: 'WVEMS Protocols 2022',
     path: 'assets/2022-WVEMS-Protocols/2022-WVEMS-Protocols',
   ),
   Wvems23(
-    name: 'WVEMS Protocols 2023',
+    title: 'WVEMS Protocols 2023',
     path: 'assets/2023-WVEMS-Protocols/2023-WVEMS-Protocols',
-  );
+  ),
 
-  const AssetPaths({required this.name, required this.path});
+  /// used only for testing
+  TestBundle(title: 'Test Bundle', path: 'assets/test-bundle/test-bundle'),
+  ;
 
-  final String name;
+  const AssetPaths({required this.title, required this.path});
+
+  final String title;
   final String path;
+
+  AssetPaths? fromString(String data) {
+    return switch (data) {
+      'Wvems22' => AssetPaths.Wvems22,
+      'Wvems23' => AssetPaths.Wvems23,
+      String() => null,
+    };
+  }
 }

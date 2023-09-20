@@ -11,15 +11,14 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final goRouter = ref.watch(goRouterProvider);
     final themeRepository = ref.watch(themeRepositoryProvider);
-    // final themeMode = ref.watch(themeModeStateProvider);
-    final themeMode = useStream(themeRepository.themeModeChanges);
+    final appTheme = useStream(themeRepository.appThemeChanges);
 
     return MaterialApp.router(
       routerConfig: goRouter,
       debugShowCheckedModeBanner: false,
       restorationScopeId: 'app',
       onGenerateTitle: (BuildContext context) => 'WVEMS Protocols'.hardcoded,
-      themeMode: themeMode.data,
+      themeMode: appTheme.data?.themeMode,
       theme: themeRepository.lightTheme,
       darkTheme: themeRepository.darkTheme,
     );

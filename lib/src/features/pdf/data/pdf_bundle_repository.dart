@@ -12,6 +12,7 @@ part 'pdf_bundle_repository.g.dart';
 
 class PdfBundleRepository {
   PdfBundleRepository({this.addDelay = false});
+
   final bool addDelay;
 
   final _pdfBundle = InMemoryStore<PdfBundle?>(null);
@@ -22,13 +23,19 @@ class PdfBundleRepository {
   Future<void> clearPdfBundle() async => _pdfBundle.value = null;
   void dispose() => _pdfBundle.close();
 
-  Future<void> setPdfBundleFromAsset(String assetPath) async {
+  Future<void> setPdfBundleFromAsset(AssetPaths assetPath) async {
+    _pdfBundle.value = await loadBundleData(assetPath);
+  }
+
+  @visibleForTesting
+  Future<PdfBundle> loadBundleData(AssetPaths assetPath) async {
     final pdf = await loadFile(assetPath);
     final pdfMeta = await loadMeta(assetPath);
     final pdfTableOfContents = await loadTableOfContents(assetPath);
     final pdfText = await loadText(assetPath);
 
-    _pdfBundle.value = PdfBundle(
+    return PdfBundle(
+        assetPath: assetPath,
         pdf: pdf,
         pdfMeta: pdfMeta,
         pdfTableOfContents: pdfTableOfContents,
@@ -36,13 +43,14 @@ class PdfBundleRepository {
   }
 
   @visibleForTesting
-  Future<File> loadFile(String assetPath) async {
+  Future<File> loadFile(AssetPaths assetPath) async {
     /// spec: https://pub.dev/packages/flutter_pdfviewBundle/example
     final Completer<File> completer = Completer();
 
     try {
-      final fullAssetPath = '$assetPath.pdf';
-      final fileName = assetPath.split('/').last;
+      final path = assetPath.path;
+      final fullAssetPath = '$path.pdf';
+      final fileName = path.split('/').last;
       final dir = await getApplicationDocumentsDirectory();
       final File file = File('${dir.path}/$fileName');
       final data = await rootBundle.load(fullAssetPath);
@@ -56,25 +64,29 @@ class PdfBundleRepository {
   }
 
   @visibleForTesting
-  Future<PdfMeta> loadMeta(String assetPath) async {
-    final asset = await rootBundle.loadString('$assetPath-meta.json');
+  Future<PdfMeta> loadMeta(AssetPaths assetPath) async {
+    final path = assetPath.path;
+    final asset = await rootBundle.loadString('$path-meta.json');
     return PdfMeta.fromJson(asset);
   }
 
   @visibleForTesting
-  Future<PdfTableOfContents> loadTableOfContents(String assetPath) async {
-    final asset = await rootBundle.loadString('$assetPath-toc.json');
+  Future<PdfTableOfContents> loadTableOfContents(AssetPaths assetPath) async {
+    final path = assetPath.path;
+    final asset = await rootBundle.loadString('$path-toc.json');
     return PdfTableOfContents.fromJson(asset);
   }
 
   @visibleForTesting
-  Future<PdfText> loadText(String assetPath) async {
-    final asset = await rootBundle.loadString('$assetPath-text.json');
+  Future<PdfText> loadText(AssetPaths assetPath) async {
+    final path = assetPath.path;
+    final asset = await rootBundle.loadString('$path-text.json');
     return PdfText.fromJson(asset);
   }
 }
 
 @Riverpod(keepAlive: true)
 PdfBundleRepository pdfBundleRepository(PdfBundleRepositoryRef ref) {
-  return PdfBundleRepository(addDelay: false);
+  // set this in the app bootstrap section
+  throw UnimplementedError();
 }

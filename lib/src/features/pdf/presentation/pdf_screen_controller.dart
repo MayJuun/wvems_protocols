@@ -14,10 +14,18 @@ class PdfScreenController extends _$PdfScreenController {
   PdfBundleRepository get pdfBundleRepository =>
       ref.read(pdfBundleRepositoryProvider);
 
-  Future<void> loadPdfFromAsset(String assetPath) async {
+  Future<void> loadPdfFromAsset(AssetPaths assetPath) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
         () => pdfBundleRepository.setPdfBundleFromAsset(assetPath));
+
+    /// set new theme based on pdf color scheme
+    final currentPdfBundle = pdfBundleRepository.currentPdfBundle;
+    if (currentPdfBundle != null) {
+      ref
+          .read(themeRepositoryProvider)
+          .setAppSeedColor(currentPdfBundle.pdfMeta.primaryColor);
+    }
   }
 
   Future<void> clearActivePdf() async {
