@@ -41,6 +41,13 @@ class ThemeRepository {
         appBarTheme: AppBarTheme(
           backgroundColor: colorScheme.primary,
           foregroundColor: colorScheme.onPrimary,
+        ),
+        searchBarTheme: SearchBarThemeData(
+          padding: const MaterialStatePropertyAll<EdgeInsets>(
+              EdgeInsets.symmetric(horizontal: 16.0)),
+          shape: MaterialStatePropertyAll<OutlinedBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+          ),
         )
         // floatingActionButtonTheme: FloatingActionButtonThemeData(
         //     backgroundColor: colorScheme.onSecondary),

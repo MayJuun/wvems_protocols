@@ -1,6 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:wvems_protocols/src/features/settings/data/shared_preferences_repository.dart';
 
 import '../../../../wvems_protocols.dart';
 
