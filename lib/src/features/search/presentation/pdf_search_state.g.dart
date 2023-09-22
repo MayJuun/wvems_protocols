@@ -25,7 +25,7 @@ final pdfSearchResultsTableOfContentsProvider =
 typedef PdfSearchResultsTableOfContentsRef
     = AutoDisposeProviderRef<Map<int, String>>;
 String _$pdfSearchResultsPageTextHash() =>
-    r'893540d94e4052aa7eb89f7d9159c003237005fc';
+    r'1bf71e844629d26e696eaa90e8f23e50f071367a';
 
 /// See also [pdfSearchResultsPageText].
 @ProviderFor(pdfSearchResultsPageText)
@@ -58,7 +58,7 @@ final pdfSearchStateFilterProvider = AutoDisposeNotifierProvider<
 );
 
 typedef _$PdfSearchStateFilter = AutoDisposeNotifier<PdfSearchFilters>;
-String _$pdfSearchStateHash() => r'd392b4679e52a79abb93939c55fd518b59ff6fde';
+String _$pdfSearchStateHash() => r'38859b3134313e1f410332dfe87ffc57d5225ffd';
 
 /// Automatically update displayed content based on search results above + query
 ///

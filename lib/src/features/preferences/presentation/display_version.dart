@@ -24,7 +24,8 @@ class DisplayVersion extends StatelessWidget {
           Consumer(builder: (context, ref, child) {
             return IconButton.filledTonal(
               onPressed: () {
-                // TODO(FireJuun): back to first page
+                ref.read(pdfNavigatorControllerProvider.notifier).goToHome();
+                Navigator.of(context).pop();
               },
               icon: const Icon(Icons.home),
             );
