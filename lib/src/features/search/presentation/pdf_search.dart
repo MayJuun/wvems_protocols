@@ -96,6 +96,7 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
                 child: CircularButton(
                   icon: const Icon(Icons.menu),
                   onPressed: () {
+                    showUnifiedMenuDialog(context: context);
                     // TODO(FireJuun): add menu overlay
                   },
                 ),

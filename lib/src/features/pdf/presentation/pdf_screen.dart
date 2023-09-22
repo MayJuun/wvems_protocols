@@ -31,7 +31,8 @@ class PdfScreen extends ConsumerWidget {
                     : DataLoaded(pdf: pdfBundle.pdf),
               );
             }),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.small(
+          child: const Icon(Icons.home),
           onPressed:
               ref.read(pdfScreenControllerProvider.notifier).clearActivePdf),
     );
@@ -55,12 +56,13 @@ class NoDataLoaded extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  'Please select a protocol:'.hardcoded,
+                  'Please select a protocol year:'.hardcoded,
                   style: Theme.of(context).textTheme.headlineSmall,
+                  textAlign: TextAlign.center,
                 ),
-                gapH4,
+                gapH24,
                 Text(
-                  'It will load automatically the next time you open this app'
+                  'It will load automatically whenever this app opens.'
                       .hardcoded,
                   textAlign: TextAlign.center,
                 ),

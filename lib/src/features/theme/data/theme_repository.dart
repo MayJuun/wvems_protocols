@@ -36,22 +36,23 @@ class ThemeRepository {
     final colorScheme = ColorScheme.fromSeed(
         seedColor: _appTheme.value.seedColor, brightness: brightness);
     return ThemeData(
-        colorScheme: colorScheme,
-        useMaterial3: true,
-        appBarTheme: AppBarTheme(
-          backgroundColor: colorScheme.primary,
-          foregroundColor: colorScheme.onPrimary,
+      colorScheme: colorScheme,
+      useMaterial3: true,
+      appBarTheme: AppBarTheme(
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+      ),
+      searchBarTheme: SearchBarThemeData(
+        padding: const MaterialStatePropertyAll<EdgeInsets>(
+            EdgeInsets.symmetric(horizontal: 16.0)),
+        shape: MaterialStatePropertyAll<OutlinedBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
         ),
-        searchBarTheme: SearchBarThemeData(
-          padding: const MaterialStatePropertyAll<EdgeInsets>(
-              EdgeInsets.symmetric(horizontal: 16.0)),
-          shape: MaterialStatePropertyAll<OutlinedBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-          ),
-        )
-        // floatingActionButtonTheme: FloatingActionButtonThemeData(
-        //     backgroundColor: colorScheme.onSecondary),
-        );
+      ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          shape: CircleBorder(),
+          smallSizeConstraints: BoxConstraints(minWidth: 48, minHeight: 48)),
+    );
   }
 }
 
