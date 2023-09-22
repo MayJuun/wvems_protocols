@@ -9,15 +9,9 @@ class DisplayVersion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
 
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-      decoration: BoxDecoration(
-          color: colorScheme.background,
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+    return MenuContainer(
+      roundedMenuEdges: RoundedMenuEdges.top,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

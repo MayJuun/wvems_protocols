@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wvems_protocols/assets.dart';
-import 'package:wvems_protocols/wvems_protocols.dart';
+
+import '../../../../wvems_protocols.dart';
 
 const kUnifiedMenuWVEMSKey = Key('unified-menu-wvems-key');
 const kUnifiedMenuMayJuunKey = Key('unified-menu-mayjuun-key');
@@ -82,32 +82,5 @@ class _MenuFooter extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class AppLinks extends StatelessWidget {
-  const AppLinks({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class AppMessages extends StatelessWidget {
-  const AppMessages({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class DisplayMode extends StatelessWidget {
-  const DisplayMode({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

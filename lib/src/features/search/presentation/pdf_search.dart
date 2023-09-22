@@ -121,14 +121,18 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
                         mainAxisSize: MainAxisSize.min,
                         children:
                             List<ListTile>.generate(results.length, (index) {
-                          final title = results.entries.elementAt(index).value;
+                          final item = results.entries.elementAt(index);
+                          final pageIndex =
+                              PagesUtil().pageNumToPageIndex(item.key);
                           return ListTile(
                             dense: true,
-                            title: Text(title),
+                            title: Text(item.value),
                             onTap: () {
-                              _controller.query = title.replaceAll(
-                                  ' (cont.)'.toLowerCase(), '');
-                              // implement tap
+                              _controller.query = item.value
+                                  .replaceAll(' (cont.)'.toLowerCase(), '');
+                              ref
+                                  .read(pdfNavigatorControllerProvider.notifier)
+                                  .setPdfPage(pageIndex);
                               _controller.close();
                             },
                           );

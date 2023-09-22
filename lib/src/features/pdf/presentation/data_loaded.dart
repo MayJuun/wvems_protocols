@@ -27,6 +27,7 @@ class DataLoaded extends ConsumerWidget {
         // more info: https://stackoverflow.com/a/75845879
         // if you can set the pass-through to work, use: FocusManager.instance.primaryFocus?.unfocus();
         PDFView(
+          nightMode: Theme.of(context).brightness == Brightness.dark,
           key: pdfViewKey,
           filePath: pdf.path,
           onViewCreated: (controller) => ref
