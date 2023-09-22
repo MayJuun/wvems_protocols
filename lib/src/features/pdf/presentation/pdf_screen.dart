@@ -18,6 +18,7 @@ class PdfScreen extends ConsumerWidget {
 
     final state = ref.watch(pdfScreenControllerProvider);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(toolbarHeight: 0),
       body: state.isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -75,7 +76,7 @@ class NoDataLoaded extends StatelessWidget {
                             onPressed: () => ref
                                 .read(pdfScreenControllerProvider.notifier)
                                 .loadPdfFromAsset(asset),
-                            child: Text(asset.name));
+                            child: Text(asset.title));
                       }))
                   .toList(),
             ),
@@ -92,21 +93,17 @@ class DataLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Stack(
+      fit: StackFit.expand,
       children: [
-        const PdfSearch(),
-
         // This PDF View fills the whole screen, which means clicking to the side won't close an overlay
         // In theory, GestureDetectors can help...but they won't pass through click inputs if in a stack
         // more info: https://stackoverflow.com/a/75845879
         // if you can set the pass-through to work, use: FocusManager.instance.primaryFocus?.unfocus();
-        Expanded(
-          child: PDFView(
-            filePath: pdf.path,
-          ),
+        PDFView(
+          filePath: pdf.path,
         ),
+        const PdfSearch(),
       ],
     );
   }

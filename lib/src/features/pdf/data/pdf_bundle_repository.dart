@@ -83,10 +83,59 @@ class PdfBundleRepository {
     final asset = await rootBundle.loadString('$path-text.json');
     return PdfText.fromJson(asset);
   }
+
+  Future<Map<PageId, TableOfContents>> searchPdfTableOfContents(
+      String query) async {
+    final lowerCaseQuery = query.toLowerCase();
+    final tableOfContents = currentPdfBundle?.pdfTableOfContents;
+    if (tableOfContents != null && tableOfContents.data.isNotEmpty) {
+      final response = <PageId, TableOfContents>{};
+      for (var entry in tableOfContents.data.entries) {
+        if (entry.value.toLowerCase().contains(lowerCaseQuery)) {
+          response[entry.key] = entry.value;
+        }
+      }
+      return response;
+    } else {
+      throw StateError('No Data: Unable to load Table of Contents');
+    }
+  }
+
+  Future<Map<PageId, PageText>> searchPdfText(String query) async {
+    final lowerCaseQuery = query.toLowerCase();
+    final pageText = currentPdfBundle?.pdfText;
+    if (pageText != null && pageText.data.isNotEmpty) {
+      final response = <PageId, PageText>{};
+      for (var entry in pageText.data.entries) {
+        if (entry.value.toLowerCase().contains(lowerCaseQuery)) {
+          response[entry.key] = entry.value;
+        }
+      }
+      return response;
+    } else {
+      throw StateError('No Data: Unable to load Page Text');
+    }
+  }
 }
 
 @Riverpod(keepAlive: true)
 PdfBundleRepository pdfBundleRepository(PdfBundleRepositoryRef ref) {
   // set this in the app bootstrap section
   throw UnimplementedError();
+}
+
+@riverpod
+Future<Map<PageId, TableOfContents>> pdfTableOfContentsSearch(
+    PdfTableOfContentsSearchRef ref, String query) async {
+  // put any debounce or timer/cancel methods here
+  final pdfBundleRepository = ref.watch(pdfBundleRepositoryProvider);
+  return pdfBundleRepository.searchPdfTableOfContents(query);
+}
+
+@riverpod
+Future<Map<PageId, PageText>> pdfTextSearch(
+    PdfTextSearchRef ref, String query) async {
+  // put any debounce or timer/cancel methods here
+  final pdfBundleRepository = ref.watch(pdfBundleRepositoryProvider);
+  return pdfBundleRepository.searchPdfText(query);
 }
