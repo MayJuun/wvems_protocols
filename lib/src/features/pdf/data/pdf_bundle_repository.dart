@@ -50,7 +50,7 @@ class PdfBundleRepository {
     try {
       final path = assetPath.path;
       final fullAssetPath = '$path.pdf';
-      final fileName = path.split('/').last;
+      final fileName = fullAssetPath.split('/').last;
       final dir = await getApplicationDocumentsDirectory();
       final File file = File('${dir.path}/$fileName');
       final data = await rootBundle.load(fullAssetPath);

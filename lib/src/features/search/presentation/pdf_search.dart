@@ -27,6 +27,7 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
 
     final double searchBarWidth =
         isPortrait ? MediaQuery.of(context).size.width - 48 : 600;
+    const double minimizedWidth = 124;
 
     return SafeArea(
       child: FloatingSearchBar(
@@ -36,13 +37,13 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
           scrollPadding: const EdgeInsets.only(top: 16, bottom: 48),
           transitionCurve: Curves.easeInOut,
           physics: const BouncingScrollPhysics(),
-          axisAlignment: isPortrait ? 0.0 : -1.0,
+          axisAlignment: 0,
           elevation: 2,
           border: BorderSide(
               color: Theme.of(context).colorScheme.scrim, width: 0.5),
           openAxisAlignment: 0.0,
           openWidth: searchBarWidth,
-          width: searchBarWidth,
+          width: isPortrait ? searchBarWidth : minimizedWidth,
           debounceDelay: const Duration(milliseconds: 300),
           onQueryChanged: (query) =>
               ref.read(pdfSearchStateProvider.notifier).updateQuery(query),
@@ -132,7 +133,7 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
                                   .replaceAll(' (cont.)'.toLowerCase(), '');
                               ref
                                   .read(pdfNavigatorControllerProvider.notifier)
-                                  .setPdfPage(pageIndex);
+                                  .onPageSearch(newPageIndex: pageIndex);
                               _controller.close();
                             },
                           );
