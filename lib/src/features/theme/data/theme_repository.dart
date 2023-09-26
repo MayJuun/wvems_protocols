@@ -52,13 +52,6 @@ class ThemeRepository {
             padding: MaterialStatePropertyAll(
                 EdgeInsets.symmetric(vertical: 0, horizontal: 8))),
       ),
-      searchBarTheme: SearchBarThemeData(
-        padding: const MaterialStatePropertyAll<EdgeInsets>(
-            EdgeInsets.symmetric(horizontal: 16.0)),
-        shape: MaterialStatePropertyAll<OutlinedBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-        ),
-      ),
       chipTheme: ChipThemeData(
         padding: const EdgeInsets.all(0),
         labelPadding: const EdgeInsets.symmetric(horizontal: 4),

@@ -42,12 +42,19 @@ class AppBootstrapLocal extends AppBootstrap {
     final lastTheme = sharedPreferencesRepository.getAppTheme();
     final ThemeRepository themeRepository = ThemeRepository(lastTheme);
 
+    // final searchFilter = sharedPreferencesRepository.getSearchFilter();
+    final searchHistory = sharedPreferencesRepository.getSearchHistory();
+    final SearchHistoryRepository searchHistoryRepository =
+        SearchHistoryRepository(searchHistory);
+
     return ProviderContainer(overrides: [
       // repositories
       sharedPreferencesRepositoryProvider
           .overrideWithValue(sharedPreferencesRepository),
       themeRepositoryProvider.overrideWithValue(themeRepository),
       pdfBundleRepositoryProvider.overrideWithValue(pdfBundleRepository),
+      searchHistoryRepositoryProvider
+          .overrideWithValue(searchHistoryRepository),
     ], observers: [
       AsyncErrorLogger()
     ]);

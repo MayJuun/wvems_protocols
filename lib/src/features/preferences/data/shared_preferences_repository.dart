@@ -5,7 +5,7 @@ import '../../../../wvems_protocols.dart';
 
 part 'shared_preferences_repository.g.dart';
 
-enum _StoredValues { appTheme, assetPath }
+enum _StoredValues { appTheme, assetPath, searchHistory, searchFilter }
 
 class SharedPreferencesRepository {
   SharedPreferencesRepository(this._prefs);
@@ -45,6 +45,54 @@ class SharedPreferencesRepository {
       return AssetPaths.values.first.fromString(assetPathString);
     } else {
       return null;
+    }
+  }
+
+  void saveSearchFilter(PdfSearchFilters? pdfSearchFilter) {
+    if (pdfSearchFilter == null) {
+      _prefs.remove(_StoredValues.searchFilter.name);
+    } else {
+      _prefs.setString(_StoredValues.searchFilter.name, pdfSearchFilter.name);
+    }
+  }
+
+  PdfSearchFilters getSearchFilter() {
+    final searchFilterString =
+        _prefs.getString(_StoredValues.searchFilter.name);
+
+    if (searchFilterString != null) {
+      switch (searchFilterString) {
+        case 'history':
+          return PdfSearchFilters.history;
+        case 'pageText':
+          return PdfSearchFilters.pageText;
+        case 'tableOfContents':
+        default:
+          return PdfSearchFilters.tableOfContents;
+      }
+    } else {
+      return kFirstSearchFilter;
+    }
+  }
+
+  void saveSearchHistory(SearchHistory? searchHistory) {
+    if (searchHistory == null) {
+      _prefs.remove(_StoredValues.searchHistory.name);
+    } else {
+      _prefs.setString(
+        _StoredValues.searchHistory.name,
+        searchHistory.toJson(),
+      );
+    }
+  }
+
+  SearchHistory getSearchHistory() {
+    final searchHistoryString =
+        _prefs.getString(_StoredValues.searchHistory.name);
+    if (searchHistoryString != null) {
+      return SearchHistory.fromJson(searchHistoryString);
+    } else {
+      return const SearchHistory({});
     }
   }
 }

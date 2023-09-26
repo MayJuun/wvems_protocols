@@ -11,11 +11,8 @@ class ResultsPageText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
     final results = ref.watch(pdfSearchResultsPageTextProvider);
-    final tableOfContents = ref.watch(pdfTableOfContentsProvider);
+
     return DecoratedSliver(
       decoration: const BoxDecoration(),
       sliver: results.isEmpty
@@ -24,42 +21,27 @@ class ResultsPageText extends ConsumerWidget {
               itemCount: results.length,
               itemBuilder: (_, int index) {
                 final item = results.entries.elementAt(index);
-                final pageTitle =
-                    tableOfContents.data.entries.elementAt(index).value;
                 final pageIndex = PagesUtil().pageNumToPageIndex(item.key);
-                return ListTile(
-                  dense: true,
-                  // trailing: const Text('p4'),
-                  subtitle: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(pageTitle),
-                      gapW12,
-                      Text('p. ${item.key}'),
-                    ],
-                  ),
-                  title: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '...${item.value.before()}',
-                          style: textTheme.bodyMedium!
-                              .copyWith(color: colorScheme.onBackground),
-                        ),
-                        TextSpan(
-                          text: item.value.lowerCaseQuery,
-                          style: const TextStyle(fontWeight: FontWeight.bold)
-                              .copyWith(color: colorScheme.primary),
-                        ),
-                        TextSpan(
-                          text: '${item.value.after()}...',
-                          style: textTheme.bodyMedium!
-                              .copyWith(color: colorScheme.onBackground),
-                        ),
-                      ],
-                    ),
-                  ),
-                  onTap: () {
+
+                return PageTextItem(
+                  pageId: item.key,
+                  pageTextResult: item.value,
+                  onPressed: () {
+                    /// todo: extract some of this logic out of UI
+                    final assetPath =
+                        ref.read(pdfBundleProvider).value?.assetPath;
+
+                    assert(assetPath != null);
+                    if (assetPath == null) {
+                      throw StateError('No asset path available');
+                    }
+                    ref
+                        .read(searchHistoryRepositoryProvider)
+                        .onSearchItemSelected(
+                            assetPath: assetPath,
+                            pageId: item.key,
+                            pageTextResult: item.value);
+
                     _controller.query = item.value.lowerCaseQuery;
                     ref
                         .read(multipageSyncServiceProvider.notifier)
@@ -71,6 +53,67 @@ class ResultsPageText extends ConsumerWidget {
               separatorBuilder: (_, __) =>
                   const Divider(indent: 8, endIndent: 8),
             ),
+    );
+  }
+}
+
+class PageTextItem extends ConsumerWidget {
+  const PageTextItem(
+      {required this.pageId,
+      required this.pageTextResult,
+      required this.onPressed,
+      this.trailing,
+      super.key});
+
+  final PageId pageId;
+  final PageTextResult pageTextResult;
+  final VoidCallback onPressed;
+  final Widget? trailing;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    final tableOfContents = ref.watch(pdfTableOfContentsProvider);
+    final pageTitle = tableOfContents.data[pageId] ?? 'Title';
+
+    return ListTile(
+      dense: true,
+      // trailing: const Text('p4'),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(pageTitle),
+          gapW12,
+          Text('p. $pageId'),
+        ],
+      ),
+      title: RichText(
+        text: TextSpan(
+          children: <TextSpan>[
+            TextSpan(
+              text: '...${pageTextResult.before()}',
+              style: textTheme.bodyMedium!.copyWith(
+                color: colorScheme.onBackground,
+              ),
+            ),
+            TextSpan(
+              text: pageTextResult.lowerCaseQuery,
+              style: textTheme.bodyLarge!
+                  .apply(fontWeightDelta: 1, fontStyle: FontStyle.italic)
+                  .copyWith(color: colorScheme.primary),
+            ),
+            TextSpan(
+              text: '${pageTextResult.after()}...',
+              style: textTheme.bodyMedium!
+                  .copyWith(color: colorScheme.onBackground),
+            ),
+          ],
+        ),
+      ),
+      onTap: onPressed,
+      trailing: trailing,
     );
   }
 }

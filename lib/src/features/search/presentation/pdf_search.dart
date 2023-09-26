@@ -40,6 +40,7 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
           controller: _controller,
           clearQueryOnClose: false,
           hint: 'Search Protocols'.hardcoded,
+          hintStyle: Theme.of(context).textTheme.bodyMedium,
           scrollPadding: const EdgeInsets.only(top: 16, bottom: 48),
           transitionCurve: Curves.easeInOut,
           physics: const BouncingScrollPhysics(),
@@ -102,10 +103,7 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
                 message: 'Change Version, Settings, Messages'.hardcoded,
                 child: CircularButton(
                   icon: const Icon(Icons.menu),
-                  onPressed: () {
-                    showUnifiedMenuDialog(context: context);
-                    // TODO(FireJuun): add menu overlay
-                  },
+                  onPressed: () => showUnifiedMenuDialog(context: context),
                 ),
               ),
             ),
@@ -139,13 +137,12 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 24.0, horizontal: 8.0),
                             sliver: Consumer(builder: (context, ref, child) {
-                              final pdfSearchFilter =
-                                  ref.watch(pdfSearchFilterProvider);
+                              final searchFilter =
+                                  ref.watch(searchFilterProvider);
 
-                              switch (pdfSearchFilter) {
+                              switch (searchFilter) {
                                 case PdfSearchFilters.tableOfContents:
                                   return ResultsTableOfContents(_controller);
-
                                 case PdfSearchFilters.pageText:
                                   return ResultsPageText(_controller);
                                 case PdfSearchFilters.history:

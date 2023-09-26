@@ -42,23 +42,24 @@ final pdfSearchResultsPageTextProvider =
 
 typedef PdfSearchResultsPageTextRef
     = AutoDisposeProviderRef<Map<int, PageTextResult>>;
-String _$pdfSearchStateFilterHash() =>
-    r'ae36d2a1f7dae438b93e45e0d12f4eb5a83d1894';
+String _$pdfSearchResultsHistoryHash() =>
+    r'0e01aecafaefd2a1e6f7238c18ff8065e73e5092';
 
-/// See also [PdfSearchStateFilter].
-@ProviderFor(PdfSearchStateFilter)
-final pdfSearchStateFilterProvider = AutoDisposeNotifierProvider<
-    PdfSearchStateFilter, PdfSearchFilters>.internal(
-  PdfSearchStateFilter.new,
-  name: r'pdfSearchStateFilterProvider',
+/// See also [pdfSearchResultsHistory].
+@ProviderFor(pdfSearchResultsHistory)
+final pdfSearchResultsHistoryProvider =
+    AutoDisposeProvider<List<SearchHistoryItem>>.internal(
+  pdfSearchResultsHistory,
+  name: r'pdfSearchResultsHistoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$pdfSearchStateFilterHash,
+      : _$pdfSearchResultsHistoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$PdfSearchStateFilter = AutoDisposeNotifier<PdfSearchFilters>;
+typedef PdfSearchResultsHistoryRef
+    = AutoDisposeProviderRef<List<SearchHistoryItem>>;
 String _$pdfSearchStateHash() => r'38859b3134313e1f410332dfe87ffc57d5225ffd';
 
 /// Automatically update displayed content based on search results above + query
@@ -77,21 +78,5 @@ final pdfSearchStateProvider =
 );
 
 typedef _$PdfSearchState = AutoDisposeNotifier<String>;
-String _$pdfSearchFilterHash() => r'001a01eefaec070575f2c95db31edb178fa46f62';
-
-/// See also [PdfSearchFilter].
-@ProviderFor(PdfSearchFilter)
-final pdfSearchFilterProvider =
-    NotifierProvider<PdfSearchFilter, PdfSearchFilters>.internal(
-  PdfSearchFilter.new,
-  name: r'pdfSearchFilterProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$pdfSearchFilterHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$PdfSearchFilter = Notifier<PdfSearchFilters>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

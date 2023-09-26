@@ -28,6 +28,27 @@ class SharedPreferencesSyncService {
         _saveAppThemeLocally(appTheme);
       }
     });
+
+    /// Listen for changes to the current app theme, then save a reference to local storage
+    ref.listen<AsyncValue<SearchHistory>>(searchHistoryChangesProvider,
+        (previous, next) {
+      final searchHistory = next.value;
+      if (previous is AsyncLoading) {
+        // do nothing
+      } else {
+        // _saveSearchHistoryLocally(searchHistory);
+      }
+    });
+
+    /// Listen for changes to the current app theme, then save a reference to local storage
+    ref.listen<PdfSearchFilters>(searchFilterProvider, (previous, next) {
+      final searchFilter = next;
+      if (previous is AsyncLoading) {
+        // do nothing
+      } else {
+        _saveSearchFilterLocally(searchFilter);
+      }
+    });
   }
 
   Future<void> _saveAssetPathLocally(AssetPaths? assetPath) async {
@@ -36,6 +57,19 @@ class SharedPreferencesSyncService {
 
   Future<void> _saveAppThemeLocally(AppTheme? appTheme) async {
     ref.read(sharedPreferencesRepositoryProvider).saveAppTheme(appTheme);
+  }
+
+  Future<void> _saveSearchHistoryLocally(SearchHistory? searchHistory) async {
+    ref
+        .read(sharedPreferencesRepositoryProvider)
+        .saveSearchHistory(searchHistory);
+  }
+
+  Future<void> _saveSearchFilterLocally(
+      PdfSearchFilters? pdfSearchFilter) async {
+    ref
+        .read(sharedPreferencesRepositoryProvider)
+        .saveSearchFilter(pdfSearchFilter);
   }
 }
 

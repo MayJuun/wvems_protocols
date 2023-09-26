@@ -9,10 +9,11 @@ class ResultsHeader extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Padding(
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.only(top: 8.0),
       child: Wrap(
         alignment: WrapAlignment.center,
-        spacing: 8,
+        spacing: 8.0,
+        runSpacing: 8.0,
         children:
             PdfSearchFilters.values.map((e) => ResultFilterItem(e)).toList(),
       ),
@@ -23,7 +24,7 @@ class ResultsHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => minExtent;
 
   @override
-  double get minExtent => 30;
+  double get minExtent => 48;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
@@ -37,7 +38,8 @@ class ResultFilterItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final activeSearchFilter = ref.watch(pdfSearchFilterProvider);
+    final activeSearchFilter = ref.watch(searchFilterProvider);
+
     late final int searchQuantity;
     switch (pdfSearchFilter) {
       case PdfSearchFilters.tableOfContents:
@@ -46,10 +48,10 @@ class ResultFilterItem extends ConsumerWidget {
       case PdfSearchFilters.pageText:
         searchQuantity = ref.watch(pdfSearchResultsPageTextProvider).length;
       case PdfSearchFilters.history:
-        searchQuantity = 0;
-      // TODO: Handle this case.
+        searchQuantity = ref.watch(pdfSearchResultsHistoryProvider).length;
     }
 
+    final isSelected = activeSearchFilter == pdfSearchFilter;
     return Badge.count(
       count: searchQuantity,
       isLabelVisible: searchQuantity > 0,
@@ -57,15 +59,11 @@ class ResultFilterItem extends ConsumerWidget {
       backgroundColor: Theme.of(context).colorScheme.primary,
       largeSize: 16,
       child: FilterChip(
+        materialTapTargetSize: MaterialTapTargetSize.padded,
         label: Text(pdfSearchFilter.label.hardcoded),
-        selected: activeSearchFilter == pdfSearchFilter,
-        onSelected: (isSelected) {
-          if (isSelected) {
-            ref
-                .read(pdfSearchFilterProvider.notifier)
-                .setFilter(pdfSearchFilter);
-          }
-        },
+        selected: isSelected,
+        onSelected: (isSelected) =>
+            ref.read(searchFilterProvider.notifier).setFilter(pdfSearchFilter),
       ),
     );
   }
