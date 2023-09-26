@@ -35,12 +35,22 @@ class ThemeRepository {
   ThemeData _themeData(Brightness brightness) {
     final colorScheme = ColorScheme.fromSeed(
         seedColor: _appTheme.value.seedColor, brightness: brightness);
+
+    final textTheme = _buildTextTheme();
     return ThemeData(
+      textTheme: textTheme,
       colorScheme: colorScheme,
       useMaterial3: true,
       appBarTheme: AppBarTheme(
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
+      ),
+      dropdownMenuTheme: DropdownMenuThemeData(
+        textStyle: textTheme.bodyMedium,
+        menuStyle: const MenuStyle(
+            visualDensity: VisualDensity.compact,
+            padding: MaterialStatePropertyAll(
+                EdgeInsets.symmetric(vertical: 0, horizontal: 8))),
       ),
       searchBarTheme: SearchBarThemeData(
         padding: const MaterialStatePropertyAll<EdgeInsets>(
@@ -49,12 +59,39 @@ class ThemeRepository {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
         ),
       ),
+      chipTheme: ChipThemeData(
+        padding: const EdgeInsets.all(0),
+        labelPadding: const EdgeInsets.symmetric(horizontal: 4),
+        labelStyle:
+            textTheme.bodySmall!.apply(color: colorScheme.onPrimaryContainer),
+      ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
           shape: CircleBorder(),
           smallSizeConstraints: BoxConstraints(minWidth: 48, minHeight: 48)),
     );
   }
 }
+
+TextTheme _buildTextTheme() {
+  return TextTheme(
+    displayLarge: _style(96.0, FontWeight.normal),
+    displayMedium: _style(60.0, FontWeight.bold),
+    displaySmall: _style(48.0, FontWeight.normal),
+    headlineMedium: _style(36.0, FontWeight.bold),
+    headlineSmall: _style(22.0, FontWeight.w500),
+    titleLarge: _style(18.0, FontWeight.w500),
+    bodyLarge: _style(18.0, FontWeight.normal),
+    bodyMedium: _style(16.0, FontWeight.normal),
+    titleMedium: _style(12.0, FontWeight.normal),
+    titleSmall: _style(12.0, FontWeight.w300),
+    labelLarge: _style(18.0, FontWeight.normal),
+    bodySmall: _style(12.0, FontWeight.normal),
+    labelSmall: _style(12.0, FontWeight.normal),
+  );
+}
+
+TextStyle _style(double s, FontWeight w) =>
+    TextStyle(fontSize: s, fontWeight: w);
 
 @Riverpod(keepAlive: true)
 ThemeRepository themeRepository(ThemeRepositoryRef ref) {

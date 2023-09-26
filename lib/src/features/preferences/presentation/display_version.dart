@@ -28,7 +28,7 @@ class DisplayVersion extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 4.0),
             child: Column(
               children: [
-                Text('Display Version:'.hardcoded, style: textTheme.bodyLarge),
+                Text('Display Version:'.hardcoded, style: textTheme.bodyMedium),
                 Consumer(builder: (context, ref, child) {
                   final activeAssetPath =
                       ref.watch(pdfBundleProvider).value?.assetPath;
@@ -41,6 +41,9 @@ class DisplayVersion extends StatelessWidget {
                     enableSearch: false,
                     dropdownMenuEntries: assetPaths
                         .map((e) => DropdownMenuEntry(
+                              style: ButtonStyle(
+                                  textStyle: MaterialStatePropertyAll(
+                                      textTheme.bodyMedium)),
                               value: e,
                               label: e.condensedTitle,
                             ))
@@ -67,10 +70,6 @@ class DisplayVersion extends StatelessWidget {
                       border: OutlineInputBorder(),
                       constraints: BoxConstraints.tightForFinite(height: 40),
                     ),
-                    menuStyle: const MenuStyle(
-                        visualDensity: VisualDensity.compact,
-                        padding: MaterialStatePropertyAll(
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 8))),
                   );
                 })
               ],

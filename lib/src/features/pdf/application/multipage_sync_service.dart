@@ -16,7 +16,7 @@ class MultipageSyncService extends _$MultipageSyncService {
 
   bool isFirstOrLastPage({required int? pageIndex, required int? pageCount}) {
     if (pageIndex == null || pageCount == null) {
-      throw StateError('Page ranges improperly set');
+      throw RangeError('Page ranges improperly set');
     }
     return pageIndex == 0 || (pageIndex == pageCount - 1);
   }
@@ -25,7 +25,7 @@ class MultipageSyncService extends _$MultipageSyncService {
     return pageIndex >= 0 && pageIndex < pageCount;
   }
 
-// TODO(FireJuun): make these methods visible for testing...and test them
+// TODO(FireJuun): setup tests for these methods
   bool isValidPrimaryPage({required int pageIndex, required int pageCount}) {
     return (pageIndex.isOdd ||
             isFirstOrLastPage(pageIndex: pageIndex, pageCount: pageCount)) &&

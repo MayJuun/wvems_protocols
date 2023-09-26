@@ -25,12 +25,12 @@ final pdfSearchResultsTableOfContentsProvider =
 typedef PdfSearchResultsTableOfContentsRef
     = AutoDisposeProviderRef<Map<int, String>>;
 String _$pdfSearchResultsPageTextHash() =>
-    r'1bf71e844629d26e696eaa90e8f23e50f071367a';
+    r'5b1519dbd214103b9e1db334e997913b988ea290';
 
 /// See also [pdfSearchResultsPageText].
 @ProviderFor(pdfSearchResultsPageText)
 final pdfSearchResultsPageTextProvider =
-    AutoDisposeProvider<Map<int, String>>.internal(
+    AutoDisposeProvider<Map<int, PageTextResult>>.internal(
   pdfSearchResultsPageText,
   name: r'pdfSearchResultsPageTextProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -40,9 +40,10 @@ final pdfSearchResultsPageTextProvider =
   allTransitiveDependencies: null,
 );
 
-typedef PdfSearchResultsPageTextRef = AutoDisposeProviderRef<Map<int, String>>;
+typedef PdfSearchResultsPageTextRef
+    = AutoDisposeProviderRef<Map<int, PageTextResult>>;
 String _$pdfSearchStateFilterHash() =>
-    r'3d59e4f948f0a1f3abe8a878de932d0f491e509d';
+    r'ae36d2a1f7dae438b93e45e0d12f4eb5a83d1894';
 
 /// See also [PdfSearchStateFilter].
 @ProviderFor(PdfSearchStateFilter)
@@ -76,5 +77,21 @@ final pdfSearchStateProvider =
 );
 
 typedef _$PdfSearchState = AutoDisposeNotifier<String>;
+String _$pdfSearchFilterHash() => r'001a01eefaec070575f2c95db31edb178fa46f62';
+
+/// See also [PdfSearchFilter].
+@ProviderFor(PdfSearchFilter)
+final pdfSearchFilterProvider =
+    NotifierProvider<PdfSearchFilter, PdfSearchFilters>.internal(
+  PdfSearchFilter.new,
+  name: r'pdfSearchFilterProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$pdfSearchFilterHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$PdfSearchFilter = Notifier<PdfSearchFilters>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

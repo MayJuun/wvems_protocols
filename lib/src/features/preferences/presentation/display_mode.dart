@@ -15,7 +15,7 @@ class DisplayMode extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Display Mode:'.hardcoded, style: textTheme.bodyLarge),
+          Text('Display Mode:'.hardcoded, style: textTheme.bodyMedium),
           Consumer(builder: (context, ref, child) {
             final appThemeMode =
                 ref.watch(appThemeChangesProvider).value?.themeMode ??
@@ -26,6 +26,9 @@ class DisplayMode extends StatelessWidget {
               enableSearch: false,
               dropdownMenuEntries: ThemeMode.values
                   .map((e) => DropdownMenuEntry(
+                        style: ButtonStyle(
+                            textStyle:
+                                MaterialStatePropertyAll(textTheme.bodyMedium)),
                         value: e,
                         label: toBeginningOfSentenceCase(e.name) ?? '',
                       ))
@@ -49,10 +52,6 @@ class DisplayMode extends StatelessWidget {
                 border: OutlineInputBorder(),
                 constraints: BoxConstraints.tightForFinite(height: 40),
               ),
-              menuStyle: const MenuStyle(
-                  visualDensity: VisualDensity.compact,
-                  padding: MaterialStatePropertyAll(
-                      EdgeInsets.symmetric(vertical: 0, horizontal: 8))),
             );
           })
         ],

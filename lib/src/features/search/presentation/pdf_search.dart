@@ -13,10 +13,12 @@ class PdfSearch extends ConsumerStatefulWidget {
 
 class _PdfSearchState extends ConsumerState<PdfSearch> {
   final _controller = FloatingSearchBarController();
+  final _scrollController = ScrollController();
 
   @override
   void dispose() {
     _controller.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -31,6 +33,9 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
 
     return SafeArea(
       child: FloatingSearchBar(
+          // scrollController: _scrollController,
+          // isScrollControlled: true,
+          autocorrect: false,
           automaticallyImplyBackButton: false,
           controller: _controller,
           clearQueryOnClose: false,
@@ -111,37 +116,47 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
               child: Material(
                 // color: Theme.of(context).colorScheme.primaryContainer,
                 elevation: 4.0,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // todo: add filter
-                    Consumer(builder: (context, ref, child) {
-                      final results =
-                          ref.watch(pdfSearchResultsTableOfContentsProvider);
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? MediaQuery.of(context).size.height * .65
+                          : double.infinity),
+                  child: CustomScrollView(
+                    controller: _scrollController,
+                    shrinkWrap: true,
+                    slivers: [
+                      SliverMainAxisGroup(
+                        slivers: [
+                          /// Header (+ filter chips)
+                          const SliverPersistentHeader(
+                            pinned: true,
+                            delegate: ResultsHeader(),
+                          ),
 
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children:
-                            List<ListTile>.generate(results.length, (index) {
-                          final item = results.entries.elementAt(index);
-                          final pageIndex =
-                              PagesUtil().pageNumToPageIndex(item.key);
-                          return ListTile(
-                            dense: true,
-                            title: Text(item.value),
-                            onTap: () {
-                              _controller.query = item.value
-                                  .replaceAll(' (cont.)'.toLowerCase(), '');
-                              ref
-                                  .read(multipageSyncServiceProvider.notifier)
-                                  .onPageSearch(newPageIndex: pageIndex);
-                              _controller.close();
-                            },
-                          );
-                        }).toList(),
-                      );
-                    }),
-                  ],
+                          /// Table of Contents, or other based on what's selected in the filter chip
+                          SliverPadding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 24.0, horizontal: 8.0),
+                            sliver: Consumer(builder: (context, ref, child) {
+                              final pdfSearchFilter =
+                                  ref.watch(pdfSearchFilterProvider);
+
+                              switch (pdfSearchFilter) {
+                                case PdfSearchFilters.tableOfContents:
+                                  return ResultsTableOfContents(_controller);
+
+                                case PdfSearchFilters.pageText:
+                                  return ResultsPageText(_controller);
+                                case PdfSearchFilters.history:
+                                  return ResultsHistory(_controller);
+                              }
+                            }),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
