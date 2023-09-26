@@ -74,8 +74,8 @@ class MultipageSyncService extends _$MultipageSyncService {
       return newPageIndex;
     } else {
       /// What happens next depends on the source and the total number of pages
-      print(
-          'page changed for ${source.name}:  $currentPageIndex -> $newPageIndex');
+      // print(
+      //     'page changed for ${source.name}:  $currentPageIndex -> $newPageIndex');
 
       /// Double screen layout
       switch (source) {
@@ -108,7 +108,6 @@ class MultipageSyncService extends _$MultipageSyncService {
             if (newPageIndex.isEven &&
                 !isFirstOrLastPage(
                     pageIndex: newPageIndex, pageCount: pageCount)) {
-              print('EVEN, As intended');
               return newPageIndex;
             } else {
               final (primary, secondary) = _getNextValidForSecondary(
@@ -237,9 +236,6 @@ class MultipageSyncService extends _$MultipageSyncService {
       } else {
         throw RangeError('Unable to process search request');
       }
-
-      print('page chagned for search: new $newPageIndex');
-      // TODO(FireJuun): handle search in multi view
     }
   }
 
