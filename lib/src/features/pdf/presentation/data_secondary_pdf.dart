@@ -65,7 +65,7 @@ class _DataSecondaryPdfState extends ConsumerState<DataSecondaryPdf> {
         },
         onPageChanged: (newPageIndex, newPageCount) async {
           final _currentPageIndex = await ref
-              .read(pdfNavigatorControllerProvider.notifier)
+              .read(multipageSyncServiceProvider.notifier)
               .onPageChanged(
                   currentPageIndex: currentPageIndex,
                   newPageIndex: newPageIndex,

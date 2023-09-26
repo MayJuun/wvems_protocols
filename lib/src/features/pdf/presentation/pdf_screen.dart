@@ -33,7 +33,7 @@ class PdfScreen extends ConsumerWidget {
           : FloatingActionButton.small(
               child: const Icon(Icons.home),
               onPressed:
-                  ref.read(pdfNavigatorControllerProvider.notifier).goToHome),
+                  ref.read(multipageSyncServiceProvider.notifier).goToHome),
     );
   }
 }

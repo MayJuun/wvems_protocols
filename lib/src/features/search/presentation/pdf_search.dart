@@ -133,7 +133,7 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
                               _controller.query = item.value
                                   .replaceAll(' (cont.)'.toLowerCase(), '');
                               ref
-                                  .read(pdfNavigatorControllerProvider.notifier)
+                                  .read(multipageSyncServiceProvider.notifier)
                                   .onPageSearch(newPageIndex: pageIndex);
                               _controller.close();
                             },
