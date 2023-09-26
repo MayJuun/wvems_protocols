@@ -7,7 +7,7 @@ part of 'pdf_navigator_controller.dart';
 // **************************************************************************
 
 String _$pdfNavigatorControllerHash() =>
-    r'cdf2f0854b3d806c2674e32fade5d17e1c412d25';
+    r'fcc5c87b14d1e2b0ef526f43fbf1b8ce3057358b';
 
 /// See also [PdfNavigatorController].
 @ProviderFor(PdfNavigatorController)

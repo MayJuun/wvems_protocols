@@ -103,7 +103,11 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
             ),
           ),
           if (shouldShowSecondaryPdf)
-            DataSecondaryPdf(pdf: widget.pdf, primaryPage: currentPageIndex!),
+            DataSecondaryPdf(
+              pdf: widget.pdf,
+              primaryPage: currentPageIndex!,
+              pageCount: pageCount!,
+            ),
         ],
       );
     });

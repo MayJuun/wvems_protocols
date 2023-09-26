@@ -1,4 +1,3 @@
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../wvems_protocols.dart';
@@ -12,13 +11,31 @@ class MultipageSyncService extends _$MultipageSyncService {
     // nothing to do
   }
 
-  Future<void> goToHome() async {
-    final controller =
-        ref.read(pdfNavigatorControllerProvider.notifier).controllerPrimary;
-    if (controller == null) {
-      throw StateError('No PDF Controller set');
+  Future<void> goToHome() async =>
+      _setPage(newIndex: 0, pdfNavigator: PdfNavigator.primary);
+
+  bool isFirstOrLastPage({required int? pageIndex, required int? pageCount}) {
+    if (pageIndex == null || pageCount == null) {
+      throw StateError('Page ranges improperly set');
     }
-    return _setPage(0, controller);
+    return pageIndex == 0 || (pageIndex == pageCount - 1);
+  }
+
+  bool isInRange({required int pageIndex, required int pageCount}) {
+    return pageIndex >= 0 && pageIndex < pageCount;
+  }
+
+// TODO(FireJuun): make these methods visible for testing...and test them
+  bool isValidPrimaryPage({required int pageIndex, required int pageCount}) {
+    return (pageIndex.isOdd ||
+            isFirstOrLastPage(pageIndex: pageIndex, pageCount: pageCount)) &&
+        isInRange(pageIndex: pageIndex, pageCount: pageCount);
+  }
+
+  bool isValidSecondaryPage({required int pageIndex, required int pageCount}) {
+    return (pageIndex.isEven &&
+            !isFirstOrLastPage(pageIndex: pageIndex, pageCount: pageCount)) &&
+        isInRange(pageIndex: pageIndex, pageCount: pageCount);
   }
 
   Future<int> onPageChanged({
@@ -30,15 +47,30 @@ class MultipageSyncService extends _$MultipageSyncService {
     if (newPageIndex == null || currentPageIndex == null || pageCount == null) {
       throw StateError('Cannot navigate to/from a null page');
     }
-    // int response = -1;
 
     final shouldShowSecondaryPdf = ref.read(shouldShowSecondaryPdfProvider);
 
-    /// Skip any advanced logic and return the new page as normal
+    /// Single view, or no page was changed.
+    /// Skip any advanced logic and return the new page as normal.
     if (!shouldShowSecondaryPdf || currentPageIndex == newPageIndex) {
       return newPageIndex;
-    } else if (source == PdfNavigator.secondary && currentPageIndex == 0) {
-      print('secondary controller first loaded, ignoring state changes');
+    } else
+
+    /// Secondary view is loaded. Exaclty which page will load is determined
+    /// by what is sent to the [DataSecondaryPdf] widget.
+    /// If it is sent a valid secondary page, that will load
+    /// otherwise, it'll load the next available secondary page.
+    /// An example to recreate this is to have a 'secondary' page shown
+    /// on the portrait view, then move to landscape.
+    if (source == PdfNavigator.secondary && currentPageIndex == 0) {
+      final primaryPageIndex = await ref
+          .read(pdfNavigatorControllerProvider.notifier)
+          .getCurrentPageIndex();
+      if (primaryPageIndex != null && primaryPageIndex == newPageIndex) {
+        /// fix the primary page
+        _setPage(
+            newIndex: primaryPageIndex - 1, pdfNavigator: PdfNavigator.primary);
+      }
       return newPageIndex;
     } else {
       /// What happens next depends on the source and the total number of pages
@@ -50,7 +82,7 @@ class MultipageSyncService extends _$MultipageSyncService {
         // Odd pages OR first page OR last page
         case PdfNavigator.primary:
           {
-            if (_isValidPrimaryPage(
+            if (isValidPrimaryPage(
                 pageIndex: newPageIndex, pageCount: pageCount)) {
               return newPageIndex;
             } else {
@@ -60,15 +92,11 @@ class MultipageSyncService extends _$MultipageSyncService {
                   pageCount: pageCount);
 
               /// Use these data to modify both PDF pages
-              ref
-                  .read(pdfNavigatorControllerProvider.notifier)
-                  .controllerPrimary
-                  ?.setPage(primary);
+              _setPage(newIndex: primary, pdfNavigator: PdfNavigator.primary);
+
               if (secondary != null) {
-                ref
-                    .read(pdfNavigatorControllerProvider.notifier)
-                    .controllerSecondary
-                    ?.setPage(secondary);
+                _setPage(
+                    newIndex: secondary, pdfNavigator: PdfNavigator.secondary);
               }
               return primary;
             }
@@ -78,7 +106,7 @@ class MultipageSyncService extends _$MultipageSyncService {
         case PdfNavigator.secondary:
           {
             if (newPageIndex.isEven &&
-                !_isFirstOrLastPage(
+                !isFirstOrLastPage(
                     pageIndex: newPageIndex, pageCount: pageCount)) {
               print('EVEN, As intended');
               return newPageIndex;
@@ -89,32 +117,17 @@ class MultipageSyncService extends _$MultipageSyncService {
                   pageCount: pageCount);
 
               /// Use these data to modify both PDF pages
-              ref
-                  .read(pdfNavigatorControllerProvider.notifier)
-                  .controllerPrimary
-                  ?.setPage(primary);
+              _setPage(newIndex: primary, pdfNavigator: PdfNavigator.primary);
+
               if (secondary != null) {
-                ref
-                    .read(pdfNavigatorControllerProvider.notifier)
-                    .controllerSecondary
-                    ?.setPage(secondary);
+                _setPage(
+                    newIndex: secondary, pdfNavigator: PdfNavigator.secondary);
               }
               return primary;
             }
           }
       }
     }
-  }
-
-  bool _isInRange({required int pageIndex, required int pageCount}) {
-    return pageIndex >= 0 && pageIndex < pageCount;
-  }
-
-  // TODO(FireJuun): make these methods visible for testing...and test them
-  bool _isValidPrimaryPage({required int pageIndex, required int pageCount}) {
-    return (pageIndex.isOdd ||
-            _isFirstOrLastPage(pageIndex: pageIndex, pageCount: pageCount)) &&
-        _isInRange(pageIndex: pageIndex, pageCount: pageCount);
   }
 
   (int, int?) _getNextValidForPrimary(
@@ -127,7 +140,7 @@ class MultipageSyncService extends _$MultipageSyncService {
 
     if (shouldCountUp) {
       for (var i = newPageIndex; i < pageCount; i++) {
-        if (_isValidPrimaryPage(pageIndex: i, pageCount: pageCount)) {
+        if (isValidPrimaryPage(pageIndex: i, pageCount: pageCount)) {
           newPrimaryIndex = i;
           break;
         }
@@ -135,7 +148,7 @@ class MultipageSyncService extends _$MultipageSyncService {
     } else {
       /// shouldCountDown
       for (var i = newPageIndex; i >= 0; i--) {
-        if (_isValidPrimaryPage(pageIndex: i, pageCount: pageCount)) {
+        if (isValidPrimaryPage(pageIndex: i, pageCount: pageCount)) {
           newPrimaryIndex = i;
           break;
         }
@@ -145,9 +158,9 @@ class MultipageSyncService extends _$MultipageSyncService {
     final newSecondaryIndex = newPrimaryIndex + 1;
     // Count give a total number of pages, need to subtract
     final isPrimaryInRange =
-        _isInRange(pageIndex: newPrimaryIndex, pageCount: pageCount);
+        isInRange(pageIndex: newPrimaryIndex, pageCount: pageCount);
     final isSecondaryInRange =
-        _isInRange(pageIndex: newSecondaryIndex, pageCount: pageCount);
+        isInRange(pageIndex: newSecondaryIndex, pageCount: pageCount);
 
     return (
       isPrimaryInRange ? newPrimaryIndex : 0,
@@ -165,7 +178,7 @@ class MultipageSyncService extends _$MultipageSyncService {
 
     if (shouldCountUp) {
       for (var i = newPageIndex; i < pageCount; i++) {
-        if (_isValidSecondaryPage(pageIndex: i, pageCount: pageCount)) {
+        if (isValidSecondaryPage(pageIndex: i, pageCount: pageCount)) {
           newSecondaryIndex = i;
           break;
         }
@@ -173,7 +186,7 @@ class MultipageSyncService extends _$MultipageSyncService {
     } else {
       /// shouldCountDown
       for (var i = newPageIndex; i >= 0; i--) {
-        if (_isValidSecondaryPage(pageIndex: i, pageCount: pageCount)) {
+        if (isValidSecondaryPage(pageIndex: i, pageCount: pageCount)) {
           newSecondaryIndex = i;
           break;
         }
@@ -183,7 +196,7 @@ class MultipageSyncService extends _$MultipageSyncService {
     final newPrimaryIndex = newSecondaryIndex - 1;
     // Count give a total number of pages, need to subtract
     final isSecondaryInRange = newSecondaryIndex <= pageCount - 1 &&
-        _isValidSecondaryPage(
+        isValidSecondaryPage(
             pageIndex: newSecondaryIndex, pageCount: pageCount);
     final isPrimaryInRange = newPrimaryIndex >= 0;
 
@@ -193,49 +206,33 @@ class MultipageSyncService extends _$MultipageSyncService {
     );
   }
 
-  bool _isValidSecondaryPage({required int pageIndex, required int pageCount}) {
-    return (pageIndex.isEven &&
-            !_isFirstOrLastPage(pageIndex: pageIndex, pageCount: pageCount)) &&
-        _isInRange(pageIndex: pageIndex, pageCount: pageCount);
-  }
-
   Future<void> onPageSearch({required int newPageIndex}) async {
     final shouldShowSecondaryPdf = ref.read(shouldShowSecondaryPdfProvider);
 
     /// Skip any advanced logic and return the searched page as normal
     if (!shouldShowSecondaryPdf) {
-      final controller =
-          ref.read(pdfNavigatorControllerProvider.notifier).controllerPrimary;
-      if (controller == null) {
-        throw StateError(
-            'Unable to find search and jump to a page in this PDF');
-      }
-      _setPage(newPageIndex, controller);
+      _setPage(newIndex: newPageIndex, pdfNavigator: PdfNavigator.primary);
     } else {
       final pdfNotifier = ref.read(pdfNavigatorControllerProvider.notifier);
-      final primaryController = pdfNotifier.controllerPrimary;
-      final secondaryController = pdfNotifier.controllerSecondary;
-      if (primaryController == null || secondaryController == null) {
-        throw StateError('No controllers available for search');
-      }
 
-      final pageCount = await pdfNotifier.controllerPrimary?.getPageCount();
+      final pageCount = await pdfNotifier.getPageCount();
       if (pageCount == null) {
         throw StateError('Page count not available');
       }
 
-      if (_isValidPrimaryPage(pageIndex: newPageIndex, pageCount: pageCount)) {
-        _setPage(newPageIndex, primaryController);
+      if (isValidPrimaryPage(pageIndex: newPageIndex, pageCount: pageCount)) {
+        _setPage(newIndex: newPageIndex, pdfNavigator: PdfNavigator.primary);
         final secondaryIndex = newPageIndex + 1;
-        if (_isInRange(pageIndex: secondaryIndex, pageCount: pageCount)) {
-          _setPage(secondaryIndex, secondaryController);
+        if (isInRange(pageIndex: secondaryIndex, pageCount: pageCount)) {
+          _setPage(
+              newIndex: secondaryIndex, pdfNavigator: PdfNavigator.secondary);
         }
-      } else if (_isValidSecondaryPage(
+      } else if (isValidSecondaryPage(
           pageIndex: newPageIndex, pageCount: pageCount)) {
-        _setPage(newPageIndex, secondaryController);
+        _setPage(newIndex: newPageIndex, pdfNavigator: PdfNavigator.secondary);
         final primaryIndex = newPageIndex - 1;
-        if (_isInRange(pageIndex: primaryIndex, pageCount: pageCount)) {
-          _setPage(primaryIndex, primaryController);
+        if (isInRange(pageIndex: primaryIndex, pageCount: pageCount)) {
+          _setPage(newIndex: primaryIndex, pdfNavigator: PdfNavigator.primary);
         }
       } else {
         throw RangeError('Unable to process search request');
@@ -246,9 +243,12 @@ class MultipageSyncService extends _$MultipageSyncService {
     }
   }
 
-  Future<void> _setPage(int index, PDFViewController controller) async {
+  Future<void> _setPage(
+      {required int newIndex, required PdfNavigator pdfNavigator}) async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => controller.setPage(index));
+    state = await AsyncValue.guard(() => ref
+        .read(pdfNavigatorControllerProvider.notifier)
+        .setPage(newIndex: newIndex, pdfNavigator: pdfNavigator));
   }
 }
 
@@ -260,38 +260,43 @@ class ShouldShowSecondaryPdf extends _$ShouldShowSecondaryPdf {
   bool build() => false;
 
   void recheckFromData(
-          {required int? currentPageIndex, required int? pageCount}) =>
-      state = _isLayoutAboveBreakpoint &&
-          !_isFirstOrLastPage(
-              pageIndex: currentPageIndex, pageCount: pageCount);
+      {required int? currentPageIndex, required int? pageCount}) {
+    final isFirstOrLastPage = ref
+        .read(multipageSyncServiceProvider.notifier)
+        .isFirstOrLastPage(pageIndex: currentPageIndex, pageCount: pageCount);
+    state = _isLayoutAboveBreakpoint && !isFirstOrLastPage;
+  }
 
   Future<void> recheckOnLayoutChange(bool isLayoutAboveBreakpoint) async {
     _isLayoutAboveBreakpoint = isLayoutAboveBreakpoint;
-    try {
-      final controller =
-          ref.read(pdfNavigatorControllerProvider.notifier).controllerPrimary;
-      if (controller == null) {
-        state = false;
-        print('controller not set');
-        // throw StateError('No valid PDF controller');
-      } else {
-        final currentPageIndex = await controller.getCurrentPage();
-        final pageCount = await controller.getPageCount();
 
-        state = isLayoutAboveBreakpoint &&
-            !_isFirstOrLastPage(
-                pageIndex: currentPageIndex, pageCount: pageCount);
-      }
-    } catch (e) {
-      print(e);
+    final navigator = ref.read(pdfNavigatorControllerProvider.notifier);
+    final currentPageIndex = await navigator.getCurrentPageIndex();
+    final pageCount = await navigator.getPageCount();
+
+    if (currentPageIndex == null || pageCount == null) {
       state = false;
+      return;
     }
-  }
-}
 
-bool _isFirstOrLastPage({required int? pageIndex, required int? pageCount}) {
-  if (pageIndex == null || pageCount == null) {
-    throw StateError('Page ranges improperly set');
+    final isFirstOrLastPage = ref
+        .read(multipageSyncServiceProvider.notifier)
+        .isFirstOrLastPage(pageIndex: currentPageIndex, pageCount: pageCount);
+    final shouldShowSecondaryPdf =
+        isLayoutAboveBreakpoint && !isFirstOrLastPage;
+
+    /// check to see if the current page should be shown on the primary (left) or the secondary (right) PDF controller
+    if (shouldShowSecondaryPdf) {
+      final bool isValidSecondaryPage = ref
+          .read(multipageSyncServiceProvider.notifier)
+          .isValidSecondaryPage(
+              pageIndex: currentPageIndex, pageCount: pageCount);
+      if (isValidSecondaryPage) {
+        ref.read(pdfNavigatorControllerProvider.notifier).setPage(
+            newIndex: currentPageIndex - 1, pdfNavigator: PdfNavigator.primary);
+      }
+    }
+
+    state = shouldShowSecondaryPdf;
   }
-  return pageIndex == 0 || (pageIndex == pageCount - 1);
 }

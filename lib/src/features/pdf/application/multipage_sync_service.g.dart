@@ -7,7 +7,7 @@ part of 'multipage_sync_service.dart';
 // **************************************************************************
 
 String _$multipageSyncServiceHash() =>
-    r'373d8407e9180d757bc9ff1cf77d032b473f354a';
+    r'0c6dd3fdd447b4cfa4795f638029a54cc91201e3';
 
 /// See also [MultipageSyncService].
 @ProviderFor(MultipageSyncService)
@@ -24,7 +24,7 @@ final multipageSyncServiceProvider =
 
 typedef _$MultipageSyncService = AutoDisposeAsyncNotifier<void>;
 String _$shouldShowSecondaryPdfHash() =>
-    r'63e87738ce07c6bc2ad771d7cf01f48b1afc1098';
+    r'2728b4fa47ceb52e058a0bf56cd8e22f8898dc64';
 
 /// See also [ShouldShowSecondaryPdf].
 @ProviderFor(ShouldShowSecondaryPdf)

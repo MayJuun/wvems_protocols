@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -14,10 +13,14 @@ import '../../../../wvems_protocols.dart';
 
 class DataSecondaryPdf extends ConsumerStatefulWidget {
   const DataSecondaryPdf(
-      {required this.pdf, required this.primaryPage, super.key});
+      {required this.pdf,
+      required this.primaryPage,
+      required this.pageCount,
+      super.key});
 
   final File pdf;
   final int primaryPage;
+  final int pageCount;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -25,7 +28,6 @@ class DataSecondaryPdf extends ConsumerStatefulWidget {
 }
 
 class _DataSecondaryPdfState extends ConsumerState<DataSecondaryPdf> {
-  int? pageCount = 0;
   int? currentPageIndex = 0;
   bool isReady = false;
 
@@ -43,16 +45,21 @@ class _DataSecondaryPdfState extends ConsumerState<DataSecondaryPdf> {
     final pdfViewKey =
         ref.watch(pdfNavigatorControllerProvider.notifier).pdfViewKeySecondary;
 
+    final isValidSecondaryPage = ref
+        .watch(multipageSyncServiceProvider.notifier)
+        .isValidSecondaryPage(
+            pageIndex: widget.primaryPage, pageCount: widget.pageCount);
+
     return Expanded(
       child: PDFView(
         key: pdfViewKey,
         nightMode: Theme.of(context).brightness == Brightness.dark,
         fitPolicy: FitPolicy.BOTH,
         filePath: widget.pdf.path,
-        defaultPage: widget.primaryPage + 1,
+        defaultPage:
+            isValidSecondaryPage ? widget.primaryPage : widget.primaryPage + 1,
         onRender: (_pageCount) {
           setState(() {
-            pageCount = _pageCount;
             isReady = true;
           });
         },
@@ -69,7 +76,7 @@ class _DataSecondaryPdfState extends ConsumerState<DataSecondaryPdf> {
               .onPageChanged(
                   currentPageIndex: currentPageIndex,
                   newPageIndex: newPageIndex,
-                  pageCount: pageCount,
+                  pageCount: widget.pageCount,
                   source: PdfNavigator.secondary);
           ref.read(shouldShowSecondaryPdfProvider.notifier).recheckFromData(
               currentPageIndex: newPageIndex, pageCount: newPageCount);
