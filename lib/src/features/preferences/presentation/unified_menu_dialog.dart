@@ -14,26 +14,32 @@ Future<bool?> showUnifiedMenuDialog({required BuildContext context}) async {
         return Dialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height - 256,
-            ),
-            child: Container(
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(16))),
-              child: const Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _MenuHeader(),
-                  DisplayVersion(),
-                  AppLinks(),
-                  AppMessages(),
-                  DisplayMode(),
-                  _MenuFooter(),
-                ],
+          child: OrientationBuilder(builder: (context, orientation) {
+            return ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: orientation == Orientation.portrait
+                    ? MediaQuery.of(context).size.height - 256
+                    : double.infinity,
               ),
-            ),
-          ),
+              child: Container(
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+                child: const SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _MenuHeader(),
+                      DisplayVersion(),
+                      AppLinks(),
+                      AppMessages(),
+                      DisplayMode(),
+                      _MenuFooter(),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }),
         );
       });
 }

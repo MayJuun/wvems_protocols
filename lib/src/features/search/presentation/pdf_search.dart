@@ -26,11 +26,12 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     final double searchBarWidth =
-        isPortrait ? MediaQuery.of(context).size.width - 48 : 600;
-    const double minimizedWidth = 124;
+        isPortrait ? MediaQuery.of(context).size.width - 48 : 400;
+    const double minimizedWidth = 144;
 
     return SafeArea(
       child: FloatingSearchBar(
+          automaticallyImplyBackButton: false,
           controller: _controller,
           clearQueryOnClose: false,
           hint: 'Search Protocols'.hardcoded,

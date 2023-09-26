@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../wvems_protocols.dart';
 
-const _breakpoint = Breakpoint.tablet;
+const _pdfSplitScreenBreakpoint = Breakpoint.tablet;
 
 /// This is the primary use case for a PDF. This should always be loaded
 /// It is the only PDF that should be managed by the PDF navigator controller
@@ -25,9 +25,9 @@ class DataPrimaryPdf extends ConsumerStatefulWidget {
 class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
   int? pageCount = 0;
   int? currentPageIndex = 0;
-  bool shouldShowSecondaryPdf = false;
-  bool isLayoutAboveBreakpoint = false;
   bool isReady = false;
+  double maxWidth = 0;
+  bool isLayoutAboveBreakpoint = false;
 
   @override
   void dispose() {
@@ -44,18 +44,21 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
         ref.watch(pdfNavigatorControllerProvider.notifier).pdfViewKeyPrimary;
 
     return LayoutBuilder(builder: (context, constraints) {
-      final _isLayoutAboveBreakpoint = constraints.maxWidth >= _breakpoint;
+      final _isLayoutAboveBreakpoint =
+          constraints.maxWidth >= _pdfSplitScreenBreakpoint;
 
-      /// Layout has changed. recheck if secondary pdf should be shown, then set both values
+      /// Layout has changed. Store this new value,
+      /// then check if secondary pdf should be shown
       if (isLayoutAboveBreakpoint != _isLayoutAboveBreakpoint) {
-        isLayoutAboveBreakpoint = _isLayoutAboveBreakpoint;
-        shouldShowSecondaryPdf = ref
-            .read(pdfNavigatorControllerProvider.notifier)
-            .shouldShowSecondaryPdf(
-                isLayoutAboveBreakpoint: isLayoutAboveBreakpoint,
-                pageCount: pageCount,
-                currentPageIndex: currentPageIndex);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          isLayoutAboveBreakpoint = _isLayoutAboveBreakpoint;
+          ref
+              .read(shouldShowSecondaryPdfProvider.notifier)
+              .recheckOnLayoutChange(_isLayoutAboveBreakpoint);
+        });
       }
+
+      final shouldShowSecondaryPdf = ref.watch(shouldShowSecondaryPdfProvider);
 
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -85,16 +88,16 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
                     .onPageChanged(
                         currentPageIndex: currentPageIndex,
                         newPageIndex: newPageIndex,
-                        source: PdfNavigator.primary);
-                final _shouldShowSecondaryPdf = ref
-                    .read(pdfNavigatorControllerProvider.notifier)
-                    .shouldShowSecondaryPdf(
-                        isLayoutAboveBreakpoint: isLayoutAboveBreakpoint,
                         pageCount: pageCount,
-                        currentPageIndex: currentPageIndex);
+                        source: PdfNavigator.primary);
+                ref
+                    .read(shouldShowSecondaryPdfProvider.notifier)
+                    .recheckFromData(
+                        currentPageIndex: newPageIndex,
+                        pageCount: newPageCount);
+
                 setState(() {
                   currentPageIndex = _currentPageIndex;
-                  shouldShowSecondaryPdf = _shouldShowSecondaryPdf;
                 });
               },
             ),

@@ -47,43 +47,177 @@ class PdfNavigatorController extends _$PdfNavigatorController {
     return _setPage(0, controller);
   }
 
-  bool shouldShowSecondaryPdf(
-      {required bool isLayoutAboveBreakpoint,
-      required int? pageCount,
-      required int? currentPageIndex}) {
-    if (pageCount == null || currentPageIndex == null) {
-      print('pdf probably loading');
-      return false;
-    } else {
-      return isLayoutAboveBreakpoint &&
-          !_isFirstOrLastPage(
-              currentPageIndex: currentPageIndex, pageCount: pageCount);
-    }
-  }
-
-  bool _isFirstOrLastPage(
-          {required int currentPageIndex, required int pageCount}) =>
-      currentPageIndex == 0 || (currentPageIndex == pageCount - 1);
-
-  Future<int?> onPageChanged({
+  Future<int> onPageChanged({
     required int? currentPageIndex,
     required int? newPageIndex,
+    required int? pageCount,
     required PdfNavigator source,
   }) async {
-    /// Setting page with no secondary controller instantiated
+    if (newPageIndex == null || currentPageIndex == null || pageCount == null) {
+      throw StateError('Cannot navigate to/from a null page');
+    }
+    // int response = -1;
+
+    final shouldShowSecondaryPdf = ref.read(shouldShowSecondaryPdfProvider);
+
     /// Skip any advanced logic and return the new page as normal
-    if (source == PdfNavigator.primary && _controllerSecondary.value == null) {
+    if (!shouldShowSecondaryPdf || currentPageIndex == newPageIndex) {
+      return newPageIndex;
+    } else if (source == PdfNavigator.secondary && currentPageIndex == 0) {
+      print('secondary controller first loaded, ignoring state changes');
       return newPageIndex;
     } else {
       /// What happens next depends on the source and the total number of pages
-      // TODO(FireJuun): handle page changed in multi-view
-      return newPageIndex;
+      print(
+          'page changed for ${source.name}:  $currentPageIndex -> $newPageIndex');
+
+      /// Double screen layout
+      switch (source) {
+        // Odd pages OR first page OR last page
+        case PdfNavigator.primary:
+          {
+            if (_isValidPrimaryPage(
+                pageIndex: newPageIndex, pageCount: pageCount)) {
+              return newPageIndex;
+            } else {
+              final (primary, secondary) = _getNextValidForPrimary(
+                  newPageIndex: newPageIndex,
+                  currentPageIndex: currentPageIndex,
+                  pageCount: pageCount);
+
+              /// Use these data to modify both PDF pages
+              _controllerPrimary.value?.setPage(primary);
+              if (secondary != null) {
+                _controllerSecondary.value?.setPage(secondary);
+              }
+              return primary;
+            }
+          }
+
+        // Even pages. Can't be the first or last page.
+        case PdfNavigator.secondary:
+          {
+            if (newPageIndex.isEven &&
+                !_isFirstOrLastPage(
+                    pageIndex: newPageIndex, pageCount: pageCount)) {
+              print('EVEN, As intended');
+              return newPageIndex;
+            } else {
+              final (primary, secondary) = _getNextValidForSecondary(
+                  newPageIndex: newPageIndex,
+                  currentPageIndex: currentPageIndex,
+                  pageCount: pageCount);
+
+              /// Use these data to modify both PDF pages
+              _controllerPrimary.value?.setPage(primary);
+              if (secondary != null) {
+                _controllerSecondary.value?.setPage(secondary);
+              }
+              return primary;
+            }
+          }
+      }
     }
   }
 
+  bool _isInRange({required int pageIndex, required int pageCount}) {
+    return pageIndex >= 0 && pageIndex < pageCount;
+  }
+
+  // TODO(FireJuun): make these methods visible for testing...and test them
+  bool _isValidPrimaryPage({required int pageIndex, required int pageCount}) {
+    return (pageIndex.isOdd ||
+            _isFirstOrLastPage(pageIndex: pageIndex, pageCount: pageCount)) &&
+        _isInRange(pageIndex: pageIndex, pageCount: pageCount);
+  }
+
+  (int, int?) _getNextValidForPrimary(
+      {required int newPageIndex,
+      required int currentPageIndex,
+      required int pageCount}) {
+    final shouldCountUp = newPageIndex > currentPageIndex;
+
+    int newPrimaryIndex = newPageIndex;
+
+    if (shouldCountUp) {
+      for (var i = newPageIndex; i < pageCount; i++) {
+        if (_isValidPrimaryPage(pageIndex: i, pageCount: pageCount)) {
+          newPrimaryIndex = i;
+          break;
+        }
+      }
+    } else {
+      /// shouldCountDown
+      for (var i = newPageIndex; i >= 0; i--) {
+        if (_isValidPrimaryPage(pageIndex: i, pageCount: pageCount)) {
+          newPrimaryIndex = i;
+          break;
+        }
+      }
+    }
+
+    final newSecondaryIndex = newPrimaryIndex + 1;
+    // Count give a total number of pages, need to subtract
+    final isPrimaryInRange =
+        _isInRange(pageIndex: newPrimaryIndex, pageCount: pageCount);
+    final isSecondaryInRange =
+        _isInRange(pageIndex: newSecondaryIndex, pageCount: pageCount);
+
+    return (
+      isPrimaryInRange ? newPrimaryIndex : 0,
+      isSecondaryInRange ? newSecondaryIndex : null
+    );
+  }
+
+  (int, int?) _getNextValidForSecondary(
+      {required int newPageIndex,
+      required int currentPageIndex,
+      required int pageCount}) {
+    final shouldCountUp = newPageIndex > currentPageIndex;
+
+    int newSecondaryIndex = newPageIndex;
+
+    if (shouldCountUp) {
+      for (var i = newPageIndex; i < pageCount; i++) {
+        if (_isValidSecondaryPage(pageIndex: i, pageCount: pageCount)) {
+          newSecondaryIndex = i;
+          break;
+        }
+      }
+    } else {
+      /// shouldCountDown
+      for (var i = newPageIndex; i >= 0; i--) {
+        if (_isValidSecondaryPage(pageIndex: i, pageCount: pageCount)) {
+          newSecondaryIndex = i;
+          break;
+        }
+      }
+    }
+
+    final newPrimaryIndex = newSecondaryIndex - 1;
+    // Count give a total number of pages, need to subtract
+    final isSecondaryInRange = newSecondaryIndex <= pageCount - 1 &&
+        _isValidSecondaryPage(
+            pageIndex: newSecondaryIndex, pageCount: pageCount);
+    final isPrimaryInRange = newPrimaryIndex >= 0;
+
+    return (
+      isPrimaryInRange ? newPrimaryIndex : 0,
+      isSecondaryInRange ? newSecondaryIndex : null
+    );
+  }
+
+  bool _isValidSecondaryPage({required int pageIndex, required int pageCount}) {
+    return (pageIndex.isEven &&
+            !_isFirstOrLastPage(pageIndex: pageIndex, pageCount: pageCount)) &&
+        _isInRange(pageIndex: pageIndex, pageCount: pageCount);
+  }
+
   Future<void> onPageSearch({required int newPageIndex}) async {
-    /// If no secondary controller set, assume this is a simple layout
-    if (_controllerSecondary.value == null) {
+    final shouldShowSecondaryPdf = ref.read(shouldShowSecondaryPdfProvider);
+
+    /// Skip any advanced logic and return the searched page as normal
+    if (!shouldShowSecondaryPdf) {
       final controller = _controllerPrimary.value;
       if (controller == null) {
         throw StateError(
@@ -91,7 +225,36 @@ class PdfNavigatorController extends _$PdfNavigatorController {
       }
       _setPage(newPageIndex, controller);
     } else {
-      // TODO(FireJuun): handle page search in multi-view
+      final primaryController = _controllerPrimary.value;
+      final secondaryController = _controllerSecondary.value;
+      if (primaryController == null || secondaryController == null) {
+        throw StateError('No controllers available for search');
+      }
+
+      final pageCount = await _controllerPrimary.value?.getPageCount();
+      if (pageCount == null) {
+        throw StateError('Page count not available');
+      }
+
+      if (_isValidPrimaryPage(pageIndex: newPageIndex, pageCount: pageCount)) {
+        _setPage(newPageIndex, primaryController);
+        final secondaryIndex = newPageIndex + 1;
+        if (_isInRange(pageIndex: secondaryIndex, pageCount: pageCount)) {
+          _setPage(secondaryIndex, secondaryController);
+        }
+      } else if (_isValidSecondaryPage(
+          pageIndex: newPageIndex, pageCount: pageCount)) {
+        _setPage(newPageIndex, secondaryController);
+        final primaryIndex = newPageIndex - 1;
+        if (_isInRange(pageIndex: primaryIndex, pageCount: pageCount)) {
+          _setPage(primaryIndex, primaryController);
+        }
+      } else {
+        throw RangeError('Unable to process search request');
+      }
+
+      print('page chagned for search: new $newPageIndex');
+      // TODO(FireJuun): handle search in multi view
     }
   }
 
@@ -99,4 +262,48 @@ class PdfNavigatorController extends _$PdfNavigatorController {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => controller.setPage(index));
   }
+}
+
+@riverpod
+class ShouldShowSecondaryPdf extends _$ShouldShowSecondaryPdf {
+  bool _isLayoutAboveBreakpoint = false;
+
+  @override
+  bool build() => false;
+
+  void recheckFromData(
+          {required int? currentPageIndex, required int? pageCount}) =>
+      state = _isLayoutAboveBreakpoint &&
+          !_isFirstOrLastPage(
+              pageIndex: currentPageIndex, pageCount: pageCount);
+
+  Future<void> recheckOnLayoutChange(bool isLayoutAboveBreakpoint) async {
+    _isLayoutAboveBreakpoint = isLayoutAboveBreakpoint;
+    try {
+      final controller =
+          ref.read(pdfNavigatorControllerProvider.notifier).controllerPrimary;
+      if (controller == null) {
+        state = false;
+        print('controller not set');
+        // throw StateError('No valid PDF controller');
+      } else {
+        final currentPageIndex = await controller.getCurrentPage();
+        final pageCount = await controller.getPageCount();
+
+        state = isLayoutAboveBreakpoint &&
+            !_isFirstOrLastPage(
+                pageIndex: currentPageIndex, pageCount: pageCount);
+      }
+    } catch (e) {
+      print(e);
+      state = false;
+    }
+  }
+}
+
+bool _isFirstOrLastPage({required int? pageIndex, required int? pageCount}) {
+  if (pageIndex == null || pageCount == null) {
+    throw StateError('Page ranges improperly set');
+  }
+  return pageIndex == 0 || (pageIndex == pageCount - 1);
 }

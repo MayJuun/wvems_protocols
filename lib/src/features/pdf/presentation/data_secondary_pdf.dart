@@ -63,13 +63,21 @@ class _DataSecondaryPdfState extends ConsumerState<DataSecondaryPdf> {
               .setPdfViewController(pdfViewController,
                   pdfNavigator: PdfNavigator.secondary);
         },
-        onPageChanged: (newPageIndex, newPageCount) async => currentPageIndex =
-            await ref
-                .read(pdfNavigatorControllerProvider.notifier)
-                .onPageChanged(
-                    currentPageIndex: currentPageIndex,
-                    newPageIndex: newPageIndex,
-                    source: PdfNavigator.secondary),
+        onPageChanged: (newPageIndex, newPageCount) async {
+          final _currentPageIndex = await ref
+              .read(pdfNavigatorControllerProvider.notifier)
+              .onPageChanged(
+                  currentPageIndex: currentPageIndex,
+                  newPageIndex: newPageIndex,
+                  pageCount: pageCount,
+                  source: PdfNavigator.secondary);
+          ref.read(shouldShowSecondaryPdfProvider.notifier).recheckFromData(
+              currentPageIndex: newPageIndex, pageCount: newPageCount);
+
+          setState(() {
+            currentPageIndex = _currentPageIndex;
+          });
+        },
       ),
     );
   }
