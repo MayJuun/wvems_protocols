@@ -7,7 +7,7 @@ part of 'multipage_sync_service.dart';
 // **************************************************************************
 
 String _$multipageSyncServiceHash() =>
-    r'9bac00e9bb900ea4bb5b8c3394e3d89cdab03bf6';
+    r'606a6fa4f7da526993e606485683c2e4306a29a9';
 
 /// See also [MultipageSyncService].
 @ProviderFor(MultipageSyncService)

@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../wvems_protocols.dart';
 
 const _pdfSplitScreenBreakpoint = Breakpoint.tablet;
+const _PORTRAIT_MODE_PADDING = 56.0;
 
 /// This is the primary use case for a PDF. This should always be loaded
 /// It is the only PDF that should be managed by the PDF navigator controller
@@ -28,6 +29,7 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
   bool isReady = false;
   double maxWidth = 0;
   bool isLayoutAboveBreakpoint = false;
+  bool isDarkMode = false;
 
   @override
   void dispose() {
@@ -60,55 +62,63 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
 
       final shouldShowSecondaryPdf = ref.watch(shouldShowSecondaryPdfProvider);
 
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: PDFView(
-              key: pdfViewKey,
-              nightMode: Theme.of(context).brightness == Brightness.dark,
-              fitPolicy: FitPolicy.BOTH,
-              filePath: widget.pdf.path,
-              onRender: (_pageCount) {
-                setState(() {
-                  pageCount = _pageCount;
-                  isReady = true;
-                });
-              },
-              onViewCreated: (PDFViewController pdfViewController) {
-                /// used for page navigation by external widgets
-                ref
-                    .read(pdfNavigatorControllerProvider.notifier)
-                    .setPdfViewController(pdfViewController,
-                        pdfNavigator: PdfNavigator.primary);
-              },
-              onPageChanged: (newPageIndex, newPageCount) async {
-                final _currentPageIndex = await ref
-                    .read(multipageSyncServiceProvider.notifier)
-                    .onPageChanged(
-                        currentPageIndex: currentPageIndex,
-                        newPageIndex: newPageIndex,
-                        pageCount: pageCount,
-                        source: PdfNavigator.primary);
-                ref
-                    .read(shouldShowSecondaryPdfProvider.notifier)
-                    .recheckFromData(
-                        currentPageIndex: newPageIndex,
-                        pageCount: newPageCount);
+      isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-                setState(() {
-                  currentPageIndex = _currentPageIndex;
-                });
-              },
+      return Padding(
+        padding: EdgeInsets.only(
+            top: isLayoutAboveBreakpoint ? 0 : _PORTRAIT_MODE_PADDING),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: PDFView(
+                key: pdfViewKey,
+                nightMode: isDarkMode,
+                fitPolicy: FitPolicy.BOTH,
+                filePath: widget.pdf.path,
+                onRender: (_pageCount) {
+                  setState(() {
+                    pageCount = _pageCount;
+                    isReady = true;
+                  });
+                },
+                onViewCreated: (PDFViewController pdfViewController) {
+                  /// used for page navigation by external widgets
+                  ref
+                      .read(pdfNavigatorControllerProvider.notifier)
+                      .setPdfViewController(pdfViewController,
+                          pdfNavigator: PdfNavigator.primary);
+                },
+                onPageChanged: (newPageIndex, newPageCount) async {
+                  final _currentPageIndex = newPageIndex;
+
+                  // await ref
+                  //     .read(multipageSyncServiceProvider.notifier)
+                  //     .onPageChanged(
+                  //         currentPageIndex: currentPageIndex,
+                  //         newPageIndex: newPageIndex,
+                  //         pageCount: pageCount,
+                  //         source: PdfNavigator.primary);
+                  ref
+                      .read(shouldShowSecondaryPdfProvider.notifier)
+                      .recheckFromData(
+                          currentPageIndex: newPageIndex,
+                          pageCount: newPageCount);
+
+                  setState(() {
+                    currentPageIndex = _currentPageIndex;
+                  });
+                },
+              ),
             ),
-          ),
-          if (shouldShowSecondaryPdf)
-            DataSecondaryPdf(
-              pdf: widget.pdf,
-              primaryPage: currentPageIndex!,
-              pageCount: pageCount!,
-            ),
-        ],
+            if (shouldShowSecondaryPdf)
+              DataSecondaryPdf(
+                pdf: widget.pdf,
+                primaryPage: currentPageIndex!,
+                pageCount: pageCount!,
+              ),
+          ],
+        ),
       );
     });
   }

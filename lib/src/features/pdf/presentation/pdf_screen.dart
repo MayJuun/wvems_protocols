@@ -28,12 +28,13 @@ class PdfScreen extends ConsumerWidget {
                     : DataLoaded(pdf: pdfBundle.pdf),
               );
             }),
-      floatingActionButton: state.isLoading
-          ? null
-          : FloatingActionButton.small(
-              child: const Icon(Icons.home),
-              onPressed:
-                  ref.read(multipageSyncServiceProvider.notifier).goToHome),
+      floatingActionButton:
+          state.isLoading || ref.watch(pdfBundleProvider).value == null
+              ? null
+              : FloatingActionButton.small(
+                  child: const Icon(Icons.home),
+                  onPressed:
+                      ref.read(multipageSyncServiceProvider.notifier).goToHome),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../wvems_protocols.dart';
@@ -18,6 +19,22 @@ class SearchHistoryRepository {
   late final _searchHistory = InMemoryStore<SearchHistory>(_lastSearchHistory);
 
   Stream<SearchHistory> get watchSearchHistory => _searchHistory.stream;
+
+  @visibleForTesting
+  Future<List<SearchHistoryItem>> querySearchHistory(
+      {required AssetPaths assetPath, required String query}) async {
+    final results = <SearchHistoryItem>[];
+    final searchHistory = _searchHistory.value.data[assetPath];
+    if (searchHistory != null && searchHistory.isNotEmpty) {
+      for (var item in searchHistory) {
+        if (_hasValidPageTextResult(query, item) ||
+            _hasValidTableOfContentsResult(query, item)) {
+          results.add(item);
+        }
+      }
+    }
+    return results;
+  }
 
   void onSearchItemSelected({
     required AssetPaths assetPath,
@@ -65,6 +82,20 @@ class SearchHistoryRepository {
   }
 }
 
+bool _hasValidPageTextResult(
+    String query, SearchHistoryItem searchHistoryItem) {
+  final pageTextResult = searchHistoryItem.pageTextResult;
+  return pageTextResult != null &&
+      pageTextResult.lowerCaseQuery.contains(query.toLowerCase());
+}
+
+bool _hasValidTableOfContentsResult(
+    String query, SearchHistoryItem searchHistoryItem) {
+  final tableOfContents = searchHistoryItem.tableOfContentsResult;
+  return tableOfContents != null &&
+      tableOfContents.toLowerCase().contains(query.toLowerCase());
+}
+
 @Riverpod(keepAlive: true)
 SearchHistoryRepository searchHistoryRepository(
     SearchHistoryRepositoryRef ref) {
@@ -76,4 +107,19 @@ SearchHistoryRepository searchHistoryRepository(
 Stream<SearchHistory> searchHistoryChanges(SearchHistoryChangesRef ref) {
   final searchHistoryRepository = ref.watch(searchHistoryRepositoryProvider);
   return searchHistoryRepository.watchSearchHistory;
+}
+
+@riverpod
+Future<List<SearchHistoryItem>> querySearchHistoryItems(
+    QuerySearchHistoryItemsRef ref, String query) async {
+  ref.watch(searchHistoryChangesProvider);
+  // put any debounce or timer/cancel methods here
+  final searchHistoryRepository = ref.watch(searchHistoryRepositoryProvider);
+  final assetPath = ref.watch(pdfBundleProvider).value?.assetPath;
+  if (assetPath == null) {
+    print('no asset path set, cant query search history items');
+    return [];
+  }
+  return searchHistoryRepository.querySearchHistory(
+      assetPath: assetPath, query: query);
 }

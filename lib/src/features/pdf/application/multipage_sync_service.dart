@@ -38,96 +38,98 @@ class MultipageSyncService extends _$MultipageSyncService {
         isInRange(pageIndex: pageIndex, pageCount: pageCount);
   }
 
-  Future<int> onPageChanged({
-    required int? currentPageIndex,
-    required int? newPageIndex,
-    required int? pageCount,
-    required PdfNavigator source,
-  }) async {
-    if (newPageIndex == null || currentPageIndex == null || pageCount == null) {
-      throw StateError('Cannot navigate to/from a null page');
-    }
+  /// This feature is disabled, as the two pages don't interact as cleanly as I would have liked
+  ///
+  // Future<int> onPageChanged({
+  //   required int? currentPageIndex,
+  //   required int? newPageIndex,
+  //   required int? pageCount,
+  //   required PdfNavigator source,
+  // }) async {
+  //   if (newPageIndex == null || currentPageIndex == null || pageCount == null) {
+  //     throw StateError('Cannot navigate to/from a null page');
+  //   }
 
-    final shouldShowSecondaryPdf = ref.read(shouldShowSecondaryPdfProvider);
+  //   final shouldShowSecondaryPdf = ref.read(shouldShowSecondaryPdfProvider);
 
-    /// Single view, or no page was changed.
-    /// Skip any advanced logic and return the new page as normal.
-    if (!shouldShowSecondaryPdf || currentPageIndex == newPageIndex) {
-      return newPageIndex;
-    } else
+  //   /// Single view, or no page was changed.
+  //   /// Skip any advanced logic and return the new page as normal.
+  //   if (!shouldShowSecondaryPdf || currentPageIndex == newPageIndex) {
+  //     return newPageIndex;
+  //   } else
 
-    /// Secondary view is loaded. Exaclty which page will load is determined
-    /// by what is sent to the [DataSecondaryPdf] widget.
-    /// If it is sent a valid secondary page, that will load
-    /// otherwise, it'll load the next available secondary page.
-    /// An example to recreate this is to have a 'secondary' page shown
-    /// on the portrait view, then move to landscape.
-    if (source == PdfNavigator.secondary && currentPageIndex == 0) {
-      final primaryPageIndex = await ref
-          .read(pdfNavigatorControllerProvider.notifier)
-          .getCurrentPageIndex();
-      if (primaryPageIndex != null && primaryPageIndex == newPageIndex) {
-        /// fix the primary page
-        _setPage(
-            newIndex: primaryPageIndex - 1, pdfNavigator: PdfNavigator.primary);
-      }
-      return newPageIndex;
-    } else {
-      /// What happens next depends on the source and the total number of pages
-      // print(
-      //     'page changed for ${source.name}:  $currentPageIndex -> $newPageIndex');
+  //   /// Secondary view is loaded. Exaclty which page will load is determined
+  //   /// by what is sent to the [DataSecondaryPdf] widget.
+  //   /// If it is sent a valid secondary page, that will load
+  //   /// otherwise, it'll load the next available secondary page.
+  //   /// An example to recreate this is to have a 'secondary' page shown
+  //   /// on the portrait view, then move to landscape.
+  //   if (source == PdfNavigator.secondary && currentPageIndex == 0) {
+  //     final primaryPageIndex = await ref
+  //         .read(pdfNavigatorControllerProvider.notifier)
+  //         .getCurrentPageIndex();
+  //     if (primaryPageIndex != null && primaryPageIndex == newPageIndex) {
+  //       /// fix the primary page
+  //       _setPage(
+  //           newIndex: primaryPageIndex - 1, pdfNavigator: PdfNavigator.primary);
+  //     }
+  //     return newPageIndex;
+  //   } else {
+  //     /// What happens next depends on the source and the total number of pages
+  //     // print(
+  //     //     'page changed for ${source.name}:  $currentPageIndex -> $newPageIndex');
 
-      /// Double screen layout
-      switch (source) {
-        // Odd pages OR first page OR last page
-        case PdfNavigator.primary:
-          {
-            if (isValidPrimaryPage(
-                pageIndex: newPageIndex, pageCount: pageCount)) {
-              return newPageIndex;
-            } else {
-              final (primary, secondary) = _getNextValidForPrimary(
-                  newPageIndex: newPageIndex,
-                  currentPageIndex: currentPageIndex,
-                  pageCount: pageCount);
+  //     /// Double screen layout
+  //     switch (source) {
+  //       // Odd pages OR first page OR last page
+  //       case PdfNavigator.primary:
+  //         {
+  //           if (isValidPrimaryPage(
+  //               pageIndex: newPageIndex, pageCount: pageCount)) {
+  //             return newPageIndex;
+  //           } else {
+  //             final (primary, secondary) = _getNextValidForPrimary(
+  //                 newPageIndex: newPageIndex,
+  //                 currentPageIndex: currentPageIndex,
+  //                 pageCount: pageCount);
 
-              /// Use these data to modify both PDF pages
-              _setPage(newIndex: primary, pdfNavigator: PdfNavigator.primary);
+  //             /// Use these data to modify both PDF pages
+  //             _setPage(newIndex: primary, pdfNavigator: PdfNavigator.primary);
 
-              if (secondary != null) {
-                _setPage(
-                    newIndex: secondary, pdfNavigator: PdfNavigator.secondary);
-              }
-              return primary;
-            }
-          }
+  //             if (secondary != null) {
+  //               _setPage(
+  //                   newIndex: secondary, pdfNavigator: PdfNavigator.secondary);
+  //             }
+  //             return primary;
+  //           }
+  //         }
 
-        // Even pages. Can't be the first or last page.
-        case PdfNavigator.secondary:
-          {
-            if (newPageIndex.isEven &&
-                !isFirstOrLastPage(
-                    pageIndex: newPageIndex, pageCount: pageCount)) {
-              return newPageIndex;
-            } else {
-              final (primary, secondary) = _getNextValidForSecondary(
-                  newPageIndex: newPageIndex,
-                  currentPageIndex: currentPageIndex,
-                  pageCount: pageCount);
+  //       // Even pages. Can't be the first or last page.
+  //       case PdfNavigator.secondary:
+  //         {
+  //           if (newPageIndex.isEven &&
+  //               !isFirstOrLastPage(
+  //                   pageIndex: newPageIndex, pageCount: pageCount)) {
+  //             return newPageIndex;
+  //           } else {
+  //             final (primary, secondary) = _getNextValidForSecondary(
+  //                 newPageIndex: newPageIndex,
+  //                 currentPageIndex: currentPageIndex,
+  //                 pageCount: pageCount);
 
-              /// Use these data to modify both PDF pages
-              _setPage(newIndex: primary, pdfNavigator: PdfNavigator.primary);
+  //             /// Use these data to modify both PDF pages
+  //             _setPage(newIndex: primary, pdfNavigator: PdfNavigator.primary);
 
-              if (secondary != null) {
-                _setPage(
-                    newIndex: secondary, pdfNavigator: PdfNavigator.secondary);
-              }
-              return primary;
-            }
-          }
-      }
-    }
-  }
+  //             if (secondary != null) {
+  //               _setPage(
+  //                   newIndex: secondary, pdfNavigator: PdfNavigator.secondary);
+  //             }
+  //             return primary;
+  //           }
+  //         }
+  //     }
+  //   }
+  // }
 
   (int, int?) _getNextValidForPrimary(
       {required int newPageIndex,

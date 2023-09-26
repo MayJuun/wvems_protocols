@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../wvems_protocols.dart';
@@ -54,51 +52,19 @@ Map<PageId, PageTextResult> pdfSearchResultsPageText(
 }
 
 @riverpod
-List<SearchHistoryItem> pdfSearchResultsHistory(
-    PdfSearchResultsHistoryRef ref) {
-  final lastSearchHistory = ref.watch(searchHistoryChangesProvider).value;
-  final results = <SearchHistoryItem>[];
-
-  /// no prior history to search through. return blank list
-  if (lastSearchHistory == null) {
-    return results;
-  }
-
-  /// no valid search history to display
-  final activeAsset = ref.watch(pdfBundleProvider).value?.assetPath;
-  final data = lastSearchHistory.data[activeAsset];
-  if (activeAsset == null || data == null || data.isEmpty) {
-    return results;
-  }
-
+List<SearchHistoryItem> pdfSearchResultsForSearchHistory(
+  PdfSearchResultsForSearchHistoryRef ref,
+) {
   final query = ref.watch(pdfSearchStateProvider);
+  final searchHistory = ref.watch(querySearchHistoryItemsProvider(query));
+  final searchHistoryValue = searchHistory.value;
+  // ref.watch(searchHistoryChangesProvider);
 
-  if (query.isEmpty) {
-    return data;
+  if (searchHistoryValue != null && !searchHistory.isLoading) {
+    return searchHistoryValue;
   } else {
-    /// Check each search history item, and filter based on the query
-    data.forEach((searchHistoryItem) {
-      if (_hasValidPageTextResult(query, searchHistoryItem) ||
-          _hasValidTableOfContentsResult(query, searchHistoryItem)) {
-        results.add(searchHistoryItem);
-      }
-    });
-    return results;
+    return [];
   }
-}
-
-bool _hasValidPageTextResult(
-    String query, SearchHistoryItem searchHistoryItem) {
-  final pageTextResult = searchHistoryItem.pageTextResult;
-  return pageTextResult != null &&
-      pageTextResult.lowerCaseQuery.contains(query.toLowerCase());
-}
-
-bool _hasValidTableOfContentsResult(
-    String query, SearchHistoryItem searchHistoryItem) {
-  final tableOfContents = searchHistoryItem.tableOfContentsResult;
-  return tableOfContents != null &&
-      tableOfContents.toLowerCase().contains(query.toLowerCase());
 }
 
 bool _hasValidSearchResults(

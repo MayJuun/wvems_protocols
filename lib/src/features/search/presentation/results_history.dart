@@ -4,56 +4,58 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
 
 import '../../../../wvems_protocols.dart';
 
-class ResultsHistory extends ConsumerWidget {
+class ResultsHistory extends StatelessWidget {
   const ResultsHistory(this._controller, {super.key});
 
   final FloatingSearchBarController _controller;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // TODO(FireJuun): this is not rebuilding when this provider is updated
-    final results = ref.watch(pdfSearchResultsHistoryProvider);
+  Widget build(BuildContext context) {
     return DecoratedSliver(
       decoration: const BoxDecoration(),
-      sliver: results.isEmpty
-          ? const SliverToBoxAdapter(child: SizedBox.shrink())
-          : SliverList.separated(
-              itemCount: results.length,
-              itemBuilder: (_, int index) {
-                return Consumer(builder: (context, ref, child) {
-                  final item = ref.watch(pdfSearchResultsHistoryProvider
-                      .select((value) => value[index]));
-                  final pageIndex = PagesUtil().pageNumToPageIndex(item.pageId);
+      sliver: Consumer(builder: (context, ref, child) {
+        final results = ref.watch(pdfSearchResultsForSearchHistoryProvider);
 
-                  return item.pageTextResult != null
-                      ? PageTextItem(
-                          pageId: item.pageId,
-                          pageTextResult: item.pageTextResult!,
-                          onPressed: () {
-                            ref
-                                .read(multipageSyncServiceProvider.notifier)
-                                .onPageSearch(newPageIndex: pageIndex);
-                            _controller.close();
-                          },
-                          trailing: RemoveHistoryItem(item),
-                        )
-                      : TableOfContentsItem(
-                          pageId: item.pageId,
-                          tableOfContents:
-                              item.tableOfContentsResult ?? 'NO DATA',
-                          onPressed: () {
-                            ref
-                                .read(multipageSyncServiceProvider.notifier)
-                                .onPageSearch(newPageIndex: pageIndex);
-                            _controller.close();
-                          },
-                          trailing: RemoveHistoryItem(item),
-                        );
-                });
-              },
-              separatorBuilder: (_, __) =>
-                  const Divider(indent: 8, endIndent: 8),
-            ),
+        return results.isEmpty
+            ? const SliverToBoxAdapter(child: SizedBox.shrink())
+            : SliverList.separated(
+                itemCount: results.length,
+                itemBuilder: (_, int index) {
+                  return Consumer(builder: (context, ref, child) {
+                    final item = results[index];
+                    final pageIndex =
+                        PagesUtil().pageNumToPageIndex(item.pageId);
+
+                    return item.pageTextResult != null
+                        ? PageTextItem(
+                            pageId: item.pageId,
+                            pageTextResult: item.pageTextResult!,
+                            onPressed: () {
+                              ref
+                                  .read(multipageSyncServiceProvider.notifier)
+                                  .onPageSearch(newPageIndex: pageIndex);
+                              _controller.close();
+                            },
+                            trailing: RemoveHistoryItem(item),
+                          )
+                        : TableOfContentsItem(
+                            pageId: item.pageId,
+                            tableOfContents:
+                                item.tableOfContentsResult ?? 'NO DATA',
+                            onPressed: () {
+                              ref
+                                  .read(multipageSyncServiceProvider.notifier)
+                                  .onPageSearch(newPageIndex: pageIndex);
+                              _controller.close();
+                            },
+                            trailing: RemoveHistoryItem(item),
+                          );
+                  });
+                },
+                separatorBuilder: (_, __) =>
+                    const Divider(indent: 8, endIndent: 8),
+              );
+      }),
     );
   }
 }

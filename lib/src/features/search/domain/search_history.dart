@@ -13,18 +13,34 @@ class SearchHistory extends Equatable {
   @override
   List<Object> get props => [data];
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'data': data,
-    };
+  Map<String, List<SearchHistoryItem>> toMap() {
+    final newMap = <String, List<SearchHistoryItem>>{};
+    data.forEach((key, value) {
+      newMap[key.name] = value;
+    });
+    return newMap;
   }
 
   factory SearchHistory.fromMap(Map<String, dynamic> map) {
-    return SearchHistory(
-      Map<AssetPaths, List<SearchHistoryItem>>.from(
-        map['data'] as Map<AssetPaths, List<SearchHistoryItem>>,
-      ),
-    );
+    final newMap = <AssetPaths, List<SearchHistoryItem>>{};
+
+    map.forEach((key, value) {
+      /// need a random asset just to call this enhanced enum method
+      /// probably not the most ideal location for that method (?utils)...but it works
+      final assetPath = AssetPaths.values.first.fromString(key);
+      if (assetPath == null) {
+        throw StateError('Cannot convert asset path from string');
+      }
+
+      final stringList = List.from(value);
+      final searchItems = <SearchHistoryItem>[];
+
+      for (var item in stringList) {
+        searchItems.add(SearchHistoryItem.fromJson(item));
+      }
+      newMap[assetPath] = searchItems;
+    });
+    return SearchHistory(newMap);
   }
 
   String toJson() => json.encode(toMap());

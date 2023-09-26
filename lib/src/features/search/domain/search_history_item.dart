@@ -26,7 +26,7 @@ class SearchHistoryItem extends Equatable {
 
   factory SearchHistoryItem.fromMap(Map<String, dynamic> map) {
     return SearchHistoryItem(
-      pageId: int.parse(map['pageId']),
+      pageId: map['pageId'] as int,
       pageTextResult: map['pageTextResult'] != null
           ? PageTextResult.fromMap(
               map['pageTextResult'] as Map<String, dynamic>)

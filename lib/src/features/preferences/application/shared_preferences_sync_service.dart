@@ -36,7 +36,7 @@ class SharedPreferencesSyncService {
       if (previous is AsyncLoading) {
         // do nothing
       } else {
-        // _saveSearchHistoryLocally(searchHistory);
+        _saveSearchHistoryLocally(searchHistory);
       }
     });
 

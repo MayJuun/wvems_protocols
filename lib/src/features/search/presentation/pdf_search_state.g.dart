@@ -42,23 +42,23 @@ final pdfSearchResultsPageTextProvider =
 
 typedef PdfSearchResultsPageTextRef
     = AutoDisposeProviderRef<Map<int, PageTextResult>>;
-String _$pdfSearchResultsHistoryHash() =>
-    r'0e01aecafaefd2a1e6f7238c18ff8065e73e5092';
+String _$pdfSearchResultsForSearchHistoryHash() =>
+    r'3f2792890a77f90893453e46ff460eeed2543e74';
 
-/// See also [pdfSearchResultsHistory].
-@ProviderFor(pdfSearchResultsHistory)
-final pdfSearchResultsHistoryProvider =
+/// See also [pdfSearchResultsForSearchHistory].
+@ProviderFor(pdfSearchResultsForSearchHistory)
+final pdfSearchResultsForSearchHistoryProvider =
     AutoDisposeProvider<List<SearchHistoryItem>>.internal(
-  pdfSearchResultsHistory,
-  name: r'pdfSearchResultsHistoryProvider',
+  pdfSearchResultsForSearchHistory,
+  name: r'pdfSearchResultsForSearchHistoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$pdfSearchResultsHistoryHash,
+      : _$pdfSearchResultsForSearchHistoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef PdfSearchResultsHistoryRef
+typedef PdfSearchResultsForSearchHistoryRef
     = AutoDisposeProviderRef<List<SearchHistoryItem>>;
 String _$pdfSearchStateHash() => r'38859b3134313e1f410332dfe87ffc57d5225ffd';
 

@@ -48,7 +48,8 @@ class ResultFilterItem extends ConsumerWidget {
       case PdfSearchFilters.pageText:
         searchQuantity = ref.watch(pdfSearchResultsPageTextProvider).length;
       case PdfSearchFilters.history:
-        searchQuantity = ref.watch(pdfSearchResultsHistoryProvider).length;
+        searchQuantity =
+            ref.watch(pdfSearchResultsForSearchHistoryProvider).length;
     }
 
     final isSelected = activeSearchFilter == pdfSearchFilter;
