@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:wvems_protocols/ui/views/views.dart';
+import 'package:wvems_protocols/src/features/preferences/presentation/about_us/about_mayjuun.dart';
+import 'package:wvems_protocols/src/features/preferences/presentation/about_us/about_wvems.dart';
 
 import '../../wvems_protocols.dart';
 
@@ -16,7 +17,9 @@ part 'app_routing.g.dart';
 /// ```
 enum AppRoute {
   home,
-  product,
+  menu,
+  aboutMayJuun,
+  aboutWVEMS,
 }
 
 /// returns the GoRouter instance that defines all the routes in the app
@@ -28,10 +31,32 @@ GoRouter goRouter(GoRouterRef ref) {
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
-        path: '/',
-        name: AppRoute.home.name,
-        builder: (context, state) => const PdfScreen(),
-      ),
+          path: '/',
+          name: AppRoute.home.name,
+          builder: (context, state) => const PdfScreen(),
+          routes: [
+            GoRoute(
+              path: 'menu',
+              name: AppRoute.menu.name,
+              pageBuilder: (context, state) => DialogPage(
+                builder: (_) => const UnifiedMenuDialog(),
+              ),
+            ),
+            GoRoute(
+              path: 'aboutMayJuun',
+              name: AppRoute.aboutMayJuun.name,
+              pageBuilder: (context, state) => DialogPage(
+                builder: (_) => const AboutMayJuun(),
+              ),
+            ),
+            GoRoute(
+              path: 'aboutWVEMS',
+              name: AppRoute.aboutWVEMS.name,
+              pageBuilder: (context, state) => DialogPage(
+                builder: (_) => const AboutWVEMS(),
+              ),
+            ),
+          ]),
     ],
     errorBuilder: (context, state) => const NotFoundScreen(),
   );

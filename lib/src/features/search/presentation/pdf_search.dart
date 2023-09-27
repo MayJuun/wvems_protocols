@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
@@ -103,7 +104,7 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
                 message: 'Change Version, Settings, Messages'.hardcoded,
                 child: CircularButton(
                   icon: const Icon(Icons.menu),
-                  onPressed: () => showUnifiedMenuDialog(context: context),
+                  onPressed: () => context.pushNamed(AppRoute.menu.name),
                 ),
               ),
             ),

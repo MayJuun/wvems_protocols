@@ -43,7 +43,7 @@ final pdfSearchResultsPageTextProvider =
 typedef PdfSearchResultsPageTextRef
     = AutoDisposeProviderRef<Map<int, PageTextResult>>;
 String _$pdfSearchResultsForSearchHistoryHash() =>
-    r'3f2792890a77f90893453e46ff460eeed2543e74';
+    r'99970d19626b96ed5bb028748e5bcdbd6f2e06d1';
 
 /// See also [pdfSearchResultsForSearchHistory].
 @ProviderFor(pdfSearchResultsForSearchHistory)

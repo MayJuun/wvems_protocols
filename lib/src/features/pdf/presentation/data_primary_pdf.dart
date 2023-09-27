@@ -61,12 +61,13 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
       }
 
       final shouldShowSecondaryPdf = ref.watch(shouldShowSecondaryPdfProvider);
-
       isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
       return Padding(
         padding: EdgeInsets.only(
-            top: isLayoutAboveBreakpoint ? 0 : _PORTRAIT_MODE_PADDING),
+            top: MediaQuery.of(context).orientation == Orientation.portrait
+                ? _PORTRAIT_MODE_PADDING
+                : 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
