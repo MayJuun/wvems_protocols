@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:wvems_protocols/wvems_protocols.dart';
 
-class AppMessages extends StatelessWidget {
-  const AppMessages({super.key});
+class MessageScreenSmall extends StatelessWidget {
+  const MessageScreenSmall({super.key});
 
   @override
   Widget build(BuildContext context) {

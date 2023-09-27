@@ -18,7 +18,7 @@ class UnifiedMenuDialog extends StatelessWidget {
             MenuHeader(label: 'WVEMS Protocols'.hardcoded),
             const DisplayVersion(),
             const AppLinks(),
-            const AppMessages(),
+            const MessageScreenSmall(),
             const DisplayMode(),
             const MenuFooter(
               leadingTextButton: TextButtonWVEMS(),

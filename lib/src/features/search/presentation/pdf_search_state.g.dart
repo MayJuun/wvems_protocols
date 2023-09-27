@@ -60,7 +60,7 @@ final pdfSearchResultsForSearchHistoryProvider =
 
 typedef PdfSearchResultsForSearchHistoryRef
     = AutoDisposeProviderRef<List<SearchHistoryItem>>;
-String _$pdfSearchStateHash() => r'38859b3134313e1f410332dfe87ffc57d5225ffd';
+String _$pdfSearchStateHash() => r'e1fcb1089a6297b673474d1345b041847dc86803';
 
 /// Automatically update displayed content based on search results above + query
 ///
@@ -79,4 +79,4 @@ final pdfSearchStateProvider =
 
 typedef _$PdfSearchState = AutoDisposeNotifier<String>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

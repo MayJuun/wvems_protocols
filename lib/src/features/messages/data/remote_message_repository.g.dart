@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pdf_navigator_controller.dart';
+part of 'remote_message_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pdfNavigatorControllerHash() =>
-    r'fcc5c87b14d1e2b0ef526f43fbf1b8ce3057358b';
+String _$remoteMessageRepositoryHash() =>
+    r'6f21c0ea0d55ab6722c61b7af1ce66f255439fbf';
 
-/// See also [PdfNavigatorController].
-@ProviderFor(PdfNavigatorController)
-final pdfNavigatorControllerProvider =
-    AutoDisposeAsyncNotifierProvider<PdfNavigatorController, void>.internal(
-  PdfNavigatorController.new,
-  name: r'pdfNavigatorControllerProvider',
+/// See also [remoteMessageRepository].
+@ProviderFor(remoteMessageRepository)
+final remoteMessageRepositoryProvider =
+    Provider<RemoteMessageRepository>.internal(
+  remoteMessageRepository,
+  name: r'remoteMessageRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$pdfNavigatorControllerHash,
+      : _$remoteMessageRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$PdfNavigatorController = AutoDisposeAsyncNotifier<void>;
+typedef RemoteMessageRepositoryRef = ProviderRef<RemoteMessageRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
