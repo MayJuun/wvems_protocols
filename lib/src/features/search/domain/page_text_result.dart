@@ -40,7 +40,7 @@ class PageTextResult extends Equatable {
 
   factory PageTextResult.fromMap(Map<String, dynamic> map) {
     return PageTextResult(
-      stringIndex: int.parse(map['stringIndex']),
+      stringIndex: map['stringIndex'],
       lowerCaseQuery: map['lowerCaseQuery'],
       pageText: map['pageText'],
     );

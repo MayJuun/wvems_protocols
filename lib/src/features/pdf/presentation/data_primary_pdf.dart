@@ -29,7 +29,6 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
   bool isReady = false;
   double maxWidth = 0;
   bool isLayoutAboveBreakpoint = false;
-  bool isDarkMode = false;
 
   @override
   void dispose() {
@@ -61,7 +60,7 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
       }
 
       final shouldShowSecondaryPdf = ref.watch(shouldShowSecondaryPdfProvider);
-      isDarkMode = Theme.of(context).brightness == Brightness.dark;
+      final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
       return Padding(
         padding: EdgeInsets.only(
