@@ -1,8 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:wvems_protocols/firebase_options_stg.dart';
 import 'package:wvems_protocols/wvems_protocols.dart';
 
 void main() async {
@@ -12,6 +14,10 @@ void main() async {
   // ensure URL changes in the address bar when using push / pushNamed
   // more info here: https://docs.google.com/document/d/1VCuB85D5kYxPR3qYOjVmw8boAGKb7k62heFyfFHTOvw/edit
   GoRouter.optionURLReflectsImperativeAPIs = true;
+  await Firebase.initializeApp(
+    name: 'staging',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   final appBootstrap = AppBootstrapLocal();
   // * Create ProviderContainer with any required overrides

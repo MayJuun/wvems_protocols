@@ -126,8 +126,9 @@ lib/api/*
 !lib/api/api_public.dart
 
 # Ignore FlutterFire CLI generated API keys and IDs
-**GoogleService-Info.plist
-**google-services.json
-**firebase_app_id_file.json
-**firebase_options.dart
+**GoogleService-Info*.plist
+**google-services*.json
+**firebase_app_id_file*.json
+**firebase_options*.json
+**firebase_options*.dart
 pubspec.lock
