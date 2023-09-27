@@ -1,4 +1,4 @@
-flutter_icons:
+flutter_launcher_icons:
   image_path_android: 'assets/icons/wvems-protocols-android-dev.png'
   image_path_ios: 'assets/icons/wvems-protocols-ios-dev.png'
   android: true
