@@ -47,14 +47,14 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        var isLayoutAboveBreakpoint =
+        final newLayoutCheck =
             constraints.maxWidth >= _pdfSplitScreenBreakpoint;
 
         /// Layout has changed. Store this new value,
         /// then check if secondary pdf should be shown
-        if (isLayoutAboveBreakpoint != isLayoutAboveBreakpoint) {
+        if (isLayoutAboveBreakpoint != newLayoutCheck) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            isLayoutAboveBreakpoint = isLayoutAboveBreakpoint;
+            isLayoutAboveBreakpoint = newLayoutCheck;
             ref
                 .read(shouldShowSecondaryPdfProvider.notifier)
                 .recheckOnLayoutChange(isLayoutAboveBreakpoint);
