@@ -28,6 +28,11 @@ class AboutWVEMS extends StatelessWidget {
                     textAlign: TextAlign.justify,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
+                  gapH16,
+                  AboutUsHyperlink(
+                      label: 'https://western.vaems.org',
+                      uri: Uri.parse('https://western.vaems.org')),
+                  const Divider(),
                 ],
               ),
             ),

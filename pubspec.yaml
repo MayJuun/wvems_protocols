@@ -41,7 +41,7 @@ dependencies:
   screenshot: ^2.1.0
   share_plus: ^7.1.0
   shared_preferences: ^2.2.1
-  url_launcher: ^6.1.6
+  url_launcher: ^6.1.14
   validators2: ^5.0.0
 
 dev_dependencies:
