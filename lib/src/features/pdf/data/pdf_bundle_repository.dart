@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 part 'pdf_bundle_repository.g.dart';
 
@@ -39,20 +39,20 @@ class PdfBundleRepository {
         pdf: pdf,
         pdfMeta: pdfMeta,
         pdfTableOfContents: pdfTableOfContents,
-        pdfText: pdfText);
+        pdfText: pdfText,);
   }
 
   @visibleForTesting
   Future<File> loadFile(AssetPaths assetPath) async {
     /// spec: https://pub.dev/packages/flutter_pdfviewBundle/example
-    final Completer<File> completer = Completer();
+    final completer = Completer<File>();
 
     try {
       final path = assetPath.path;
       final fullAssetPath = '$path.pdf';
       final fileName = fullAssetPath.split('/').last;
       final dir = await getApplicationDocumentsDirectory();
-      final File file = File('${dir.path}/$fileName');
+      final file = File('${dir.path}/$fileName');
       final data = await rootBundle.load(fullAssetPath);
       final bytes = data.buffer.asUint8List();
       await file.writeAsBytes(bytes, flush: true);
@@ -85,12 +85,12 @@ class PdfBundleRepository {
   }
 
   Future<Map<PageId, TableOfContents>> searchPdfTableOfContents(
-      String query) async {
+      String query,) async {
     final lowerCaseQuery = query.toLowerCase();
     final tableOfContents = currentPdfBundle?.pdfTableOfContents;
     if (tableOfContents != null && tableOfContents.data.isNotEmpty) {
       final response = <PageId, TableOfContents>{};
-      for (var entry in tableOfContents.data.entries) {
+      for (final entry in tableOfContents.data.entries) {
         if (entry.value.toLowerCase().contains(lowerCaseQuery)) {
           response[entry.key] = entry.value;
         }
@@ -106,7 +106,7 @@ class PdfBundleRepository {
     final pageText = currentPdfBundle?.pdfText;
     if (pageText != null && pageText.data.isNotEmpty) {
       final response = <PageId, PageText>{};
-      for (var entry in pageText.data.entries) {
+      for (final entry in pageText.data.entries) {
         if (entry.value.toLowerCase().contains(lowerCaseQuery)) {
           response[entry.key] = entry.value;
         }
@@ -126,7 +126,7 @@ PdfBundleRepository pdfBundleRepository(PdfBundleRepositoryRef ref) {
 
 @riverpod
 Future<Map<PageId, TableOfContents>> pdfTableOfContentsSearch(
-    PdfTableOfContentsSearchRef ref, String query) async {
+    PdfTableOfContentsSearchRef ref, String query,) async {
   // put any debounce or timer/cancel methods here
   final pdfBundleRepository = ref.watch(pdfBundleRepositoryProvider);
   return pdfBundleRepository.searchPdfTableOfContents(query);
@@ -134,7 +134,7 @@ Future<Map<PageId, TableOfContents>> pdfTableOfContentsSearch(
 
 @riverpod
 Future<Map<PageId, PageText>> pdfTextSearch(
-    PdfTextSearchRef ref, String query) async {
+    PdfTextSearchRef ref, String query,) async {
   // put any debounce or timer/cancel methods here
   final pdfBundleRepository = ref.watch(pdfBundleRepositoryProvider);
   return pdfBundleRepository.searchPdfText(query);

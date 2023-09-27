@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 class TextButtonSettings extends StatelessWidget {
   const TextButtonSettings({super.key});
@@ -12,8 +12,9 @@ class TextButtonSettings extends StatelessWidget {
       // key: kUnifiedMenuKey,
       child: Text('Settings'.hardcoded),
       onPressed: () {
-        context.pop();
-        context.pushNamed(AppRoute.menu.name);
+        context
+          ..pop()
+          ..pushNamed(AppRoute.menu.name);
       },
     );
   }

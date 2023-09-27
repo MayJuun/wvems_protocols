@@ -7,15 +7,15 @@ class ResultsHeader extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+      BuildContext context, double shrinkOffset, bool overlapsContent,) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(top: 8),
       child: Wrap(
         alignment: WrapAlignment.center,
-        spacing: 8.0,
-        runSpacing: 8.0,
+        spacing: 8,
+        runSpacing: 8,
         children:
-            PdfSearchFilters.values.map((e) => ResultFilterItem(e)).toList(),
+            PdfSearchFilters.values.map(ResultFilterItem.new).toList(),
       ),
     );
   }

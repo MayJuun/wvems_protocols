@@ -30,7 +30,7 @@ class AppTheme extends Equatable {
   }
 
   factory AppTheme.fromMap(Map<String, dynamic> map) => AppTheme(
-        themeMode: _themeModeFromString(map['themeMode']),
+        themeMode: _themeModeFromString(map['themeMode'] as String),
         seedColor: Color(map['seedColor'] as int),
       );
 

@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 const _pdfSplitScreenBreakpoint = Breakpoint.tablet;
-const _PORTRAIT_MODE_PADDING = 56.0;
+const _portraitModePadding = 56.0;
 
 /// This is the primary use case for a PDF. This should always be loaded
 /// It is the only PDF that should be managed by the PDF navigator controller
-/// If the app is in tablet mode (or if the app is in landscape mode), an optional
-/// secondary PDF will appear, whose behavior is determined by the primary PDF
+/// If the app is in tablet mode (or if the app is in landscape mode), an
+/// optional secondary PDF will appear, whose behavior is determined by
+/// the primary PDF
 
 class DataPrimaryPdf extends ConsumerStatefulWidget {
   const DataPrimaryPdf({required this.pdf, super.key});
@@ -32,7 +33,7 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
 
   @override
   void dispose() {
-    /// this is not the correct time to reset the (now unused) [PdfViewController]
+    /// this is not the correct time to reset the (unused) [PdfViewController]
     // ref
     //     .read(pdfNavigatorControllerProvider.notifier)
     //     .setPdfViewController(null, pdfNavigator: PdfNavigator.primary);
@@ -44,82 +45,87 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
     final pdfViewKey =
         ref.watch(pdfNavigatorControllerProvider.notifier).pdfViewKeyPrimary;
 
-    return LayoutBuilder(builder: (context, constraints) {
-      final _isLayoutAboveBreakpoint =
-          constraints.maxWidth >= _pdfSplitScreenBreakpoint;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        var isLayoutAboveBreakpoint =
+            constraints.maxWidth >= _pdfSplitScreenBreakpoint;
 
-      /// Layout has changed. Store this new value,
-      /// then check if secondary pdf should be shown
-      if (isLayoutAboveBreakpoint != _isLayoutAboveBreakpoint) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          isLayoutAboveBreakpoint = _isLayoutAboveBreakpoint;
-          ref
-              .read(shouldShowSecondaryPdfProvider.notifier)
-              .recheckOnLayoutChange(_isLayoutAboveBreakpoint);
-        });
-      }
+        /// Layout has changed. Store this new value,
+        /// then check if secondary pdf should be shown
+        if (isLayoutAboveBreakpoint != isLayoutAboveBreakpoint) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            isLayoutAboveBreakpoint = isLayoutAboveBreakpoint;
+            ref
+                .read(shouldShowSecondaryPdfProvider.notifier)
+                .recheckOnLayoutChange(isLayoutAboveBreakpoint);
+          });
+        }
 
-      final shouldShowSecondaryPdf = ref.watch(shouldShowSecondaryPdfProvider);
-      final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+        final shouldShowSecondaryPdf =
+            ref.watch(shouldShowSecondaryPdfProvider);
+        final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-      return Padding(
-        padding: EdgeInsets.only(
+        return Padding(
+          padding: EdgeInsets.only(
             top: MediaQuery.of(context).orientation == Orientation.portrait
-                ? _PORTRAIT_MODE_PADDING
-                : 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              child: PDFView(
-                key: pdfViewKey,
-                nightMode: isDarkMode,
-                fitPolicy: FitPolicy.BOTH,
-                filePath: widget.pdf.path,
-                onRender: (_pageCount) {
-                  setState(() {
-                    pageCount = _pageCount;
-                    isReady = true;
-                  });
-                },
-                onViewCreated: (PDFViewController pdfViewController) {
-                  /// used for page navigation by external widgets
-                  ref
-                      .read(pdfNavigatorControllerProvider.notifier)
-                      .setPdfViewController(pdfViewController,
-                          pdfNavigator: PdfNavigator.primary);
-                },
-                onPageChanged: (newPageIndex, newPageCount) async {
-                  final _currentPageIndex = newPageIndex;
-
-                  // await ref
-                  //     .read(multipageSyncServiceProvider.notifier)
-                  //     .onPageChanged(
-                  //         currentPageIndex: currentPageIndex,
-                  //         newPageIndex: newPageIndex,
-                  //         pageCount: pageCount,
-                  //         source: PdfNavigator.primary);
-                  ref
-                      .read(shouldShowSecondaryPdfProvider.notifier)
-                      .recheckFromData(
+                ? _portraitModePadding
+                : 0,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: PDFView(
+                  key: pdfViewKey,
+                  nightMode: isDarkMode,
+                  fitPolicy: FitPolicy.BOTH,
+                  filePath: widget.pdf.path,
+                  onRender: (pageCount) {
+                    setState(() {
+                      pageCount = pageCount;
+                      isReady = true;
+                    });
+                  },
+                  onViewCreated: (PDFViewController pdfViewController) {
+                    /// used for page navigation by external widgets
+                    ref
+                        .read(pdfNavigatorControllerProvider.notifier)
+                        .setPdfViewController(
+                          pdfViewController,
+                          pdfNavigator: PdfNavigator.primary,
+                        );
+                  },
+                  onPageChanged: (newPageIndex, newPageCount) async {
+                    // await ref
+                    //     .read(multipageSyncServiceProvider.notifier)
+                    //     .onPageChanged(
+                    //         currentPageIndex: currentPageIndex,
+                    //         newPageIndex: newPageIndex,
+                    //         pageCount: pageCount,
+                    //         source: PdfNavigator.primary);
+                    ref
+                        .read(shouldShowSecondaryPdfProvider.notifier)
+                        .recheckFromData(
                           currentPageIndex: newPageIndex,
-                          pageCount: newPageCount);
+                          pageCount: newPageCount,
+                        );
 
-                  setState(() {
-                    currentPageIndex = _currentPageIndex;
-                  });
-                },
+                    setState(() {
+                      currentPageIndex = newPageIndex;
+                    });
+                  },
+                ),
               ),
-            ),
-            if (shouldShowSecondaryPdf)
-              DataSecondaryPdf(
-                pdf: widget.pdf,
-                primaryPage: currentPageIndex!,
-                pageCount: pageCount!,
-              ),
-          ],
-        ),
-      );
-    });
+              if (shouldShowSecondaryPdf)
+                DataSecondaryPdf(
+                  pdf: widget.pdf,
+                  primaryPage: currentPageIndex!,
+                  pageCount: pageCount!,
+                ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

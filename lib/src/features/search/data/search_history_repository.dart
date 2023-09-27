@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 part 'search_history_repository.g.dart';
 
-const _MAX_HISTORY_LENGTH = 20;
+const _maxHistoryLength = 20;
 
 class SearchHistoryRepository {
   SearchHistoryRepository(this._lastSearchHistory);
@@ -21,12 +21,14 @@ class SearchHistoryRepository {
   Stream<SearchHistory> get watchSearchHistory => _searchHistory.stream;
 
   @visibleForTesting
-  Future<List<SearchHistoryItem>> querySearchHistory(
-      {required AssetPaths assetPath, required String query}) async {
+  Future<List<SearchHistoryItem>> querySearchHistory({
+    required AssetPaths assetPath,
+    required String query,
+  }) async {
     final results = <SearchHistoryItem>[];
     final searchHistory = _searchHistory.value.data[assetPath];
     if (searchHistory != null && searchHistory.isNotEmpty) {
-      for (var item in searchHistory) {
+      for (final item in searchHistory) {
         if (_hasValidPageTextResult(query, item) ||
             _hasValidTableOfContentsResult(query, item)) {
           results.add(item);
@@ -43,15 +45,19 @@ class SearchHistoryRepository {
     String? tableOfContentsResult,
   }) {
     /// one of these two items needs to be selected
-    assert(pageTextResult != null || tableOfContentsResult != null);
+    assert(
+      pageTextResult != null || tableOfContentsResult != null,
+      'Either pageTextResult or tableOfContentsResult needs data',
+    );
     final newSearchHistoryItem = SearchHistoryItem(
-        pageId: pageId,
-        pageTextResult: pageTextResult,
-        tableOfContentsResult: tableOfContentsResult);
+      pageId: pageId,
+      pageTextResult: pageTextResult,
+      tableOfContentsResult: tableOfContentsResult,
+    );
 
     final searchHistoryItemsForAsset = _searchHistory.value.data[assetPath];
-    final Map<AssetPaths, List<SearchHistoryItem>> data = {
-      ..._searchHistory.value.data
+    final data = <AssetPaths, List<SearchHistoryItem>>{
+      ..._searchHistory.value.data,
     };
 
     /// No prior data
@@ -63,18 +69,21 @@ class SearchHistoryRepository {
       /// Add to prior data, then trim down to max range
       final newHistoryItems = [
         newSearchHistoryItem,
-        ...searchHistoryItemsForAsset
+        ...searchHistoryItemsForAsset,
       ];
 
       data[assetPath] = newHistoryItems.sublist(
-          0, min(_MAX_HISTORY_LENGTH, newHistoryItems.length));
+        0,
+        min(_maxHistoryLength, newHistoryItems.length),
+      );
       _searchHistory.value = SearchHistory(data);
     }
   }
 
-  void removeSearchItem(
-      {required AssetPaths assetPath,
-      required SearchHistoryItem searchHistoryItem}) {
+  void removeSearchItem({
+    required AssetPaths assetPath,
+    required SearchHistoryItem searchHistoryItem,
+  }) {
     final searchHistory = _searchHistory.value;
 
     searchHistory.data[assetPath]?.remove(searchHistoryItem);
@@ -83,14 +92,18 @@ class SearchHistoryRepository {
 }
 
 bool _hasValidPageTextResult(
-    String query, SearchHistoryItem searchHistoryItem) {
+  String query,
+  SearchHistoryItem searchHistoryItem,
+) {
   final pageTextResult = searchHistoryItem.pageTextResult;
   return pageTextResult != null &&
       pageTextResult.lowerCaseQuery.contains(query.toLowerCase());
 }
 
 bool _hasValidTableOfContentsResult(
-    String query, SearchHistoryItem searchHistoryItem) {
+  String query,
+  SearchHistoryItem searchHistoryItem,
+) {
   final tableOfContents = searchHistoryItem.tableOfContentsResult;
   return tableOfContents != null &&
       tableOfContents.toLowerCase().contains(query.toLowerCase());
@@ -98,7 +111,8 @@ bool _hasValidTableOfContentsResult(
 
 @Riverpod(keepAlive: true)
 SearchHistoryRepository searchHistoryRepository(
-    SearchHistoryRepositoryRef ref) {
+  SearchHistoryRepositoryRef ref,
+) {
   // set this in the app bootstrap section
   throw UnimplementedError();
 }
@@ -111,7 +125,9 @@ Stream<SearchHistory> searchHistoryChanges(SearchHistoryChangesRef ref) {
 
 @riverpod
 Future<List<SearchHistoryItem>> querySearchHistoryItems(
-    QuerySearchHistoryItemsRef ref, String query) async {
+  QuerySearchHistoryItemsRef ref,
+  String query,
+) async {
   ref.watch(searchHistoryChangesProvider);
   // put any debounce or timer/cancel methods here
   final searchHistoryRepository = ref.watch(searchHistoryRepositoryProvider);
@@ -121,5 +137,7 @@ Future<List<SearchHistoryItem>> querySearchHistoryItems(
     return [];
   }
   return searchHistoryRepository.querySearchHistory(
-      assetPath: assetPath, query: query);
+    assetPath: assetPath,
+    query: query,
+  );
 }

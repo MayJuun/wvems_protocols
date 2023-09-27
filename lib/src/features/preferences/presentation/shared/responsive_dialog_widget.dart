@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 class ResponsiveDialogWidget extends StatelessWidget {
   const ResponsiveDialogWidget({required this.child, super.key});
@@ -15,7 +15,7 @@ class ResponsiveDialogWidget extends StatelessWidget {
         builder: (context, constraints) {
           final isPortrait =
               MediaQuery.of(context).orientation == Orientation.portrait;
-          final bool isAboveBreakpoint =
+          final isAboveBreakpoint =
               constraints.maxWidth >= Breakpoint.tablet;
 
           return ConstrainedBox(
@@ -27,8 +27,8 @@ class ResponsiveDialogWidget extends StatelessWidget {
               ),
               child: Container(
                   decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(16))),
-                  child: child));
+                      borderRadius: BorderRadius.all(Radius.circular(16)),),
+                  child: child,),);
         },
       ),
     );

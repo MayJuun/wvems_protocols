@@ -6,8 +6,11 @@ import 'package:equatable/equatable.dart';
 import 'package:wvems_protocols/wvems_protocols.dart';
 
 class PdfMeta extends Equatable {
-  const PdfMeta(
-      {required this.primaryColor, required this.year, required this.version});
+  const PdfMeta({
+    required this.primaryColor,
+    required this.year,
+    required this.version,
+  });
 
   final Color primaryColor;
   final int year;
@@ -27,8 +30,8 @@ class PdfMeta extends Equatable {
   factory PdfMeta.fromMap(Map<String, dynamic> map) {
     return PdfMeta(
       primaryColor: HexColor.fromHex(map['primaryColor'] as String),
-      year: int.parse(map['year']),
-      version: int.parse(map['version']),
+      year: int.parse(map['year'] as String),
+      version: int.parse(map['version'] as String),
     );
   }
 

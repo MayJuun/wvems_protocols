@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 class DataLoaded extends ConsumerWidget {
-  const DataLoaded({super.key, required this.pdf});
+  const DataLoaded({required this.pdf, super.key});
   final File pdf;
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 /// Original source: Andrea Bizzotto
 /// https://github.com/bizz84/complete-flutter-course

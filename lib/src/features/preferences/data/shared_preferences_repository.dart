@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 part 'shared_preferences_repository.g.dart';
 
@@ -41,7 +41,8 @@ class SharedPreferencesRepository {
     final assetPathString = _prefs.getString(_StoredValues.assetPath.name);
     if (assetPathString != null && assetPathString.isNotEmpty) {
       /// need a random asset just to call this enhanced enum method
-      /// probably not the most ideal location for that method (?utils)...but it works
+      /// probably not the most ideal location for that method
+      /// (?utils)...but it works
       return AssetPaths.values.first.fromString(assetPathString);
     } else {
       return null;
@@ -99,7 +100,8 @@ class SharedPreferencesRepository {
 
 @Riverpod(keepAlive: true)
 SharedPreferencesRepository sharedPreferencesRepository(
-    SharedPreferencesRepositoryRef ref) {
+  SharedPreferencesRepositoryRef ref,
+) {
   // needs to be set in bootstrap
   throw UnimplementedError();
 }

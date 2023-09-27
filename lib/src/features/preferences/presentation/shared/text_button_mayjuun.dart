@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 class TextButtonMayJuun extends StatelessWidget {
   const TextButtonMayJuun({super.key});
@@ -12,8 +12,9 @@ class TextButtonMayJuun extends StatelessWidget {
       // key: kUnifiedMenuMayJuunKey,
       child: Text('About MayJuun'.hardcoded),
       onPressed: () {
-        context.pop();
-        context.pushNamed(AppRoute.aboutMayJuun.name);
+        context
+          ..pop()
+          ..pushNamed(AppRoute.aboutMayJuun.name);
       },
     );
   }

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 const kDialogDefaultKey = Key('dialog-default-key');
 

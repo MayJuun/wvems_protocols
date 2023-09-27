@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 /// Original source: Andrea Bizzotto
 /// https://github.com/bizz84/complete-flutter-course
 ///
 /// Placeholder widget showing a message and CTA to go back to the home screen.
 class EmptyPlaceholderWidget extends StatelessWidget {
-  const EmptyPlaceholderWidget({super.key, required this.message});
+  const EmptyPlaceholderWidget({required this.message, super.key});
   final String message;
 
   @override
@@ -18,7 +18,6 @@ class EmptyPlaceholderWidget extends StatelessWidget {
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               message,
@@ -29,7 +28,7 @@ class EmptyPlaceholderWidget extends StatelessWidget {
             PrimaryButton(
               onPressed: () => context.goNamed(AppRoute.home.name),
               text: 'Go Home'.hardcoded,
-            )
+            ),
           ],
         ),
       ),

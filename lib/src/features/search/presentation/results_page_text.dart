@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 class ResultsPageText extends ConsumerWidget {
   const ResultsPageText(this._controller, {super.key});
@@ -27,20 +27,21 @@ class ResultsPageText extends ConsumerWidget {
                   pageId: item.key,
                   pageTextResult: item.value,
                   onPressed: () {
-                    /// todo: extract some of this logic out of UI
+                    // TODO(FireJuun): extract some of this logic out of UI
                     final assetPath =
                         ref.read(pdfBundleProvider).value?.assetPath;
 
-                    assert(assetPath != null);
+                    assert(assetPath != null, 'No asset path available');
                     if (assetPath == null) {
                       throw StateError('No asset path available');
                     }
                     ref
                         .read(searchHistoryRepositoryProvider)
                         .onSearchItemSelected(
-                            assetPath: assetPath,
-                            pageId: item.key,
-                            pageTextResult: item.value);
+                          assetPath: assetPath,
+                          pageId: item.key,
+                          pageTextResult: item.value,
+                        );
 
                     _controller.query = item.value.lowerCaseQuery;
                     ref
@@ -58,12 +59,13 @@ class ResultsPageText extends ConsumerWidget {
 }
 
 class PageTextItem extends ConsumerWidget {
-  const PageTextItem(
-      {required this.pageId,
-      required this.pageTextResult,
-      required this.onPressed,
-      this.trailing,
-      super.key});
+  const PageTextItem({
+    required this.pageId,
+    required this.pageTextResult,
+    required this.onPressed,
+    this.trailing,
+    super.key,
+  });
 
   final PageId pageId;
   final PageTextResult pageTextResult;

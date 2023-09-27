@@ -37,7 +37,7 @@ PdfText pdfText(PdfTextRef ref) {
 PdfTableOfContents pdfTableOfContents(PdfTableOfContentsRef ref) {
   final pdfBundle = ref.watch(pdfBundleProvider);
   final pdfTableOfContents = pdfBundle.maybeWhen(
-      data: (data) => data?.pdfTableOfContents, orElse: () => null);
+      data: (data) => data?.pdfTableOfContents, orElse: () => null,);
 
   if (pdfTableOfContents != null) {
     return pdfTableOfContents;

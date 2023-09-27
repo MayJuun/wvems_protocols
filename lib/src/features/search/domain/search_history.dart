@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 class SearchHistory extends Equatable {
   const SearchHistory(this.data);
@@ -26,16 +26,17 @@ class SearchHistory extends Equatable {
 
     map.forEach((key, value) {
       /// need a random asset just to call this enhanced enum method
-      /// probably not the most ideal location for that method (?utils)...but it works
+      /// probably not the most ideal location for that method
+      /// (?utils)...but it works
       final assetPath = AssetPaths.values.first.fromString(key);
       if (assetPath == null) {
         throw StateError('Cannot convert asset path from string');
       }
-
-      final stringList = List.from(value);
+      final valueList = value as Iterable<dynamic>;
+      final stringList = List<String>.from(valueList);
       final searchItems = <SearchHistoryItem>[];
 
-      for (var item in stringList) {
+      for (final item in stringList) {
         searchItems.add(SearchHistoryItem.fromJson(item));
       }
       newMap[assetPath] = searchItems;

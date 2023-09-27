@@ -4,7 +4,7 @@ class MenuFooter extends StatelessWidget {
   const MenuFooter(
       {required this.leadingTextButton,
       required this.trailingTextButton,
-      super.key});
+      super.key,});
 
   final Widget leadingTextButton;
   final Widget trailingTextButton;
@@ -15,7 +15,7 @@ class MenuFooter extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         leadingTextButton,
-        const Icon(Icons.circle, size: 6.0),
+        const Icon(Icons.circle, size: 6),
         trailingTextButton,
       ],
     );

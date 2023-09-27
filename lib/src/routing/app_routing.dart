@@ -1,9 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:wvems_protocols/src/features/preferences/presentation/about_us/about_mayjuun.dart';
-import 'package:wvems_protocols/src/features/preferences/presentation/about_us/about_wvems.dart';
 
-import '../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 part 'app_routing.g.dart';
 
@@ -56,7 +54,7 @@ GoRouter goRouter(GoRouterRef ref) {
                 builder: (_) => const AboutWVEMS(),
               ),
             ),
-          ]),
+          ],),
     ],
     errorBuilder: (context, state) => const NotFoundScreen(),
   );

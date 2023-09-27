@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 class NoDataLoaded extends StatelessWidget {
   const NoDataLoaded({super.key});
@@ -9,11 +9,11 @@ class NoDataLoaded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final assetPaths =
-        AssetPaths.values.where((e) => e != AssetPaths.TestBundle);
+        AssetPaths.values.where((e) => e != AssetPaths.testBundle);
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -34,16 +34,21 @@ class NoDataLoaded extends StatelessWidget {
             ),
             gapH32,
             Wrap(
-              spacing: 8.0,
-              runSpacing: 12.0,
+              spacing: 8,
+              runSpacing: 12,
               children: assetPaths
-                  .map((asset) => Consumer(builder: (context, ref, child) {
+                  .map(
+                    (asset) => Consumer(
+                      builder: (context, ref, child) {
                         return ElevatedButton(
-                            onPressed: () => ref
-                                .read(pdfScreenControllerProvider.notifier)
-                                .loadPdfFromAsset(asset),
-                            child: Text(asset.title));
-                      }))
+                          onPressed: () => ref
+                              .read(pdfScreenControllerProvider.notifier)
+                              .loadPdfFromAsset(asset),
+                          child: Text(asset.title),
+                        );
+                      },
+                    ),
+                  )
                   .toList(),
             ),
           ],

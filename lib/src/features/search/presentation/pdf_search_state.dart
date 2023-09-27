@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 part 'pdf_search_state.g.dart';
 
-const _MINIMUM_QUERY_LENGTH = 3;
+const _minimumQueryLength = 3;
 
 /// Automatically update displayed content based on search results above + query
 @riverpod
@@ -13,14 +14,15 @@ class PdfSearchState extends _$PdfSearchState {
   String build() => '';
 
   void updateQuery(String query) {
-    print('new state: $query');
+    debugPrint('new state: $query');
     state = query;
   }
 }
 
 @riverpod
 Map<PageId, String> pdfSearchResultsTableOfContents(
-    PdfSearchResultsTableOfContentsRef ref) {
+  PdfSearchResultsTableOfContentsRef ref,
+) {
   final query = ref.watch(pdfSearchStateProvider);
   final tableOfContents = ref.watch(pdfTableOfContentsSearchProvider(query));
   final tableOfContentsValue = tableOfContents.value;
@@ -34,7 +36,8 @@ Map<PageId, String> pdfSearchResultsTableOfContents(
 
 @riverpod
 Map<PageId, PageTextResult> pdfSearchResultsPageText(
-    PdfSearchResultsPageTextRef ref) {
+  PdfSearchResultsPageTextRef ref,
+) {
   final query = ref.watch(pdfSearchStateProvider);
   final pageText = ref.watch(pdfTextSearchProvider(query));
   final pageTextValue = pageText.value;
@@ -67,22 +70,26 @@ List<SearchHistoryItem> pdfSearchResultsForSearchHistory(
   }
 }
 
-bool _hasValidSearchResults(
-    {required String query, required Map<PageId, PageText> pageTextValue}) {
-  return pageTextValue.isNotEmpty && query.length >= _MINIMUM_QUERY_LENGTH;
+bool _hasValidSearchResults({
+  required String query,
+  required Map<PageId, PageText> pageTextValue,
+}) {
+  return pageTextValue.isNotEmpty && query.length >= _minimumQueryLength;
 }
 
-Map<PageId, PageTextResult> _generatePageTextResultMap(
-    {required String query, required Map<PageId, PageText> pageTextValue}) {
-  final Map<PageId, PageTextResult> results = {};
+Map<PageId, PageTextResult> _generatePageTextResultMap({
+  required String query,
+  required Map<PageId, PageText> pageTextValue,
+}) {
+  final results = <PageId, PageTextResult>{};
   pageTextValue.forEach((pageId, pageText) {
     final lowerCaseQuery = query.toLowerCase();
     final lowerCasePageText = pageText.toLowerCase();
 
     /// the indexes for this particular page where the search string is found
-    final List<int> stringIndexes = [];
+    final stringIndexes = <int>[];
 
-    int stringIndex = lowerCasePageText.indexOf(lowerCaseQuery);
+    var stringIndex = lowerCasePageText.indexOf(lowerCaseQuery);
 
     while (stringIndex != -1) {
       stringIndexes.add(stringIndex);

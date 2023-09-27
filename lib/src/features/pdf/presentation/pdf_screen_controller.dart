@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 part 'pdf_screen_controller.g.dart';
 
@@ -17,7 +17,7 @@ class PdfScreenController extends _$PdfScreenController {
   Future<void> loadPdfFromAsset(AssetPaths assetPath) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-        () => pdfBundleRepository.setPdfBundleFromAsset(assetPath));
+        () => pdfBundleRepository.setPdfBundleFromAsset(assetPath),);
 
     /// set new theme based on pdf color scheme
     final currentPdfBundle = pdfBundleRepository.currentPdfBundle;

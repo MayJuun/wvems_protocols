@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 class PdfScreen extends ConsumerWidget {
   const PdfScreen({super.key});
@@ -27,14 +27,14 @@ class PdfScreen extends ConsumerWidget {
                     ? const NoDataLoaded()
                     : DataLoaded(pdf: pdfBundle.pdf),
               );
-            }),
+            },),
       floatingActionButton:
           state.isLoading || ref.watch(pdfBundleProvider).value == null
               ? null
               : FloatingActionButton.small(
-                  child: const Icon(Icons.home),
                   onPressed:
-                      ref.read(multipageSyncServiceProvider.notifier).goToHome),
+                      ref.read(multipageSyncServiceProvider.notifier).goToHome,
+                  child: const Icon(Icons.home),),
     );
   }
 }

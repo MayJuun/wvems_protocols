@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 class AppMessages extends StatelessWidget {
   const AppMessages({super.key});

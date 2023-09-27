@@ -4,19 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 /// This is the secondary use case for a PDF. It may often close and reform
-/// Given its transience, it SHOULD NOT be managed by any PDF navigator controller
-/// Typically, it appears if the app is in tablet mode (or if the app is in landscape mode)
+/// Given transience, it SHOULD NOT be managed by any PDF navigator controller
+/// Typically, it appears if the app is in tablet mode (or if the app is
+/// in landscape mode)
+///
 /// The exception is when the first and last pages are shown
 
 class DataSecondaryPdf extends ConsumerStatefulWidget {
-  const DataSecondaryPdf(
-      {required this.pdf,
-      required this.primaryPage,
-      required this.pageCount,
-      super.key});
+  const DataSecondaryPdf({
+    required this.pdf,
+    required this.primaryPage,
+    required this.pageCount,
+    super.key,
+  });
 
   final File pdf;
   final int primaryPage;
@@ -33,7 +36,7 @@ class _DataSecondaryPdfState extends ConsumerState<DataSecondaryPdf> {
 
   @override
   void dispose() {
-    /// this is not the correct time to reset the (now unused) [PdfViewController]
+    /// this is not the correct time to reset the (unused) [PdfViewController]
     // ref
     //     .read(pdfNavigatorControllerProvider.notifier)
     //     .setPdfViewController(null, pdfNavigator: PdfNavigator.secondary);
@@ -45,10 +48,11 @@ class _DataSecondaryPdfState extends ConsumerState<DataSecondaryPdf> {
     final pdfViewKey =
         ref.watch(pdfNavigatorControllerProvider.notifier).pdfViewKeySecondary;
 
-    final isValidSecondaryPage = ref
-        .watch(multipageSyncServiceProvider.notifier)
-        .isValidSecondaryPage(
-            pageIndex: widget.primaryPage, pageCount: widget.pageCount);
+    final isValidSecondaryPage =
+        ref.watch(multipageSyncServiceProvider.notifier).isValidSecondaryPage(
+              pageIndex: widget.primaryPage,
+              pageCount: widget.pageCount,
+            );
 
     return Expanded(
       child: PDFView(
@@ -58,7 +62,7 @@ class _DataSecondaryPdfState extends ConsumerState<DataSecondaryPdf> {
         filePath: widget.pdf.path,
         defaultPage:
             isValidSecondaryPage ? widget.primaryPage : widget.primaryPage + 1,
-        onRender: (_pageCount) {
+        onRender: (pageCount) {
           setState(() {
             isReady = true;
           });
@@ -67,22 +71,24 @@ class _DataSecondaryPdfState extends ConsumerState<DataSecondaryPdf> {
           /// used for page sync
           ref
               .read(pdfNavigatorControllerProvider.notifier)
-              .setPdfViewController(pdfViewController,
-                  pdfNavigator: PdfNavigator.secondary);
+              .setPdfViewController(
+                pdfViewController,
+                pdfNavigator: PdfNavigator.secondary,
+              );
         },
         onPageChanged: (newPageIndex, newPageCount) async {
-          final _currentPageIndex = newPageIndex;
-
-          // await ref.read(multipageSyncServiceProvider.notifier).onPageChanged(
+          //await ref.read(multipageSyncServiceProvider.notifier).onPageChanged(
           //     currentPageIndex: currentPageIndex,
           //     newPageIndex: newPageIndex,
           //     pageCount: widget.pageCount,
           //     source: PdfNavigator.secondary);
           ref.read(shouldShowSecondaryPdfProvider.notifier).recheckFromData(
-              currentPageIndex: newPageIndex, pageCount: newPageCount);
+                currentPageIndex: newPageIndex,
+                pageCount: newPageCount,
+              );
 
           setState(() {
-            currentPageIndex = _currentPageIndex;
+            currentPageIndex = currentPageIndex;
           });
         },
       ),

@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-import 'export.dart';
+import 'package:wvems_protocols/src/features/pdf/domain/export.dart';
 
 typedef TableOfContents = String;
 
@@ -17,9 +17,9 @@ class PdfTableOfContents extends Equatable {
 
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{};
-    data.entries.forEach((e) {
+    for (final e in data.entries) {
       map['${e.key}'] = e.value;
-    });
+    }
 
     return map;
   }
@@ -27,12 +27,14 @@ class PdfTableOfContents extends Equatable {
   factory PdfTableOfContents.fromMap(Map<String, dynamic> map) {
     final data = <int, String>{};
     try {
-      map.entries.forEach((e) {
+      for (final e in map.entries) {
         final pageId = int.parse(e.key);
-        assert(pageId > 0,
-            'Page should be a number greater than 0, otherwise the index will be out of range');
-        data[pageId] = e.value;
-      });
+        assert(
+          pageId > 0,
+          'Page should be a number greater than 0, else index is out of range',
+        );
+        data[pageId] = e.value as String;
+      }
     } catch (error) {
       throw StateError('Invalid table of contents data');
     }

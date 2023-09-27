@@ -3,11 +3,14 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 class SearchHistoryItem extends Equatable {
-  const SearchHistoryItem(
-      {required this.pageId, this.pageTextResult, this.tableOfContentsResult});
+  const SearchHistoryItem({
+    required this.pageId,
+    this.pageTextResult,
+    this.tableOfContentsResult,
+  });
 
   final PageId pageId;
   final PageTextResult? pageTextResult;
@@ -29,9 +32,10 @@ class SearchHistoryItem extends Equatable {
       pageId: map['pageId'] as int,
       pageTextResult: map['pageTextResult'] != null
           ? PageTextResult.fromMap(
-              map['pageTextResult'] as Map<String, dynamic>)
+              map['pageTextResult'] as Map<String, dynamic>,
+            )
           : null,
-      tableOfContentsResult: map['pdfTableOfContents'],
+      tableOfContentsResult: map['pdfTableOfContents'] as String?,
     );
   }
 

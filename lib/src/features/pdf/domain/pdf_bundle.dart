@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 typedef PageId = int;
 

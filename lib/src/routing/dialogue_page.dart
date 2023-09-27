@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 /// spec: https://croxx5f.hashnode.dev/adding-modal-routes-to-your-gorouter
 /// also: https://stackoverflow.com/a/76264049
 
-/// A dialog page with Material entrance and exit animations, modal barrier color,
-/// and modal barrier behavior (dialog is dismissible with a tap on the barrier).
+/// A dialog page with Material entrance & exit animations, modal barrier color,
+/// & modal barrier behavior (dialog is dismissible with a tap on the barrier).
 class DialogPage<T> extends Page<T> {
   const DialogPage({
     required this.builder,
@@ -31,13 +31,14 @@ class DialogPage<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) => DialogRoute<T>(
-      context: context,
-      settings: this,
-      builder: builder,
-      anchorPoint: anchorPoint,
-      barrierColor: barrierColor,
-      barrierDismissible: barrierDismissible,
-      barrierLabel: barrierLabel,
-      useSafeArea: useSafeArea,
-      themes: themes);
+        context: context,
+        settings: this,
+        builder: builder,
+        anchorPoint: anchorPoint,
+        barrierColor: barrierColor,
+        barrierDismissible: barrierDismissible,
+        barrierLabel: barrierLabel,
+        useSafeArea: useSafeArea,
+        themes: themes,
+      );
 }

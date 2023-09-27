@@ -14,27 +14,30 @@
 /// - assets/NAME/NAME-text.json
 ///
 enum AssetPaths {
-  Wvems22(
+  wvems22(
     title: 'WVEMS Protocols 2022',
     condensedTitle: '2022',
     path: 'assets/2022-WVEMS-Protocols/2022-WVEMS-Protocols',
   ),
-  Wvems23(
+  wvems23(
     title: 'WVEMS Protocols 2023',
     condensedTitle: '2023',
     path: 'assets/2023-WVEMS-Protocols/2023-WVEMS-Protocols',
   ),
 
   /// used only for testing
-  TestBundle(
+  testBundle(
     title: 'Test Bundle',
     condensedTitle: 'Test',
     path: 'assets/test-bundle/test-bundle',
   ),
   ;
 
-  const AssetPaths(
-      {required this.title, required this.condensedTitle, required this.path});
+  const AssetPaths({
+    required this.title,
+    required this.condensedTitle,
+    required this.path,
+  });
 
   final String title;
   final String condensedTitle;
@@ -42,9 +45,9 @@ enum AssetPaths {
 
   AssetPaths? fromString(String data) {
     return switch (data) {
-      'Wvems22' => AssetPaths.Wvems22,
-      'Wvems23' => AssetPaths.Wvems23,
-      'TestBundle' => AssetPaths.TestBundle,
+      'wvems22' => AssetPaths.wvems22,
+      'wvems23' => AssetPaths.wvems23,
+      'testBundle' => AssetPaths.testBundle,
       String() => null,
     };
   }

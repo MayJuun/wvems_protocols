@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'export.dart';
+import 'package:wvems_protocols/src/exceptions/export.dart';
 
 /// Original source: Andrea Bizzotto
 /// https://github.com/bizz84/complete-flutter-course
@@ -9,7 +9,7 @@ import 'export.dart';
 class AsyncErrorLogger extends ProviderObserver {
   @override
   void didUpdateProvider(
-    ProviderBase provider,
+    ProviderBase<dynamic> provider,
     Object? previousValue,
     Object? newValue,
     ProviderContainer container,

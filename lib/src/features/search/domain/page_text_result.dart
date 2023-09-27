@@ -3,13 +3,13 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 typedef StringIndex = int;
 typedef LowerCaseQuery = String;
 
 /// the total number of characters listed before & after a search string
-const _SUBSTRING = 20;
+const _substring = 20;
 
 class PageTextResult extends Equatable {
   const PageTextResult({
@@ -40,9 +40,9 @@ class PageTextResult extends Equatable {
 
   factory PageTextResult.fromMap(Map<String, dynamic> map) {
     return PageTextResult(
-      stringIndex: map['stringIndex'],
-      lowerCaseQuery: map['lowerCaseQuery'],
-      pageText: map['pageText'],
+      stringIndex: map['stringIndex'] as int,
+      lowerCaseQuery: map['lowerCaseQuery'] as String,
+      pageText: map['pageText'] as String,
     );
   }
 
@@ -51,15 +51,19 @@ class PageTextResult extends Equatable {
   factory PageTextResult.fromJson(String source) =>
       PageTextResult.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  // The 'before' substring consists of SUBSTRING characters before the search string
+  // The 'before' substring consists of SUBSTRING characters
+  // before the search string.
   // Note that pageId starts at 1, not 0
   String before() => pageText.substring(
-      stringIndex - _SUBSTRING < 0 ? 0 : stringIndex - _SUBSTRING, stringIndex);
+        stringIndex - _substring < 0 ? 0 : stringIndex - _substring,
+        stringIndex,
+      );
 
 // The 'after' substring conists of SUBSTRING characters after the search string
   String after() => pageText.substring(
-      stringIndex + lowerCaseQuery.length,
-      stringIndex + _SUBSTRING + lowerCaseQuery.length >= pageText.length
-          ? pageText.length - 1
-          : stringIndex + _SUBSTRING + lowerCaseQuery.length);
+        stringIndex + lowerCaseQuery.length,
+        stringIndex + _substring + lowerCaseQuery.length >= pageText.length
+            ? pageText.length - 1
+            : stringIndex + _substring + lowerCaseQuery.length,
+      );
 }

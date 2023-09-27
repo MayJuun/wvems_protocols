@@ -9,8 +9,7 @@ import 'package:wvems_protocols/wvems_protocols.dart';
 part 'pdf_bundle_repository_test.data.dart';
 
 void main() {
-  PdfBundleRepository makePdfBundleRepository() =>
-      PdfBundleRepository(addDelay: false);
+  PdfBundleRepository makePdfBundleRepository() => PdfBundleRepository();
 
   setUpAll(() {
     registerFallbackValue(const AsyncLoading<PdfMeta>());
@@ -28,17 +27,19 @@ void main() {
     });
 
     test(
-        'setPdfBundleFromAsset should set currentPdfBundle with the correct values',
+        'setPdfBundleFromAsset should set currentPdfBundle with correct values',
         () async {
       // setup
       TestWidgetsFlutterBinding.ensureInitialized();
 
-      // while the File('*.pdf') has a different hashtag, and thus can't be checked easily...the other JSON data don't have this same limitation
+      // while the File('*.pdf') has a different hashtag, and thus can't be
+      // checked easily...the other JSON data don't have this same limitation
       final path = testBundle.path;
       final expectedMeta =
           PdfMeta.fromJson(await rootBundle.loadString('$path-meta.json'));
       final expectedTableOfContents = PdfTableOfContents.fromJson(
-          await rootBundle.loadString('$path-toc.json'));
+        await rootBundle.loadString('$path-toc.json'),
+      );
       final expectedText =
           PdfText.fromJson(await rootBundle.loadString('$path-text.json'));
 
@@ -59,8 +60,10 @@ void main() {
       // verify
       expect(pdfBundleRepository.currentPdfBundle?.pdf, isA<File>());
       expect(pdfBundleRepository.currentPdfBundle?.pdfMeta, expectedMeta);
-      expect(pdfBundleRepository.currentPdfBundle?.pdfTableOfContents,
-          expectedTableOfContents);
+      expect(
+        pdfBundleRepository.currentPdfBundle?.pdfTableOfContents,
+        expectedTableOfContents,
+      );
       expect(pdfBundleRepository.currentPdfBundle?.pdfText, expectedText);
       expect(pdfBundleRepository.currentPdfBundle, isA<PdfBundle>());
     });
@@ -81,7 +84,8 @@ void main() {
         },
       );
 
-      // TODO(FireJuun): setup additional failing tests, such as missing colors or inaccurate data
+      // TODO(FireJuun): setup additional failing tests
+      // such as missing colors or inaccurate data
       test(
         'fails, inaccurate data',
         () async {},

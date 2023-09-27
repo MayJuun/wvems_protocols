@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 /// Original source: Andrea Bizzotto
 /// https://github.com/bizz84/flutter-firebase-masterclass
@@ -11,7 +11,7 @@ import '../../wvems_protocols.dart';
 /// More info here:
 /// https://codewithandrea.com/articles/async-value-widget-riverpod/
 class AsyncValueWidget<T> extends StatelessWidget {
-  const AsyncValueWidget({super.key, required this.value, required this.data});
+  const AsyncValueWidget({required this.value, required this.data, super.key});
   final AsyncValue<T> value;
   final Widget Function(T) data;
 
@@ -28,7 +28,7 @@ class AsyncValueWidget<T> extends StatelessWidget {
 /// Sliver equivalent of [AsyncValueWidget]
 class AsyncValueSliverWidget<T> extends StatelessWidget {
   const AsyncValueSliverWidget(
-      {super.key, required this.value, required this.data});
+      {required this.value, required this.data, super.key,});
   final AsyncValue<T> value;
   final Widget Function(T) data;
 
@@ -37,7 +37,7 @@ class AsyncValueSliverWidget<T> extends StatelessWidget {
     return value.when(
       data: data,
       loading: () => const SliverToBoxAdapter(
-          child: Center(child: CircularProgressIndicator())),
+          child: Center(child: CircularProgressIndicator()),),
       error: (e, st) => SliverToBoxAdapter(
         child: Center(child: ErrorMessageWidget(e.toString())),
       ),

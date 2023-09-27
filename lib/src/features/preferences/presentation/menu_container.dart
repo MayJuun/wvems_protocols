@@ -3,25 +3,29 @@ import 'package:flutter/material.dart';
 enum RoundedMenuEdges { top, bottom, none }
 
 class MenuContainer extends StatelessWidget {
-  const MenuContainer(
-      {super.key,
-      required this.child,
-      this.roundedMenuEdges = RoundedMenuEdges.none});
+  const MenuContainer({
+    required this.child,
+    super.key,
+    this.roundedMenuEdges = RoundedMenuEdges.none,
+  });
 
   final Widget child;
   final RoundedMenuEdges roundedMenuEdges;
 
   @override
   Widget build(BuildContext context) {
-    BorderRadiusGeometry? _borderRadius() {
+    BorderRadiusGeometry? borderRadius() {
       switch (roundedMenuEdges) {
         case RoundedMenuEdges.top:
           return const BorderRadius.only(
-              topLeft: Radius.circular(16), topRight: Radius.circular(16));
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          );
         case RoundedMenuEdges.bottom:
           return const BorderRadius.only(
-              bottomLeft: Radius.circular(16),
-              bottomRight: Radius.circular(16));
+            bottomLeft: Radius.circular(16),
+            bottomRight: Radius.circular(16),
+          );
         case RoundedMenuEdges.none:
           return null;
       }
@@ -34,7 +38,7 @@ class MenuContainer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       decoration: BoxDecoration(
         color: colorScheme.background,
-        borderRadius: _borderRadius(),
+        borderRadius: borderRadius(),
       ),
       child: child,
     );

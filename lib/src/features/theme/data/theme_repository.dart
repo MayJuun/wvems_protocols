@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 part 'theme_repository.g.dart';
 
@@ -34,7 +34,9 @@ class ThemeRepository {
   ///
   ThemeData _themeData(Brightness brightness) {
     final colorScheme = ColorScheme.fromSeed(
-        seedColor: _appTheme.value.seedColor, brightness: brightness);
+      seedColor: _appTheme.value.seedColor,
+      brightness: brightness,
+    );
 
     final textTheme = _buildTextTheme();
     return ThemeData(
@@ -48,38 +50,41 @@ class ThemeRepository {
       dropdownMenuTheme: DropdownMenuThemeData(
         textStyle: textTheme.bodyMedium,
         menuStyle: const MenuStyle(
-            visualDensity: VisualDensity.compact,
-            padding: MaterialStatePropertyAll(
-                EdgeInsets.symmetric(vertical: 0, horizontal: 8))),
+          visualDensity: VisualDensity.compact,
+          padding: MaterialStatePropertyAll(
+            EdgeInsets.symmetric(horizontal: 8),
+          ),
+        ),
       ),
       chipTheme: ChipThemeData(
-        padding: const EdgeInsets.all(0),
+        padding: EdgeInsets.zero,
         labelPadding: const EdgeInsets.symmetric(horizontal: 4),
         labelStyle:
             textTheme.bodySmall!.apply(color: colorScheme.onPrimaryContainer),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          shape: CircleBorder(),
-          smallSizeConstraints: BoxConstraints(minWidth: 48, minHeight: 48)),
+        shape: CircleBorder(),
+        smallSizeConstraints: BoxConstraints(minWidth: 48, minHeight: 48),
+      ),
     );
   }
 }
 
 TextTheme _buildTextTheme() {
   return TextTheme(
-    displayLarge: _style(96.0, FontWeight.normal),
-    displayMedium: _style(60.0, FontWeight.bold),
-    displaySmall: _style(48.0, FontWeight.normal),
-    headlineMedium: _style(36.0, FontWeight.bold),
-    headlineSmall: _style(22.0, FontWeight.w500),
-    titleLarge: _style(18.0, FontWeight.w500),
-    bodyLarge: _style(18.0, FontWeight.normal),
-    bodyMedium: _style(16.0, FontWeight.normal),
-    titleMedium: _style(12.0, FontWeight.normal),
-    titleSmall: _style(12.0, FontWeight.w300),
-    labelLarge: _style(18.0, FontWeight.normal),
-    bodySmall: _style(12.0, FontWeight.normal),
-    labelSmall: _style(12.0, FontWeight.normal),
+    displayLarge: _style(96, FontWeight.normal),
+    displayMedium: _style(60, FontWeight.bold),
+    displaySmall: _style(48, FontWeight.normal),
+    headlineMedium: _style(36, FontWeight.bold),
+    headlineSmall: _style(22, FontWeight.w500),
+    titleLarge: _style(18, FontWeight.w500),
+    bodyLarge: _style(18, FontWeight.normal),
+    bodyMedium: _style(16, FontWeight.normal),
+    titleMedium: _style(12, FontWeight.normal),
+    titleSmall: _style(12, FontWeight.w300),
+    labelLarge: _style(18, FontWeight.normal),
+    bodySmall: _style(12, FontWeight.normal),
+    labelSmall: _style(12, FontWeight.normal),
   );
 }
 

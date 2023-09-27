@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'export.dart';
+import 'package:wvems_protocols/src/exceptions/export.dart';
 
 part 'error_logger.g.dart';
 

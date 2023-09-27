@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
-import '../../../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 class DisplayMode extends StatelessWidget {
   const DisplayMode({super.key});
@@ -28,10 +28,10 @@ class DisplayMode extends StatelessWidget {
                   .map((e) => DropdownMenuEntry(
                         style: ButtonStyle(
                             textStyle:
-                                MaterialStatePropertyAll(textTheme.bodyMedium)),
+                                MaterialStatePropertyAll(textTheme.bodyMedium),),
                         value: e,
                         label: toBeginningOfSentenceCase(e.name) ?? '',
-                      ))
+                      ),)
                   .toList(),
               onSelected: (themeMode) {
                 if (themeMode != null) {
@@ -45,7 +45,6 @@ class DisplayMode extends StatelessWidget {
               inputDecorationTheme: const InputDecorationTheme(
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: 8,
-                  vertical: 0,
                 ),
                 isCollapsed: true,
                 isDense: true,
@@ -53,7 +52,7 @@ class DisplayMode extends StatelessWidget {
                 constraints: BoxConstraints.tightForFinite(height: 40),
               ),
             );
-          })
+          },),
         ],
       ),
     );

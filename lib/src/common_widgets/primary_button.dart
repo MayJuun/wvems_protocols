@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../wvems_protocols.dart';
+import 'package:wvems_protocols/wvems_protocols.dart';
 
 /// Original source: Andrea Bizzotto
 /// https://github.com/bizz84/complete-flutter-course
@@ -11,7 +11,7 @@ class PrimaryButton extends StatelessWidget {
   /// if [isLoading] is true, a loading indicator will be displayed instead of
   /// the text.
   const PrimaryButton(
-      {super.key, required this.text, this.isLoading = false, this.onPressed});
+      {required this.text, super.key, this.isLoading = false, this.onPressed,});
   final String text;
   final bool isLoading;
   final VoidCallback? onPressed;

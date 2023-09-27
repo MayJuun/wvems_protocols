@@ -1,6 +1,8 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 part of 'pdf_bundle_repository_test.dart';
 
-const testBundle = AssetPaths.TestBundle;
+const testBundle = AssetPaths.testBundle;
 
 final testMeta = {'year': '2023', 'version': '1', 'primaryColor': '69A2D3'};
 
@@ -24,7 +26,7 @@ const testText = {
   '9':
       ' 9 Alias: Hypotension, Low blood Pressure Shock Imperatives Poor Perfusion • Consider underlying causes: • Suspect if several of these: - Bradycardia, Tachycardia - Altered Mental Status - Cardiac, Anaphylaxis - Skin Pale, Cool, Diaphoretic - Diabetic, Overdose / Tox - Tachycardia, Hypotension - Major Trauma, Exposure - Dyspnea, Tachypnea Medication • NS Bolus (0.9% Saline): indicated for poor perfusion. - Recheck lung sounds before and after ﬂuid administration. • Epi Drip (Epinephrine): Mix and use as follows: - Add 1 mg Epi into a 1,000 mL bag of NS (makes it 1 mcg/mL). - Adults (14+ y/o): Use a macro drip (10 or 15 gtt/mL) set. - Peds (0-13 y/o): Use a micro drip (60 gtt/mL) set. - Start at 1 drop per second and titrate as needed. - Avoid Epi if active chest pain and conﬁrmed STEMI. • Dopamine (Intropin®): for medical causes refractory to Epi. - Use a micro drip (60 gtt/mL) set. May titrate up to 4x if needed. - Average adults start around 1 drop every 5 sec (with micro set). Notes • Give ﬂuids and reassess. Start pressors if poor response. • Mean Arterial Pressure (MAP) is a better indicator when available. - Consider Vasopressors if appropriate & cleared for Critical Care. Pediatrics • The majority of peds decompensation is airway related. • Fluids are important for hypotension. Pressors are a last resort. NEMSIS: 9914127 • Use Peds Reference or other approved source for peds dosing. References Reviewed: Oct 2022 • ACLS: https://www.ahajournals.org/doi/10.1161/CIR.0000000000000916 [Ver: 2020] • PALS: https://www.ahajournals.org/doi/10.1161/CIR.0000000000000901 [Ver: 2020] • Medscape Vitals: https://emedicine.medscape.com/article/2172054 [Ver: 11/18] • Limmer D, O’Keefe MF. Emergency Care 14th Ed. Chapter 7, 29 Circulation / Shock 9 ',
   '10':
-      ' 10 Hypertension Systolic Over • Adult (14+): 240 mmHg • Child (1-13): 220 mmHg • Infant (< 1): 200 mmHg Severity? Minor Major • No Distress • Chest Pain, SOB • No Pain • Headache Position of E 12-Lead Comfort A Saline Lock Consider NEMSIS: 9914123 • Pain, Pregnancy, Seizure • Cardiac, SOB, Stroke Reviewed: Feb 2023 10 '
+      ' 10 Hypertension Systolic Over • Adult (14+): 240 mmHg • Child (1-13): 220 mmHg • Infant (< 1): 200 mmHg Severity? Minor Major • No Distress • Chest Pain, SOB • No Pain • Headache Position of E 12-Lead Comfort A Saline Lock Consider NEMSIS: 9914123 • Pain, Pregnancy, Seizure • Cardiac, SOB, Stroke Reviewed: Feb 2023 10 ',
 };
 
 const testTableOfContents = {
@@ -37,5 +39,5 @@ const testTableOfContents = {
   '7': 'Breathing / Hypoxia (cont.)',
   '8': 'Circulation / Shock',
   '9': 'Circulation / Shock (cont.)',
-  '10': 'Hypertension'
+  '10': 'Hypertension',
 };
