@@ -16,6 +16,7 @@ part 'app_routing.g.dart';
 enum AppRoute {
   home,
   menu,
+  messageItem,
   aboutMayJuun,
   aboutWVEMS,
 }
@@ -29,32 +30,43 @@ GoRouter goRouter(GoRouterRef ref) {
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
-          path: '/',
-          name: AppRoute.home.name,
-          builder: (context, state) => const PdfScreen(),
-          routes: [
-            GoRoute(
-              path: 'menu',
-              name: AppRoute.menu.name,
-              pageBuilder: (context, state) => DialogPage(
-                builder: (_) => const UnifiedMenuDialog(),
-              ),
+        path: '/',
+        name: AppRoute.home.name,
+        builder: (context, state) => const PdfScreen(),
+        routes: [
+          GoRoute(
+            path: 'menu',
+            name: AppRoute.menu.name,
+            pageBuilder: (context, state) => DialogPage(
+              builder: (_) => const UnifiedMenuDialog(),
             ),
-            GoRoute(
-              path: 'aboutMayJuun',
-              name: AppRoute.aboutMayJuun.name,
-              pageBuilder: (context, state) => DialogPage(
-                builder: (_) => const AboutMayJuun(),
+            routes: [
+              GoRoute(
+                path: 'messageItem',
+                name: AppRoute.messageItem.name,
+                pageBuilder: (context, state) => DialogPage(
+                  builder: (_) =>
+                      MessageItemDetailed(state.extra! as AppMessage),
+                ),
               ),
+            ],
+          ),
+          GoRoute(
+            path: 'aboutMayJuun',
+            name: AppRoute.aboutMayJuun.name,
+            pageBuilder: (context, state) => DialogPage(
+              builder: (_) => const AboutMayJuun(),
             ),
-            GoRoute(
-              path: 'aboutWVEMS',
-              name: AppRoute.aboutWVEMS.name,
-              pageBuilder: (context, state) => DialogPage(
-                builder: (_) => const AboutWVEMS(),
-              ),
+          ),
+          GoRoute(
+            path: 'aboutWVEMS',
+            name: AppRoute.aboutWVEMS.name,
+            pageBuilder: (context, state) => DialogPage(
+              builder: (_) => const AboutWVEMS(),
             ),
-          ],),
+          ),
+        ],
+      ),
     ],
     errorBuilder: (context, state) => const NotFoundScreen(),
   );

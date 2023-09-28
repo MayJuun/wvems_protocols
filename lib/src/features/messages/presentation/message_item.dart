@@ -1,26 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:wvems_protocols/wvems_protocols.dart';
-
-class MessageScreenSmall extends ConsumerWidget {
-  const MessageScreenSmall({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final appMessagesValue = ref.watch(appMessagesProvider);
-    return AsyncValueWidget<List<AppMessage>>(
-      value: appMessagesValue,
-      data: (appMessages) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: appMessages.map(MessageItem.new).toList(),
-        );
-      },
-    );
-  }
-}
 
 class MessageItem extends ConsumerWidget {
   const MessageItem(this.appMessage, {super.key});
@@ -64,9 +46,8 @@ class MessageItem extends ConsumerWidget {
           color: isRead ? messageReadColor : colorScheme.onBackground,
         ),
       ),
-      onTap: () {
-        // open message
-      },
+      onTap: () =>
+          context.pushNamed(AppRoute.messageItem.name, extra: appMessage),
       onLongPress: () =>
           ref.read(appMessagesRepositoryProvider).toggleRead(appMessage),
     );

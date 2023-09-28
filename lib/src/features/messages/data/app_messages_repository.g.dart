@@ -7,7 +7,7 @@ part of 'app_messages_repository.dart';
 // **************************************************************************
 
 String _$appMessagesRepositoryHash() =>
-    r'bb1079eb6dacc04ebd4795232e3e75b40c26b57c';
+    r'ac4d6432fd63b42961c36de26a80e95a6b65f6b2';
 
 /// See also [appMessagesRepository].
 @ProviderFor(appMessagesRepository)
