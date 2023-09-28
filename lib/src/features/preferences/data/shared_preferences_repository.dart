@@ -5,7 +5,13 @@ import 'package:wvems_protocols/wvems_protocols.dart';
 
 part 'shared_preferences_repository.g.dart';
 
-enum _StoredValues { appTheme, assetPath, searchHistory, searchFilter }
+enum _StoredValues {
+  appMessages,
+  appTheme,
+  assetPath,
+  searchHistory,
+  searchFilter
+}
 
 class SharedPreferencesRepository {
   SharedPreferencesRepository(this._prefs);
@@ -94,6 +100,34 @@ class SharedPreferencesRepository {
       return SearchHistory.fromJson(searchHistoryString);
     } else {
       return const SearchHistory({});
+    }
+  }
+
+  void saveAppMessages(List<AppMessage>? appMessages) {
+    if (appMessages == null) {
+      _prefs.remove(_StoredValues.appMessages.name);
+    } else {
+      final stringList = <String>[];
+      for (final message in appMessages) {
+        stringList.add(message.toJson());
+      }
+      _prefs.setStringList(
+        _StoredValues.appMessages.name,
+        stringList,
+      );
+    }
+  }
+
+  List<AppMessage> getAppMessages() {
+    final stringList = _prefs.getStringList(_StoredValues.appMessages.name);
+    if (stringList != null) {
+      final appMessages = <AppMessage>[];
+      for (final item in stringList) {
+        appMessages.add(AppMessage.fromJson(item));
+      }
+      return appMessages;
+    } else {
+      return <AppMessage>[];
     }
   }
 }

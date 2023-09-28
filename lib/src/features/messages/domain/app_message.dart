@@ -41,4 +41,18 @@ class AppMessage extends Equatable {
 
   factory AppMessage.fromJson(String source) =>
       AppMessage.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  AppMessage copyWith({
+    String? title,
+    DateTime? dateTime,
+    String? body,
+    bool? beenRead,
+  }) {
+    return AppMessage(
+      title: title ?? this.title,
+      dateTime: dateTime ?? this.dateTime,
+      body: body ?? this.body,
+      beenRead: beenRead ?? this.beenRead,
+    );
+  }
 }

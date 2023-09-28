@@ -6,7 +6,24 @@ part of 'firebase_messaging_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$remoteMessageHash() => r'6a40c5b7489e7f9f726777edc76f459d5f51ed77';
+String _$firebaseMessagingServiceHash() =>
+    r'7aaaf9d0abc4823d42b7592b14853f59e427a0f0';
+
+/// See also [firebaseMessagingService].
+@ProviderFor(firebaseMessagingService)
+final firebaseMessagingServiceProvider =
+    Provider<FirebaseMessagingService>.internal(
+  firebaseMessagingService,
+  name: r'firebaseMessagingServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firebaseMessagingServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseMessagingServiceRef = ProviderRef<FirebaseMessagingService>;
+String _$remoteMessageHash() => r'cb288992fe92e758bf95938ec03e728e16fa991f';
 
 /// See also [remoteMessage].
 @ProviderFor(remoteMessage)

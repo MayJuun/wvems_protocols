@@ -1,4 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:wvems_protocols/wvems_protocols.dart';
@@ -19,6 +20,18 @@ class AppMessagesSyncService {
     ref.listen<AsyncValue<RemoteMessage?>>(remoteMessageProvider,
         (previous, next) {
       final message = next.value;
+      // from docs
+      if (message != null && message.notification != null) {
+        final lastMessage = 'Received a notification message:'
+            '\nTitle=${message.notification?.title},'
+            '\nBody=${message.notification?.body},'
+            '\nData=${message.data}';
+        debugPrint(lastMessage);
+      } else {
+        final lastMessage = 'Received a data message: ${message?.data}';
+        debugPrint(lastMessage);
+      }
+
       if (message != null) {
         /// display new message as a notification
         // TODO(FireJuun): display notification
@@ -39,7 +52,3 @@ class AppMessagesSyncService {
 @Riverpod(keepAlive: true)
 AppMessagesSyncService appMessagesSyncService(AppMessagesSyncServiceRef ref) =>
     AppMessagesSyncService(ref);
-
-@Riverpod(keepAlive: true)
-Stream<List<AppMessage>> appMessages(AppMessagesRef ref) =>
-    ref.watch(appMessagesRepositoryProvider).watchMessages();

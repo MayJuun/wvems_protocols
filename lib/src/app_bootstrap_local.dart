@@ -46,6 +46,9 @@ class AppBootstrapLocal extends AppBootstrap {
     final searchHistory = sharedPreferencesRepository.getSearchHistory();
     final searchHistoryRepository = SearchHistoryRepository(searchHistory);
 
+    final appMessages = sharedPreferencesRepository.getAppMessages();
+    final appMessagesRepository = AppMessagesRepository(appMessages);
+
     return ProviderContainer(
       overrides: [
         // repositories
@@ -55,6 +58,7 @@ class AppBootstrapLocal extends AppBootstrap {
         pdfBundleRepositoryProvider.overrideWithValue(pdfBundleRepository),
         searchHistoryRepositoryProvider
             .overrideWithValue(searchHistoryRepository),
+        appMessagesRepositoryProvider.overrideWithValue(appMessagesRepository),
       ],
       observers: [
         AsyncErrorLogger(),

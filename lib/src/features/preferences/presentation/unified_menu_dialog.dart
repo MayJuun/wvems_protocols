@@ -10,23 +10,52 @@ class UnifiedMenuDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shortestSide = MediaQuery.of(context).size.shortestSide;
+    final isAboveBreakpoint = shortestSide >= Breakpoint.tablet;
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+
     return ResponsiveDialogWidget(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MenuHeader(label: 'WVEMS Protocols'.hardcoded),
-            const DisplayVersion(),
-            const AppLinks(),
-            const MessageScreenSmall(),
-            const DisplayMode(),
-            const MenuFooter(
-              leadingTextButton: TextButtonWVEMS(),
-              trailingTextButton: TextButtonMayJuun(),
+      child: (isPortrait || isAboveBreakpoint)
+          ? Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MenuHeader(label: 'WVEMS Protocols'.hardcoded),
+                const DisplayVersion(),
+                const AppLinks(),
+                const Expanded(
+                  child: SingleChildScrollView(child: MessageScreenSmall()),
+                ),
+                const DisplayMode(),
+                const MenuFooter(
+                  leadingTextButton: TextButtonWVEMS(),
+                  trailingTextButton: TextButtonMayJuun(),
+                ),
+              ],
+            )
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MenuHeader(label: 'WVEMS Protocols'.hardcoded),
+                const Divider(),
+                const Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        DisplayVersion(),
+                        AppLinks(),
+                        MessageScreenSmall(),
+                        DisplayMode(),
+                        MenuFooter(
+                          leadingTextButton: TextButtonWVEMS(),
+                          trailingTextButton: TextButtonMayJuun(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -11,7 +11,10 @@ class AppBootstrap {
   /// Create the root widget that should be passed to [runApp].
   Widget createRootWidget({required ProviderContainer container}) {
     // * Initialize listeners & services here via container.read(_)
-    container.read(sharedPreferencesSyncServiceProvider);
+    container
+      ..read(firebaseMessagingServiceProvider)
+      ..read(appMessagesSyncServiceProvider)
+      ..read(sharedPreferencesSyncServiceProvider);
 
     // * Register error handlers. For more info, see:
     // * https://docs.flutter.dev/testing/errors
