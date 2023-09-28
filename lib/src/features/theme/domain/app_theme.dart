@@ -9,7 +9,7 @@ ThemeMode _themeModeFromString(String data) {
     'dark' => ThemeMode.dark,
     'light' => ThemeMode.light,
     'system' => ThemeMode.system,
-    String() => ThemeMode.system,
+    String() => ThemeMode.light,
   };
 }
 

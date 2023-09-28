@@ -14,6 +14,7 @@ class AppBootstrap {
     container
       ..read(firebaseMessagingServiceProvider)
       ..read(appMessagesSyncServiceProvider)
+      ..read(localNotificationsServiceProvider)
       ..read(sharedPreferencesSyncServiceProvider);
 
     // * Register error handlers. For more info, see:

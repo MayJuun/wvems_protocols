@@ -19,22 +19,25 @@ class PdfScreen extends ConsumerWidget {
       appBar: AppBar(toolbarHeight: 0),
       body: state.isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Consumer(builder: (context, ref, child) {
-              final pdfBundle = ref.watch(pdfBundleProvider);
-              return AsyncValueWidget<PdfBundle?>(
-                value: pdfBundle,
-                data: (pdfBundle) => pdfBundle == null
-                    ? const NoDataLoaded()
-                    : DataLoaded(pdf: pdfBundle.pdf),
-              );
-            },),
+          : Consumer(
+              builder: (context, ref, child) {
+                final pdfBundle = ref.watch(pdfBundleProvider);
+                return AsyncValueWidget<PdfBundle?>(
+                  value: pdfBundle,
+                  data: (pdfBundle) => pdfBundle == null
+                      ? const NoDataLoaded()
+                      : DataLoaded(pdf: pdfBundle.pdf),
+                );
+              },
+            ),
       floatingActionButton:
           state.isLoading || ref.watch(pdfBundleProvider).value == null
               ? null
               : FloatingActionButton.small(
                   onPressed:
                       ref.read(multipageSyncServiceProvider.notifier).goToHome,
-                  child: const Icon(Icons.home),),
+                  child: const Icon(Icons.home),
+                ),
     );
   }
 }

@@ -12,6 +12,16 @@ class MyApp extends HookConsumerWidget {
     final goRouter = ref.watch(goRouterProvider);
     final themeRepository = ref.watch(themeRepositoryProvider);
     final appTheme = useStream(themeRepository.appThemeChanges);
+    useOnAppLifecycleStateChange((previous, next) async {
+      if (next == AppLifecycleState.resumed) {
+        debugPrint('Resuming app, reloading messages');
+        await ref.read(sharedPreferencesRepositoryProvider).reload();
+        final newMessages =
+            ref.read(sharedPreferencesRepositoryProvider).getAppMessages();
+
+        await ref.read(appMessagesRepositoryProvider).setMessages(newMessages);
+      }
+    });
 
     return MaterialApp.router(
       routerConfig: goRouter,

@@ -20,7 +20,7 @@ class DisplayMode extends StatelessWidget {
             builder: (context, ref, child) {
               final appThemeMode =
                   ref.watch(appThemeChangesProvider).value?.themeMode ??
-                      ThemeMode.system;
+                      ThemeMode.light;
 
               return DropdownMenu<ThemeMode>(
                 initialSelection: appThemeMode,

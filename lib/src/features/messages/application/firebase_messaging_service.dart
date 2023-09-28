@@ -2,24 +2,46 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wvems_protocols/wvems_protocols.dart';
 
 part 'firebase_messaging_service.g.dart';
 
+/// This background handler occurs outside of the normal app isolate
+/// Thus, any new message should be stored locally in sharedPreferences
+/// It will be shown on the next app reload.
 Future<void> _firebaseMessagingBackgroundHandler(
-  RemoteMessage message,
+  RemoteMessage remoteMessage,
 ) async {
   await Firebase.initializeApp();
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.reload();
+
+  final sharedPreferencesRepository = SharedPreferencesRepository(prefs);
+  final appMessages = sharedPreferencesRepository.getAppMessages();
+  final appMessage = remoteMessageToAppMessage(remoteMessage);
+
+  if (appMessages.contains(appMessage)) {
+    debugPrint('Message already present. Skipped');
+    return;
+  }
+
+  final newAppMessages = [
+    appMessage,
+    ...appMessages,
+  ];
+
+  sharedPreferencesRepository.saveAppMessages(newAppMessages);
 
   if (kDebugMode) {
-    print('Handling a background message: ${message.messageId}');
-    print('Message data: ${message.data}');
-    print('Message notification: ${message.notification?.title}');
-    print('Message notification: ${message.notification?.body}');
+    print('Handling a background message: ${remoteMessage.messageId}');
+    print('Message data: ${remoteMessage.data}');
+    print('Message notification: ${remoteMessage.notification?.title}');
+    print('Message notification: ${remoteMessage.notification?.body}');
   }
-  // onMessageAdded(message);
 }
 
+/// This service occurs in the foreground when an app is running.
 class FirebaseMessagingService {
   FirebaseMessagingService() {
     _init();
@@ -35,19 +57,15 @@ class FirebaseMessagingService {
 
   Stream<RemoteMessage?> watchMessages() => _remoteMessage.stream;
 
-  // ignore: use_setters_to_change_properties
-  void _addMessage(RemoteMessage remoteMessage) =>
-      _remoteMessage.value = remoteMessage;
-
   Future<void> _init() async {
     settings = await messaging.requestPermission();
     token = await messaging.getToken();
 
-    if (kDebugMode) {
-      print('Registration Token=$token');
-    }
+    // if (kDebugMode) {
+    //   print('Registration Token=$token');
+    // }
 
-    const topic = 'app_promotion';
+    const topic = 'general';
     await messaging.subscribeToTopic(topic);
 
     /// Foreground message handler

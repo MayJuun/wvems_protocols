@@ -18,6 +18,8 @@ class SharedPreferencesRepository {
 
   final SharedPreferences _prefs;
 
+  Future<void> reload() async => _prefs.reload();
+
   void saveAppTheme(AppTheme? appTheme) {
     if (appTheme == null) {
       _prefs.remove(_StoredValues.appTheme.name);

@@ -40,7 +40,7 @@ final searchHistoryChangesProvider = StreamProvider<SearchHistory>.internal(
 
 typedef SearchHistoryChangesRef = StreamProviderRef<SearchHistory>;
 String _$querySearchHistoryItemsHash() =>
-    r'8311d605b4483a1d3c47d6d0cd1c90dd912acfb5';
+    r'2cdbb9bd645984c37a422a3a1b633c72d2235f6f';
 
 /// Copied from Dart SDK
 class _SystemHash {

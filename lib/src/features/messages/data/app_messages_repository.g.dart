@@ -36,7 +36,7 @@ final appMessagesProvider = StreamProvider<List<AppMessage>>.internal(
 );
 
 typedef AppMessagesRef = StreamProviderRef<List<AppMessage>>;
-String _$unreadAppMessagesHash() => r'66f30558e0e71e729e2478b11103f22f61b09b5d';
+String _$unreadAppMessagesHash() => r'c7e92b18867c227f278f669f187e75669a983216';
 
 /// See also [unreadAppMessages].
 @ProviderFor(unreadAppMessages)
