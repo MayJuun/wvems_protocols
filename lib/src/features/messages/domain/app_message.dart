@@ -3,37 +3,43 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+typedef MessageId = String;
+
 class AppMessage extends Equatable {
   const AppMessage({
-    required this.title,
+    required this.messageId,
     required this.dateTime,
+    required this.title,
     this.body = '',
-    this.beenRead = false,
+    this.isRead = false,
   });
 
-  final String title;
+  final String messageId;
   final DateTime dateTime;
+  final String title;
   final String body;
-  final bool beenRead;
+  final bool isRead;
 
   @override
-  List<Object> get props => [title, dateTime, body, beenRead];
+  List<Object> get props => [messageId, title, dateTime, body, isRead];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'title': title,
+      'messageId': messageId,
       'dateTime': dateTime.millisecondsSinceEpoch,
+      'title': title,
       'body': body,
-      'beenRead': beenRead,
+      'isRead': isRead,
     };
   }
 
   factory AppMessage.fromMap(Map<String, dynamic> map) {
     return AppMessage(
+      messageId: map['messageId'] as String,
       title: map['title'] as String,
       dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime'] as int),
       body: map['body'] as String,
-      beenRead: map['beenRead'] as bool,
+      isRead: map['isRead'] as bool,
     );
   }
 
@@ -43,16 +49,18 @@ class AppMessage extends Equatable {
       AppMessage.fromMap(json.decode(source) as Map<String, dynamic>);
 
   AppMessage copyWith({
+    String? messageId,
     String? title,
     DateTime? dateTime,
     String? body,
-    bool? beenRead,
+    bool? isRead,
   }) {
     return AppMessage(
+      messageId: messageId ?? this.messageId,
       title: title ?? this.title,
       dateTime: dateTime ?? this.dateTime,
       body: body ?? this.body,
-      beenRead: beenRead ?? this.beenRead,
+      isRead: isRead ?? this.isRead,
     );
   }
 }

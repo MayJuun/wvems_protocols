@@ -12,7 +12,7 @@ class MessageItem extends ConsumerWidget {
   @override
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isRead = appMessage.beenRead;
+    final isRead = appMessage.isRead;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final messageReadColor = Theme.of(context).disabledColor;
@@ -28,14 +28,16 @@ class MessageItem extends ConsumerWidget {
           isRead ? Icons.mark_email_read_outlined : Icons.mark_email_unread,
         ),
       ),
-      title: Text(
-        appMessage.title,
-        textAlign: TextAlign.center,
-        softWrap: true,
-        style: textTheme.bodyMedium!.apply(
-          decoration: TextDecoration.underline,
-          fontStyle: fontStyle,
-          color: isRead ? messageReadColor : messageUnreadColor,
+      title: Align(
+        alignment: AlignmentDirectional.centerEnd,
+        child: Text(
+          appMessage.title,
+          textAlign: TextAlign.right,
+          softWrap: true,
+          style: textTheme.bodyMedium!.apply(
+            fontStyle: fontStyle,
+            color: isRead ? messageReadColor : messageUnreadColor,
+          ),
         ),
       ),
       subtitle: Text(
@@ -46,8 +48,15 @@ class MessageItem extends ConsumerWidget {
           color: isRead ? messageReadColor : colorScheme.onBackground,
         ),
       ),
-      onTap: () =>
-          context.pushNamed(AppRoute.messageItem.name, extra: appMessage),
+      onTap: () {
+        ref
+            .read(appMessagesRepositoryProvider)
+            .toggleRead(appMessage, isRead: true);
+        context.pushNamed(
+          AppRoute.messageItem.name,
+          pathParameters: {'messageId': appMessage.messageId},
+        );
+      },
       onLongPress: () =>
           ref.read(appMessagesRepositoryProvider).toggleRead(appMessage),
     );

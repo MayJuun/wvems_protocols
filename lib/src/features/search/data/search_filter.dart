@@ -24,5 +24,6 @@ class SearchFilter extends _$SearchFilter {
     return searchFilter;
   }
 
+  // ignore: use_setters_to_change_properties
   void setFilter(PdfSearchFilters pdfSearchFilter) => state = pdfSearchFilter;
 }

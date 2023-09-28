@@ -19,6 +19,7 @@ class ThemeRepository {
 
   /// Used to modify entire app theme, or manually set each part
   ///
+  // ignore: use_setters_to_change_properties
   void setAppTheme(AppTheme newValue) => _appTheme.value = newValue;
   void setAppThemeMode(ThemeMode newValue) => _appTheme.value =
       AppTheme(themeMode: newValue, seedColor: _appTheme.value.seedColor);
@@ -65,6 +66,12 @@ class ThemeRepository {
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         shape: CircleBorder(),
         smallSizeConstraints: BoxConstraints(minWidth: 48, minHeight: 48),
+      ),
+      scrollbarTheme: ScrollbarThemeData(
+        interactive: true,
+        thumbVisibility: MaterialStateProperty.all(true),
+        trackVisibility: MaterialStateProperty.all(true),
+        thickness: MaterialStateProperty.all(8),
       ),
     );
   }

@@ -41,12 +41,14 @@ class AppMessagesRepository {
     _appMessages.value = appMessages;
   }
 
-  Future<void> toggleRead(AppMessage appMessage) async {
+  Future<void> toggleRead(AppMessage appMessage, {bool? isRead}) async {
     final appMessages = _appMessages.value;
     final newMessages = <AppMessage>[];
     for (final message in appMessages) {
       if (message == appMessage) {
-        newMessages.add(appMessage.copyWith(beenRead: !appMessage.beenRead));
+        newMessages.add(
+          appMessage.copyWith(isRead: isRead ?? !appMessage.isRead),
+        );
       } else {
         newMessages.add(message);
       }
@@ -62,3 +64,12 @@ AppMessagesRepository appMessagesRepository(AppMessagesRepositoryRef ref) =>
 @Riverpod(keepAlive: true)
 Stream<List<AppMessage>> appMessages(AppMessagesRef ref) =>
     ref.watch(appMessagesRepositoryProvider).watchMessages();
+
+@riverpod
+List<AppMessage> unreadAppMessages(UnreadAppMessagesRef ref) {
+  final appMessages = ref.watch(appMessagesProvider).value;
+
+  return (appMessages != null)
+      ? appMessages.where((e) => !e.isRead).toList()
+      : <AppMessage>[];
+}

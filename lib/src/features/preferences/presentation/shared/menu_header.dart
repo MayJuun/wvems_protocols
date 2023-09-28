@@ -14,8 +14,9 @@ class MenuHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () => Navigator.of(context).pop(),),
+          icon: const Icon(Icons.close),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         Text(
           label,
           textAlign: TextAlign.center,

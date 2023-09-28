@@ -42,11 +42,11 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
             routes: [
               GoRoute(
-                path: 'messageItem',
+                path: 'messageItem/:messageId',
                 name: AppRoute.messageItem.name,
                 pageBuilder: (context, state) => DialogPage(
                   builder: (_) =>
-                      MessageItemDetailed(state.extra! as AppMessage),
+                      MessageItemDetailed(state.pathParameters['messageId']),
                 ),
               ),
             ],

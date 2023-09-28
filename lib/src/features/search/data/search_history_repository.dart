@@ -133,7 +133,7 @@ Future<List<SearchHistoryItem>> querySearchHistoryItems(
   final searchHistoryRepository = ref.watch(searchHistoryRepositoryProvider);
   final assetPath = ref.watch(pdfBundleProvider).value?.assetPath;
   if (assetPath == null) {
-    print('no asset path set, cant query search history items');
+    debugPrint('no asset path set, cant query search history items');
     return [];
   }
   return searchHistoryRepository.querySearchHistory(

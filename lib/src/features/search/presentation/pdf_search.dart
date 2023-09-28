@@ -100,12 +100,21 @@ class _PdfSearchState extends ConsumerState<PdfSearch> {
         actions: [
           FloatingSearchBarAction(
             showIfOpened: true,
-            child: Tooltip(
-              message: 'Change Version, Settings, Messages'.hardcoded,
-              child: CircularButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () => context.pushNamed(AppRoute.menu.name),
-              ),
+            child: Consumer(
+              builder: (context, ref, child) {
+                final unreadAppMessages = ref.watch(unreadAppMessagesProvider);
+                return Badge.count(
+                  count: unreadAppMessages.length,
+                  isLabelVisible: unreadAppMessages.isNotEmpty,
+                  child: Tooltip(
+                    message: 'Change Version, Settings, Messages'.hardcoded,
+                    child: CircularButton(
+                      icon: const Icon(Icons.menu),
+                      onPressed: () => context.pushNamed(AppRoute.menu.name),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],

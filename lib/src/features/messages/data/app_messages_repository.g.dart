@@ -36,5 +36,21 @@ final appMessagesProvider = StreamProvider<List<AppMessage>>.internal(
 );
 
 typedef AppMessagesRef = StreamProviderRef<List<AppMessage>>;
+String _$unreadAppMessagesHash() => r'66f30558e0e71e729e2478b11103f22f61b09b5d';
+
+/// See also [unreadAppMessages].
+@ProviderFor(unreadAppMessages)
+final unreadAppMessagesProvider =
+    AutoDisposeProvider<List<AppMessage>>.internal(
+  unreadAppMessages,
+  name: r'unreadAppMessagesProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$unreadAppMessagesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef UnreadAppMessagesRef = AutoDisposeProviderRef<List<AppMessage>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

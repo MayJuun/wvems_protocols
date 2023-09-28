@@ -47,7 +47,7 @@ class MultipageSyncService extends _$MultipageSyncService {
   //   required int? pageCount,
   //   required PdfNavigator source,
   // }) async {
-  //   if (newPageIndex == null || currentPageIndex == null || pageCount == null) {
+  //if (newPageIndex == null || currentPageIndex == null || pageCount == null) {
   //     throw StateError('Cannot navigate to/from a null page');
   //   }
 
@@ -72,7 +72,7 @@ class MultipageSyncService extends _$MultipageSyncService {
   //     if (primaryPageIndex != null && primaryPageIndex == newPageIndex) {
   //       /// fix the primary page
   //       _setPage(
-  //           newIndex: primaryPageIndex - 1, pdfNavigator: PdfNavigator.primary);
+  //        newIndex: primaryPageIndex - 1, pdfNavigator: PdfNavigator.primary);
   //     }
   //     return newPageIndex;
   //   } else {
@@ -95,11 +95,11 @@ class MultipageSyncService extends _$MultipageSyncService {
   //                 pageCount: pageCount);
 
   //             /// Use these data to modify both PDF pages
-  //             _setPage(newIndex: primary, pdfNavigator: PdfNavigator.primary);
+  //           _setPage(newIndex: primary, pdfNavigator: PdfNavigator.primary);
 
   //             if (secondary != null) {
   //               _setPage(
-  //                   newIndex: secondary, pdfNavigator: PdfNavigator.secondary);
+  //                newIndex: secondary, pdfNavigator: PdfNavigator.secondary);
   //             }
   //             return primary;
   //           }
@@ -119,11 +119,11 @@ class MultipageSyncService extends _$MultipageSyncService {
   //                 pageCount: pageCount);
 
   //             /// Use these data to modify both PDF pages
-  //             _setPage(newIndex: primary, pdfNavigator: PdfNavigator.primary);
+  //            _setPage(newIndex: primary, pdfNavigator: PdfNavigator.primary);
 
   //             if (secondary != null) {
   //               _setPage(
-  //                   newIndex: secondary, pdfNavigator: PdfNavigator.secondary);
+  //                 newIndex: secondary, pdfNavigator: PdfNavigator.secondary);
   //             }
   //             return primary;
   //           }
@@ -218,7 +218,9 @@ class MultipageSyncService extends _$MultipageSyncService {
     /// Skip any advanced logic and return the searched page as normal
     if (!shouldShowSecondaryPdf) {
       await _setPage(
-          newIndex: newPageIndex, pdfNavigator: PdfNavigator.primary);
+        newIndex: newPageIndex,
+        pdfNavigator: PdfNavigator.primary,
+      );
     } else {
       final pdfNotifier = ref.read(pdfNavigatorControllerProvider.notifier);
 
@@ -229,7 +231,9 @@ class MultipageSyncService extends _$MultipageSyncService {
 
       if (isValidPrimaryPage(pageIndex: newPageIndex, pageCount: pageCount)) {
         await _setPage(
-            newIndex: newPageIndex, pdfNavigator: PdfNavigator.primary);
+          newIndex: newPageIndex,
+          pdfNavigator: PdfNavigator.primary,
+        );
         final secondaryIndex = newPageIndex + 1;
         if (isInRange(pageIndex: secondaryIndex, pageCount: pageCount)) {
           await _setPage(
@@ -242,11 +246,15 @@ class MultipageSyncService extends _$MultipageSyncService {
         pageCount: pageCount,
       )) {
         await _setPage(
-            newIndex: newPageIndex, pdfNavigator: PdfNavigator.secondary);
+          newIndex: newPageIndex,
+          pdfNavigator: PdfNavigator.secondary,
+        );
         final primaryIndex = newPageIndex - 1;
         if (isInRange(pageIndex: primaryIndex, pageCount: pageCount)) {
           await _setPage(
-              newIndex: primaryIndex, pdfNavigator: PdfNavigator.primary);
+            newIndex: primaryIndex,
+            pdfNavigator: PdfNavigator.primary,
+          );
         }
       } else {
         throw RangeError('Unable to process search request');
@@ -302,7 +310,8 @@ class ShouldShowSecondaryPdf extends _$ShouldShowSecondaryPdf {
     final shouldShowSecondaryPdf =
         isLayoutAboveBreakpoint && !isFirstOrLastPage;
 
-    /// check to see if the current page should be shown on the primary (left) or the secondary (right) PDF controller
+    /// check to see if the current page should be shown on the primary (left)
+    ///  or the secondary (right) PDF controller
     if (shouldShowSecondaryPdf) {
       final isValidSecondaryPage =
           ref.read(multipageSyncServiceProvider.notifier).isValidSecondaryPage(

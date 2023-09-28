@@ -43,6 +43,10 @@ class FirebaseMessagingService {
     settings = await messaging.requestPermission();
     token = await messaging.getToken();
 
+    if (kDebugMode) {
+      print('Registration Token=$token');
+    }
+
     const topic = 'app_promotion';
     await messaging.subscribeToTopic(topic);
 

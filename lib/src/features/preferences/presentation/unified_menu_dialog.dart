@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:wvems_protocols/wvems_protocols.dart';
 
-// const kUnifiedMenuWVEMSKey = Key('unified-menu-wvems-key');
-// const kUnifiedMenuMayJuunKey = Key('unified-menu-mayjuun-key');
-
 class UnifiedMenuDialog extends StatelessWidget {
   const UnifiedMenuDialog({super.key});
 
@@ -23,8 +20,8 @@ class UnifiedMenuDialog extends StatelessWidget {
                 MenuHeader(label: 'WVEMS Protocols'.hardcoded),
                 const DisplayVersion(),
                 const AppLinks(),
-                const Expanded(
-                  child: SingleChildScrollView(child: MessageScreenSmall()),
+                const MessageScreenSmall(
+                  shouldExpandWidget: true,
                 ),
                 const DisplayMode(),
                 const MenuFooter(
@@ -39,18 +36,20 @@ class UnifiedMenuDialog extends StatelessWidget {
                 MenuHeader(label: 'WVEMS Protocols'.hardcoded),
                 const Divider(),
                 const Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        DisplayVersion(),
-                        AppLinks(),
-                        MessageScreenSmall(),
-                        DisplayMode(),
-                        MenuFooter(
-                          leadingTextButton: TextButtonWVEMS(),
-                          trailingTextButton: TextButtonMayJuun(),
-                        ),
-                      ],
+                  child: Scrollbar(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          DisplayVersion(),
+                          AppLinks(),
+                          MessageScreenSmall(),
+                          DisplayMode(),
+                          MenuFooter(
+                            leadingTextButton: TextButtonWVEMS(),
+                            trailingTextButton: TextButtonMayJuun(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
