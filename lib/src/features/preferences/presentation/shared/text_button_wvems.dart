@@ -10,7 +10,10 @@ class TextButtonWVEMS extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       // key: kUnifiedMenuWVEMSKey,
-      child: Text('About WVEMS'.hardcoded),
+      child: Text(
+        'About WVEMS'.hardcoded,
+        textAlign: TextAlign.center,
+      ),
       onPressed: () {
         context
           ..pop()

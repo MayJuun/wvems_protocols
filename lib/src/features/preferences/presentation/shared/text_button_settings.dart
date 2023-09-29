@@ -10,7 +10,7 @@ class TextButtonSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       // key: kUnifiedMenuKey,
-      child: Text('Settings'.hardcoded),
+      child: Text('Settings'.hardcoded, textAlign: TextAlign.center),
       onPressed: () {
         context
           ..pop()

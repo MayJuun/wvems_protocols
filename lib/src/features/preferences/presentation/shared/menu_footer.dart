@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class MenuFooter extends StatelessWidget {
-  const MenuFooter(
-      {required this.leadingTextButton,
-      required this.trailingTextButton,
-      super.key,});
+  const MenuFooter({
+    required this.leadingTextButton,
+    required this.trailingTextButton,
+    super.key,
+  });
 
   final Widget leadingTextButton;
   final Widget trailingTextButton;
@@ -12,11 +13,10 @@ class MenuFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        leadingTextButton,
+        Expanded(child: leadingTextButton),
         const Icon(Icons.circle, size: 6),
-        trailingTextButton,
+        Expanded(child: trailingTextButton),
       ],
     );
   }

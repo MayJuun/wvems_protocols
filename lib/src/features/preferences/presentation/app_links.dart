@@ -15,19 +15,20 @@ class AppLinks extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _ShareOption(
-            title: 'App Link'.hardcoded,
-            icon: Mdi.tabletCellphone,
-            onPressed: () async {
-              context.pop();
-              await Share.share(
-                'Download the WVEMS Protocols App, available here: https://onelink.to/xu9aq8'
-                    .hardcoded,
-              );
-            },
+          Expanded(
+            child: _ShareOption(
+              title: 'App Link'.hardcoded,
+              icon: Mdi.tabletCellphone,
+              onPressed: () async {
+                context.pop();
+                await Share.share(
+                  'Download the WVEMS Protocols App, available here: https://onelink.to/xu9aq8'
+                      .hardcoded,
+                );
+              },
+            ),
           ),
-          const SizedBox(
-            width: 120,
+          const Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(
                 vertical: 4,
@@ -36,19 +37,21 @@ class AppLinks extends StatelessWidget {
               child: Image(image: AssetImage(AppAssets.pngQrCode)),
             ),
           ),
-          Consumer(
-            builder: (context, ref, child) {
-              return _ShareOption(
-                title: 'PDF Link'.hardcoded,
-                icon: Mdi.pdfBox,
-                onPressed: () async {
-                  final pdfBundle = ref.read(pdfBundleProvider).value;
-                  if (pdfBundle != null) {
-                    await _onShareXFileFromAssets(context, pdfBundle);
-                  }
-                },
-              );
-            },
+          Expanded(
+            child: Consumer(
+              builder: (context, ref, child) {
+                return _ShareOption(
+                  title: 'PDF Link'.hardcoded,
+                  icon: Mdi.pdfBox,
+                  onPressed: () async {
+                    final pdfBundle = ref.read(pdfBundleProvider).value;
+                    if (pdfBundle != null) {
+                      await _onShareXFileFromAssets(context, pdfBundle);
+                    }
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),

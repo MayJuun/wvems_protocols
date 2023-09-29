@@ -52,7 +52,7 @@ class AppMessage extends Equatable {
       title: map['title'] as String,
       dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime'] as int),
       body: map['body'] as String,
-      payload: map['payload'] as Map<String, dynamic>,
+      payload: map['payload'] as Map<String, dynamic>?,
       isRead: map['isRead'] as bool,
     );
   }
