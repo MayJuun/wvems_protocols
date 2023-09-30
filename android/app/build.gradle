@@ -89,17 +89,17 @@ android {
         production {
             dimension "default"
             applicationIdSuffix ""
-            manifestPlaceholders = [appName: "Wvems Protocols"]
+            manifestPlaceholders = [appName: "WVEMS Protocols"]
         }
         staging {
             dimension "default"
             applicationIdSuffix ".stg"
-            manifestPlaceholders = [appName: "[STG] Wvems Protocols"]
+            manifestPlaceholders = [appName: "[STG] WVEMS Protocols"]
         }
         development {
             dimension "default"
             applicationIdSuffix ".dev"
-            manifestPlaceholders = [appName: "[DEV] Wvems Protocols"]
+            manifestPlaceholders = [appName: "[DEV] WVEMS Protocols"]
         }
     }
 

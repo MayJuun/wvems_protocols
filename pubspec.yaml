@@ -2,7 +2,7 @@ name: wvems_protocols
 description: Western Virginia EMS Council's Protocols App
 
 publish_to: 'none' 
-version: 2.1.0+2010
+version: 2.1.1+2011
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
