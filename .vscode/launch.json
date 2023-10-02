@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch development",
+      "name": "Launch dev",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_development.dart",
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "name": "Launch staging",
+      "name": "Launch stage",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_staging.dart",
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "name": "Launch production",
+      "name": "Launch prod",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_production.dart",
@@ -41,7 +41,7 @@
       ]
     },
     {
-      "name": "PRF - Launch development",
+      "name": "PROFILE - Launch dev",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_development.dart",
@@ -54,7 +54,7 @@
       "flutterMode": "profile",
     },
     {
-      "name": "PRF - Launch staging",
+      "name": "PROFILE - Launch stage",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_staging.dart",
@@ -67,7 +67,7 @@
       "flutterMode": "profile",
     },
     {
-      "name": "PRF - Launch production",
+      "name": "PROFILE - Launch prod",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_production.dart",
@@ -80,7 +80,7 @@
       "flutterMode": "profile",
     },
     {
-      "name": "RLS - Launch development",
+      "name": "RELEASE - Launch dev",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_development.dart",
@@ -93,7 +93,7 @@
       "flutterMode": "release",
     },
     {
-      "name": "RLS - Launch staging",
+      "name": "RELEASE - Launch stage",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_staging.dart",
@@ -106,7 +106,7 @@
       "flutterMode": "release",
     },
     {
-      "name": "RLS - Launch production",
+      "name": "RELEASE - Launch prod",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_production.dart",
