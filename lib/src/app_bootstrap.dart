@@ -12,9 +12,7 @@ class AppBootstrap {
   Widget createRootWidget({required ProviderContainer container}) {
     // * Initialize listeners & services here via container.read(_)
     container
-      ..read(firebaseMessagingServiceProvider)
       ..read(appMessagesSyncServiceProvider)
-      ..read(localNotificationsServiceProvider)
       ..read(sharedPreferencesSyncServiceProvider);
 
     // * Register error handlers. For more info, see:

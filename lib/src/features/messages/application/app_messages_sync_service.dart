@@ -17,34 +17,35 @@ class AppMessagesSyncService {
   final Ref ref;
 
   void _init() {
-    ref.listen<AsyncValue<RemoteMessage?>>(remoteMessageProvider,
-        (previous, next) {
-      final remoteMessage = next.value;
-      // from docs
-      if (remoteMessage != null && remoteMessage.notification != null) {
-        final lastMessage = 'Received a notification message:'
-            '\nTitle=${remoteMessage.notification?.title},'
-            '\nBody=${remoteMessage.notification?.body},'
-            '\nData=${remoteMessage.data}';
-        debugPrint(lastMessage);
-      } else {
-        final lastMessage = 'Received a data message: ${remoteMessage?.data}';
-        debugPrint(lastMessage);
-      }
+    // TODO(FireJuun): re-implement
+    // ref.listen<AsyncValue<RemoteMessage?>>(remoteMessageProvider,
+    //     (previous, next) {
+    //   final remoteMessage = next.value;
+    //   // from docs
+    //   if (remoteMessage != null && remoteMessage.notification != null) {
+    //     final lastMessage = 'Received a notification message:'
+    //         '\nTitle=${remoteMessage.notification?.title},'
+    //         '\nBody=${remoteMessage.notification?.body},'
+    //         '\nData=${remoteMessage.data}';
+    //     debugPrint(lastMessage);
+    //   } else {
+    //     final lastMessage = 'Received a data message: ${remoteMessage?.data}';
+    //     debugPrint(lastMessage);
+    //   }
 
-      if (remoteMessage != null) {
-        final appMessage = remoteMessageToAppMessage(remoteMessage);
+    //   if (remoteMessage != null) {
+    //     final appMessage = remoteMessageToAppMessage(remoteMessage);
 
-        /// save new message locally
-        ref.read(appMessagesRepositoryProvider).addMessage(appMessage);
+    //     /// save new message locally
+    //     ref.read(appMessagesRepositoryProvider).addMessage(appMessage);
 
-        /// display new message as a notification
-        ref
-            .read(localNotificationsServiceProvider)
-            .showNotification(appMessage);
-      }
-      //
-    });
+    //     /// display new message as a notification
+    //     ref
+    //         .read(localNotificationsServiceProvider)
+    //         .showNotification(appMessage);
+    //   }
+    //   //
+    // });
   }
 }
 
