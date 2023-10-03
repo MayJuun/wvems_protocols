@@ -21,8 +21,9 @@ class MessageItem extends ConsumerWidget {
 
     return ListTile(
       leading: IconButton(
-        onPressed: () =>
-            ref.read(appMessagesRepositoryProvider).toggleRead(appMessage),
+        onPressed: () => ref
+            .read(appMessagesRepositoryProvider)
+            .toggleRead(appMessage.messageId),
         visualDensity: VisualDensity.compact,
         icon: Icon(
           isRead ? Icons.mark_email_read_outlined : Icons.mark_email_unread,
@@ -51,14 +52,15 @@ class MessageItem extends ConsumerWidget {
       onTap: () {
         ref
             .read(appMessagesRepositoryProvider)
-            .toggleRead(appMessage, isRead: true);
+            .toggleRead(appMessage.messageId, isRead: true);
         context.pushNamed(
           AppRoute.messageItem.name,
           pathParameters: {'messageId': appMessage.messageId},
         );
       },
-      onLongPress: () =>
-          ref.read(appMessagesRepositoryProvider).toggleRead(appMessage),
+      onLongPress: () => ref
+          .read(appMessagesRepositoryProvider)
+          .toggleRead(appMessage.messageId),
     );
   }
 }

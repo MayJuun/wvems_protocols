@@ -11,31 +11,33 @@ import 'package:wvems_protocols/wvems_protocols.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await setupFlutterNotifications();
-  showFlutterNotification(message);
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  print('Handling a background message ${message.messageId}');
+  await _initializeFirebase();
+  await handleBackgroundMessage(message);
+}
+
+Future<void> _initializeFirebase() async {
+  await Firebase.initializeApp(
+    name: 'development',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  if (!kIsWeb) {
+    await setupFlutterNotifications();
+  }
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await _initializeFirebase();
+  // Set the background messaging handler early, as a named top-level function
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
   // ensure URL changes in the address bar when using push / pushNamed
   // more info here: https://docs.google.com/document/d/1VCuB85D5kYxPR3qYOjVmw8boAGKb7k62heFyfFHTOvw/edit
   GoRouter.optionURLReflectsImperativeAPIs = true;
-  await Firebase.initializeApp(
-    name: 'development',
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  // Set the background messaging handler early on, as a named top-level function
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  if (!kIsWeb) {
-    await setupFlutterNotifications();
-  }
 
   final appBootstrap = AppBootstrapLocal();
   // * Create ProviderContainer with any required overrides

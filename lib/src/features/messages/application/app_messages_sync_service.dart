@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,35 +18,72 @@ class AppMessagesSyncService {
   final Ref ref;
 
   void _init() {
-    // TODO(FireJuun): re-implement
-    // ref.listen<AsyncValue<RemoteMessage?>>(remoteMessageProvider,
-    //     (previous, next) {
-    //   final remoteMessage = next.value;
-    //   // from docs
-    //   if (remoteMessage != null && remoteMessage.notification != null) {
-    //     final lastMessage = 'Received a notification message:'
-    //         '\nTitle=${remoteMessage.notification?.title},'
-    //         '\nBody=${remoteMessage.notification?.body},'
-    //         '\nData=${remoteMessage.data}';
-    //     debugPrint(lastMessage);
-    //   } else {
-    //     final lastMessage = 'Received a data message: ${remoteMessage?.data}';
-    //     debugPrint(lastMessage);
-    //   }
+    ref.listen<AsyncValue<RemoteMessage?>>(remoteMessageProvider,
+        (previous, next) {
+      final remoteMessage = next.value;
+      // from docs
+      if (remoteMessage != null && remoteMessage.notification != null) {
+        final lastMessage = 'Received a notification message:'
+            '\nTitle=${remoteMessage.notification?.title},'
+            '\nBody=${remoteMessage.notification?.body},'
+            '\nData=${remoteMessage.data}';
+        debugPrint(lastMessage);
+      } else {
+        final lastMessage = 'Received a data message: ${remoteMessage?.data}';
+        debugPrint(lastMessage);
+      }
 
-    //   if (remoteMessage != null) {
-    //     final appMessage = remoteMessageToAppMessage(remoteMessage);
+      if (remoteMessage != null) {
+        final appMessage = remoteMessageToAppMessage(remoteMessage);
 
-    //     /// save new message locally
-    //     ref.read(appMessagesRepositoryProvider).addMessage(appMessage);
+        /// save new message locally
+        ref.read(appMessagesRepositoryProvider).addMessage(appMessage);
+      }
+      //
+    });
+  }
 
-    //     /// display new message as a notification
-    //     ref
-    //         .read(localNotificationsServiceProvider)
-    //         .showNotification(appMessage);
-    //   }
-    //   //
-    // });
+  Future<void> handleMessageOpened(RemoteMessage message) async {
+    final messageId = message.messageId;
+
+    if (messageId == null) {
+      const error = 'Error: no message ID available in this notification';
+      debugPrint(error);
+    } else {
+      final messages = await _resetSavedMessages();
+
+      try {
+        final savedMessage = messages.singleWhereOrNull(
+          (e) => e.messageId == messageId,
+        );
+        if (savedMessage != null) {
+          await ref.read(appMessagesRepositoryProvider).toggleRead(messageId);
+
+          await ref.read(goRouterProvider).pushNamed(
+            AppRoute.messageItem.name,
+            pathParameters: {'messageId': messageId},
+          );
+        } else {
+          throw StateError('Error: Message not found');
+        }
+      } catch (e) {
+        debugPrint(e.toString());
+      }
+    }
+  }
+
+  Future<void> handleAppResumed() async {
+    debugPrint('Resuming app, reloading messages');
+    await _resetSavedMessages();
+  }
+
+  Future<List<AppMessage>> _resetSavedMessages() async {
+    await ref.read(sharedPreferencesRepositoryProvider).reload();
+    final newMessages =
+        ref.read(sharedPreferencesRepositoryProvider).getAppMessages();
+
+    await ref.read(appMessagesRepositoryProvider).setMessages(newMessages);
+    return newMessages;
   }
 }
 

@@ -1,3 +1,5 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,6 +48,7 @@ class AppBootstrapLocal extends AppBootstrap {
     final searchHistory = sharedPreferencesRepository.getSearchHistory();
     final searchHistoryRepository = SearchHistoryRepository(searchHistory);
 
+    final firebaseMessagingRepository = FirebaseMessagingRepository();
     final appMessages = sharedPreferencesRepository.getAppMessages();
     final appMessagesRepository = AppMessagesRepository(appMessages);
 
@@ -58,11 +61,50 @@ class AppBootstrapLocal extends AppBootstrap {
         pdfBundleRepositoryProvider.overrideWithValue(pdfBundleRepository),
         searchHistoryRepositoryProvider
             .overrideWithValue(searchHistoryRepository),
+        firebaseMessagingRepositoryProvider
+            .overrideWithValue(firebaseMessagingRepository),
         appMessagesRepositoryProvider.overrideWithValue(appMessagesRepository),
       ],
       observers: [
         AsyncErrorLogger(),
       ],
     );
+  }
+}
+
+/// Note: there is an issue where this handler is not called consistently
+/// if an iOS app has been terminated (closed / swiped away).
+/// The first message is displayed, but doesn't call this handler.
+/// After sending a second (or more) message from this terminated state, then
+/// the handler again works as intended.
+///
+/// Discussed here: https://github.com/firebase/flutterfire/issues/11500
+Future<void> handleBackgroundMessage(RemoteMessage message) async {
+  final prefs = await SharedPreferences.getInstance();
+  final sharedPreferencesRepository = SharedPreferencesRepository(prefs);
+
+  FirebaseMessagingRepository().showFlutterNotification(message);
+
+  final appMessages = sharedPreferencesRepository.getAppMessages();
+  final appMessage = remoteMessageToAppMessage(message);
+
+  if (appMessages.contains(appMessage)) {
+    debugPrint('Message already present. Skipped');
+    return;
+  }
+
+  final newAppMessages = [
+    appMessage,
+    ...appMessages,
+  ];
+
+  sharedPreferencesRepository.saveAppMessages(newAppMessages);
+  await prefs.reload();
+
+  if (kDebugMode) {
+    print('Handling a background message: ${message.messageId}');
+    print('Message data: ${message.data}');
+    print('Message title: ${message.notification?.title}');
+    print('Message body: ${message.notification?.body}');
   }
 }

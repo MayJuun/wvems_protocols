@@ -77,7 +77,7 @@ class MessageItemDetailed extends ConsumerWidget {
                     onPressed: () {
                       ref
                           .read(appMessagesRepositoryProvider)
-                          .toggleRead(appMessage);
+                          .toggleRead(appMessage.messageId);
                       context.pop();
                     },
                   ),

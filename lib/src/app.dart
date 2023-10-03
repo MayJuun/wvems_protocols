@@ -17,19 +17,22 @@ class _MyAppState extends ConsumerState<MyApp> {
   void initState() {
     super.initState();
 
-    FirebaseMessaging.instance.getInitialMessage().then(
-      (RemoteMessage? message) {
-        if (message != null) {
-          debugPrint('initial message: ${message.data}');
-        }
-      },
+    FirebaseMessaging.instance.getInitialMessage().then((message) async {
+      if (message != null) {
+        await ref
+            .read(appMessagesSyncServiceProvider)
+            .handleMessageOpened(message);
+      }
+    });
+
+    FirebaseMessaging.onMessage.listen(
+      ref.read(firebaseMessagingRepositoryProvider).showFlutterNotification,
     );
 
-    FirebaseMessaging.onMessage.listen(showFlutterNotification);
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      debugPrint('A new onMessageOpenedApp event was published!');
-    });
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) =>
+          ref.read(appMessagesSyncServiceProvider).handleMessageOpened(message),
+    );
   }
 
   @override
@@ -37,6 +40,11 @@ class _MyAppState extends ConsumerState<MyApp> {
     final goRouter = ref.watch(goRouterProvider);
     final themeRepository = ref.watch(themeRepositoryProvider);
     final appTheme = useStream(themeRepository.appThemeChanges);
+    useOnAppLifecycleStateChange((previous, next) async {
+      if (next == AppLifecycleState.resumed) {
+        await ref.read(appMessagesSyncServiceProvider).handleAppResumed();
+      }
+    });
 
     return MaterialApp.router(
       routerConfig: goRouter,

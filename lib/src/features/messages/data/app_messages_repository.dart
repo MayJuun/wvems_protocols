@@ -41,13 +41,13 @@ class AppMessagesRepository {
     _appMessages.value = appMessages;
   }
 
-  Future<void> toggleRead(AppMessage appMessage, {bool? isRead}) async {
+  Future<void> toggleRead(MessageId messageId, {bool? isRead}) async {
     final appMessages = _appMessages.value;
     final newMessages = <AppMessage>[];
     for (final message in appMessages) {
-      if (message == appMessage) {
+      if (message.messageId == messageId) {
         newMessages.add(
-          appMessage.copyWith(isRead: isRead ?? !appMessage.isRead),
+          message.copyWith(isRead: isRead ?? !message.isRead),
         );
       } else {
         newMessages.add(message);
