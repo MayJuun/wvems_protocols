@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -34,56 +33,18 @@ class AppMessagesSyncService {
       }
 
       if (remoteMessage != null) {
+        /// First, convert this to an AppMessage and save it in memory
+        /// SharedPreferencesSyncService will handle local storage changes
         final appMessage = remoteMessageToAppMessage(remoteMessage);
-
-        /// save new message locally
         ref.read(appMessagesRepositoryProvider).addMessage(appMessage);
+
+        /// Then, show a new notification (Android: foreground)
+        ref
+            .read(localNotificationsServiceProvider)
+            .showNotification(appMessage);
       }
       //
     });
-  }
-
-  Future<void> handleMessageOpened(RemoteMessage message) async {
-    final messageId = message.messageId;
-
-    if (messageId == null) {
-      const error = 'Error: no message ID available in this notification';
-      debugPrint(error);
-    } else {
-      final messages = await _resetSavedMessages();
-
-      try {
-        final savedMessage = messages.singleWhereOrNull(
-          (e) => e.messageId == messageId,
-        );
-        if (savedMessage != null) {
-          await ref.read(appMessagesRepositoryProvider).toggleRead(messageId);
-
-          await ref.read(goRouterProvider).pushNamed(
-            AppRoute.messageItem.name,
-            pathParameters: {'messageId': messageId},
-          );
-        } else {
-          throw StateError('Error: Message not found');
-        }
-      } catch (e) {
-        debugPrint(e.toString());
-      }
-    }
-  }
-
-  Future<void> handleAppResumed() async {
-    debugPrint('Resuming app, reloading messages');
-    await _resetSavedMessages();
-  }
-
-  Future<List<AppMessage>> _resetSavedMessages() async {
-    await ref.read(sharedPreferencesRepositoryProvider).reload();
-    final newMessages =
-        ref.read(sharedPreferencesRepositoryProvider).getAppMessages();
-
-    await ref.read(appMessagesRepositoryProvider).setMessages(newMessages);
-    return newMessages;
   }
 }
 

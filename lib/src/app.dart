@@ -17,21 +17,25 @@ class _MyAppState extends ConsumerState<MyApp> {
   void initState() {
     super.initState();
 
+    /// Instead of this, we use LocalNotificationsService.handleAppLaunch()
     FirebaseMessaging.instance.getInitialMessage().then((message) async {
       if (message != null) {
         await ref
-            .read(appMessagesSyncServiceProvider)
+            .read(localNotificationsServiceProvider)
             .handleMessageOpened(message);
       }
     });
 
+    /// Used for Android foreground messages only
     FirebaseMessaging.onMessage.listen(
-      ref.read(firebaseMessagingRepositoryProvider).showFlutterNotification,
+      ref.read(firebaseMessagingRepositoryProvider).addRemoteMessage,
     );
 
+    /// Used for Android and iOS message events when in background mode
     FirebaseMessaging.onMessageOpenedApp.listen(
-      (message) =>
-          ref.read(appMessagesSyncServiceProvider).handleMessageOpened(message),
+      (message) => ref
+          .read(localNotificationsServiceProvider)
+          .handleMessageOpened(message),
     );
   }
 
@@ -42,7 +46,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     final appTheme = useStream(themeRepository.appThemeChanges);
     useOnAppLifecycleStateChange((previous, next) async {
       if (next == AppLifecycleState.resumed) {
-        await ref.read(appMessagesSyncServiceProvider).handleAppResumed();
+        await ref.read(localNotificationsServiceProvider).handleAppResumed();
       }
     });
 

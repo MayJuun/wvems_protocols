@@ -7,7 +7,7 @@ part of 'firebase_messaging_repository.dart';
 // **************************************************************************
 
 String _$firebaseMessagingRepositoryHash() =>
-    r'd33516694443d40bb6978ee3148c76aba1ed457d';
+    r'eaa2b9b8284704c49b50323f0403c6c71544f530';
 
 /// See also [firebaseMessagingRepository].
 @ProviderFor(firebaseMessagingRepository)
@@ -24,7 +24,7 @@ final firebaseMessagingRepositoryProvider =
 
 typedef FirebaseMessagingRepositoryRef
     = ProviderRef<FirebaseMessagingRepository>;
-String _$remoteMessageHash() => r'207bc32c2aba11a1e2f253989931087e8ba5b3a8';
+String _$remoteMessageHash() => r'b3a7cd70a55ab68620a6a4352754221abd263bdb';
 
 /// See also [remoteMessage].
 @ProviderFor(remoteMessage)

@@ -83,8 +83,6 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
   final prefs = await SharedPreferences.getInstance();
   final sharedPreferencesRepository = SharedPreferencesRepository(prefs);
 
-  FirebaseMessagingRepository().showFlutterNotification(message);
-
   final appMessages = sharedPreferencesRepository.getAppMessages();
   final appMessage = remoteMessageToAppMessage(message);
 

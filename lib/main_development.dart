@@ -21,6 +21,9 @@ Future<void> _initializeFirebase() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  final token = await FirebaseMessaging.instance.getToken();
+  debugPrint('token: $token');
+
   if (!kIsWeb) {
     await setupFlutterNotifications();
   }
