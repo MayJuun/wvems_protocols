@@ -49,6 +49,7 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
       builder: (context, constraints) {
         final newLayoutCheck =
             constraints.maxWidth >= _pdfSplitScreenBreakpoint;
+        final isMobile = constraints.minWidth <= Breakpoint.mobile;
 
         /// Layout has changed. Store this new value,
         /// then check if secondary pdf should be shown
@@ -57,13 +58,14 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
             isLayoutAboveBreakpoint = newLayoutCheck;
             ref
                 .read(shouldShowSecondaryPdfProvider.notifier)
-                .recheckOnLayoutChange(isLayoutAboveBreakpoint);
+                .recheckOnLayoutChange(
+                  isLayoutAboveBreakpoint: isLayoutAboveBreakpoint,
+                );
           });
         }
 
         final shouldShowSecondaryPdf =
             ref.watch(shouldShowSecondaryPdfProvider);
-        final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
         return Padding(
           padding: EdgeInsets.only(
@@ -77,7 +79,6 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
               Expanded(
                 child: PDFView(
                   key: pdfViewKey,
-                  nightMode: isDarkMode,
                   fitPolicy: FitPolicy.BOTH,
                   filePath: widget.pdf.path,
                   onRender: (pageCount) {

@@ -57,7 +57,6 @@ class _DataSecondaryPdfState extends ConsumerState<DataSecondaryPdf> {
     return Expanded(
       child: PDFView(
         key: pdfViewKey,
-        nightMode: Theme.of(context).brightness == Brightness.dark,
         fitPolicy: FitPolicy.BOTH,
         filePath: widget.pdf.path,
         defaultPage:

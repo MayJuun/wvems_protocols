@@ -3,6 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:wvems_protocols/wvems_protocols.dart';
 
+const _shouldIncludeClearPdfButton = false;
+
 class DisplayVersion extends StatelessWidget {
   const DisplayVersion({super.key});
 
@@ -82,19 +84,22 @@ class DisplayVersion extends StatelessWidget {
               ],
             ),
           ),
-          Consumer(
-            builder: (context, ref, child) {
-              return IconButton.outlined(
-                onPressed: () {
-                  ref
-                      .read(pdfScreenControllerProvider.notifier)
-                      .clearActivePdf();
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(Icons.remove),
-              );
-            },
-          ),
+          if (_shouldIncludeClearPdfButton)
+            Consumer(
+              builder: (context, ref, child) {
+                return IconButton.outlined(
+                  onPressed: () {
+                    ref
+                        .read(pdfScreenControllerProvider.notifier)
+                        .clearActivePdf();
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.remove),
+                );
+              },
+            )
+          else
+            const SizedBox.shrink(),
         ],
       ),
     );

@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:wvems_protocols/wvems_protocols.dart';
 
-class MyApp extends StatefulHookConsumerWidget {
+const _shouldMobileIgnoreLandscapeMode = true;
+
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
@@ -41,6 +46,43 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    /// Need to get device info to see if this is a phone or a
+    /// tablet. Based on this, set device to ignore landscape
+    /// mode and only show portrait views.
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return OrientationBuilder(
+          builder: (context, orientation) {
+            final targetsPhonePlatform = Platform.isAndroid || Platform.isIOS;
+            final targetsPhoneBreakpoints =
+                (orientation == Orientation.portrait)
+                    ? constraints.maxWidth <= Breakpoint.tablet
+                    : constraints.maxHeight <= Breakpoint.tablet;
+
+            if (_shouldMobileIgnoreLandscapeMode &&
+                targetsPhonePlatform &&
+                targetsPhoneBreakpoints) {
+              /// only show portrait
+              SystemChrome.setPreferredOrientations([
+                DeviceOrientation.portraitUp,
+                DeviceOrientation.portraitDown,
+              ]);
+            } else {
+              SystemChrome.setPreferredOrientations([]);
+            }
+
+            return const _MyAppRouter();
+          },
+        );
+      },
+    );
+  }
+}
+
+class _MyAppRouter extends HookConsumerWidget {
+  const _MyAppRouter();
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final goRouter = ref.watch(goRouterProvider);
     final themeRepository = ref.watch(themeRepositoryProvider);
     final appTheme = useStream(themeRepository.appThemeChanges);

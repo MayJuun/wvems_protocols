@@ -292,7 +292,9 @@ class ShouldShowSecondaryPdf extends _$ShouldShowSecondaryPdf {
     state = _isLayoutAboveBreakpoint && !isFirstOrLastPage;
   }
 
-  Future<void> recheckOnLayoutChange(bool isLayoutAboveBreakpoint) async {
+  Future<void> recheckOnLayoutChange({
+    required bool isLayoutAboveBreakpoint,
+  }) async {
     _isLayoutAboveBreakpoint = isLayoutAboveBreakpoint;
 
     final navigator = ref.read(pdfNavigatorControllerProvider.notifier);
