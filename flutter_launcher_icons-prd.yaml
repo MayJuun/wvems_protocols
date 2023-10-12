@@ -1,0 +1,8 @@
+flutter_launcher_icons:
+  image_path_android: 'assets/icons/wvems-protocols-android.png'
+  image_path_ios: 'assets/icons/wvems-protocols-ios.png'
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  adaptive_icon_foreground: 'assets/icons/wvems-protocols-android.png'
+  adaptive_icon_background: '#2A3384'
