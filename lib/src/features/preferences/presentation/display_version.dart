@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:wvems_protocols/wvems_protocols.dart';
 
-const _shouldIncludeClearPdfButton = false;
+const _showButtonToClearActivePdf = false;
 
 class DisplayVersion extends StatelessWidget {
   const DisplayVersion({super.key});
@@ -84,7 +84,7 @@ class DisplayVersion extends StatelessWidget {
               ],
             ),
           ),
-          if (_shouldIncludeClearPdfButton)
+          if (_showButtonToClearActivePdf)
             Consumer(
               builder: (context, ref, child) {
                 return IconButton.outlined(

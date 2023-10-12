@@ -49,7 +49,6 @@ class _DataPrimaryPdfState extends ConsumerState<DataPrimaryPdf> {
       builder: (context, constraints) {
         final newLayoutCheck =
             constraints.maxWidth >= _pdfSplitScreenBreakpoint;
-        final isMobile = constraints.minWidth <= Breakpoint.mobile;
 
         /// Layout has changed. Store this new value,
         /// then check if secondary pdf should be shown
