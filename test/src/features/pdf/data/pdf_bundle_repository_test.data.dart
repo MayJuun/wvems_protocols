@@ -3,6 +3,13 @@
 part of 'pdf_bundle_repository_test.dart';
 
 const testBundle = AssetPaths.testBundle;
+const inaccurateTestBundle = AssetPaths.inaccurateTestBundle;
+
+const nonIntegerKeyTestBundle = {
+  'a': 'A',
+  'b': 'B',
+  'c': 'C',
+};
 
 final testMeta = {'year': '2023', 'version': '1', 'primaryColor': '69A2D3'};
 

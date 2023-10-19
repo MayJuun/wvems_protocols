@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -84,11 +86,21 @@ void main() {
         },
       );
 
-      // TODO(FireJuun): setup additional failing tests
+      // TODO(FireJuun): set up additional failing tests
       // such as missing colors or inaccurate data
       test(
-        'fails, inaccurate data',
-        () async {},
+        'fails, asset files not found',
+        () async {
+          // setup
+          TestWidgetsFlutterBinding.ensureInitialized();
+          final pdfBundleRepository = makePdfBundleRepository();
+
+          // run and verify
+          expect(
+            () async => pdfBundleRepository.loadMeta(inaccurateTestBundle),
+            throwsA(isA<FlutterError>()),
+          );
+        },
       );
     });
     group('load pdf table of contents', () {
@@ -111,7 +123,18 @@ void main() {
       test(
         'fails',
         () async {
+          // setup
+          TestWidgetsFlutterBinding.ensureInitialized();
+          final pdfBundleRepository = makePdfBundleRepository();
+
+          // run and verify
           // TODO(FireJuun): setup failing tests, such as non-integers in a key
+          expect(
+            () async => PdfTableOfContents.fromJson(
+              jsonEncode(nonIntegerKeyTestBundle),
+            ),
+            throwsA(isA<StateError>()),
+          );
         },
       );
     });

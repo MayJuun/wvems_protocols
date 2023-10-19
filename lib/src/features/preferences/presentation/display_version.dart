@@ -38,13 +38,10 @@ class DisplayVersion extends StatelessWidget {
                     final activeAssetPath =
                         ref.watch(pdfBundleProvider).value?.assetPath;
 
-                    final assetPaths = AssetPaths.values
-                        .where((e) => e != AssetPaths.testBundle);
-
                     return DropdownMenu<AssetPaths>(
                       initialSelection: activeAssetPath,
                       enableSearch: false,
-                      dropdownMenuEntries: assetPaths
+                      dropdownMenuEntries: validAssetPaths
                           .map(
                             (e) => DropdownMenuEntry(
                               style: ButtonStyle(

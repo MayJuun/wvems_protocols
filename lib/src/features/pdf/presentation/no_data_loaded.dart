@@ -8,9 +8,6 @@ class NoDataLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final assetPaths =
-        AssetPaths.values.where((e) => e != AssetPaths.testBundle);
-
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -36,7 +33,7 @@ class NoDataLoaded extends StatelessWidget {
             Wrap(
               spacing: 8,
               runSpacing: 12,
-              children: assetPaths
+              children: validAssetPaths
                   .map(
                     (asset) => Consumer(
                       builder: (context, ref, child) {

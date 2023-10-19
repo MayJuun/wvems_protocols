@@ -31,6 +31,12 @@ enum AssetPaths {
     condensedTitle: 'Test',
     path: 'assets/test-bundle/test-bundle',
   ),
+
+  inaccurateTestBundle(
+    title: 'Inaccurate Test Bundle',
+    condensedTitle: 'inaccurateTest',
+    path: 'assets/not-a-real-path',
+  ),
   ;
 
   const AssetPaths({
@@ -52,3 +58,11 @@ enum AssetPaths {
     };
   }
 }
+
+List<AssetPaths> validAssetPaths = AssetPaths.values
+    .where(
+      (e) =>
+          (e != AssetPaths.testBundle) &&
+          (e != AssetPaths.inaccurateTestBundle),
+    )
+    .toList();
