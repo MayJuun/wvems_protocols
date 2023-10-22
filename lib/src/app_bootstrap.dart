@@ -7,7 +7,7 @@ import 'package:wvems_protocols/wvems_protocols.dart';
 /// Original source: Andrea Bizzotto
 /// https://github.com/bizz84/complete-flutter-course
 ///
-class AppBootstrap {
+abstract class AppBootstrap {
   /// Create the root widget that should be passed to [runApp].
   Widget createRootWidget({required ProviderContainer container}) {
     // * Initialize listeners & services here via container.read(_)
