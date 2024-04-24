@@ -17,7 +17,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 Future<void> _initializeFirebase() async {
   await Firebase.initializeApp(
-    name: 'development',
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
