@@ -37,7 +37,7 @@ class MenuContainer extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       decoration: BoxDecoration(
-        color: colorScheme.background,
+        color: colorScheme.surface,
         borderRadius: borderRadius(),
       ),
       child: child,

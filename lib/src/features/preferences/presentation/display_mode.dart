@@ -33,7 +33,7 @@ class DisplayMode extends StatelessWidget {
                         (e) => DropdownMenuEntry(
                           style: ButtonStyle(
                             textStyle:
-                                MaterialStatePropertyAll(textTheme.bodyMedium),
+                                WidgetStatePropertyAll(textTheme.bodyMedium),
                           ),
                           value: e,
                           label: toBeginningOfSentenceCase(e.name) ?? '',

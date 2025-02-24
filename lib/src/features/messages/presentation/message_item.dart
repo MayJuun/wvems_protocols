@@ -46,7 +46,7 @@ class MessageItem extends ConsumerWidget {
         softWrap: true,
         style: textTheme.bodyMedium!.apply(
           fontStyle: fontStyle,
-          color: isRead ? messageReadColor : colorScheme.onBackground,
+          color: isRead ? messageReadColor : colorScheme.onSurface,
         ),
       ),
       onTap: () {

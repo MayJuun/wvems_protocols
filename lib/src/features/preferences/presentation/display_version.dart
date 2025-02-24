@@ -48,7 +48,7 @@ class DisplayVersion extends StatelessWidget {
                           .map(
                             (e) => DropdownMenuEntry(
                               style: ButtonStyle(
-                                textStyle: MaterialStatePropertyAll(
+                                textStyle: WidgetStatePropertyAll(
                                   textTheme.bodyMedium,
                                 ),
                               ),
