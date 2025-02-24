@@ -6,9 +6,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -128,6 +130,7 @@ lib/api/*
 # Ignore FlutterFire CLI generated API keys and IDs
 **GoogleService-Info*.plist
 **google-services*.json
+firebase.json
 **firebase_app_id_file*.json
 **firebase_options*.json
 **firebase_options*.dart
