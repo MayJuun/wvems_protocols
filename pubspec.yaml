@@ -2,7 +2,7 @@ name: wvems_protocols
 description: Western Virginia EMS Council's Protocols App
 
 publish_to: 'none' 
-version: 2.2.1+2021
+version: 2.3.2+2032
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -20,14 +20,19 @@ dependencies:
   flutter_hooks: ^0.20.5
   flutter_local_notifications: ^17.1.0
   flutter_pdfview: ^1.3.2
-  flutter_timezone: ^1.0.8
+  flutter_timezone: ^5.0.1
   freezed: ^2.5.2
   go_router: ^13.2.4
   google_fonts: ^6.2.1
   hooks_riverpod: ^2.5.1
   http: ^1.2.1
   intl: ^0.18.1
-  material_floating_search_bar_2: ^0.5.0
+  # material_floating_search_bar_2: ^0.5.0
+  # todo: if this package updates (or needs to be manually cloned), update the version number in pubspec.yaml
+  material_floating_search_bar_2:
+    git: 
+      url: https://github.com/erkihindo/material_floating_search_bar.git
+      ref: main
   mdi: ^5.0.0-nullsafety.0
   path_provider: ^2.1.3
   riverpod_annotation: ^2.3.5
@@ -56,6 +61,6 @@ flutter:
   assets:
     - assets/icons/
     - assets/png/
-    - assets/2024-WVEMS-Protocols/
     - assets/2025-WVEMS-Protocols/
+    - assets/2026-WVEMS-Protocols/
     - assets/test-bundle/
