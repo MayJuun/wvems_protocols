@@ -14,21 +14,16 @@
 /// - assets/NAME/NAME-text.json
 ///
 enum AssetPaths {
-  wvems24(
-    title: 'WVEMS Protocols 2024',
-    condensedTitle: '2024',
-    path: 'assets/2024-WVEMS-Protocols/2024-WVEMS-Protocols',
-  ),
   wvems25(
     title: 'WVEMS Protocols 2025',
     condensedTitle: '2025',
     path: 'assets/2025-WVEMS-Protocols/2025-WVEMS-Protocols',
   ),
-  // wvems26(
-  //   title: 'WVEMS Protocols 2026',
-  //   condensedTitle: '2026',
-  //   path: 'assets/2026-WVEMS-Protocols/2026-WVEMS-Protocols',
-  // ),
+  wvems26(
+    title: 'WVEMS Protocols 2026',
+    condensedTitle: '2026',
+    path: 'assets/2026-WVEMS-Protocols/2026-WVEMS-Protocols',
+  ),
 
   /// used only for testing
   testBundle(
@@ -50,8 +45,8 @@ enum AssetPaths {
 
   AssetPaths? fromString(String data) {
     return switch (data) {
-      'wvems24' => AssetPaths.wvems24,
       'wvems25' => AssetPaths.wvems25,
+      'wvems26' => AssetPaths.wvems26,
       'testBundle' => AssetPaths.testBundle,
       String() => null,
     };
