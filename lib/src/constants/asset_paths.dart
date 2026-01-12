@@ -24,6 +24,11 @@ enum AssetPaths {
     condensedTitle: '2025',
     path: 'assets/2025-WVEMS-Protocols/2025-WVEMS-Protocols',
   ),
+  // wvems26(
+  //   title: 'WVEMS Protocols 2026',
+  //   condensedTitle: '2026',
+  //   path: 'assets/2026-WVEMS-Protocols/2026-WVEMS-Protocols',
+  // ),
 
   /// used only for testing
   testBundle(

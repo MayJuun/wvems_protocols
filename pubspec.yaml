@@ -2,7 +2,7 @@ name: wvems_protocols
 description: Western Virginia EMS Council's Protocols App
 
 publish_to: 'none' 
-version: 2.2.1+2021
+version: 2.3.1+2031
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -58,4 +58,5 @@ flutter:
     - assets/png/
     - assets/2024-WVEMS-Protocols/
     - assets/2025-WVEMS-Protocols/
+    - assets/2026-WVEMS-Protocols/
     - assets/test-bundle/
