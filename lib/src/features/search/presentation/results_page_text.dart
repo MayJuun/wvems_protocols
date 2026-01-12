@@ -97,7 +97,7 @@ class PageTextItem extends ConsumerWidget {
             TextSpan(
               text: '...${pageTextResult.before()}',
               style: textTheme.bodyMedium!.copyWith(
-                color: colorScheme.onBackground,
+                color: colorScheme.onSurface,
               ),
             ),
             TextSpan(
@@ -109,7 +109,7 @@ class PageTextItem extends ConsumerWidget {
             TextSpan(
               text: '${pageTextResult.after()}...',
               style: textTheme.bodyMedium!
-                  .copyWith(color: colorScheme.onBackground),
+                  .copyWith(color: colorScheme.onSurface),
             ),
           ],
         ),

@@ -52,7 +52,7 @@ class ThemeRepository {
         textStyle: textTheme.bodyMedium,
         menuStyle: const MenuStyle(
           visualDensity: VisualDensity.compact,
-          padding: MaterialStatePropertyAll(
+          padding: WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 8),
           ),
         ),
@@ -69,9 +69,9 @@ class ThemeRepository {
       ),
       scrollbarTheme: ScrollbarThemeData(
         interactive: true,
-        thumbVisibility: MaterialStateProperty.all(true),
-        trackVisibility: MaterialStateProperty.all(true),
-        thickness: MaterialStateProperty.all(8),
+        thumbVisibility: WidgetStateProperty.all(true),
+        trackVisibility: WidgetStateProperty.all(true),
+        thickness: WidgetStateProperty.all(8),
       ),
     );
   }
